@@ -1,0 +1,274 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Introduction to Semiconductors</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Introduction to Semiconductors</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: akash.singh.0762@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h2>Introduction:</h2>
+<p><p>Semiconductors are fundamental materials that form the backbone of modern electronics. They are crucial in enabling the functionality of various devices, from smartphones to solar panels. Understanding semiconductors allows us to appreciate the technology that powers our daily lives. This report aims to introduce the basic concepts of semiconductors, their applications, and clarify common misconceptions.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>Basic Definition:</h3>
+<p><p><strong>Semiconductors</strong> are materials that have electrical conductivity between that of conductors (like metals) and insulators (like rubber). Their unique properties make them essential in electronic applications.</p></p>
+<ul>
+<ul>
+<li><strong>Conductivity:</strong> The ability of a material to conduct electricity. Conductors have high conductivity, insulators have low, and semiconductors fall in between.</li>
+<li><strong>Doping:</strong> The process of adding impurities to a semiconductor to change its electrical properties. Common dopants include phosphorus (for n-type) and boron (for p-type) materials.</li>
+</ul>
+</ul>
+<h3>Types of Semiconductors:</h3>
+<ul>
+<ul>
+<li><strong>Intrinsic Semiconductors:</strong> Pure semiconductors without any significant dopants. Silicon (Si) and germanium (Ge) are common examples.</li>
+<li><strong>Extrinsic Semiconductors:</strong> Semiconductors that have been doped to enhance their conductivity. They are classified into:</li>
+<li><strong>n-type:</strong> Doped with elements that have more valence electrons (e.g., phosphorus).</li>
+<li><strong>p-type:</strong> Doped with elements that have fewer valence electrons (e.g., boron).</li>
+</ul>
+</ul>
+<h3>Band Theory:</h3>
+<ul>
+<ul>
+<li><strong>Valence Band:</strong> The energy band that contains the valence electrons of the atoms.</li>
+<li><strong>Conduction Band:</strong> The band where electrons can move freely, allowing conductivity.</li>
+<li><strong>Band Gap:</strong> The energy difference between the valence band and the conduction band. Semiconductors typically have a small band gap, which allows them to conduct electricity under certain conditions.</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications:</h2>
+<p><p>Semiconductors are widely used in various applications, including:</p></p>
+<ul>
+<ul>
+<li><strong>Transistors:</strong> Essential components in amplifiers and switches, forming the building blocks of modern electronic devices.</li>
+<li><strong>Diodes:</strong> Used in converting alternating current (AC) to direct current (DC) and in various applications such as light-emitting diodes (LEDs).</li>
+<li><strong>Solar Cells:</strong> Harness solar energy and convert it into electricity using semiconductor materials like silicon.</li>
+<li><strong>Integrated Circuits (ICs):</strong> Found in almost all electronic devices, ICs contain multiple semiconductor devices on a single chip, enabling complex functionalities.</li>
+</ul>
+</ul>
+<hr />
+<h2>Common Misconceptions:</h2>
+<ul>
+<ul>
+<li><strong>Misconception:</strong> "Semiconductors are just materials that conduct electricity."</li>
+<li>
+</ul>
+<p><p><strong>Clarification:</strong> While semiconductors do conduct electricity, their conductivity is highly dependent on temperature, doping, and the presence of impurities, making them much more versatile than simple conductors.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Misconception:</strong> "All semiconductors are made from silicon."</p></p>
+<p></li></p>
+<ul>
+<li><strong>Clarification:</strong> While silicon is the most widely used semiconductor material, others like germanium and gallium arsenide are also important, particularly in specific applications.</li>
+</ul>
+</ul>
+<hr />
+<h2>Further Reading/Resources:</h2>
+<p><p>For those interested in delving deeper into the topic of semiconductors, consider these resources:</p></p>
+<ul>
+<ul>
+<li><strong>Link: <a href="https://www.electronics-tutorials.ws/io/io_7.html">Semiconductors Explained</a></strong> - A straightforward guide to understanding the basics of semiconductors.</li>
+<li><strong>Link: <a href="https://www.explainthatstuff.com/semiconductors.html">How Do Semiconductors Work?</a></strong> - An informative article that explains semiconductor technology in an easy-to-understand manner.</li>
+<li><strong>Link: <a href="https://www.nature.com/articles/nature07402">Introduction to Semiconductor Physics</a></strong> - A scientific article that provides an overview of semiconductor physics.</li>
+<li><strong>Link: <a href="https://www.aps.org/publications/apsnews/200903/semiconductors.cfm">The Physics of Semiconductors</a></strong> - A detailed resource discussing the physics behind semiconductors.</li>
+</ul>
+</ul>
+<p><p>By understanding the fundamentals of semiconductors, we can better appreciate the technology that shapes our world today. Whether you're a student, a hobbyist, or just curious, the world of semiconductors is both fascinating and essential for future innovations.</p></p>
+        </article>
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+    </body>
+    </html>
+    
