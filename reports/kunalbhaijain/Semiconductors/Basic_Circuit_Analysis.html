@@ -1,0 +1,380 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Basic Circuit Analysis</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Basic Circuit Analysis</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: kunalbhaijain@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Basic Circuit Analysis</h1>
+<h2>Introduction:</h2>
+<p><p>As you embark on the next step of your journey into electronics, you will delve into the world of <strong>circuit analysis</strong>. This domain builds upon the foundational knowledge you've gathered about <strong>semiconductors</strong>, <strong>diodes</strong>, <strong>transistors</strong>, and various electronic components. Understanding basic circuit analysis is crucial, as it allows you to predict and understand the behavior of electrical circuits, which are the backbone of virtually all modern electronic devices.</p></p>
+<p><p>In this report, we will explore the principles of circuit analysis, focusing on the fundamental laws and techniques that govern electrical circuits. We will investigate the relationships between voltage, current, and resistance, and learn how to analyze simple and complex circuits using different methods. Additionally, we will connect these concepts to real-world applications to demonstrate their significance and relevance in everyday life.</p></p>
+<h3>Connecting to Previous Learning</h3>
+<p><p>Your previous studies have provided you with a solid grounding in the following areas:</p></p>
+<ul>
+<ul>
+<li><strong>Semiconductors</strong>: Understanding how materials like silicon operate as conductors or insulators.</li>
+<li><strong>Basic Electronic Components</strong>: Recognizing the role of resistors, capacitors, inductors, diodes, and transistors in circuits.</li>
+<li><strong>Diode and Transistor Characteristics</strong>: Learning how these components function and their applications.</li>
+</ul>
+</ul>
+<p><p>As we move into circuit analysis, remember that these components are the building blocks of circuits, and their properties will play a crucial role in our analyses.</p></p>
+<h2>Key Concepts:</h2>
+<h3>1. Fundamental Laws of Circuit Analysis</h3>
+<p><p>In circuit analysis, two fundamental laws govern the behavior of electrical circuits: <strong>Ohm's Law</strong> and <strong>Kirchhoff's Laws</strong>.</p></p>
+<h4>Ohm's Law</h4>
+<p><p>Ohm's Law is a basic principle that relates voltage (V), current (I), and resistance (R) in an electrical circuit. It states that:</p></p>
+<p><p>[</p>
+<p>V = I \times R</p>
+<p>]</p></p>
+<ul>
+<ul>
+<li><strong>Voltage (V)</strong>: The electrical potential difference between two points in a circuit, measured in volts (V).</li>
+<li><strong>Current (I)</strong>: The flow of electric charge in a circuit, measured in amperes (A).</li>
+<li><strong>Resistance (R)</strong>: The opposition to current flow, measured in ohms (Ω).</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: If a resistor has a resistance of (10 \, \Omega) and there is a current of (2 \, A) flowing through it, the voltage across the resistor can be calculated as:</p></p>
+<p><p>[</p>
+<p>V = I \times R = 2 \, A \times 10 \, \Omega = 20 \, V</p>
+<p>]</p></p>
+<h4>Kirchhoff's Laws</h4>
+<p><p>Kirchhoff's Laws consist of two principles that describe the conservation of charge and energy in electrical circuits.</p></p>
+<ul>
+<ul>
+<li><strong>Kirchhoff's Current Law (KCL)</strong>: The total current entering a junction equals the total current leaving the junction. This law is based on the principle of charge conservation.</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: If (I_1) and (I_2) are currents entering a junction and (I_3) is the current leaving, then:</p></p>
+<p><p>[</p>
+<p>I_1 + I_2 = I_3</p>
+<p>]</p></p>
+<ul>
+<ul>
+<li><strong>Kirchhoff's Voltage Law (KVL)</strong>: The sum of the electrical potential differences (voltage) around any closed loop in a circuit is equal to zero. This law is based on the conservation of energy.</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: If a loop contains a battery providing (12 \, V) and two resistors with voltage drops of (4 \, V) and (8 \, V):</p></p>
+<p><p>[</p>
+<p>12 \, V - 4 \, V - 8 \, V = 0</p>
+<p>]</p></p>
+<h3>2. Series and Parallel Circuits</h3>
+<p><p>Understanding how components are arranged in a circuit is essential for analysis. Components can be connected in series, parallel, or a combination of both.</p></p>
+<h4>Series Circuits</h4>
+<p><p>In a series circuit, components are connected end-to-end, and the same current flows through each component. The total resistance (R_t) in a series circuit is the sum of the individual resistances:</p></p>
+<p><p>[</p>
+<p>R_t = R_1 + R_2 + R_3 + \ldots</p>
+<p>]</p></p>
+<p><p><strong>Example</strong>: If you have three resistors of (5 \, \Omega), (10 \, \Omega), and (15 \, \Omega) in series:</p></p>
+<p><p>[</p>
+<p>R_t = 5 \, \Omega + 10 \, \Omega + 15 \, \Omega = 30 \, \Omega</p>
+<p>]</p></p>
+<p><p><strong>Voltage Drops</strong>: The voltage drop across each resistor can be calculated using Ohm's Law. If the total voltage supplied is (60 \, V):</p></p>
+<p><p>[</p>
+<p>V_1 = I \times R_1, \quad V_2 = I \times R_2, \quad V_3 = I \times R_3</p>
+<p>]</p></p>
+<h4>Parallel Circuits</h4>
+<p><p>In a parallel circuit, components are connected across the same voltage source, and the voltage across each component is the same. The total resistance (R_t) in a parallel circuit is given by:</p></p>
+<p><p>[</p>
+<p>\frac{1}{R_t} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} + \ldots</p>
+<p>]</p></p>
+<p><p><strong>Example</strong>: For resistors of (6 \, \Omega), (3 \, \Omega), and (2 \, \Omega) in parallel:</p></p>
+<p><p>[</p>
+<p>\frac{1}{R_t} = \frac{1}{6} + \frac{1}{3} + \frac{1}{2} \Rightarrow R_t = 1.09 \, \Omega</p>
+<p>]</p></p>
+<h3>3. Thevenin’s and Norton’s Theorems</h3>
+<p><p>These theorems simplify circuit analysis by allowing complex circuits to be reduced to simpler equivalent circuits.</p></p>
+<h4>Thevenin’s Theorem</h4>
+<p><p>Thevenin's Theorem states that any linear circuit with voltage sources and resistors can be replaced by a single voltage source (V_{th}) in series with a single resistor (R_{th}).</p></p>
+<p><p>To find the Thevenin equivalent:</p>
+<p>1. Remove the load resistor.</p>
+<p>2. Calculate (V_{th}) (open-circuit voltage).</p>
+<p>3. Calculate (R_{th}) (equivalent resistance seen from the load).</p></p>
+<h4>Norton’s Theorem</h4>
+<p><p>Norton’s Theorem states that any linear circuit can be replaced by a current source (I_{N}) in parallel with a resistor (R_{N}).</p></p>
+<p><p>To find the Norton equivalent:</p>
+<p>1. Remove the load resistor.</p>
+<p>2. Calculate (I_{N}) (short-circuit current).</p>
+<p>3. Calculate (R_{N}) (same as (R_{th})).</p></p>
+<h3>4. Mesh and Nodal Analysis</h3>
+<p><p>These techniques are used to analyze complex circuits systematically.</p></p>
+<h4>Mesh Analysis</h4>
+<p><p>Mesh analysis involves writing equations for the currents in each loop (mesh) of a circuit. The following steps are typically used:</p></p>
+<p><ol></p>
+<ul>
+<li>Identify the meshes in the circuit.</li>
+<li>Assign mesh currents.</li>
+<li>Apply KVL to each mesh to create a system of equations.</li>
+</ul>
+<p></ol></p>
+<h4>Nodal Analysis</h4>
+<p><p>Nodal analysis focuses on the voltages at the nodes in a circuit. The steps are:</p></p>
+<p><ol></p>
+<ul>
+<li>Identify all nodes in the circuit.</li>
+<li>Select a reference node (ground).</li>
+<li>Apply KCL at each node to create equations based on the voltages.</li>
+</ul>
+<p></ol></p>
+<h3>5. Practical Applications of Circuit Analysis</h3>
+<p><p>Circuit analysis is not just theoretical; it has numerous practical applications, such as:</p></p>
+<ul>
+<ul>
+<li><strong>Power Supply Design</strong>: Understanding how to design power supplies that convert AC to DC using diodes and filters.</li>
+<li><strong>Amplifier Design</strong>: Using transistors to amplify signals in audio and radio frequency applications.</li>
+<li><strong>Circuit Simulation</strong>: Software tools like SPICE allow engineers to simulate circuit behavior before building physical prototypes.</li>
+</ul>
+</ul>
+<h3>6. Common Misconceptions</h3>
+<ul>
+<ul>
+<li><strong>Misconception</strong>: Voltage is the same across all components in a series circuit.</li>
+<li>
+</ul>
+<p><p><strong>Clarification</strong>: In a series circuit, the same current flows through each component, but the voltage drop across each component may vary depending on its resistance.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Misconception</strong>: Total current in a parallel circuit is equal to the current through one component.</p></p>
+<p></li></p>
+<ul>
+<li><strong>Clarification</strong>: The total current in a parallel circuit is the sum of the currents through each component.</li>
+</ul>
+</ul>
+<h3>7. Further Exploration</h3>
+<ul>
+<ul>
+<li><strong>Practice Problems</strong>: Solve problems involving Ohm's Law, KCL, KVL, and circuit simplification techniques.</li>
+<li><strong>Advanced Topics</strong>: Explore AC circuit analysis, reactive components, and resonance.</li>
+<li><strong>Software Tools</strong>: Familiarize yourself with circuit simulation software like LTspice or Multisim to visualize circuit behavior.</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications:</h2>
+<p><p>Circuit analysis is integral to countless technologies that shape our daily lives. Below are several applications illustrating its impact:</p></p>
+<h3>1. Consumer Electronics</h3>
+<p><p>Every electronic device—from smartphones to televisions—relies on circuit analysis for design and functionality. Engineers use circuit analysis to ensure devices operate efficiently, maximizing performance while minimizing energy consumption.</p></p>
+<h3>2. Renewable Energy Systems</h3>
+<p><p>In solar and wind energy systems, circuit analysis helps optimize the performance of power inverters and controllers, ensuring that energy conversion is efficient and reliable. Understanding how to manage the flow of electricity from these sources is crucial for sustainable energy solutions.</p></p>
+<h3>3. Automotive Technology</h3>
+<p><p>Modern vehicles are equipped with sophisticated electronic systems that enhance safety and performance. Circuit analysis is used in the design of systems such as anti-lock brakes, airbag deployment, and engine control units.</p></p>
+<h3>4. Healthcare Devices</h3>
+<p><p>Medical devices like ECG machines and infusion pumps rely on precise circuit analysis to function correctly. Engineers must ensure that these devices deliver accurate measurements and maintain patient safety.</p></p>
+<h3>5. Telecommunications</h3>
+<p><p>Telecommunication systems, including cell towers and satellite networks, depend on circuit analysis to manage signal transmission and reception effectively. Engineers analyze circuits to optimize signal integrity and minimize noise.</p></p>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>In this comprehensive report, we have explored the fundamentals of basic circuit analysis, from the foundational laws and theorems to practical applications in various industries. This knowledge enables you to understand and analyze electrical circuits effectively, laying the groundwork for more advanced topics in electronics and circuit design.</p></p>
+<p><p>As you continue your journey in electronics, consider experimenting with circuit simulation software to apply what you’ve learned. Challenge yourself with practice problems and seek to understand the intricate workings of the circuits around you.</p></p>
+<h3>Key Takeaways:</h3>
+<ul>
+<ul>
+<li><strong>Ohm's Law</strong> relates voltage, current, and resistance, forming the basis of circuit analysis.</li>
+<li><strong>Kirchhoff's Laws</strong> govern the conservation of charge and energy in circuits.</li>
+<li>Circuits can be analyzed through <strong>series</strong> and <strong>parallel</strong> configurations, with distinct properties.</li>
+<li><strong>Thevenin’s</strong> and <strong>Norton’s Theorems</strong> simplify complex circuits into manageable equivalents.</li>
+<li><strong>Mesh</strong> and <strong>nodal analysis</strong> are systematic techniques for analyzing circuits.</li>
+</ul>
+</ul>
+<h3>Call to Action:</h3>
+<p><p>Explore circuit analysis further by engaging with practical projects, utilizing simulation tools, and diving into more advanced topics such as AC circuit analysis and reactive components. The world of electronics is vast and full of opportunities for discovery and innovation.</p></p>
+<hr />
+<p><p>This report serves as a comprehensive guide to basic circuit analysis, aiming to equip you with essential knowledge and inspire further exploration in the exciting field of electronics.</p></p>
+        </article>
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+    </body>
+    </html>
+    
