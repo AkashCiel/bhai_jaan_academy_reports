@@ -1,0 +1,417 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Functions</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Functions</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: amit27.lko@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Functions in Python: A Comprehensive Guide</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your Python programming journey, building on your knowledge of <strong>basic syntax</strong>, <strong>variables</strong>, and <strong>control structures</strong>, we will now delve into the concept of <strong>functions</strong>. Functions are one of the fundamental building blocks of programming that allow you to write reusable code, manage complexity, and improve the organization of your programs. By understanding and mastering functions, you will enhance your ability to create efficient and manageable code.</p></p>
+<p><p>In this report, we will explore the definition of functions, their structure and syntax, the different types of functions, and their real-world applications. We will also discuss advanced concepts such as decorators and lambda functions, and their implications in current and future programming paradigms. Throughout our exploration, we will reference previously learned concepts to illustrate how they connect to your growing understanding of Python.</p></p>
+<h2>Key Concepts:</h2>
+<h3>What is a Function?</h3>
+<p><p>At its core, a <strong>function</strong> is a block of code designed to perform a specific task. Functions take input, process it, and often return an output. Here’s a breakdown of key aspects of functions:</p></p>
+<ul>
+<ul>
+<li><strong>Reusability</strong>: Once defined, a function can be used multiple times throughout your code, minimizing redundancy.</li>
+<li><strong>Abstraction</strong>: Functions allow you to hide complex logic behind a simple interface, making your code easier to read and maintain.</li>
+<li><strong>Parameters and Arguments</strong>: Functions can accept inputs (parameters) and can return outputs (return values).</li>
+</ul>
+</ul>
+<h3>The Structure of a Function</h3>
+<p><p>In Python, a function is defined using the <code>def</code> keyword followed by the function name, parentheses, and a colon. Here’s the general syntax:</p></p>
+<p><p><code>python</p>
+<p>def function_name(parameters):</p>
+<p># code block</p>
+<p>return output</code></p></p>
+<h4>Example:</h4>
+<p><p><code>python</p>
+<p>def add_numbers(a, b):</p>
+<p>result = a + b</p>
+<p>return result</code></p></p>
+<p><p>In this example, <code>add_numbers</code> is a function that takes two parameters, <code>a</code> and <code>b</code>, adds them together, and returns the result. </p></p>
+<h3>Types of Functions</h3>
+<p><p>Functions in Python can be classified into several categories:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Built-in Functions</strong>: These are functions that come pre-defined in Python, such as <code>print()</code>, <code>len()</code>, and <code>sum()</code>.</li>
+<li><strong>User-defined Functions</strong>: Functions that you create to perform specific tasks, like the <code>add_numbers</code> function defined earlier.</li>
+<li><strong>Anonymous Functions (Lambda Functions)</strong>: These are functions defined without a name using the <code>lambda</code> keyword, typically used for short, throwaway functions.</li>
+</ul>
+<p></ol></p>
+<h4>Example of a Lambda Function:</h4>
+<p><p><code>python</p>
+<p>multiply = lambda x, y: x * y</p>
+<p>print(multiply(5, 3))  # Output: 15</code></p></p>
+<h3>Function Parameters: Positional, Keyword, and Default Arguments</h3>
+<p><p>Functions can accept various types of parameters:</p></p>
+<ul>
+<ul>
+<li><strong>Positional Arguments</strong>: The most common type where the order of arguments matters.</li>
+</ul>
+</ul>
+<p><p>```python</p>
+<p>def greet(name):</p>
+<p>return f"Hello, {name}!"</p></p>
+<p><p>print(greet("Alice"))  # Output: Hello, Alice!</p>
+<p>```</p></p>
+<ul>
+<ul>
+<li><strong>Keyword Arguments</strong>: Arguments that are passed by explicitly stating the parameter name, allowing for greater flexibility.</li>
+</ul>
+</ul>
+<p><p>```python</p>
+<p>def describe_pet(animal_type, pet_name):</p>
+<p>return f"{pet_name} is a {animal_type}."</p></p>
+<p><p>print(describe_pet(animal_type="dog", pet_name="Buddy"))<br /></p>
+<p>```</p></p>
+<ul>
+<ul>
+<li><strong>Default Arguments</strong>: Parameters that have a default value if no value is provided during the function call.</li>
+</ul>
+</ul>
+<p><p>```python</p>
+<p>def power(base, exponent=2):</p>
+<p>return base ** exponent</p></p>
+<p><p>print(power(3))  # Output: 9 (3^2)</p>
+<p>```</p></p>
+<h3>Return Statement</h3>
+<p><p>The <code>return</code> statement is used to exit a function and send a value back to the caller. It can return a single value or multiple values as a tuple.</p></p>
+<h4>Example of Multiple Return Values:</h4>
+<p><p>```python</p>
+<p>def arithmetic_operations(x, y):</p>
+<p>return x + y, x - y, x * y, x / y</p></p>
+<p><p>results = arithmetic_operations(10, 5)</p>
+<p>print(results)  # Output: (15, 5, 50, 2.0)</p>
+<p>```</p></p>
+<h3>Scope of Variables</h3>
+<p><p>Understanding the scope of variables is crucial when working with functions. The <strong>scope</strong> determines the visibility of a variable within your code.</p></p>
+<ul>
+<ul>
+<li><strong>Local Scope</strong>: Variables defined inside a function are local to that function and cannot be accessed outside of it.</li>
+</ul>
+</ul>
+<p><p>```python</p>
+<p>def my_function():</p>
+<p>x = 10  # local variable</p>
+<p>return x</p></p>
+<p><p>print(my_function())  # Output: 10</p>
+<p># print(x)  # This would raise an error</p>
+<p>```</p></p>
+<ul>
+<ul>
+<li><strong>Global Scope</strong>: Variables defined outside of any function are global and can be accessed anywhere in the code.</li>
+</ul>
+</ul>
+<p><p>```python</p>
+<p>x = 20  # global variable</p></p>
+<p><p>def my_function():</p>
+<p>return x</p></p>
+<p><p>print(my_function())  # Output: 20</p>
+<p>```</p></p>
+<h3>Real-World Applications of Functions</h3>
+<p><p>Functions are integral in many real-world applications, including:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Code Organization</strong>: In software development, functions help organize code into logical segments, making large applications more manageable.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Data Processing</strong>: Functions are extensively used in data analysis for tasks such as cleaning data, performing calculations, and generating reports.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Web Development</strong>: In frameworks like Django or Flask, functions are used to handle requests, process data, and render templates.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Game Development</strong>: Functions help manage game logic, handle user input, and create game objects, making development more efficient.</p></p>
+<p></li></p>
+</ul>
+<h3>Narrative Connection: A Practical Example</h3>
+<p><p>Let’s illustrate the concepts we’ve learned through a practical example involving a small application to manage a bookstore.</p></p>
+<p><p>Imagine we are creating a system to manage books in a bookstore. We will use functions to encapsulate different functionalities such as adding a book, removing a book, and retrieving the book list.</p></p>
+<h4>Step 1: Define a Function to Add a Book</h4>
+<p><p>```python</p>
+<p>books = []</p></p>
+<p><p>def add_book(title, author):</p>
+<p>book = {'title': title, 'author': author}</p>
+<p>books.append(book)</p>
+<p>return f"Book '{title}' by {author} added!"</p></p>
+<p><p>print(add_book("1984", "George Orwell"))</p>
+<p>```</p></p>
+<h4>Step 2: Define a Function to Remove a Book</h4>
+<p><p><code>python</p>
+<p>def remove_book(title):</p>
+<p>for book in books:</p>
+<p>if book['title'] == title:</p>
+<p>books.remove(book)</p>
+<p>return f"Book '{title}' removed!"</p>
+<p>return f"Book '{title}' not found."</code></p></p>
+<h4>Step 3: Define a Function to Retrieve the Book List</h4>
+<p><p><code>python</p>
+<p>def get_books():</p>
+<p>return books</code></p></p>
+<h4>Step 4: Using the Functions</h4>
+<p><p><code>python</p>
+<p>print(get_books())  # Output: [{'title': '1984', 'author': 'George Orwell'}]</p>
+<p>print(remove_book("1984"))  # Output: Book '1984' removed!</p>
+<p>print(get_books())  # Output: []</code></p></p>
+<p><p>Through this example, we see how functions can help us encapsulate different tasks within our bookstore application. They make our code more organized and maintainable.</p></p>
+<hr />
+<h2>Advanced Applications: Decorators and Lambda Functions</h2>
+<h3>Decorators</h3>
+<p><p>A <strong>decorator</strong> is a special type of function that modifies the behavior of another function. They are often used for logging, access control, or modifying function outputs.</p></p>
+<h4>Example of a Simple Decorator:</h4>
+<p><p>```python</p>
+<p>def my_decorator(func):</p>
+<p>def wrapper():</p>
+<p>print("Something is happening before the function is called.")</p>
+<p>func()</p>
+<p>print("Something is happening after the function is called.")</p>
+<p>return wrapper</p></p>
+<p><p>@my_decorator</p>
+<p>def say_hello():</p>
+<p>print("Hello!")</p></p>
+<p><p>say_hello()</p>
+<p>```</p></p>
+<p><p>In this example, when <code>say_hello</code> is called, the decorator modifies its behavior by printing messages before and after the function call.</p></p>
+<h3>Future Directions: The Role of Functions in Emerging Technologies</h3>
+<p><p>As programming paradigms evolve, functions remain central to many emerging technologies:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Functional Programming</strong>: Languages like JavaScript and Python are increasingly adopting functional programming principles, which emphasize the use of functions as first-class citizens.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Serverless Computing</strong>: In cloud computing, functions are used as a primary mechanism for building microservices and serverless applications, allowing developers to deploy and run code without managing servers.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Artificial Intelligence and Machine Learning</strong>: Functions are crucial in the implementation of algorithms and data processing techniques, simplifying complex operations through abstraction.</p></p>
+<p></li></p>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In this comprehensive exploration of functions, we have covered their definition, structure, types, and applications in various domains. We also looked at advanced concepts such as decorators and lambda functions, paving the way for further learning in more complex programming paradigms.</p></p>
+<p><p>Functions allow you to break down problems into manageable parts, promote code reuse, and improve the readability of your programs. As you continue to hone your Python skills, embrace the power of functions and leverage them to create efficient, organized, and scalable applications.</p></p>
+<h3>Call to Action</h3>
+<p><p>To deepen your understanding of functions, consider creating a project that incorporates various types of functions. You could develop a simple calculator, a to-do list application, or even a text-based game. Experiment with different types of parameters and return values, and explore how decorators can enhance the functionality of your code.</p></p>
+<h3>Further Exploration</h3>
+<ul>
+<ul>
+<li><strong>Link: <a href="https://docs.python.org/3/tutorial/controlflow.html#defining-functions">Python Functions Documentation</a></strong></li>
+<li><strong>Link: <a href="https://realpython.com/defining-functions-in-python/">Real Python - Defining Functions</a></strong></li>
+<li><strong>Link: <a href="https://www.codecademy.com/courses/learn-python-3/lessons/functions/exercises/intro">Codecademy - Learn Python Functions</a></strong></li>
+<li><strong>Link: <a href="https://www.geeksforgeeks.org/functions-in-python/">GeeksforGeeks - Python Functions</a></strong></li>
+<li><strong>Link: <a href="https://towardsdatascience.com/python-functions-101-d1f3a0b5471e">Towards Data Science - Python Functions</a></strong></li>
+</ul>
+</ul>
+<p><p>By applying what you’ve learned and continuing to explore, you will solidify your understanding and become proficient in using functions in Python programming. Happy coding!</p></p>
+        </article>
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+    </body>
+    </html>
+    
