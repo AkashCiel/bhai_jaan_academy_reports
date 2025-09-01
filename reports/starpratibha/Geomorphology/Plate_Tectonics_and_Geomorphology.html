@@ -1,0 +1,480 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Plate Tectonics and Geomorphology</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Plate Tectonics and Geomorphology</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: star_pratibha@rediffmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Comprehensive Educational Report: Plate Tectonics and Geomorphology</h1>
+<h2>Introduction:</h2>
+<p><p>Building on your previous learning about <strong>geomorphology</strong>, Earth's surface processes, and their intricate relationships with landforms, we now delve into the dynamic field of <strong>plate tectonics</strong> and its significant influence on geomorphology. As you may recall, geomorphology examines how various natural processes shape landforms over time, while plate tectonics focuses on the large-scale movements of the Earth's lithosphere. This report aims to connect these two essential concepts, exploring how tectonic activity contributes to shaping our planet's surface, creating landscapes, and impacting human activities.</p></p>
+<p><p>Understanding plate tectonics is crucial not only for comprehending the physical Earth but also for predicting geological phenomena such as earthquakes and volcanic eruptions, which have direct implications for human safety and environmental management. This report will provide a detailed exploration of the principles of plate tectonics, their geomorphological impacts, and their real-world applications, all while enhancing your growing expertise in this multifaceted subject.</p></p>
+<h3>Learning Objectives:</h3>
+<ul>
+<ul>
+<li>Understand the fundamental principles of plate tectonics.</li>
+<li>Explore the relationship between plate movements and geomorphological processes.</li>
+<li>Recognize real-world applications and implications of tectonic activity.</li>
+<li>Analyze current research trends and future directions in plate tectonics and geomorphology.</li>
+</ul>
+</ul>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>1. <strong>Plate Tectonics: An Overview</strong></h3>
+<p><p>Plate tectonics is the scientific theory explaining the movement of the Earth's lithosphere, which is divided into several large, rigid plates. These plates float on the semi-fluid asthenosphere beneath them. The theory of plate tectonics provides a framework for understanding various geological phenomena, including the formation of mountains, earthquakes, and volcanic activity.</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Lithosphere and Asthenosphere</strong>: The lithosphere is the outer layer of the Earth, composed of the crust and upper mantle. The asthenosphere is the layer beneath the lithosphere, characterized by its semi-fluid nature, allowing for the movement of tectonic plates.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Types of Plate Boundaries</strong>:</p></p>
+<p></li></p>
+<ul>
+<li><strong>Convergent Boundaries</strong>: Plates move toward each other, leading to subduction (one plate sliding under another) and mountain formation. Example: The Himalayas, formed by the collision of the Indian and Eurasian plates.</li>
+<li><strong>Divergent Boundaries</strong>: Plates move apart, allowing magma to rise and create new crust. Example: The Mid-Atlantic Ridge, where the North American and Eurasian plates are moving away from each other.</li>
+<li><strong>Transform Boundaries</strong>: Plates slide past one another, resulting in friction and earthquakes. Example: The San Andreas Fault in California.</li>
+</ul>
+</ul>
+<h3>2. <strong>Geomorphological Impacts of Plate Tectonics</strong></h3>
+<p><p>Plate tectonics significantly influences geomorphology, the study of landforms and the processes that shape them. The movement of tectonic plates can lead to various geomorphological features, including:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Mountain Ranges</strong>: Formed through tectonic uplift and folding at convergent boundaries. The collision of plates can create significant elevation changes, resulting in mountain ranges.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Volcanic Landforms</strong>: Created at divergent boundaries (mid-ocean ridges) and convergent boundaries (subduction zones). Volcanic eruptions can build islands and create calderas, dramatically altering the landscape.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Earthquakes</strong>: Occur along transform boundaries where plates slide past each other, releasing energy and causing ground shaking. The landscape can be altered rapidly, leading to landslides, ground ruptures, and changes in river courses.</p></p>
+<p></li></p>
+</ul>
+<h3>3. <strong>Real-World Applications of Plate Tectonics and Geomorphology</strong></h3>
+<p><p>Understanding plate tectonics and its geomorphological implications has critical applications across various fields:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Natural Disaster Preparedness</strong>: Knowledge of tectonic processes helps in assessing risks associated with earthquakes and volcanic eruptions, facilitating better disaster response and infrastructure planning.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Urban Planning</strong>: Cities located near tectonic boundaries must consider geological hazards in their development plans. For instance, building codes often account for seismic activity in earthquake-prone regions.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Resource Management</strong>: Tectonic activity can lead to the formation of mineral deposits and geothermal energy sources, influencing resource extraction practices and renewable energy initiatives.</p></p>
+<p></li></p>
+</ul>
+<h3>4. <strong>Current State and Future Directions in Research</strong></h3>
+<p><p>Research in plate tectonics and geomorphology is continuously evolving. Some emerging areas of interest include:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Geodesy and Remote Sensing</strong>: Advances in satellite technology are enabling scientists to monitor plate movements with unprecedented accuracy, enhancing our understanding of tectonic processes.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Climate Change Interactions</strong>: Investigating how tectonic activity influences climate patterns over geological timescales, including the effects of mountain building on atmospheric circulation and ocean currents.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Earthquake Prediction</strong>: Ongoing research seeks to develop more effective methods for predicting earthquakes and assessing risks, which could save lives and minimize damage.</p></p>
+<p></li></p>
+</ul>
+<hr />
+<h2>Detailed Exploration of Key Concepts:</h2>
+<h3>Plate Tectonics in Depth</h3>
+<h4>Historical Context</h4>
+<p><p>The theory of plate tectonics emerged in the mid-20th century, building upon earlier concepts of continental drift proposed by Alfred Wegener in 1912. Wegener’s idea that continents were once joined together (Pangaea) laid the groundwork for understanding the dynamic nature of Earth’s surface. The confirmation of seafloor spreading in the 1960s provided critical evidence for the movement of tectonic plates.</p></p>
+<h3>Mechanisms of Plate Movement</h3>
+<h4>Mantle Convection</h4>
+<p><p>One of the driving forces behind plate tectonics is <strong>mantle convection</strong>, a process where hot, molten rock in the mantle rises toward the surface, cools, and then sinks back down. This cycle creates currents that pull the tectonic plates along with them.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: The East African Rift is an area where mantle upwelling is causing the continent to split, indicating ongoing tectonic activity.</li>
+</ul>
+</ul>
+<h4>Slab Pull and Ridge Push</h4>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Slab Pull</strong>: Occurs at subduction zones where a denser oceanic plate sinks beneath a lighter continental plate, pulling the rest of the plate along.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Ridge Push</strong>: Occurs at mid-ocean ridges where rising magma creates new crust, pushing older crust away from the ridge.</p></p>
+<p></li></p>
+</ul>
+<h3>Geomorphological Features Resulting from Plate Tectonics</h3>
+<h4>Mountain Formation</h4>
+<p><p>The collision of tectonic plates leads to the uplift and folding of rocks, resulting in mountain ranges. The <strong>Himalayas</strong>, for instance, are still rising as the Indian plate continues to collide with the Eurasian plate.</p></p>
+<ul>
+<ul>
+<li><strong>Erosion</strong>: Once formed, mountains are subject to erosion, which shapes their appearance over time, contributing to the diversity of landscapes.</li>
+</ul>
+</ul>
+<h4>Volcanic Activity</h4>
+<p><p>Volcanoes form at both convergent and divergent boundaries. The <strong>Ring of Fire</strong> is a well-known zone of active volcanoes encircling the Pacific Ocean, caused by subduction zones.</p></p>
+<ul>
+<ul>
+<li><strong>Volcanic Eruptions</strong>: Eruptions can create new landforms, such as <strong>shield volcanoes</strong> (gentle slopes formed by low-viscosity lava) and <strong>stratovolcanoes</strong> (steeper, layered structures formed by alternating eruptions of lava and ash).</li>
+</ul>
+</ul>
+<h4>Earthquakes</h4>
+<p><p>Earthquakes occur when stress builds up along faults due to tectonic movement. The <strong>San Andreas Fault</strong> is a prime example of a transform boundary, where the Pacific and North American plates slide past each other.</p></p>
+<ul>
+<ul>
+<li><strong>Impact on Landscapes</strong>: Earthquakes can lead to landslides, ground shaking, and even tsunamis, dramatically altering the affected landscapes and ecosystems.</li>
+</ul>
+</ul>
+<hr />
+<h2>Current Research and Technological Advances</h2>
+<h3>Geodesy and Tectonics</h3>
+<p><p>Recent advancements in <strong>geodesy</strong>—the science of measuring Earth's shape, orientation in space, and gravitational field—allow scientists to monitor tectonic movements in real-time using satellite technologies. This provides valuable data for understanding seismic hazards and plate interactions.</p></p>
+<h3>Climate Feedback Mechanisms</h3>
+<p><p>Researchers are investigating the links between tectonic activity and climate changes over geological timescales. For example, the uplift of mountain ranges can influence weather patterns, leading to changes in precipitation and temperature distributions.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: The uplift of the Tibetan Plateau has been associated with changes in monsoon patterns throughout Asia.</li>
+</ul>
+</ul>
+<h3>Earthquake Prediction Research</h3>
+<p><p>While predicting earthquakes remains a challenge, scientists are utilizing data from seismic networks to develop models that can assess the likelihood of future quakes based on historical patterns and tectonic activity.</p></p>
+<hr />
+<h2>Conclusion: Key Takeaways and Future Exploration</h2>
+<p><p>In summary, the interplay between plate tectonics and geomorphology is a fundamental aspect of understanding Earth's landscape and geological activity. The movement of tectonic plates creates diverse landforms, shapes ecosystems, and influences human activities through natural disasters and resource distribution.</p></p>
+<p><p>As you continue your learning journey, consider exploring the following areas:</p></p>
+<ul>
+<ul>
+<li>The relationship between tectonic activity and climate change.</li>
+<li>Advances in earthquake prediction technologies.</li>
+<li>The role of plate tectonics in shaping biodiversity through habitat formation.</li>
+</ul>
+</ul>
+<p><p>By deepening your understanding in these areas, you can contribute to the ongoing dialogue in the field of geology, influencing both scientific inquiry and practical applications in environmental management and urban planning.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What are the three main types of plate boundaries identified in plate tectonics?", "options": [{"id": "A", "text": "Convergent, Divergent, Transform", "explanation": "Correct. The three main types of plate boundaries are convergent, divergent, and transform, each characterized by different movements and geological features."}, {"id": "B", "text": "Continental, Oceanic, Rift", "explanation": "Incorrect. While continental and oceanic classifications exist, they do not define plate boundary types."}, {"id": "C", "text": "Subduction, Collision, Divergence", "explanation": "Incorrect. Subduction and collision are types of convergent boundaries, not separate boundary types."}, {"id": "D", "text": "Volcanic, Erosional, Depositional", "explanation": "Incorrect. Volcanic, erosional, and depositional refer to landforms and processes, not plate boundaries."}], "correct_answer": "A"}, {"question": "Which process is primarily responsible for the formation of mountains at convergent boundaries?", "options": [{"id": "A", "text": "Erosion", "explanation": "Incorrect. While erosion shapes mountains, it does not form them."}, {"id": "B", "text": "Sedimentation", "explanation": "Incorrect. Sedimentation occurs from the deposition of material, not the formation of mountains."}, {"id": "C", "text": "Uplift and Folding", "explanation": "Correct. Uplift and folding of rocks due to tectonic forces at convergent boundaries lead to mountain formation."}, {"id": "D", "text": "Weathering", "explanation": "Incorrect. Weathering breaks down rocks but does not contribute to their initial formation."}], "correct_answer": "C"}, {"question": "What is the primary driving force behind the movement of tectonic plates?", "options": [{"id": "A", "text": "Gravity", "explanation": "Incorrect. Gravity plays a role but is not the primary force behind plate movements."}, {"id": "B", "text": "Mantle Convection", "explanation": "Correct. Mantle convection currents in the semi-fluid asthenosphere are the main drivers of tectonic plate movement."}, {"id": "C", "text": "Wind Erosion", "explanation": "Incorrect. Wind erosion does not influence tectonic plate movement."}, {"id": "D", "text": "Ocean Currents", "explanation": "Incorrect. Ocean currents affect surface processes but do not drive tectonic movements."}], "correct_answer": "B"}, {"question": "How do volcanic eruptions typically occur at divergent plate boundaries?", "options": [{"id": "A", "text": "By the collision of plates", "explanation": "Incorrect. Volcanic eruptions at divergent boundaries are not caused by plate collisions."}, {"id": "B", "text": "Through the melting of subducted material", "explanation": "Incorrect. This describes volcanic activity at convergent boundaries rather than divergent."}, {"id": "C", "text": "From the upward movement of magma as plates separate", "explanation": "Correct. At divergent boundaries, as plates separate, magma rises to fill the gap, leading to volcanic eruptions."}, {"id": "D", "text": "Due to the buildup of pressure along transform faults", "explanation": "Incorrect. Transform faults primarily cause earthquakes, not volcanic eruptions."}], "correct_answer": "C"}, {"question": "What is the significance of the San Andreas Fault in the study of plate tectonics?", "options": [{"id": "A", "text": "It is a convergent boundary.", "explanation": "Incorrect. The San Andreas Fault is not a convergent boundary."}, {"id": "B", "text": "It is a transform boundary known for frequent earthquakes.", "explanation": "Correct. The San Andreas Fault is a transform boundary, notable for its seismic activity and frequent earthquakes."}, {"id": "C", "text": "It is a divergent boundary where new crust is formed.", "explanation": "Incorrect. Divergent boundaries involve the formation of new crust, which does not apply here."}, {"id": "D", "text": "It is a location of active volcanism.", "explanation": "Incorrect. While the region may have volcanic features, the fault itself is primarily associated with earthquakes rather than active volcanism."}], "correct_answer": "B"}], "why_it_matters": "Understanding plate tectonics and geomorphology is crucial for comprehending Earth's dynamic processes and preparing for natural disasters. It informs urban planning, resource management, and environmental sustainability, making it an essential area for continued study and application. By engaging with these concepts, you can contribute to a safer and more resilient society."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
