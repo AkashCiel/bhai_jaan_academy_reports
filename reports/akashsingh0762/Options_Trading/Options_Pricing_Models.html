@@ -1,0 +1,461 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Options Pricing Models</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Options Pricing Models</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: akash.singh.0762@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Options Pricing Models: A Comprehensive Guide</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your journey into options trading, it’s essential to delve deeper into <strong>Options Pricing Models</strong>. This topic builds upon your previous explorations, especially concepts surrounding how options function, their types, and the terminology you've learned. Understanding pricing models is crucial for making informed trading decisions and developing effective strategies in the options market.</p></p>
+<p><p>In this report, we will explore various options pricing models, their theoretical foundations, and practical implications. We will connect these models to real-world scenarios, illustrating their relevance in today's financial markets. This comprehensive guide will also examine the current state of research in options pricing and anticipate future developments, ensuring you are well-equipped to navigate this complex landscape.</p></p>
+<hr />
+<h2>Key Concepts in Options Pricing</h2>
+<h3>What is an Options Pricing Model?</h3>
+<p><p>At its core, an <strong>Options Pricing Model</strong> is a mathematical framework used to determine the fair value or theoretical price of options. These models take into account various factors such as the underlying asset price, strike price, time to expiration, volatility, and interest rates. By using these models, traders and investors can assess whether an option is overvalued or undervalued in the market.</p></p>
+<h3>Importance of Pricing Models</h3>
+<p><p>Understanding options pricing models is vital for several reasons:</p></p>
+<ul>
+<ul>
+<li><strong>Risk Assessment</strong>: Accurate pricing helps traders understand the risks associated with different options.</li>
+<li><strong>Strategic Decision-Making</strong>: Traders can devise strategies based on fair values derived from these models.</li>
+<li><strong>Market Efficiency</strong>: An efficient market relies on accurate pricing of options, influencing overall market stability.</li>
+</ul>
+</ul>
+<h3>Common Pricing Models</h3>
+<p><p>Several prominent models exist for pricing options. Each has its strengths, weaknesses, and appropriate applications. The most widely used models include:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Black-Scholes Model</strong></li>
+<li><strong>Binomial Options Pricing Model</strong></li>
+<li><strong>Trinomial Model</strong></li>
+<li><strong>Monte Carlo Simulation</strong></li>
+<li><strong>Finite Difference Methods</strong></li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>The Black-Scholes Model</h2>
+<h3>Overview</h3>
+<p><p>The <strong>Black-Scholes Model</strong>, developed by Fischer Black, Myron Scholes, and Robert Merton in the early 1970s, revolutionized options pricing. It provides a closed-form solution for pricing European call and put options, assuming that the underlying asset follows a geometric Brownian motion.</p></p>
+<h3>Key Assumptions</h3>
+<p><p>The Black-Scholes model operates under several assumptions:</p></p>
+<ul>
+<ul>
+<li>No dividends are paid on the underlying asset during the life of the option.</li>
+<li>Markets are efficient, meaning that prices reflect all available information.</li>
+<li>No transaction costs or taxes are incurred.</li>
+<li>The risk-free rate is constant and known.</li>
+<li>The underlying asset's price follows a lognormal distribution.</li>
+</ul>
+</ul>
+<h3>The Black-Scholes Formula</h3>
+<p><p>The formula to calculate the price of a European call option is given by:</p></p>
+<p><p>[</p>
+<p>C = S_0 N(d_1) - X e^{-rT} N(d_2)</p>
+<p>]</p></p>
+<p><p>Where:</p>
+<ul>
+<li>(C) = Call option price</li>
+<li>(S_0) = Current stock price</li>
+<li>(X) = Strike price of the option</li>
+<li>(r) = Risk-free interest rate</li>
+<li>(T) = Time to expiration (in years)</li>
+<li>(N(d)) = Cumulative distribution function of the standard normal distribution</li>
+<li>(d_1 = \frac{1}{\sigma\sqrt{T}} \left( \ln\frac{S_0}{X} + \left( r + \frac{\sigma^2}{2} \right)T \right))</li>
+<li>(d_2 = d_1 - \sigma\sqrt{T})</li>
+<li>(\sigma) = Volatility of the underlying asset</p></li>
+</ul>
+<h3>Real-World Application</h3>
+<p><p>Maria, an investor, is interested in a call option for a stock currently valued at $100 with a strike price of $105, a risk-free rate of 5%, volatility of 20%, and six months until expiration. Using the Black-Scholes formula, she can determine whether the option is worth purchasing based on its theoretical price.</p></p>
+<hr />
+<h2>The Binomial Options Pricing Model</h2>
+<h3>Overview</h3>
+<p><p>The <strong>Binomial Options Pricing Model</strong> is a discrete-time model that provides a framework for pricing options through a binomial tree. The approach allows for the modeling of changes in the price of the underlying asset over time, making it suitable for both American and European options.</p></p>
+<h3>Key Features</h3>
+<ul>
+<ul>
+<li><strong>Flexibility</strong>: The model can accommodate any number of time steps, making it versatile for different scenarios.</li>
+<li><strong>American Options</strong>: It can be adapted to price American options, which can be exercised at any time before expiration.</li>
+</ul>
+</ul>
+<h3>Binomial Tree Construction</h3>
+<p><p>To construct a binomial tree, follow these steps:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Define Parameters</strong>: Determine the number of periods until expiration, the up and down factors (denoted as (u) and (d)), and the risk-free rate.</li>
+<li><strong>Calculate Prices</strong>: Starting from the current price, calculate the potential prices at each node of the tree.</li>
+<li><strong>Determine Payoffs</strong>: At expiration, calculate the payoff for each option based on the prices at each node.</li>
+<li><strong>Backtrack</strong>: Use risk-neutral valuation to backtrack through the tree, calculating the option price at each preceding node until reaching the present value.</li>
+</ul>
+<p></ol></p>
+<h3>Example Application</h3>
+<p><p>Alex, a trader, wants to price an American option using a binomial tree. He sets up a two-period model with an underlying stock price of $50, an up factor of 1.2, a down factor of 0.8, and a risk-free rate of 2%. By constructing the tree, Alex can visualize potential price movements and make informed decisions about exercising the option.</p></p>
+<hr />
+<h2>The Trinomial Model</h2>
+<h3>Overview</h3>
+<p><p>The <strong>Trinomial Model</strong> extends the binomial approach by allowing for three possible price movements at each time step: up, down, or unchanged. This model provides a more refined approach to pricing options, particularly for those with complex payoff structures.</p></p>
+<h3>Advantages</h3>
+<ul>
+<ul>
+<li><strong>Accuracy</strong>: The trinomial model can yield more accurate prices than the binomial model due to its finer granularity.</li>
+<li><strong>Flexibility</strong>: It can also accommodate features such as dividends or varying interest rates.</li>
+</ul>
+</ul>
+<h3>Real-World Application</h3>
+<p><p>In a scenario where an investor is evaluating an option with uncertain market conditions, using a trinomial model can provide insights that influence their investment strategy. The model's ability to incorporate multiple potential outcomes makes it particularly useful in volatile markets.</p></p>
+<hr />
+<h2>Monte Carlo Simulation</h2>
+<h3>Overview</h3>
+<p><p><strong>Monte Carlo Simulation</strong> is a computational technique that uses random sampling to estimate the value of options. This method is particularly effective for pricing complex derivatives and options with multiple sources of uncertainty.</p></p>
+<h3>Process</h3>
+<p><ol></p>
+<ul>
+<li><strong>Model the Underlying Asset</strong>: Simulate the future price of the underlying asset based on its volatility and drift.</li>
+<li><strong>Generate Random Paths</strong>: Create numerous random price paths for the asset using stochastic processes.</li>
+<li><strong>Calculate Payoffs</strong>: For each simulated path, calculate the payoff of the option.</li>
+<li><strong>Average the Payoffs</strong>: Average the payoffs across all simulations and discount them back to present value to determine the option price.</li>
+</ul>
+<p></ol></p>
+<h3>Example Application</h3>
+<p><p>Traders dealing with exotic options or complex derivatives often turn to Monte Carlo simulations. For instance, a hedge fund may use this model to price a path-dependent option, where the payoff depends on the entire path of the underlying asset rather than just the final price.</p></p>
+<hr />
+<h2>Finite Difference Methods</h2>
+<h3>Overview</h3>
+<p><p><strong>Finite Difference Methods</strong> provide a numerical approach to solving the partial differential equations (PDEs) that arise in options pricing models. This technique is particularly useful for pricing options with complex boundary conditions.</p></p>
+<h3>Application</h3>
+<p><p>This method involves discretizing the underlying asset price and time into a grid, allowing for the approximation of the option price at various points. By solving the PDE using finite difference techniques, traders can obtain option prices that account for various factors including early exercise features.</p></p>
+<h3>Practical Use Case</h3>
+<p><p>When pricing American options that may be exercised early, finite difference methods can yield accurate results by accounting for the optimal exercise boundary throughout the option's life.</p></p>
+<hr />
+<h2>Current Research Frontiers in Options Pricing</h2>
+<p><p>The field of options pricing is continuously evolving, with researchers exploring new models and techniques to enhance accuracy and applicability:</p></p>
+<ul>
+<ul>
+<li><strong>Machine Learning Applications</strong>: Researchers are investigating how machine learning algorithms can improve the prediction of volatility and pricing accuracy.</li>
+<li><strong>Behavioral Finance</strong>: Understanding how market psychology influences option pricing is gaining traction, leading to models that factor in investor behavior.</li>
+<li><strong>Real-Time Data Integration</strong>: The integration of real-time data feeds and high-frequency trading strategies is shaping new approaches to pricing and risk management.</li>
+</ul>
+</ul>
+<hr />
+<h2>Future Directions</h2>
+<p><p>As technology advances, the future of options pricing models is likely to be influenced by:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Big Data</strong>: Enhanced data analytics will provide deeper insights into market dynamics, allowing for more accurate pricing.</li>
+<li><strong>Artificial Intelligence</strong>: AI-driven models may revolutionize pricing strategies by adapting to market conditions in real time.</li>
+<li><strong>Regulatory Changes</strong>: As financial markets evolve, regulatory changes will necessitate the adaptation of pricing models to ensure compliance and risk management.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In sum, understanding options pricing models is essential for anyone looking to navigate the options trading landscape effectively. The Black-Scholes model, binomial and trinomial models, Monte Carlo simulations, and finite difference methods each offer unique insights and applications for pricing options.</p></p>
+<p><p>As you continue your journey through options trading, consider how these models can inform your trading strategies and risk management approaches. The integration of cutting-edge technologies and ongoing research will only enhance your understanding and ability to leverage these financial instruments.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of an options pricing model?", "options": [{"id": "A", "text": "To determine the volatility of the underlying asset", "explanation": "Incorrect. While volatility is a factor in pricing, the main purpose is to calculate fair value."}, {"id": "B", "text": "To calculate the fair value of options", "explanation": "Correct. The primary purpose of an options pricing model is to determine the fair value of options."}, {"id": "C", "text": "To predict market trends", "explanation": "Incorrect. Pricing models do not predict market trends but rather assess option values."}, {"id": "D", "text": "To assess the performance of stocks", "explanation": "Incorrect. Pricing models focus specifically on options, not the overall performance of stocks."}], "correct_answer": "B"}, {"question": "Which of the following assumptions is NOT part of the Black-Scholes model?", "options": [{"id": "A", "text": "The market is efficient", "explanation": "Incorrect. The Black-Scholes model assumes market efficiency."}, {"id": "B", "text": "Dividends are paid on the underlying asset", "explanation": "Correct. The model assumes that no dividends are paid during the life of the option."}, {"id": "C", "text": "The risk-free rate is constant", "explanation": "Incorrect. A constant risk-free rate is a key assumption of the model."}, {"id": "D", "text": "The underlying asset price follows a lognormal distribution", "explanation": "Incorrect. The underlying asset price is assumed to follow a lognormal distribution."}], "correct_answer": "B"}, {"question": "What is a key advantage of the binomial options pricing model compared to the Black-Scholes model?", "options": [{"id": "A", "text": "It can only price European options.", "explanation": "Incorrect. The binomial model can price both American and European options."}, {"id": "B", "text": "It allows for multiple time steps.", "explanation": "Correct. The binomial model allows for multiple time steps, enhancing flexibility."}, {"id": "C", "text": "It does not require volatility estimates.", "explanation": "Incorrect. The binomial model still requires volatility estimates."}, {"id": "D", "text": "It is less flexible.", "explanation": "Incorrect. The binomial model is more flexible, not less."}], "correct_answer": "B"}, {"question": "Which method is best suited for pricing complex derivatives with multiple sources of uncertainty?", "options": [{"id": "A", "text": "Black-Scholes Model", "explanation": "Incorrect. The Black-Scholes model is not ideal for complex derivatives."}, {"id": "B", "text": "Binomial Options Pricing Model", "explanation": "Incorrect. While useful, the binomial model is limited in handling multiple uncertainties."}, {"id": "C", "text": "Monte Carlo Simulation", "explanation": "Correct. Monte Carlo simulation is best for pricing complex derivatives with multiple uncertainties."}, {"id": "D", "text": "Finite Difference Methods", "explanation": "Incorrect. Finite difference methods are suited for solving PDEs but may not handle multiple uncertainties as effectively."}], "correct_answer": "C"}, {"question": "In what way does the trinomial model improve upon the binomial model?", "options": [{"id": "A", "text": "It allows for less computational complexity.", "explanation": "Incorrect. The trinomial model may increase computational complexity."}, {"id": "B", "text": "It reduces the number of potential outcomes.", "explanation": "Incorrect. The trinomial model increases potential outcomes by allowing three movements."}, {"id": "C", "text": "It provides more accurate price estimates.", "explanation": "Correct. The trinomial model can yield more accurate price estimates due to its finer granularity."}, {"id": "D", "text": "It is easier to implement.", "explanation": "Incorrect. The trinomial model is generally more complex to implement than the binomial model."}], "correct_answer": "C"}], "why_it_matters": "Understanding options pricing models is foundational for making informed trading decisions. These models not only help you assess whether options are fairly priced but also enhance your ability to develop effective trading strategies. As the financial landscape continues to evolve, keeping abreast of advancements in options pricing will empower you to navigate this field with confidence."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
