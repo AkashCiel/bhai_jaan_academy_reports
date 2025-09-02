@@ -1,0 +1,460 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Reading Nutrition Labels** - How to interpret food labels for better choices.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Reading Nutrition Labels** - How to interpret food labels for better choices.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: singhbandanaritz@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Reading Nutrition Labels: How to Interpret Food Labels for Better Choices</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your journey through the world of nutrition, you have developed a solid understanding of <strong>balanced diets</strong>, <strong>macronutrients</strong>, <strong>micronutrients</strong>, <strong>food groups</strong>, and <strong>portion control</strong>. Each of these concepts plays a crucial role in making informed dietary choices for healthier living. Now, we’ll delve into an essential skill that ties all of these elements together: <strong>reading nutrition labels</strong>.</p></p>
+<p><p>Nutrition labels are more than just a series of numbers and terms; they are a window into the nutritional content of the foods we consume. By mastering the art of interpreting these labels, you can make better food choices that align with your dietary goals and overall health. This report will provide a comprehensive exploration of nutrition labels, equipping you with the knowledge to navigate them effectively.</p></p>
+<h3>The Importance of Reading Nutrition Labels</h3>
+<p><p>Understanding nutrition labels is crucial for several reasons:</p></p>
+<ul>
+<ul>
+<li><strong>Informed Choices</strong>: Nutrition labels provide detailed information about the nutritional value of foods, helping you make informed choices that fit your dietary needs.</li>
+<li><strong>Portion Control</strong>: They offer insights into serving sizes, which is essential for maintaining balanced intake and avoiding overconsumption.</li>
+<li><strong>Identifying Nutrients</strong>: Labels highlight key nutrients, allowing you to monitor your intake of macronutrients like carbohydrates, proteins, and fats, as well as critical micronutrients like vitamins and minerals.</li>
+<li><strong>Understanding Ingredients</strong>: Labels often list ingredients, helping you identify potential allergens or additives you might want to avoid.</li>
+</ul>
+</ul>
+<p><p>By the end of this report, you will have a comprehensive understanding of nutrition labels, enabling you to make healthier food choices.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>1. Understanding the Nutrition Facts Label</h3>
+<p><p>At the heart of any packaged food is the <strong>Nutrition Facts label</strong>. This label provides a wealth of information about the food's nutritional profile. Let’s break it down into its key components.</p></p>
+<h4>A. Serving Size</h4>
+<ul>
+<ul>
+<li><strong>Definition</strong>: The serving size indicates the recommended portion of the food product. It is typically stated in common measures (e.g., cups, ounces) and may also provide the number of servings per container.</li>
+<li><strong>Importance</strong>: Serving size is crucial for understanding the nutritional content based on your actual intake. For example, if the serving size is 1 cup and you consume 2 cups, you need to double the nutritional values listed.</li>
+</ul>
+</ul>
+<h4>B. Calories</h4>
+<ul>
+<ul>
+<li><strong>Definition</strong>: This indicates the total number of calories in one serving of the food.</li>
+<li><strong>Importance</strong>: Calories are a measure of energy. Understanding how many calories you consume helps in managing weight and energy levels. For instance, if you are following a weight-loss plan that limits you to 1,500 calories a day, knowing the calorie content of foods helps you stay on track.</li>
+</ul>
+</ul>
+<h4>C. Nutrients</h4>
+<p><p>The label provides a breakdown of essential nutrients, including:</p></p>
+<ul>
+<ul>
+<li><strong>Total Fat</strong>: This section lists the total fat content and breaks it into types (saturated fat, trans fat, unsaturated fat). Understanding fats helps you choose healthier options.</li>
+<li><strong>Cholesterol and Sodium</strong>: High levels of these can contribute to heart disease and hypertension, making it important to monitor their intake.</li>
+<li><strong>Total Carbohydrates</strong>: This includes dietary fiber and sugars. Fiber is beneficial for digestion, while added sugars should be minimized.</li>
+<li><strong>Protein</strong>: Important for growth and repair, adequate protein intake is essential, especially if you are physically active.</li>
+</ul>
+</ul>
+<h4>D. Vitamins and Minerals</h4>
+<ul>
+<ul>
+<li><strong>Definition</strong>: Labels often list vitamins and minerals, highlighting those that are particularly important for health, such as Vitamin A, Vitamin C, calcium, and iron.</li>
+<li><strong>Importance</strong>: Keeping track of these nutrients helps prevent deficiencies. For example, individuals who are at risk for osteoporosis might focus on calcium intake.</li>
+</ul>
+</ul>
+<h4>E. Percent Daily Values (%DV)</h4>
+<ul>
+<ul>
+<li><strong>Definition</strong>: This indicates how much a nutrient in a serving contributes to a daily diet, based on a daily intake of 2,000 calories.</li>
+<li><strong>Importance</strong>: Helps you gauge whether a food is high or low in a nutrient. A %DV of 5% or less is considered low, while 20% or more is high. For instance, if you are looking to increase your fiber intake, you want to choose foods with a high %DV for fiber.</li>
+</ul>
+</ul>
+<hr />
+<h3>2. Ingredient List</h3>
+<p><p>Next to the Nutrition Facts label, you’ll find the <strong>ingredient list</strong>, which provides a detailed account of what’s in the food.</p></p>
+<ul>
+<ul>
+<li><strong>Order of Ingredients</strong>: Ingredients are listed in descending order by weight. The first few ingredients are the most predominant, so if sugar is one of the first three ingredients, the product is likely high in sugar.</li>
+<li><strong>Understanding Additives</strong>: Many processed foods contain additives, preservatives, and flavorings. Familiarizing yourself with common additives can help you make healthier choices.</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: If you see "high fructose corn syrup" as one of the first ingredients, you may want to reconsider the product, especially if you are monitoring your sugar intake.</p></p>
+<hr />
+<h3>3. Special Considerations</h3>
+<h4>A. Health Claims</h4>
+<p><p>Food products often feature various health claims, such as "low-fat," "sugar-free," or "organic." Here’s how to interpret these claims:</p></p>
+<ul>
+<ul>
+<li><strong>Low-Fat</strong>: Must contain 3 grams of fat or less per serving. However, this does not always mean it’s healthy, as it may be high in added sugars.</li>
+<li><strong>Sugar-Free</strong>: Contains less than 0.5 grams of sugar per serving. Always check the ingredient list for artificial sweeteners.</li>
+<li><strong>Organic</strong>: Refers to how the product is produced, but not necessarily its nutritional value. Understanding the difference between "100% organic" and "made with organic ingredients" is key.</li>
+</ul>
+</ul>
+<h4>B. Misleading Labels</h4>
+<ul>
+<ul>
+<li><strong>Common Misconceptions</strong>: Just because a product is labeled "natural" does not mean it is healthy. Always read the nutrition facts and ingredient list to verify claims.</li>
+<li><strong>Portion Sizes</strong>: Be aware that serving sizes can be misleading. A bag of chips may list a serving size as 10 chips, but many people eat far more than that in one sitting.</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications</h2>
+<p><p>To bring this knowledge to life, let’s explore a couple of scenarios where reading nutrition labels can lead to better dietary choices.</p></p>
+<h3>Scenario 1: Grocery Shopping</h3>
+<p><p>Imagine you’re in the grocery store, standing in front of a shelf filled with snack bars. You want a healthy option that won’t derail your balanced diet. </p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Check the Serving Size</strong>: You notice that one bar is labeled as 200 calories per serving, but the serving size is just one bar. You need to evaluate if that fits into your daily caloric intake.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Look at the Nutrients</strong>: You see that one bar has 12 grams of sugar, while another has only 5 grams. You decide to choose the lower sugar option to maintain your health goals.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Examine the Ingredient List</strong>: One bar lists "almonds, oats, honey" as the first three ingredients, while another starts with "sugar, corn syrup." You opt for the first bar, as it contains whole food ingredients.</p></p>
+<p></li></p>
+<p></ol></p>
+<h3>Scenario 2: Meal Preparation</h3>
+<p><p>You’re preparing a dinner that includes a frozen meal. Before heating it up, you decide to check the label.</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Calories and Serving Size</strong>: The meal contains 400 calories per serving, and the package contains two servings. You’re mindful of how much you consume, opting to divide it into two portions.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Fat Content</strong>: You notice it contains 20 grams of fat, which is high. You decide to balance the meal with a side of steamed vegetables that are low in calories and high in fiber.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>%DV for Nutrients</strong>: The label indicates 25% of your daily sodium intake. Since you’re trying to lower your sodium, you opt for fresh ingredients to complement the meal.</p></p>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers</h2>
+<p><p>As nutrition science evolves, the way we understand nutrition labels is also changing. Recent research highlights the importance of not just what is in food but also how food affects individual health.</p></p>
+<h3>A. Personalized Nutrition</h3>
+<p><p>Emerging studies suggest that individual responses to food vary significantly based on genetics, lifestyle, and microbiome composition. This calls for a more personalized approach to nutrition:</p></p>
+<ul>
+<ul>
+<li><strong>Smart Labels</strong>: Future food labels may incorporate personalized health data, suggesting optimal serving sizes or ingredient choices based on individual health profiles.</li>
+</ul>
+</ul>
+<h3>B. Technology in Nutrition</h3>
+<p><p>The rise of technology in food labeling includes innovations like <strong>QR codes</strong> that provide consumers with instant access to detailed nutritional information, ingredient sourcing, and even environmental impact assessments of food products.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Reading nutrition labels is an invaluable skill that empowers you to make informed dietary choices. By understanding the key components of nutrition labels, you can navigate the food landscape with confidence. This knowledge not only supports your health goals but also enhances your ability to enjoy a balanced diet rich in macronutrients and micronutrients.</p></p>
+<p><p>As you continue your journey, remember that reading labels is just one aspect of nutrition literacy. Embrace the process of learning, experimenting, and adapting your dietary choices for a healthier life. </p></p>
+<h3>Call to Action</h3>
+<p><p>Next time you’re at the grocery store or preparing a meal, take a moment to read the nutrition labels. Challenge yourself to make informed decisions based on what you’ve learned. By doing so, you’ll be one step closer to achieving your health and wellness goals.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of the serving size on a Nutrition Facts label?", "options": [{"id": "A", "text": "To indicate the total calories in the food", "explanation": "Incorrect. While the serving size can affect calorie calculations, its main purpose is to indicate appropriate portion sizes."}, {"id": "B", "text": "To help consumers understand the appropriate portion to consume", "explanation": "Correct! Serving size guides consumers on how much of the product to consume for accurate nutritional assessment."}, {"id": "C", "text": "To list the ingredients in the food", "explanation": "Incorrect. The ingredient list is separate from the Nutrition Facts label."}, {"id": "D", "text": "To show the total fat content", "explanation": "Incorrect. The total fat content is listed in the label but is not the purpose of the serving size."}], "correct_answer": "B"}, {"question": "What does the %DV (Percent Daily Value) indicate on a nutrition label?", "options": [{"id": "A", "text": "The amount of calories in the entire package", "explanation": "Incorrect. %DV does not indicate calories but rather nutrient contributions."}, {"id": "B", "text": "The percentage of a nutrient in a serving based on a 2,000-calorie diet", "explanation": "Correct! %DV shows how much a nutrient in a serving contributes to a daily diet."}, {"id": "C", "text": "The total amount of sugar in the food", "explanation": "Incorrect. The total amount of sugar is listed separately and does not correlate with %DV."}, {"id": "D", "text": "The serving size of the food", "explanation": "Incorrect. Serving size and %DV are distinct components of the label."}], "correct_answer": "B"}, {"question": "If a nutrition label states that a product is \"sugar-free,\" what does this mean?", "options": [{"id": "A", "text": "It contains no calories", "explanation": "Incorrect. Sugar-free products can still contain calories from other sources."}, {"id": "B", "text": "It contains less than 0.5 grams of sugar per serving", "explanation": "Correct! \"Sugar-free\" means it contains less than 0.5 grams of sugar per serving."}, {"id": "C", "text": "It has no added sugars", "explanation": "Incorrect. While it may have no added sugars, it could still contain natural sugars."}, {"id": "D", "text": "It is suitable for diabetics", "explanation": "Incorrect. Not all sugar-free products are suitable for diabetics; always check other carbohydrate content."}], "correct_answer": "B"}, {"question": "Why is it important to check the ingredient list on a food label?", "options": [{"id": "A", "text": "To determine the calorie content", "explanation": "Incorrect. Caloric content is found in the Nutrition Facts section, not the ingredient list."}, {"id": "B", "text": "To see if the product is organic", "explanation": "Incorrect. While some organic products may state this, it is not the primary purpose of the ingredient list."}, {"id": "C", "text": "To identify potential allergens and additives", "explanation": "Correct! The ingredient list helps identify allergens, additives, and the quality of ingredients."}, {"id": "D", "text": "To find out the serving size", "explanation": "Incorrect. Serving size is listed separately in the Nutrition Facts, not in the ingredient list."}], "correct_answer": "C"}, {"question": "What should you consider if the first ingredient in a product is sugar?", "options": [{"id": "A", "text": "The product is likely healthy", "explanation": "Incorrect. A product with sugar as the first ingredient is often not considered healthy."}, {"id": "B", "text": "The product may be high in added sugars", "explanation": "Correct! If sugar is the first ingredient, it suggests the product may contain high levels of added sugars."}, {"id": "C", "text": "The product is organic", "explanation": "Incorrect. The presence of sugar does not indicate whether the product is organic."}, {"id": "D", "text": "The product is low in calories", "explanation": "Incorrect. The calorie content cannot be determined based solely on the first ingredient."}], "correct_answer": "B"}], "why_it_matters": ""};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
