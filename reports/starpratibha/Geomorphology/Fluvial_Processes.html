@@ -1,0 +1,513 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Fluvial Processes</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Fluvial Processes</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: star_pratibha@rediffmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Fluvial Processes: A Comprehensive Overview</h1>
+<h2>Introduction</h2>
+<p><p>Building on your previous learning about <strong>geomorphology</strong>, <strong>Earth’s surface processes</strong>, and their interplay with <strong>plate tectonics</strong>, we now turn our attention to <strong>fluvial processes</strong>. These processes are vital for understanding how rivers shape the landscape, influence ecosystems, and interact with human activities. As we explore fluvial processes, we'll connect them to concepts you've previously learned, such as erosion, sedimentation, and landscape dynamics.</p></p>
+<p><p>Fluvial processes refer to the various actions and reactions associated with rivers and streams. They encompass the movement of water and sediments, the shaping of landforms through erosion and deposition, and the intricate balance between natural systems and human impacts. Understanding these processes allows us to appreciate the complexity of river systems and their significance in both natural and anthropogenic contexts.</p></p>
+<p><p>As we embark on this journey through fluvial processes, we will cover key concepts, real-world applications, current research trends, and future directions in the field. This comprehensive exploration will provide you with a solid foundation in understanding how rivers and their processes function within the broader context of geomorphology.</p></p>
+<hr />
+<h2>Key Concepts of Fluvial Processes</h2>
+<h3>1. Definition of Fluvial Processes</h3>
+<p><p>Fluvial processes involve the interactions between flowing water and the surrounding environment, primarily focusing on rivers and streams. These processes include:</p></p>
+<ul>
+<ul>
+<li><strong>Erosion</strong>: The removal of soil and rock from one location and its transport to another by water.</li>
+<li><strong>Transportation</strong>: The movement of eroded materials downstream by river currents.</li>
+<li><strong>Deposition</strong>: The settling of sediments carried by water when the flow energy decreases.</li>
+</ul>
+</ul>
+<h3>2. The Hydrological Cycle</h3>
+<p><p>A fundamental concept in understanding fluvial processes is the <strong>hydrological cycle</strong>, which describes the continuous movement of water within the Earth and atmosphere. Key components include:</p></p>
+<ul>
+<ul>
+<li><strong>Evaporation</strong>: Water vapor rising from oceans, lakes, and rivers.</li>
+<li><strong>Condensation</strong>: Formation of clouds as water vapor cools and condenses.</li>
+<li><strong>Precipitation</strong>: Rainfall or snowfall that replenishes rivers and streams.</li>
+<li><strong>Runoff</strong>: Water flowing over the land surface, eventually finding its way to rivers.</li>
+</ul>
+</ul>
+<p><p>The hydrological cycle provides the necessary water for river systems and influences their behaviors and characteristics.</p></p>
+<h3>3. River Morphology</h3>
+<p><p>The <strong>morphology</strong> of rivers refers to their shape, structure, and features. Key aspects include:</p></p>
+<ul>
+<ul>
+<li><strong>Channel shape</strong>: The cross-sectional geometry of a river, which can be U-shaped, V-shaped, or trapezoidal.</li>
+<li><strong>Riverbanks</strong>: The sides of the river channel that hold water within the banks.</li>
+<li><strong>Floodplains</strong>: Flat areas adjacent to rivers that are subject to flooding, often enriched with sediment.</li>
+<li><strong>Meanders</strong>: Curves in a river that form over time due to erosion and deposition.</li>
+</ul>
+</ul>
+<p><p>Understanding river morphology is crucial for predicting how rivers will respond to various natural and human-induced changes.</p></p>
+<h3>4. Erosion in Fluvial Systems</h3>
+<p><p>Erosion is a dominant process in fluvial systems and can be categorized into several types:</p></p>
+<ul>
+<ul>
+<li><strong>Hydraulic Action</strong>: The force of moving water can dislodge and transport materials from the riverbed and banks.</li>
+<li><strong>Abrasion</strong>: Sediments carried by the river can scrape against the channel, further eroding it.</li>
+<li><strong>Attrition</strong>: Rocks and sediments collide with each other, breaking into smaller particles.</li>
+</ul>
+</ul>
+<p><p>These erosional processes shape the landscape, creating features such as valleys, canyons, and riverbanks.</p></p>
+<h3>5. Sediment Transport</h3>
+<p><p>Once sediments are eroded, they are transported downstream through a variety of mechanisms:</p></p>
+<ul>
+<ul>
+<li><strong>Suspended Load</strong>: Fine sediments (like silt and clay) that remain suspended in the water column.</li>
+<li><strong>Bed Load</strong>: Coarser materials (like sand and gravel) that move along the riverbed, often through rolling or sliding.</li>
+<li><strong>Solution Load</strong>: Dissolved minerals that are carried in the water.</li>
+</ul>
+</ul>
+<p><p>The capacity of a river to transport sediment is influenced by its flow velocity, channel shape, and sediment size.</p></p>
+<h3>6. Deposition and Landform Creation</h3>
+<p><p>As the energy of the flowing water decreases, sediments are deposited, leading to the formation of various landforms:</p></p>
+<ul>
+<ul>
+<li><strong>Deltas</strong>: Formed at river mouths where sediment accumulates as the river meets a standing body of water, creating a triangular landform.</li>
+<li><strong>Bars</strong>: Accumulations of sediment within the river channel, which can form when the flow velocity decreases.</li>
+<li><strong>Alluvial Fans</strong>: Cone-shaped deposits formed when a river exits a steep area and spreads out onto a flatter surface.</li>
+</ul>
+</ul>
+<p><p>These depositional features play a critical role in shaping landscapes and supporting biodiversity.</p></p>
+<h3>7. Human Impact on Fluvial Processes</h3>
+<p><p>Human activities significantly impact fluvial systems. Some key areas of influence include:</p></p>
+<ul>
+<ul>
+<li><strong>Urbanization</strong>: Increased impervious surfaces lead to altered runoff patterns, increased flood risks, and changes in river morphology.</li>
+<li><strong>Agricultural Practices</strong>: Land use changes can lead to increased sedimentation and nutrient runoff into rivers, affecting water quality and ecosystems.</li>
+<li><strong>Dams and Reservoirs</strong>: These structures can alter natural flow regimes, impacting sediment transport and river ecosystems.</li>
+</ul>
+</ul>
+<p><p>Understanding these impacts is essential for effective river management and conservation efforts.</p></p>
+<hr />
+<h2>Real-World Applications of Fluvial Processes</h2>
+<p><p>Fluvial processes have numerous real-world applications that highlight their importance in environmental management, urban planning, and disaster preparedness.</p></p>
+<h3>1. River Management and Conservation</h3>
+<p><p>Effective river management is crucial for maintaining ecological health, managing water resources, and preventing flooding. Key strategies include:</p></p>
+<ul>
+<ul>
+<li><strong>Riparian Buffer Zones</strong>: Vegetated areas adjacent to rivers that help filter pollutants, stabilize banks, and provide habitat.</li>
+<li><strong>Restoration Projects</strong>: Efforts to restore natural river functions and habitats, such as removing dams or reintroducing native vegetation.</li>
+<li><strong>Floodplain Management</strong>: Planning for land use in flood-prone areas to minimize damage and enhance flood resilience.</li>
+</ul>
+</ul>
+<h3>2. Urban Planning and Infrastructure Development</h3>
+<p><p>Understanding fluvial processes is vital for urban planners and engineers to design infrastructure that can withstand flooding and erosion. Considerations include:</p></p>
+<ul>
+<ul>
+<li><strong>Stormwater Management Systems</strong>: Designing systems that effectively manage runoff and reduce flooding risks.</li>
+<li><strong>Riverbank Stabilization Techniques</strong>: Implementing methods such as riprap, vegetation, or engineered solutions to prevent erosion.</li>
+</ul>
+</ul>
+<h3>3. Natural Disaster Preparedness</h3>
+<p><p>Fluvial processes are closely linked to natural disasters, including floods and erosion. Awareness and preparedness measures can help mitigate risks:</p></p>
+<ul>
+<ul>
+<li><strong>Flood Prediction Models</strong>: Utilizing hydrological models to predict river behaviors during storms.</li>
+<li><strong>Community Education</strong>: Informing residents about flood risks and encouraging preparedness measures, such as emergency plans.</li>
+</ul>
+</ul>
+<h3>4. Climate Change Adaptation</h3>
+<p><p>As climate change alters precipitation patterns and increases extreme weather events, understanding fluvial processes becomes even more critical. Strategies include:</p></p>
+<ul>
+<ul>
+<li><strong>Adaptive Management</strong>: Adjusting river management practices in response to changing conditions.</li>
+<li><strong>Monitoring and Research</strong>: Ongoing studies to assess the impacts of climate change on river systems and inform policy decisions.</li>
+</ul>
+</ul>
+<hr />
+<h2>Current Research Trends in Fluvial Processes</h2>
+<p><p>Research in fluvial processes is continuously evolving, driven by advances in technology and a growing understanding of environmental challenges. Some current trends include:</p></p>
+<h3>1. Remote Sensing and Geographic Information Systems (GIS)</h3>
+<p><p>Advancements in remote sensing technologies allow researchers to monitor river systems more effectively. Key applications include:</p></p>
+<ul>
+<ul>
+<li><strong>Mapping River Morphology</strong>: Using satellite imagery to analyze changes in river channels and floodplains over time.</li>
+<li><strong>Assessing Water Quality</strong>: Monitoring sediment and pollutant levels in rivers through remote sensing techniques.</li>
+</ul>
+</ul>
+<h3>2. Hydrological Modeling</h3>
+<p><p>Hydrological models simulate river behaviors and interactions with the landscape. These models help researchers predict:</p></p>
+<ul>
+<ul>
+<li><strong>Flooding Events</strong>: Understanding how changes in land use or climate affect flood risks.</li>
+<li><strong>Sediment Transport Dynamics</strong>: Assessing how different factors influence sediment movement within rivers.</li>
+</ul>
+</ul>
+<h3>3. Ecohydrology</h3>
+<p><p>This interdisciplinary field explores the interactions between water and ecological systems. Research focuses on:</p></p>
+<ul>
+<ul>
+<li><strong>River Ecosystems</strong>: Understanding how fluvial processes impact biodiversity and habitat quality.</li>
+<li><strong>Water Management</strong>: Developing sustainable practices that balance human needs with ecological health.</li>
+</ul>
+</ul>
+<h3>4. Climate Change Effects</h3>
+<p><p>Ongoing research investigates how climate change influences fluvial processes, including:</p></p>
+<ul>
+<ul>
+<li><strong>Altered Precipitation Patterns</strong>: Studying how changes in rainfall affect river flow and sediment transport.</li>
+<li><strong>Increased Flood Frequency</strong>: Assessing the implications of more frequent flooding on communities and ecosystems.</li>
+</ul>
+</ul>
+<hr />
+<h2>Future Directions in Fluvial Processes</h2>
+<p><p>As we look ahead, several key areas hold promise for advancing our understanding of fluvial processes:</p></p>
+<h3>1. Integrated River Basin Management</h3>
+<p><p>The future of river management will likely involve more integrated approaches that consider the entire river basin. This includes collaboration among stakeholders, such as:</p></p>
+<ul>
+<ul>
+<li><strong>Government Agencies</strong>: Coordinating policies for water management and conservation.</li>
+<li><strong>Community Engagement</strong>: Involving local communities in decision-making processes.</li>
+</ul>
+</ul>
+<h3>2. Innovations in Technology</h3>
+<p><p>Emerging technologies will continue to enhance our ability to study and manage rivers, including:</p></p>
+<ul>
+<ul>
+<li><strong>Drones and Unmanned Aerial Vehicles (UAVs)</strong>: Providing high-resolution imagery for monitoring river changes.</li>
+<li><strong>Real-Time Data Collection</strong>: Utilizing sensors to gather data on water quality, flow rates, and sediment loads.</li>
+</ul>
+</ul>
+<h3>3. Addressing Water Scarcity</h3>
+<p><p>As water scarcity becomes an increasingly pressing issue, understanding fluvial processes will be critical for:</p></p>
+<ul>
+<ul>
+<li><strong>Sustainable Water Use</strong>: Developing practices that minimize water waste and enhance efficiency.</li>
+<li><strong>Water Rights and Policies</strong>: Navigating complex legal and social issues related to water distribution and usage.</li>
+</ul>
+</ul>
+<h3>4. Resilience to Climate Change</h3>
+<p><p>Future research will focus on building resilience in river systems to adapt to climate change impacts, including:</p></p>
+<ul>
+<ul>
+<li><strong>Habitat Restoration</strong>: Enhancing ecosystem resilience through targeted restoration efforts.</li>
+<li><strong>Adaptive Infrastructure</strong>: Designing infrastructure that can withstand extreme weather events.</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Fluvial processes are integral to understanding the dynamic interactions between rivers, landscapes, and human activities. From the hydrological cycle and river morphology to sediment transport and human impact, these processes shape our environment in profound ways. </p></p>
+<p><p>As you continue your exploration of geomorphology, consider how fluvial processes influence not only natural systems but also human livelihoods and community resilience. Engaging with these concepts will empower you to contribute to sustainable river management and conservation efforts.</p></p>
+<h3>Call to Action</h3>
+<p><p>To deepen your understanding of fluvial processes, consider exploring the following topics further:</p></p>
+<ul>
+<ul>
+<li>The role of wetlands in flood mitigation</li>
+<li>Case studies of river restoration projects</li>
+<li>The impact of climate change on specific river systems</li>
+</ul>
+</ul>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What are the three main processes involved in fluvial processes?", "options": [{"id": "A", "text": "Erosion, Transportation, Deposition", "explanation": "This is correct as fluvial processes primarily involve erosion, transportation, and deposition."}, {"id": "B", "text": "Erosion, Transportation, Weathering", "explanation": "Incorrect; weathering is not a direct process in fluvial systems."}, {"id": "C", "text": "Erosion, Sedimentation, Tectonics", "explanation": "Incorrect; while erosion and sedimentation are involved, tectonics is not a direct fluvial process."}, {"id": "D", "text": "Transportation, Sedimentation, Weathering", "explanation": "Incorrect; while transportation and sedimentation are part of fluvial processes, weathering is unrelated."}], "correct_answer": "A"}, {"question": "Which component of the hydrological cycle is directly linked to the replenishment of rivers?", "options": [{"id": "A", "text": "Evaporation", "explanation": "Incorrect; evaporation is the process of water vapor rising into the atmosphere."}, {"id": "B", "text": "Condensation", "explanation": "Incorrect; condensation involves the formation of clouds but does not directly replenish rivers."}, {"id": "C", "text": "Precipitation", "explanation": "Correct; precipitation directly contributes to the replenishment of rivers through rainfall and snowmelt."}, {"id": "D", "text": "Infiltration", "explanation": "Incorrect; infiltration refers to the process of water entering the soil, not directly replenishing rivers."}], "correct_answer": "C"}, {"question": "What is a delta, and how is it formed?", "options": [{"id": "A", "text": "A narrow landform created by erosion", "explanation": "Incorrect; a delta is not formed by erosion but by deposition."}, {"id": "B", "text": "A triangular area formed by sediment deposition at a river mouth", "explanation": "Correct; a delta is formed where a river deposits sediment as it meets a larger body of water."}, {"id": "C", "text": "A steep-sided valley formed by glacial activity", "explanation": "Incorrect; a steep-sided valley is formed by glacial activity, not by river processes."}, {"id": "D", "text": "An elevated area formed by volcanic activity", "explanation": "Incorrect; deltas are not formed by volcanic activity."}], "correct_answer": "B"}, {"question": "How does urbanization impact fluvial processes?", "options": [{"id": "A", "text": "It decreases runoff and flooding risk", "explanation": "Incorrect; urbanization typically increases runoff and flooding risk due to impervious surfaces."}, {"id": "B", "text": "It increases sedimentation and pollutant levels in rivers", "explanation": "Correct; urbanization can lead to increased sedimentation and pollutants entering rivers."}, {"id": "C", "text": "It enhances natural river morphology", "explanation": "Incorrect; urbanization often disrupts natural river morphology."}, {"id": "D", "text": "It has no effect on river systems", "explanation": "Incorrect; urbanization significantly impacts river systems."}], "correct_answer": "B"}, {"question": "What role do riparian buffer zones play in river management?", "options": [{"id": "A", "text": "They increase sediment load in rivers", "explanation": "Incorrect; riparian zones do not increase sediment load."}, {"id": "B", "text": "They help filter pollutants and stabilize riverbanks", "explanation": "Correct; riparian buffer zones are essential for filtering pollutants and stabilizing riverbanks."}, {"id": "C", "text": "They have no significant role in river ecosystems", "explanation": "Incorrect; riparian zones play a crucial role in river ecosystems."}, {"id": "D", "text": "They reduce the width of river channels", "explanation": "Incorrect; riparian zones do not reduce the width of river channels."}], "correct_answer": "B"}], "why_it_matters": "Understanding fluvial processes is essential for effective river management, disaster preparedness, and addressing climate change impacts. By grasping these concepts, you can contribute meaningfully to sustainable practices and policies that protect our vital water resources."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
