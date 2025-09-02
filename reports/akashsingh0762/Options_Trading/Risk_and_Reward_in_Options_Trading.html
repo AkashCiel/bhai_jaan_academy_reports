@@ -1,0 +1,475 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Risk and Reward in Options Trading</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Risk and Reward in Options Trading</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: akash.singh.0762@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Risk and Reward in Options Trading</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your journey into the fascinating realm of options trading, the concept of <strong>risk and reward</strong> becomes paramount. Options, as you have learned, are versatile financial instruments that can be employed for speculation, hedging, and enhancing portfolio performance. However, with these opportunities come inherent risks that must be understood and managed effectively.</p></p>
+<p><p>In this report, we will delve deeply into the principles of risk and reward in options trading, expanding on foundational concepts you have learned, such as options pricing, leverage, and basic trading strategies. The aim is to provide a comprehensive understanding of how risk and reward interplay in the options market, enabling you to make informed decisions in your trading journey.</p></p>
+<h3>Learning Path Context</h3>
+<p><p>Previously, you have gained insights into options, their types, and their mechanics. You have explored pricing models and the nuances of leverage in options trading. This report will bridge those concepts, focusing on how risk influences potential rewards in the context of options trading. By examining various strategies and real-world applications, we will illuminate the path to navigating this complex landscape effectively.</p></p>
+<hr />
+<h2>Key Concepts</h2>
+<h3>1. Understanding Risk in Options Trading</h3>
+<p><p>Risk in options trading can be defined as the potential for financial loss, which can manifest in various forms. Here are some key aspects of risk:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Market Risk</strong>: The risk that the price of the underlying asset will move unfavorably. For example, if you purchase a call option but the underlying stock price declines, your option may become worthless.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Liquidity Risk</strong>: This refers to the risk of not being able to buy or sell an option without significantly affecting its price. Low liquidity can lead to wider bid-ask spreads, increasing trading costs.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Volatility Risk</strong>: Options pricing is heavily influenced by the volatility of the underlying asset. Increased volatility can raise option premiums, but it also introduces uncertainty regarding price movements.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Time Decay</strong>: As options approach their expiration date, their time value diminishes, which can erode potential profits. Understanding how time decay affects options is crucial for risk management.</p></p>
+<p></li></p>
+</ul>
+<h4>Example:</h4>
+<p><p>Consider an investor who buys a call option for a tech stock at a strike price of $50, expecting the stock to rise. If the stock price remains below $50 at expiration, the option expires worthless, resulting in a total loss of the premium paid. This scenario illustrates market risk and time decay.</p></p>
+<h3>2. Reward Potential in Options Trading</h3>
+<p><p>While options come with risks, they also provide significant reward potential. The primary ways to achieve rewards through options trading include:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Leverage</strong>: Options allow traders to control a large position with a relatively small investment. This leverage can amplify gains when the trade goes in your favor.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Flexibility</strong>: Options can be used in various strategies to capitalize on different market conditions. For example, a trader can use straddles to profit from significant price movements, regardless of direction.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Hedging</strong>: Options can be employed to protect existing investments, effectively managing risk while allowing for potential rewards.</p></p>
+<p></li></p>
+</ul>
+<h4>Example:</h4>
+<p><p>Imagine a trader purchases a call option for $200, controlling 100 shares of a stock. If the stock price rises to $70, the option's intrinsic value becomes $2,000, providing a profit of $1,800 (subtracting the premium). This example illustrates how effective leverage can lead to substantial rewards.</p></p>
+<hr />
+<h2>The Risk-Reward Relationship</h2>
+<h3>1. The Concept of Risk-Reward Ratio</h3>
+<p><p>The <strong>risk-reward ratio</strong> is a critical metric used by traders to assess the potential return of a trade relative to the risk taken. A favorable risk-reward ratio indicates that the potential reward outweighs the risk. </p></p>
+<h4>Formula:</h4>
+<p><p>The risk-reward ratio can be calculated using the formula:</p></p>
+<p><p>[</p>
+<p>\text{Risk-Reward Ratio} = \frac{\text{Potential Loss}}{\text{Potential Gain}}</p>
+<p>]</p></p>
+<h3>Example Calculation</h3>
+<p><p>Suppose a trader enters a trade where they purchase a call option for $300. They set a stop-loss order to limit losses at $100 and expect to sell the option for $1,200 if it performs well.</p></p>
+<ul>
+<ul>
+<li><strong>Potential Loss</strong>: $100</li>
+<li><strong>Potential Gain</strong>: $1,200 - $300 = $900</li>
+</ul>
+</ul>
+<p><p>The risk-reward ratio would be:</p></p>
+<p><p>[</p>
+<p>\text{Risk-Reward Ratio} = \frac{100}{900} = \frac{1}{9}</p>
+<p>]</p></p>
+<p><p>This indicates that for every dollar risked, there is a potential gain of nine dollars, suggesting a highly favorable risk-reward scenario.</p></p>
+<h3>2. Assessing Risk Tolerance</h3>
+<p><p>Understanding your <strong>risk tolerance</strong> is essential in options trading. Risk tolerance refers to the degree of variability in investment returns that an individual is willing to withstand. Factors influencing risk tolerance include:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Investment Goals</strong>: Long-term investors may have a higher risk tolerance compared to those seeking short-term gains.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Financial Situation</strong>: An investor’s financial stability and obligations can affect their willingness to take risks.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Market Knowledge</strong>: Experienced traders might be more comfortable with risk due to their understanding of market dynamics.</p></p>
+<p></li></p>
+</ul>
+<h3>Practical Implementation</h3>
+<p><p>Establishing a clear risk management plan is vital. This may include setting stop-loss orders, diversifying your options portfolio, and regularly evaluating your trading performance against your risk tolerance.</p></p>
+<hr />
+<h2>Real-World Applications</h2>
+<h3>1. Options Trading Strategies</h3>
+<p><p>Understanding the risk-reward dynamics is crucial when implementing various options trading strategies. Here are a few popular strategies:</p></p>
+<h4>a. Covered Call</h4>
+<ul>
+<ul>
+<li><strong>Description</strong>: Selling call options against shares you already own.</li>
+<li><strong>Risk</strong>: Limited to the stock price falling below the purchase price.</li>
+<li><strong>Reward</strong>: Premium income from the sale of the call option plus potential stock appreciation.</li>
+</ul>
+</ul>
+<h4>b. Protective Put</h4>
+<ul>
+<ul>
+<li><strong>Description</strong>: Buying put options to hedge against potential declines in owned stock.</li>
+<li><strong>Risk</strong>: The premium paid for the put option.</li>
+<li><strong>Reward</strong>: Protection against downside risk, allowing you to retain ownership of the underlying asset.</li>
+</ul>
+</ul>
+<h3>2. Case Studies</h3>
+<h4>Case Study: Maria's Covered Call</h4>
+<p><p>Maria owns 100 shares of a technology company worth $50 each. Anticipating mild price movement, she sells a call option with a strike price of $55 for a premium of $200. If the stock price exceeds $55, she sells her shares at that price, earning a total of $7,000 ($55 per share). If the stock price stays below $55, she retains her shares and the premium, balancing risk and reward effectively.</p></p>
+<h4>Case Study: Alex's Protective Put</h4>
+<p><p>Alex owns 200 shares of a biotechnology firm worth $40 each. Concerned about potential short-term volatility, he buys put options with a strike price of $38 for a total of $400. If the stock price falls to $30, the put option allows him to sell at $38, limiting his losses. This example illustrates how Alex effectively managed risk while preserving potential upside.</p></p>
+<hr />
+<h2>Current State and Future Directions</h2>
+<h3>1. Industry Trends</h3>
+<p><p>The options trading landscape is continuously evolving. Recent trends include:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Increased Retail Participation</strong>: More individual investors are entering the options market, driven by the accessibility of trading platforms and educational resources.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Technological Advancements</strong>: Algorithmic trading and AI-driven strategies are becoming commonplace, offering new ways to analyze and execute trades.</p></p>
+<p></li></p>
+</ul>
+<h3>2. Research Frontiers</h3>
+<p><p>Ongoing research focuses on improving options pricing models, understanding behavioral finance in trading decisions, and exploring the impact of global events on market dynamics.</p></p>
+<h3>3. Emerging Technologies</h3>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Blockchain Technology</strong>: The potential for decentralized options trading platforms could revolutionize the industry, providing enhanced transparency and reduced transaction costs.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Machine Learning</strong>: Utilizing machine learning algorithms for predictive analytics in options trading is an emerging field, promising more accurate forecasting of price movements.</p></p>
+<p></li></p>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In summary, understanding the dynamics of risk and reward in options trading is crucial for making informed decisions. By grasping key concepts such as market risk, liquidity risk, and the risk-reward ratio, you can better navigate the complexities of the options market. </p></p>
+<p><p>As you continue to develop your trading strategies, remember to assess your risk tolerance, implement effective risk management techniques, and stay up-to-date with industry trends and technological advancements. The world of options trading offers substantial opportunities for those who are willing to learn and adapt.</p></p>
+<p><p><strong>Call to Action</strong>: Take your understanding further by exploring advanced options strategies and consider how emerging technologies might shape the future of options trading.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What does the risk-reward ratio measure in options trading?", "options": [{"id": "A", "text": "The total profit earned from an options trade", "explanation": "Incorrect. The risk-reward ratio does not measure total profit but rather the relationship between risk and potential gain."}, {"id": "B", "text": "The potential loss relative to the potential gain", "explanation": "Correct. The risk-reward ratio indicates how much risk you are taking relative to your potential gain from a trade."}, {"id": "C", "text": "The volatility of the underlying asset", "explanation": "Incorrect. While volatility can affect options pricing, it is not what the risk-reward ratio measures."}, {"id": "D", "text": "The time value of the option", "explanation": "Incorrect. Time value is a component of options pricing but not directly related to the risk-reward ratio."}], "correct_answer": "B"}, {"question": "Which of the following is a primary risk associated with options trading?", "options": [{"id": "A", "text": "Time decay", "explanation": "Correct. Time decay is a significant risk in options trading as it erodes the value of options as they approach expiration."}, {"id": "B", "text": "Market inefficiency", "explanation": "Incorrect. Although market inefficiency can impact trading, it is not specifically a risk associated with options trading."}, {"id": "C", "text": "Inflation rates", "explanation": "Incorrect. While inflation rates can influence markets, they are not a direct risk in options trading."}, {"id": "D", "text": "Currency fluctuations", "explanation": "Incorrect. Currency fluctuations may affect some options but are not a primary risk in options trading itself."}], "correct_answer": "A"}, {"question": "In a covered call strategy, what is the primary risk faced by the trader?", "options": [{"id": "A", "text": "Unlimited losses if the stock price falls", "explanation": "Incorrect. In a covered call, losses are limited to the decline in the stock price, not unlimited."}, {"id": "B", "text": "Losing potential gains if the stock price rises significantly", "explanation": "Correct. The primary risk is missing out on significant upside if the stock price rises above the strike price."}, {"id": "C", "text": "The premium paid for the call option", "explanation": "Incorrect. In a covered call, the trader does not pay for the call option; they receive a premium."}, {"id": "D", "text": "Time decay affecting the call option's value", "explanation": "Incorrect. Time decay affects the option's value, but it is not the primary risk in this strategy."}], "correct_answer": "B"}, {"question": "What is liquidity risk in options trading?", "options": [{"id": "A", "text": "The risk of the underlying asset losing all its value", "explanation": "Incorrect. This describes market risk, not specifically liquidity risk."}, {"id": "B", "text": "The risk of not being able to buy or sell an option without affecting its price", "explanation": "Correct. Liquidity risk refers to the challenge of executing trades without impacting the option's price significantly."}, {"id": "C", "text": "The risk of changes in interest rates", "explanation": "Incorrect. Changes in interest rates are a separate risk factor but not defined as liquidity risk."}, {"id": "D", "text": "The risk associated with time decay of options", "explanation": "Incorrect. Time decay is a risk related to the option's value but does not pertain to liquidity."}], "correct_answer": "B"}, {"question": "Why is understanding volatility important for options traders?", "options": [{"id": "A", "text": "It affects the time value of options", "explanation": "Incorrect. While volatility affects options, it specifically influences premiums rather than time value directly."}, {"id": "B", "text": "It determines the strike price of the option", "explanation": "Incorrect. The strike price is predetermined and does not change based on volatility."}, {"id": "C", "text": "It influences the option's premium", "explanation": "Correct. Volatility plays a critical role in determining the premium of options, as higher volatility typically leads to higher premiums."}, {"id": "D", "text": "It eliminates the risk associated with trading", "explanation": "Incorrect. Understanding volatility does not eliminate risk; it helps traders manage it more effectively."}], "correct_answer": "C"}], "why_it_matters": "Understanding the relationship between risk and reward in options trading equips you with the knowledge necessary to navigate the complexities of the market. By grasping these concepts, you can develop effective trading strategies and make informed decisions that align with your financial goals."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
