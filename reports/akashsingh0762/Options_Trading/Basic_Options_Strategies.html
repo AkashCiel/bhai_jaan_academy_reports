@@ -1,0 +1,388 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Basic Options Strategies</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Basic Options Strategies</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: akash.singh.0762@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h2>Basic Options Strategies: A Comprehensive Guide</h2>
+<h3>Introduction:</h3>
+<p><p>Your journey into the world of options trading has already equipped you with a rich tapestry of concepts, from the foundational understanding of what options are to the complexities of pricing models and the dynamics of leverage. As you prepare to delve into <strong>Basic Options Strategies</strong>, it is essential to build upon your established knowledge, particularly your understanding of options terminology, how options work, the implications of leverage, and the risk and reward dynamics in options trading.</p></p>
+<p><p>This report aims to provide a thorough exploration of basic options strategies, discussing their theoretical foundations, practical applications, and real-world scenarios. By the end, you will have a clear understanding of how to implement these strategies effectively in your trading endeavors, as well as insights into their future implications in the evolving financial landscape.</p></p>
+<h3>Key Concepts:</h3>
+<h4>1. What are Options Strategies?</h4>
+<p><p><strong>Options strategies</strong> are specific plans of action that traders employ to maximize returns or hedge against potential losses through the buying and selling of options contracts. These strategies can be simple or complex, depending on the trader's objectives, market conditions, and risk tolerance.</p></p>
+<h3>2. Basic Types of Options Strategies:</h3>
+<p><p>We'll explore several basic strategies here, which can be categorized according to the market outlook they represent: bullish, bearish, or neutral.</p></p>
+<h4>a. Bullish Strategies:</h4>
+<p><p>Bullish strategies are employed when a trader expects the price of an underlying asset to rise.</p></p>
+<ul>
+<ul>
+<li><strong>Long Call</strong>: This strategy involves buying call options. A trader purchases a call option, allowing them the right to buy the underlying asset at a predetermined strike price before the expiration date. If the asset's price exceeds the strike price, the trader can profit from the difference, minus the premium paid for the option.</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: Suppose a trader believes that stock XYZ, currently priced at $50, will rise to $60. They buy a call option with a strike price of $55 for a premium of $2. If the stock rises to $60, the trader can exercise the option to buy it at $55, selling it immediately for a $5 profit per share, minus the $2 premium, resulting in a net gain of $3 per share.</p></p>
+<ul>
+<ul>
+<li><strong>Bull Call Spread</strong>: This involves buying a call option at a lower strike price and simultaneously selling another call option at a higher strike price. This strategy limits both potential profit and loss.</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: Using the same stock XYZ, a trader might buy a call option with a strike price of $55 for a premium of $2 and sell a call option with a strike price of $60 for a premium of $1. The net cost of this spread would be $1. If the stock rises above $60, the maximum profit would be limited to $4 per share (the difference between strike prices minus the net cost).</p></p>
+<h4>b. Bearish Strategies:</h4>
+<p><p>Bearish strategies are employed when a trader expects the price of an underlying asset to decline.</p></p>
+<ul>
+<ul>
+<li><strong>Long Put</strong>: This strategy involves buying put options, granting the right to sell the underlying asset at a specific price before expiration.</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: If a trader believes stock XYZ will fall from its current price of $50, they might buy a put option with a strike price of $45 for a premium of $3. If the stock drops to $40, the trader can exercise the option, selling it for $45, resulting in a profit of $2 per share after accounting for the premium paid.</p></p>
+<ul>
+<ul>
+<li><strong>Bear Put Spread</strong>: Similar to the bull call spread, this strategy involves buying a put option at a higher strike price and selling another put option at a lower strike price.</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: A trader buys a put option for XYZ with a strike price of $45 for a premium of $3 and sells a put option with a strike price of $40 for a premium of $1. The net cost is $2. If the stock drops below $40, the maximum profit is $3 per share.</p></p>
+<h4>c. Neutral Strategies:</h4>
+<p><p>Neutral strategies are designed to profit from a stagnant market where the underlying asset's price does not move significantly.</p></p>
+<ul>
+<ul>
+<li><strong>Straddle</strong>: This strategy involves buying both a call and a put option at the same strike price and expiration date. It's used when a trader expects significant movement in either direction but is unsure of the direction.</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: A trader buys both a call and put option for stock XYZ at a strike price of $50, with premiums of $3 and $4, respectively. If the stock moves significantly above $50 or below $50, the trader can potentially cover the cost of both premiums and make a profit.</p></p>
+<ul>
+<ul>
+<li><strong>Iron Condor</strong>: This strategy involves selling an out-of-the-money call and put option while buying a further out-of-the-money call and put option. It profits from low volatility.</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: A trader sells a call option with a strike price of $60 and a put option with a strike price of $40, while buying a call at $65 and a put at $35. This strategy profits if the underlying asset remains within a certain price range.</p></p>
+<h3>Real-World Applications:</h3>
+<p><p>Understanding these basic options strategies can empower you to navigate the complex world of trading more effectively. Here are some real-world applications:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Portfolio Hedging</strong>: Investors often use options strategies to hedge their portfolios against market downturns. For instance, employing long puts can protect against losses in a declining market.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Income Generation</strong>: Selling options, such as in the iron condor strategy, can provide an additional income stream through the premiums received.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Speculative Opportunities</strong>: Traders can exploit volatility and significant price movements using straddles or long calls/puts, capitalizing on anticipated market shifts.</p></p>
+<p></li></p>
+<p></ol></p>
+<h3>Conclusion:</h3>
+<p><p>In this report, we have explored the foundational aspects of basic options strategies, connecting them to your prior learning about options trading. Each strategy serves distinct market outlooks, allowing traders to tailor their approaches to specific scenarios. As you advance in your trading journey, consider how these strategies can be integrated into your overall trading plan, enhancing your ability to manage risk and capitalize on market opportunities.</p></p>
+<h1></h1>
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "Which strategy involves buying a call option and simultaneously selling another call option at a higher strike price?", "options": [{"id": "A", "text": "Long Call", "explanation": "Incorrect. A Long Call involves buying a single call option without selling another."}, {"id": "B", "text": "Bull Call Spread", "explanation": "Correct. A Bull Call Spread is formed by buying a call and selling another call at a higher strike price."}, {"id": "C", "text": "Bear Put Spread", "explanation": "Incorrect. A Bear Put Spread involves buying and selling put options."}, {"id": "D", "text": "Straddle", "explanation": "Incorrect. A Straddle involves buying both a call and a put at the same strike price."}], "correct_answer": "B"}, {"question": "What is the primary purpose of a long put strategy?", "options": [{"id": "A", "text": "To profit from rising stock prices", "explanation": "Incorrect. A long put is used to profit from falling prices, not rising."}, {"id": "B", "text": "To profit from falling stock prices", "explanation": "Correct. A long put allows the trader to sell the underlying asset at a predetermined price, profiting if the asset's price declines."}, {"id": "C", "text": "To generate income through premiums", "explanation": "Incorrect. Generating income through premiums typically involves selling options."}, {"id": "D", "text": "To hedge against high volatility", "explanation": "Incorrect. A long put is not primarily aimed at hedging against volatility."}], "correct_answer": "B"}, {"question": "In a bull call spread, what happens if the underlying asset's price exceeds the higher strike price?", "options": [{"id": "A", "text": "Unlimited profit potential", "explanation": "Incorrect. Profit is limited to the difference between the two strike prices minus the net premium paid."}, {"id": "B", "text": "Limited profit potential", "explanation": "Correct. The profit potential is capped due to the sold call option at the higher strike price."}, {"id": "C", "text": "Maximum loss", "explanation": "Incorrect. The maximum loss occurs if the underlying asset remains below the lower strike price."}, {"id": "D", "text": "Break-even", "explanation": "Incorrect. Break-even occurs at a different price point, not exceeding the higher strike price."}], "correct_answer": "B"}, {"question": "Which of the following strategies would you use if you expect significant movement in an asset's price but are unsure of the direction?", "options": [{"id": "A", "text": "Bull Call Spread", "explanation": "Incorrect. A Bull Call Spread is a bullish strategy, expecting the price to rise."}, {"id": "B", "text": "Iron Condor", "explanation": "Incorrect. Iron Condor profits from low volatility and does not benefit from significant price movement."}, {"id": "C", "text": "Straddle", "explanation": "Correct. Straddles are designed to profit from significant price movements in either direction."}, {"id": "D", "text": "Long Put", "explanation": "Incorrect. A Long Put is specifically bearish, expecting the price to fall."}], "correct_answer": "C"}, {"question": "What is the primary benefit of using a bear put spread?", "options": [{"id": "A", "text": "Unlimited profit potential", "explanation": "Incorrect. Profit potential is limited in a bear put spread."}, {"id": "B", "text": "Maximum risk reduction", "explanation": "Incorrect. While risk is reduced compared to a long put, it is not the primary benefit."}, {"id": "C", "text": "Limited risk and profit potential", "explanation": "Correct. A bear put spread limits both potential losses and gains, providing a balanced risk-reward profile."}, {"id": "D", "text": "Income generation", "explanation": "Incorrect. Income generation is not a primary benefit of this strategy."}], "correct_answer": "C"}], "why_it_matters": "Understanding these basic options strategies is crucial as it allows you to make informed decisions, manage risk effectively, and exploit market opportunities. As you continue your exploration of options trading, consider how these strategies can fit into your overall trading approach, helping you navigate the complexities of the financial markets."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
