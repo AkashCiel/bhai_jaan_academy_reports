@@ -1,0 +1,412 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Countries and Capitals</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Countries and Capitals</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: star_pratibha@rediffmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Countries and Capitals: A Comprehensive Exploration</h1>
+<h2>Introduction</h2>
+<p><p>As we continue our exploration of geography, building upon the foundational concepts you've learned in previous lessons on <strong>Continents and Oceans</strong>, it is essential to delve into the dynamic relationship between countries and their capitals. Understanding the connection between a nation's identity and its capital can provide deeper insights into cultural, political, and social dynamics across the globe. This report will guide you through the intricate web of countries and capitals, emphasizing their importance in global geography, politics, and culture.</p></p>
+<h3>The Relevance of Countries and Capitals</h3>
+<p><p>Countries and their capitals represent more than just geographical locations; they embody the essence of national identity, governance, and cultural heritage. By comprehending the significance of capitals, you can appreciate how they serve as political hubs, economic centers, and cultural landmarks. This exploration will not only enhance your geographical knowledge but also cultivate a greater understanding of international relations, global diversity, and the interconnectedness of societies.</p></p>
+<hr />
+<h2>Key Concepts</h2>
+<h3>1. Definition of a Country</h3>
+<p><p>A <strong>country</strong> is a distinct territorial body or political entity that is recognized as an independent nation. Each country has defined borders, a government, and a population that identifies with that nation. Countries vary widely in size, culture, political systems, and economic structures.</p></p>
+<h4>Example:</h4>
+<ul>
+<ul>
+<li><strong>Canada</strong> is a country located in North America. It is known for its vast landscapes, multicultural population, and a parliamentary democracy.</li>
+</ul>
+</ul>
+<h3>2. Definition of a Capital</h3>
+<p><p>A <strong>capital</strong> is the city or town that functions as the seat of government for a country or region. It typically houses government institutions and officials, making it the political nucleus of the nation. Capitals often symbolize the culture and history of the country they represent.</p></p>
+<h4>Example:</h4>
+<ul>
+<ul>
+<li><strong>Ottawa</strong> is the capital of Canada, serving as the center of Canadian politics and home to important national institutions like Parliament and the official residences of the Prime Minister and Governor General.</li>
+</ul>
+</ul>
+<hr />
+<h2>The Relationship Between Countries and Capitals</h2>
+<p><p>Understanding the link between countries and their capitals involves exploring various elements, such as historical context, geographical significance, and cultural identity.</p></p>
+<h3>Historical Context</h3>
+<p><p>The establishment of capitals often stems from historical events, colonial influences, or strategic decisions made by leaders. For instance, many capitals were once trade centers, which later grew into political hubs.</p></p>
+<h4>Example:</h4>
+<ul>
+<ul>
+<li><strong>Washington, D.C.</strong>, was chosen as the capital of the United States in 1790 due to its strategic location between the northern and southern states. The city was specifically built to serve as the nation’s capital, reflecting the ideals and aspirations of the new government.</li>
+</ul>
+</ul>
+<h3>Geographical Significance</h3>
+<p><p>Capitals are often located in strategic positions, whether for defense, trade, or accessibility. The geographical placement can influence the economic and cultural development of a country.</p></p>
+<h4>Example:</h4>
+<ul>
+<ul>
+<li><strong>Brasília</strong>, the capital of Brazil, was founded in 1960 and strategically located in the interior of the country to promote development in the less populated central region, moving the focus away from the coastal cities.</li>
+</ul>
+</ul>
+<h3>Cultural Identity</h3>
+<p><p>Capitals often embody the cultural heritage and identity of a nation. They may feature museums, historical sites, and cultural institutions that reflect the traditions and values of their people.</p></p>
+<h4>Example:</h4>
+<ul>
+<ul>
+<li><strong>Tokyo</strong>, the capital of Japan, is a blend of traditional culture and modern innovation, featuring ancient temples alongside cutting-edge technology, showcasing Japan’s rich history and contemporary advancements.</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications</h2>
+<p><p>Understanding countries and capitals is crucial for various real-world applications, including international relations, trade, tourism, and education.</p></p>
+<h3>International Relations</h3>
+<p><p>Capitals are central to diplomacy and international relations. They are often the sites of embassies, international negotiations, and political events.</p></p>
+<h4>Example:</h4>
+<ul>
+<ul>
+<li>The <strong>United Nations Headquarters</strong> in New York City serves as a platform for global diplomacy, where representatives from various countries convene to discuss and resolve international issues.</li>
+</ul>
+</ul>
+<h3>Trade and Economics</h3>
+<p><p>Capitals often serve as economic centers, influencing national and international trade. Understanding the capitals can help businesses and investors identify key markets and opportunities.</p></p>
+<h4>Example:</h4>
+<ul>
+<ul>
+<li><strong>London</strong>, the capital of the United Kingdom, is a global financial hub, hosting many multinational corporations and financial institutions that drive international trade.</li>
+</ul>
+</ul>
+<h3>Tourism</h3>
+<p><p>Capitals are frequently major tourist attractions due to their historical landmarks, cultural sites, and unique offerings. Tourism boosts local economies and fosters cultural exchange.</p></p>
+<h4>Example:</h4>
+<ul>
+<ul>
+<li><strong>Paris</strong>, the capital of France, attracts millions of tourists each year, drawn to its iconic landmarks like the Eiffel Tower, Notre-Dame Cathedral, and its rich artistic heritage.</li>
+</ul>
+</ul>
+<hr />
+<h2>A Narrative of Countries and Capitals</h2>
+<p><p>To illustrate the significance of countries and capitals, let's explore a narrative that connects these concepts through a journey.</p></p>
+<p><p>Imagine a traveler named Anna, who embarks on a journey across the globe to explore various countries and their capitals. Her adventure begins in <strong>Canberra</strong>, the capital of Australia, known for its beautiful parks and the stunning Australian War Memorial. Here, Anna learns about the country's history and the importance of reconciliation with Indigenous peoples.</p></p>
+<p><p>Next, she flies to <strong>New Delhi</strong>, the capital of India. Anna is captivated by the vibrant culture, bustling markets, and historical landmarks like the Red Fort and India Gate. She engages with locals to understand the diverse traditions that coexist in this vast nation.</p></p>
+<p><p>Her journey continues to <strong>Cape Town</strong>, the legislative capital of South Africa. Anna hikes up Table Mountain and reflects on the country’s complex history, including the struggle against apartheid. She visits the District Six Museum, which tells the story of the community that was forcibly removed during the apartheid era.</p></p>
+<p><p>After a brief stop in <strong>Moscow</strong>, where she marvels at the Kremlin and the iconic Red Square, Anna heads to <strong>Ottawa</strong>. She explores Parliament Hill and learns about Canada's political landscape, emphasizing the significance of inclusivity in governance.</p></p>
+<p><p>Finally, Anna arrives in <strong>Tokyo</strong>, where the fusion of ancient traditions and cutting-edge technology fascinates her. She visits temples, participates in a tea ceremony, and tastes sushi, appreciating Japan's cultural richness.</p></p>
+<p><p>Through her travels, Anna realizes that each capital is not just a city but a reflection of the country's identity, history, and aspirations. Her journey highlights how countries and capitals are intricately connected, influencing global interactions and shaping our understanding of the world.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In summary, the relationship between countries and capitals is a dynamic and multifaceted aspect of geography. Through historical context, geographical significance, and cultural identity, we gain insights into how capitals serve as the heart of nations. As you continue your geographical exploration, consider the role that capitals play in shaping global dynamics, influencing international relations, and fostering cultural exchange.</p></p>
+<h3>Call to Action</h3>
+<p><p>To deepen your understanding, explore the following topics:</p>
+<ul>
+<li>Investigate the capitals of countries within specific continents.</li>
+<li>Research the historical events that led to the establishment of various capitals.</li>
+<li>Examine the cultural significance of landmarks in different capitals.</p></li>
+</ul>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary function of a capital city within a country?", "options": [{"id": "A", "text": "To serve as the economic center of the nation", "explanation": "Incorrect. While capitals often have economic significance, their primary role is political."}, {"id": "B", "text": "To act as the political seat of government", "explanation": "Correct. A capital serves as the political seat of government, housing important government institutions."}, {"id": "C", "text": "To promote tourism exclusively", "explanation": "Incorrect. Although capitals can promote tourism, this is not their primary function."}, {"id": "D", "text": "To host international sporting events", "explanation": "Incorrect. Hosting international events is not a defining characteristic of a capital city."}], "correct_answer": "B"}, {"question": "Which city serves as the capital of Brazil?", "options": [{"id": "A", "text": "Rio de Janeiro", "explanation": "Incorrect. Rio de Janeiro was the capital before Bras\u00edlia but is not the current capital."}, {"id": "B", "text": "Bras\u00edlia", "explanation": "Correct. Bras\u00edlia is the capital of Brazil and was designed to promote development in the interior."}, {"id": "C", "text": "S\u00e3o Paulo", "explanation": "Incorrect. S\u00e3o Paulo is a major city but not the capital."}, {"id": "D", "text": "Salvador", "explanation": "Incorrect. Salvador is known for its cultural heritage, but it is not the capital."}], "correct_answer": "B"}, {"question": "What is a significant reason for the location of a country's capital?", "options": [{"id": "A", "text": "It must be the largest city in the country", "explanation": "Incorrect. The capital does not have to be the largest city."}, {"id": "B", "text": "It should be centrally located for accessibility", "explanation": "Correct. Central location enhances accessibility and promotes national unity."}, {"id": "C", "text": "It must have a historical significance only", "explanation": "Incorrect. While historical significance can be a factor, it is not the only consideration."}, {"id": "D", "text": "It should be near the coast for trade", "explanation": "Incorrect. While coastal access can be beneficial, it is not a strict requirement for a capital's location."}], "correct_answer": "B"}, {"question": "Why are capitals often major tourist destinations?", "options": [{"id": "A", "text": "They are typically the most populated cities", "explanation": "Incorrect. Not all capitals are the most populated cities."}, {"id": "B", "text": "They contain significant cultural and historical landmarks", "explanation": "Correct. Capitals often feature important cultural and historical sites that attract tourists."}, {"id": "C", "text": "They host the largest number of shopping centers", "explanation": "Incorrect. While shopping may be prevalent, it is not the primary reason for tourism."}, {"id": "D", "text": "They are always located in scenic regions", "explanation": "Incorrect. Capitals are not always located in scenic regions."}], "correct_answer": "B"}, {"question": "What is one of the primary roles of embassies located in capital cities?", "options": [{"id": "A", "text": "To provide entertainment for tourists", "explanation": "Incorrect. Embassies do not function to entertain tourists."}, {"id": "B", "text": "To facilitate international diplomacy and relations", "explanation": "Correct. Embassies are crucial for facilitating international diplomacy and relations between countries."}, {"id": "C", "text": "To promote local businesses", "explanation": "Incorrect. While they may support local businesses indirectly, this is not their primary role."}, {"id": "D", "text": "To serve as cultural exchange centers", "explanation": "Incorrect. Cultural exchanges may occur, but the main focus is on diplomacy."}], "correct_answer": "B"}], "why_it_matters": "Understanding the relationship between countries and their capitals is fundamental to grasping global politics, culture, and geography. This knowledge enriches your understanding of the world and its diverse societies. As you continue your learning journey, remember that each capital is a story waiting to be explored."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
