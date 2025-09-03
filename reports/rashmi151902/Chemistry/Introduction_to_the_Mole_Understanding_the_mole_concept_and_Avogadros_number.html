@@ -1,0 +1,445 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Introduction to the Mole**: Understanding the mole concept and Avogadro's number.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Introduction to the Mole**: Understanding the mole concept and Avogadro's number.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: rashmi151902@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Introduction to the Mole: Understanding the Mole Concept and Avogadro's Number</h1>
+<h2>Introduction:</h2>
+<p><p>As we delve into the fascinating realm of chemistry, we build upon the foundational concepts of atoms, elements, and the nature of matter. In our previous learning journey, we explored the essence of matter, its states, and the building blocks that form the basis of all substances. Now, we turn our focus to an essential concept that revolutionizes the way we quantify and understand chemical reactions: the <strong>mole</strong>.</p></p>
+<p><p>The mole is not merely a unit of measurement; it is a bridge that connects the microscopic world of atoms and molecules to the macroscopic world we experience daily. It allows chemists to count entities in amounts that are manageable and relatable. This report will explore the mole concept and Avogadro's number in detail, illustrating their significance and applications in both academic and real-world contexts.</p></p>
+<h3>What is a Mole?</h3>
+<p><p>The mole (symbol: mol) is the SI unit used to measure the amount of substance. It is defined as the quantity of particles (usually atoms or molecules) contained in 12 grams of carbon-12. The mole provides a way to translate the atomic and molecular scale, where particles are incredibly small and numerous, into a scale that we can work with practically.</p></p>
+<p><p>A mole of any substance contains the same number of entities as there are in 12 grams of carbon-12, known as <strong>Avogadro's number</strong>, approximately (6.022 \times 10^{23}). This number is a fundamental constant in chemistry and serves as a conversion factor between the number of particles and the amount of substance.</p></p>
+<h3>Key Concepts and Definitions</h3>
+<h4>1. <strong>Definition of a Mole</strong></h4>
+<ul>
+<ul>
+<li>A mole is defined as the amount of substance that contains (6.022 \times 10^{23}) entities (atoms, molecules, ions, etc.).</li>
+<li>This definition allows chemists to count particles in bulk quantities.</li>
+</ul>
+</ul>
+<h4>2. <strong>Avogadro's Number</strong></h4>
+<ul>
+<ul>
+<li>Avogadro's number ((N_A)) is (6.022 \times 10^{23}).</li>
+<li>It is named after the Italian scientist Amedeo Avogadro, who contributed to the understanding of gas behavior.</li>
+<li>This number provides a link between the atomic scale and macroscopic measurements.</li>
+</ul>
+</ul>
+<h4>3. <strong>Molar Mass</strong></h4>
+<ul>
+<ul>
+<li>The molar mass of a substance is the mass of one mole of that substance, expressed in grams per mole (g/mol).</li>
+<li>The molar mass numerically corresponds to the atomic or molecular mass in atomic mass units (amu). For example, the molar mass of water (H₂O) is approximately 18 g/mol.</li>
+</ul>
+</ul>
+<hr />
+<h2>Theoretical Foundations of the Mole Concept</h2>
+<p><p>Understanding the mole concept requires a grasp of fundamental principles in chemistry, including atomic theory, stoichiometry, and the properties of gases. </p></p>
+<h3>1. <strong>Atomic Theory and the Mole</strong></h3>
+<p><p>Atomic theory posits that all matter is composed of atoms, which combine to form molecules. The mole serves as a counting unit to facilitate calculations involving these atoms and molecules. </p></p>
+<p><p>For example, if we consider a chemical reaction involving hydrogen and oxygen to form water, using moles allows us to express the ratios of reactants to products easily.</p></p>
+<h3>2. <strong>Stoichiometry</strong></h3>
+<p><p>Stoichiometry is the branch of chemistry that deals with the relationships between reactants and products in a chemical reaction. Moles are fundamental in stoichiometric calculations, enabling chemists to predict the amounts of substances consumed and produced.</p></p>
+<h4>Example:</h4>
+<p><p>[</p>
+<p>2H_2(g) + O_2(g) \rightarrow 2H_2O(l)</p>
+<p>]</p>
+<p>In this reaction, 2 moles of hydrogen react with 1 mole of oxygen to produce 2 moles of water.</p></p>
+<h3>3. <strong>Gas Laws and Moles</strong></h3>
+<p><p>In the study of gases, the mole concept is instrumental in applying gas laws, which describe the behavior of gases under various conditions. For instance, using the ideal gas law:</p>
+<p>[</p>
+<p>PV = nRT</p>
+<p>]</p>
+<p>where:</p>
+<ul>
+<li>(P) = pressure,</li>
+<li>(V) = volume,</li>
+<li>(n) = number of moles,</li>
+<li>(R) = ideal gas constant,</li>
+<li>(T) = temperature (in Kelvin).</p></li>
+</ul>
+<p><p>This equation illustrates how the quantity of gas (in moles) relates to its physical properties.</p></p>
+<hr />
+<h2>Real-World Applications of the Mole Concept</h2>
+<p><p>The mole concept is not just theoretical; it has practical applications that permeate various fields:</p></p>
+<h3>1. <strong>Pharmaceuticals</strong></h3>
+<p><p>In drug formulation, precise dosages are critical. The mole concept allows pharmacists to calculate the exact amount of active ingredient needed based on the molar mass and required dosage.</p></p>
+<h4>Example:</h4>
+<p><p>If a medication requires 0.5 moles of a compound with a molar mass of 200 g/mol, the pharmacist would need:</p>
+<p>[</p>
+<p>0.5 \text{ mol} \times 200 \text{ g/mol} = 100 \text{ g of the compound}</p>
+<p>]</p></p>
+<h3>2. <strong>Environmental Science</strong></h3>
+<p><p>Understanding the moles of pollutants in the air or water helps scientists assess environmental impacts and develop strategies for remediation. For instance, measuring the concentration of lead in water involves calculating moles per liter (molarity) to determine safety levels.</p></p>
+<h3>3. <strong>Food Chemistry</strong></h3>
+<p><p>The mole concept aids in understanding the composition of food substances. For example, when calculating the caloric content of a food item, knowing the moles of carbohydrates or proteins helps in determining the energy yield.</p></p>
+<h3>4. <strong>Material Science</strong></h3>
+<p><p>The mole plays a vital role in materials engineering, particularly in the development of polymers and nanomaterials. The relationships between the number of moles, molecular weight, and properties of materials can guide engineers in selecting appropriate materials for specific applications.</p></p>
+<hr />
+<h2>A Narrative Journey: The Mole in Action</h2>
+<p><p>Let’s explore an illustrative story that connects the mole concept with real-world scenarios.</p></p>
+<h3>The Tale of the Chemist and the Garden</h3>
+<p><p>Once upon a time, in a small town, there was a chemist named Dr. Adams. Dr. Adams had a passion for gardening and wanted to grow the best tomatoes in town. However, he knew that the key to a fruitful garden was not just sunlight and water—it was about understanding the nutrients in the soil, which are often measured in moles.</p></p>
+<p><p>One day, Dr. Adams decided to test the soil for nitrogen, a critical nutrient for plant growth. He collected a sample and sent it to the lab for analysis. The results revealed that the soil contained 0.02 moles of nitrogen per liter.</p></p>
+<p><p>With this information, Dr. Adams calculated the total amount of nitrogen needed for his garden. He had a plot of land that measured 100 square meters, and he knew that for optimal growth, he needed 0.1 moles of nitrogen per square meter. Thus, for his entire garden, he required:</p>
+<p>[</p>
+<p>100 \text{ m²} \times 0.1 \text{ mol/m²} = 10 \text{ moles of nitrogen}</p>
+<p>]</p></p>
+<p><p>Next, he learned that the molar mass of ammonium nitrate (NH₄NO₃), a common nitrogen fertilizer, was approximately 80 g/mol. To find out how much fertilizer he needed, Dr. Adams calculated:</p>
+<p>[</p>
+<p>10 \text{ mol} \times 80 \text{ g/mol} = 800 \text{ g of ammonium nitrate}</p>
+<p>]</p></p>
+<p><p>Armed with this knowledge, Dr. Adams applied the right amount of fertilizer to his garden. As the weeks passed, his tomatoes flourished, and he became known as the best gardener in town.</p></p>
+<h3>Conclusion of the Tale</h3>
+<p><p>In this story, the mole concept enabled Dr. Adams to make informed decisions that led to a successful garden. It illustrates how understanding the mole and its applications can transform theoretical knowledge into practical outcomes.</p></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers</h2>
+<p><p>The mole concept continues to evolve, with research focused on expanding its applications in various fields:</p></p>
+<h3>1. <strong>Nanotechnology</strong></h3>
+<p><p>In nanotechnology, the precise measurement of materials at the nanoscale often involves moles, as researchers manipulate atomic and molecular quantities to create new materials and devices.</p></p>
+<h3>2. <strong>Biotechnology</strong></h3>
+<p><p>With the rise of biotechnology, understanding moles is crucial for genetic engineering and the development of biofuels. The quantification of enzymes and substrates often relies on mole calculations.</p></p>
+<h3>3. <strong>Environmental Chemistry</strong></h3>
+<p><p>As environmental challenges grow, researchers are investigating the use of moles in bioremediation strategies, focusing on how microorganisms can break down pollutants.</p></p>
+<h3>4. <strong>Sustainable Practices</strong></h3>
+<p><p>The mole concept plays a role in developing sustainable practices in agriculture and industry, where the efficient use of resources and minimal waste are prioritized.</p></p>
+<hr />
+<h2>Emerging Technologies and Future Implications</h2>
+<p><p>The future of the mole concept is interconnected with technological advancements. Innovations such as:</p></p>
+<ul>
+<ul>
+<li><strong>Smart Sensors</strong>: Devices capable of measuring concentrations of substances in real-time, leveraging the mole concept for environmental monitoring.</li>
+<li><strong>AI and Machine Learning</strong>: Algorithms that utilize mole data for predictive modeling in chemical reactions, leading to enhanced efficiency in drug discovery and materials science.</li>
+</ul>
+</ul>
+<p><p>These developments promise to reshape how we understand and apply the mole in various scientific disciplines.</p></p>
+<hr />
+<h2>Call to Action</h2>
+<p><p>As we conclude this exploration of the mole and Avogadro's number, we encourage you to:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Engage with the Material</strong>: Experiment with calculations involving moles in your own life, such as cooking or gardening.</li>
+<li><strong>Explore Further</strong>: Dive deeper into related topics such as stoichiometry and gas laws to enhance your understanding.</li>
+<li><strong>Stay Curious</strong>: Follow advancements in science that utilize the mole concept and consider how these innovations may impact our world.</li>
+</ul>
+<p></ol></p>
+<h3>Further Exploration Resources</h3>
+<ul>
+<ul>
+<li><strong>Link: <a href="https://www.acs.org/">American Chemical Society</a></strong> - A resource for chemistry-related news and educational materials.</li>
+<li><strong>Link: <a href="https://www.khanacademy.org/science/chemistry/stoichiometry/moles-and-molar-mass/v/introduction-to-the-mole">Khan Academy - Moles</a></strong> - Comprehensive lessons on the mole and related concepts.</li>
+<li><strong>Link: <a href="http://chemcollective.org/">ChemCollective</a></strong> - Virtual labs and resources for understanding chemistry concepts.</li>
+</ul>
+</ul>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the definition of a mole in chemistry?", "options": [{"id": "A", "text": "A unit of mass for measuring solids", "explanation": "Incorrect. A mole is not specifically a unit of mass; it relates to the quantity of particles."}, {"id": "B", "text": "The amount of substance that contains \\(6.022 \\times 10^{23}\\) entities", "explanation": "Correct. A mole is defined as the amount of substance that contains \\(6.022 \\times 10^{23}\\) entities."}, {"id": "C", "text": "The volume of one liter of gas", "explanation": "Incorrect. One liter of gas is a volume measurement, not directly related to the mole."}, {"id": "D", "text": "The temperature at which a substance melts", "explanation": "Incorrect. Melting temperature is not defined by the mole concept."}], "correct_answer": "B"}, {"question": "What is Avogadro's number?", "options": [{"id": "A", "text": "\\(1.6 \\times 10^{-19}\\)", "explanation": "Incorrect. This value is related to the charge of an electron, not Avogadro's number."}, {"id": "B", "text": "\\(6.022 \\times 10^{23}\\)", "explanation": "Correct. Avogadro's number is \\(6.022 \\times 10^{23}\\), representing the number of particles in one mole."}, {"id": "C", "text": "\\(3.14\\)", "explanation": "Incorrect. \\(3.14\\) is a value related to the mathematical constant Pi."}, {"id": "D", "text": "\\(9.81 \\, \\text{m/s}^2\\)", "explanation": "Incorrect. \\(9.81 \\, \\text{m/s}^2\\) is the acceleration due to gravity on Earth."}], "correct_answer": "B"}, {"question": "If you have 0.5 moles of water (H\u2082O), how many molecules of water do you have?", "options": [{"id": "A", "text": "\\(3.01 \\times 10^{23}\\)", "explanation": "Correct. \\(0.5 \\text{ moles} \\times 6.022 \\times 10^{23} \\text{ molecules/mole} = 3.01 \\times 10^{23} \\text{ molecules}\\)."}, {"id": "B", "text": "\\(1.2 \\times 10^{24}\\)", "explanation": "Incorrect. This value is too high for 0.5 moles."}, {"id": "C", "text": "\\(0.5\\)", "explanation": "Incorrect. This is not the correct calculation for molecules."}, {"id": "D", "text": "\\(6.022 \\times 10^{23}\\)", "explanation": "Incorrect. This is the number of molecules in one mole, not half a mole."}], "correct_answer": "A"}, {"question": "What is the molar mass of carbon dioxide (CO\u2082)?", "options": [{"id": "A", "text": "12 g/mol", "explanation": "Incorrect. This is the molar mass of carbon only."}, {"id": "B", "text": "44 g/mol", "explanation": "Correct. The molar mass of CO\u2082 is \\(12 \\, \\text{g/mol (C)} + 16 \\, \\text{g/mol (O)} \\times 2 = 44 \\, \\text{g/mol}\\)."}, {"id": "C", "text": "32 g/mol", "explanation": "Incorrect. This is the molar mass of oxygen."}, {"id": "D", "text": "28 g/mol", "explanation": "Incorrect. This does not represent the molar mass of any common molecule."}], "correct_answer": "B"}, {"question": "In a chemical reaction, if 2 moles of hydrogen react with 1 mole of oxygen, how many moles of water are produced?", "options": [{"id": "A", "text": "1 mole", "explanation": "Incorrect. The reaction produces more than 1 mole of water."}, {"id": "B", "text": "2 moles", "explanation": "Correct. According to the balanced reaction \\(2H_2 + O_2 \\rightarrow 2H_2O\\), 2 moles of water are produced."}, {"id": "C", "text": "3 moles", "explanation": "Incorrect. The reaction does not produce 3 moles of water."}, {"id": "D", "text": "4 moles", "explanation": "Incorrect. The reaction does not produce 4 moles of water."}], "correct_answer": "B"}], "why_it_matters": "Understanding the mole concept is crucial in chemistry, as it provides a foundation for quantifying substances and predicting the outcomes of chemical reactions. Mastery of this concept enables you to engage with more complex ideas in chemistry and related fields."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
