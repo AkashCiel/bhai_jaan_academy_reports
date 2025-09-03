@@ -1,0 +1,516 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Setting Up Your First No-Code Project</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Setting Up Your First No-Code Project</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: prakhar720@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Setting Up Your First No-Code Project</h1>
+<h2>Introduction</h2>
+<p><p>Welcome to the next step in your learning journey in no-code app development! Having explored the foundational concepts of no-code platforms and the app development lifecycle, you are now ready to take a significant leap forward: <strong>setting up your first no-code project</strong>. This section will guide you through the practical aspects of creating an application using no-code tools, building on your previous understanding and experiences.</p></p>
+<p><p>No-code platforms empower users to design, develop, and launch applications without writing traditional code. By leveraging visual development tools, pre-built components, and integration capabilities, you can bring your ideas to life efficiently and effectively. This report is structured to provide you with the necessary knowledge and practical steps to successfully embark on your first no-code project, highlighting both theoretical foundations and real-world applications.</p></p>
+<h3>Objectives of This Report</h3>
+<p><p>By the end of this report, you will:</p></p>
+<ul>
+<ul>
+<li>Understand the key steps in setting up a no-code project.</li>
+<li>Learn how to choose the right no-code platform for your needs.</li>
+<li>Create a simple application using a no-code tool.</li>
+<li>Explore user interface (UI) and user experience (UX) design fundamentals.</li>
+<li>Discover how to add functionality, test, and publish your application.</li>
+</ul>
+</ul>
+<hr />
+<h2>Key Concepts</h2>
+<h3>1. Choosing the Right No-Code Platform</h3>
+<p><p>The first step in your no-code journey is selecting the appropriate platform that suits your project’s needs. Each platform has unique features, strengths, and weaknesses. Here are some popular options:</p></p>
+<ul>
+<ul>
+<li><strong>Bubble</strong>: Ideal for web applications with complex workflows and database requirements. It offers a powerful visual editor and allows extensive customization.</li>
+<li><strong>Adalo</strong>: Focused on mobile applications, Adalo provides real-time previews and the ability to publish directly to app stores.</li>
+<li><strong>Airtable</strong>: Combines spreadsheet functionality with database features, making it great for project management and collaboration.</li>
+<li><strong>Webflow</strong>: A versatile tool for web design, allowing you to create responsive websites with ease while integrating CMS functionalities.</li>
+<li><strong>Zapier</strong>: While not a direct app builder, Zapier automates workflows between different applications, enhancing productivity.</li>
+</ul>
+</ul>
+<h3>2. Understanding the Project Lifecycle</h3>
+<p><p>The project lifecycle in no-code app development mirrors traditional app development but emphasizes speed and ease of use. Here are the key stages:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Planning</strong>: Define your app's purpose, target audience, and core features. This phase sets the foundation for your entire project.</li>
+<li><strong>Design</strong>: Create wireframes or mockups to visualize the user interface (UI) and user experience (UX).</li>
+<li><strong>Development</strong>: This is where you'll use the no-code platform to build your app. Utilize drag-and-drop features and pre-built components to create functionalities.</li>
+<li><strong>Testing</strong>: Conduct thorough testing to identify and fix bugs, ensuring that your app operates smoothly before deployment.</li>
+<li><strong>Deployment</strong>: Launch your app on the web or app stores, making it accessible to users.</li>
+<li><strong>Maintenance</strong>: Regularly update and improve your app based on user feedback and evolving needs.</li>
+</ul>
+<p></ol></p>
+<h3>3. Essential Features and Tools</h3>
+<p><p>No-code platforms offer a variety of features that streamline the development process:</p></p>
+<ul>
+<ul>
+<li><strong>Drag-and-Drop Interfaces</strong>: Simplify the design process by allowing you to visually arrange elements without writing code.</li>
+<li><strong>Pre-built Templates</strong>: Save time by starting with templates tailored for specific types of applications.</li>
+<li><strong>Integrations</strong>: Connect your app with third-party services (e.g., payment gateways, social media) to enhance functionality.</li>
+<li><strong>Collaboration Tools</strong>: Work with team members in real-time, facilitating project management and task allocation.</li>
+</ul>
+</ul>
+<h3>4. Common Misconceptions</h3>
+<p><p>As you embark on this journey, it's important to clarify some common misconceptions about no-code development:</p></p>
+<ul>
+<ul>
+<li><strong>Misconception</strong>: No-code tools are only for simple applications.</li>
+<li>
+</ul>
+<p><p><strong>Reality</strong>: No-code platforms can support complex applications, including those requiring intricate databases and workflows.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Misconception</strong>: No-code means no customization.</p></p>
+<p></li></p>
+<ul>
+<li><strong>Reality</strong>: While no-code tools simplify development, many allow significant customization to meet specific user needs.</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications</h2>
+<p><p>No-code platforms have revolutionized how individuals and businesses approach application development. Here are some real-world examples showcasing their versatility and power:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Healthcare</strong>: A startup used Bubble to create a telemedicine platform, allowing patients to book appointments and consult with doctors online without any coding knowledge.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>E-commerce</strong>: A small business owner utilized Webflow to launch an online store, integrating payment gateways and inventory management features effortlessly.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Education</strong>: A teacher created a collaborative learning app using Airtable, where students could manage projects and track assignments, enhancing engagement and organization.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Event Management</strong>: An organization built an event registration app using Adalo, allowing attendees to register and receive updates via push notifications.</p></p>
+<p></li></p>
+<p></ol></p>
+<p><p>These examples illustrate how no-code tools can empower various industries to innovate and streamline processes without the need for extensive technical expertise.</p></p>
+<hr />
+<h2>Setting Up Your First No-Code Project</h2>
+<h3>Step 1: Define Your Project Idea</h3>
+<p><p>Before diving into any platform, start with a clear project idea. Ask yourself:</p></p>
+<ul>
+<ul>
+<li>What problem does my app solve?</li>
+<li>Who is the target audience?</li>
+<li>What are the core features required?</li>
+</ul>
+</ul>
+<p><p>For instance, if you want to create a simple task management app, consider features like task creation, deadlines, and user collaboration.</p></p>
+<h3>Step 2: Choose a No-Code Platform</h3>
+<p><p>Based on your project’s requirements, choose the right no-code platform. For our task management app example, <strong>Airtable</strong> or <strong>Bubble</strong> could be excellent choices due to their robust features and integrations.</p></p>
+<h3>Step 3: Design the User Interface</h3>
+<p><p>Using your chosen platform, start designing the UI. Consider the following:</p></p>
+<ul>
+<ul>
+<li><strong>Wireframes</strong>: Sketch the layout of your app. Tools like Figma or Adobe XD can help visualize your design before building.</li>
+<li><strong>User Experience (UX)</strong>: Think about the user journey. Ensure navigation is intuitive and that the app is user-friendly.</li>
+</ul>
+</ul>
+<h3>Step 4: Develop the Application</h3>
+<p><p>Now, it’s time to build your app. Here’s a step-by-step approach:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Set Up Your Database</strong>: If using Airtable, create tables for tasks, users, and projects. Define relationships between these tables.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Create the User Interface</strong>: Utilize drag-and-drop features to add components like buttons, input fields, and lists.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Add Functionality</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>For task creation, create a form where users can input task details.</li>
+<li>Implement workflows for assigning tasks to users.</li>
+</ul>
+<p></ol></p>
+<h3>Step 5: Testing</h3>
+<p><p>Testing is crucial to ensure your app functions correctly. Gather a small group of users to test the app. Observe their interactions and gather feedback to identify areas for improvement.</p></p>
+<h3>Step 6: Publish Your App</h3>
+<p><p>Once testing is complete, publish your app. Depending on the platform:</p></p>
+<ul>
+<ul>
+<li><strong>Web Applications</strong>: Deploy your web app and share the link.</li>
+<li><strong>Mobile Applications</strong>: Follow the platform’s guidelines to submit your app to app stores.</li>
+</ul>
+</ul>
+<h3>Step 7: Maintenance and Iteration</h3>
+<p><p>Post-launch, gather user feedback to understand what works and what needs improvement. Use this feedback to iterate on your app, adding new features or refining existing ones.</p></p>
+<hr />
+<h2>User Interface (UI) Design Fundamentals</h2>
+<p><p>Understanding UI design is essential for creating an attractive and functional application. Here are some key principles:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Consistency</strong>: Maintain uniformity in colors, fonts, and button styles throughout the app to enhance usability.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Visual Hierarchy</strong>: Use size, color, and placement to signify the importance of elements. For example, larger buttons can indicate primary actions.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Feedback</strong>: Provide immediate feedback for user actions. For instance, show a loading spinner when a task is being saved.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Accessibility</strong>: Design with all users in mind. Use readable fonts, contrasting colors, and alt text for images.</p></p>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>Understanding User Experience (UX)</h2>
+<p><p>The user experience encompasses all aspects of the end-user's interaction with the app. Here are some strategies to enhance UX:</p></p>
+<ul>
+<ul>
+<li><strong>User-Centered Design</strong>: Focus on the needs and preferences of your users during the design process.</li>
+<li><strong>User Testing</strong>: Conduct usability tests with real users to gather insights and make informed design decisions.</li>
+<li><strong>Iterative Design</strong>: Continuously refine your app based on user feedback, ensuring it evolves to meet user expectations.</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Congratulations on taking the first steps toward setting up your no-code project! You have learned how to choose a platform, design your application, implement functionality, and consider both UI and UX design principles. This journey not only empowers you to create applications without coding but also opens doors to innovation across various industries.</p></p>
+<h3>Call to Action</h3>
+<p><p>Now that you have a foundational understanding of no-code project setup, it’s time to put your knowledge into practice! Think about a simple application idea that you can develop, choose a no-code platform, and start building. The possibilities are endless, and your creativity is the only limit.</p></p>
+<h3>Further Exploration</h3>
+<p><p>To deepen your knowledge, consider exploring the following resources:</p></p>
+<ul>
+<ul>
+<li><strong>Link: <a href="https://nocodefounders.com/">No Code Founders</a></strong> - A community for no-code enthusiasts to share and learn.</li>
+<li><strong>Link: <a href="https://makerpad.co/">Makerpad</a></strong> - A platform offering tutorials and resources for no-code development.</li>
+<li><strong>Link: <a href="https://nocode.tech/">NoCode.tech</a></strong> - A comprehensive guide to various no-code tools and platforms.</li>
+</ul>
+</ul>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the first step in setting up a no-code project?", "options": [{"id": "A", "text": "Choose a no-code platform", "explanation": "Incorrect. While choosing a platform is important, defining your project idea comes first."}, {"id": "B", "text": "Define your project idea", "explanation": "Correct. Defining your project idea sets the foundation for the entire project."}, {"id": "C", "text": "Publish your app", "explanation": "Incorrect. Publishing comes after development and testing."}, {"id": "D", "text": "Test your app", "explanation": "Incorrect. Testing occurs before publishing."}], "correct_answer": "B"}, {"question": "Which platform is best suited for creating complex web applications?", "options": [{"id": "A", "text": "Adalo", "explanation": "Incorrect. Adalo is focused on mobile applications."}, {"id": "B", "text": "Bubble", "explanation": "Correct. Bubble specializes in complex web applications with customizable workflows."}, {"id": "C", "text": "Airtable", "explanation": "Incorrect. Airtable is more suited for project management, not complex applications."}, {"id": "D", "text": "Webflow", "explanation": "Incorrect. Webflow is primarily for web design."}], "correct_answer": "B"}, {"question": "What is a key principle of UI design?", "options": [{"id": "A", "text": "Randomization", "explanation": "Incorrect. Randomization does not enhance usability."}, {"id": "B", "text": "Consistency", "explanation": "Correct. Consistency helps users navigate the app more easily."}, {"id": "C", "text": "Complexity", "explanation": "Incorrect. Complexity can lead to confusion in UI design."}, {"id": "D", "text": "Irregularity", "explanation": "Incorrect. Irregularity can hinder user experience."}], "correct_answer": "B"}, {"question": "Why is user testing important in UX design?", "options": [{"id": "A", "text": "It allows designers to get feedback from users.", "explanation": "Correct. User testing is crucial for gathering feedback and improving the design."}, {"id": "B", "text": "It replaces the need for design.", "explanation": "Incorrect. User testing supports, rather than replaces, the design process."}, {"id": "C", "text": "It ensures the app can only be used by experienced users.", "explanation": "Incorrect. User testing aims to make apps accessible to all users."}, {"id": "D", "text": "It increases the complexity of the app.", "explanation": "Incorrect. User testing seeks to simplify the app, not complicate it."}], "correct_answer": "A"}, {"question": "What is the purpose of creating wireframes in the design process?", "options": [{"id": "A", "text": "To finalize the color scheme of the app", "explanation": "Incorrect. Wireframes focus on layout, not color schemes."}, {"id": "B", "text": "To visualize the layout and interaction flow", "explanation": "Correct. Wireframes help visualize the app's structure and user interactions."}, {"id": "C", "text": "To code the app\u2019s functionality", "explanation": "Incorrect. Wireframes do not involve coding."}, {"id": "D", "text": "To publish the app", "explanation": "Incorrect. Wireframes are created before the app is published."}], "correct_answer": "B"}], "why_it_matters": "Understanding these concepts is crucial for your ongoing learning journey. Mastering the no-code development process will empower you to create impactful applications that address real-world problems, foster innovation, and enhance user experiences. Start building today, and watch your ideas come to life!"};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
