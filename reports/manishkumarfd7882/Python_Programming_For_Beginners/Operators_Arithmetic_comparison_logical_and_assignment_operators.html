@@ -1,0 +1,680 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Operators**: Arithmetic, comparison, logical, and assignment operators.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Operators**: Arithmetic, comparison, logical, and assignment operators.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: manishkumarfd7882@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Operators: Arithmetic, Comparison, Logical, and Assignment Operators</h1>
+<h2>Introduction:</h2>
+<p><p>As we move deeper into the realm of Python programming, it’s crucial to explore <strong>operators</strong>—the fundamental building blocks that allow us to manipulate data and control the flow of our programs. Operators are special symbols that perform operations on variables and values. They serve as the tools we use to perform mathematical calculations, make comparisons, and execute logical operations.</p></p>
+<p><p>This report builds upon the foundational knowledge we've established in our previous discussions on <strong>Variables and Data Types</strong>. Just as variables allow us to store data and data types define how that data can be used, operators provide the means to manipulate that data for various purposes. </p></p>
+<p><p>In this comprehensive report, we will delve into the different types of operators in Python: <strong>Arithmetic Operators</strong>, <strong>Comparison Operators</strong>, <strong>Logical Operators</strong>, and <strong>Assignment Operators</strong>. We will explore each in detail, providing real-world examples and applications, examining their theoretical foundations and practical implications, and highlighting their relevance in today's programming landscape. </p></p>
+<p><p>By the end of this report, you will gain a deep understanding of operators in Python and their role in programming, empowering you to write more complex and functional code.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>1. Arithmetic Operators</h3>
+<p><p>Arithmetic operators are the most basic operators that perform mathematical operations. They include addition, subtraction, multiplication, division, modulus, exponentiation, and floor division.</p></p>
+<h4>1.1 Definitions and Examples:</h4>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Addition</strong> (<code>+</code>): Adds two operands.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>a = 10</p>
+<p>b = 5</p>
+<p>result = a + b  # result is 15</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Subtraction</strong> (<code>-</code>): Subtracts the second operand from the first.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = a - b  # result is 5</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Multiplication</strong> (<code>*</code>): Multiplies two operands.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = a * b  # result is 50</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Division</strong> (<code>/</code>): Divides the first operand by the second and returns a float.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = a / b  # result is 2.0</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Modulus</strong> (<code>%</code>): Returns the remainder of the division of the first operand by the second.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = a % b  # result is 0</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Exponentiation</strong> (<code>**</code>): Raises the first operand to the power of the second.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = a ** 2  # result is 100</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Floor Division</strong> (<code>//</code>): Divides the first operand by the second and returns the largest whole number.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = a // b  # result is 2</code></li></p>
+</ul>
+<p></li></p>
+</ul>
+<h4>1.2 Real-World Applications:</h4>
+<p><p>Arithmetic operators are widely used in various fields such as finance, engineering, and data analysis. For instance, you might use them to calculate:</p></p>
+<ul>
+<ul>
+<li><strong>Financial Transactions</strong>: Calculating the total cost of a shopping cart, including taxes.</li>
+<li><strong>Statistics</strong>: Performing basic statistical calculations like averages and variances.</li>
+<li><strong>Engineering Simulations</strong>: Running simulations that require precise calculations.</li>
+</ul>
+</ul>
+<h3>2. Comparison Operators</h3>
+<p><p>Comparison operators are used to compare two values. They return a boolean value, either <code>True</code> or <code>False</code>, based on the comparison.</p></p>
+<h4>2.1 Definitions and Examples:</h4>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Equal to</strong> (<code>==</code>): Checks if two operands are equal.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = (a == b)  # result is False</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Not equal to</strong> (<code>!=</code>): Checks if two operands are not equal.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = (a != b)  # result is True</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Greater than</strong> (<code>&gt;</code>): Checks if the left operand is greater than the right.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = (a &gt; b)  # result is True</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Less than</strong> (<code>&lt;</code>): Checks if the left operand is less than the right.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = (a &lt; b)  # result is False</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Greater than or equal to</strong> (<code>&gt;=</code>): Checks if the left operand is greater than or equal to the right.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = (a &gt;= b)  # result is True</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Less than or equal to</strong> (<code>&lt;=</code>): Checks if the left operand is less than or equal to the right.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = (a &lt;= b)  # result is False</code></li></p>
+</ul>
+<p></li></p>
+</ul>
+<h4>2.2 Real-World Applications:</h4>
+<p><p>Comparison operators are often used in decision-making processes, such as:</p></p>
+<ul>
+<ul>
+<li><strong>Conditional Statements</strong>: Making decisions based on user input, such as validating ages for access to restricted content.</li>
+<li><strong>Data Filtering</strong>: Selecting records that meet certain criteria from datasets, such as finding all users above a certain age in a database.</li>
+</ul>
+</ul>
+<h3>3. Logical Operators</h3>
+<p><p>Logical operators are used to combine conditional statements. They return a boolean value based on the logical relationship between the operands.</p></p>
+<h4>3.1 Definitions and Examples:</h4>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>AND</strong> (<code>and</code>): Returns <code>True</code> if both operands are true.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = (a &gt; 5 and b &lt; 10)  # result is True</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>OR</strong> (<code>or</code>): Returns <code>True</code> if at least one of the operands is true.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = (a &gt; 15 or b &lt; 10)  # result is True</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>NOT</strong> (<code>not</code>): Reverses the boolean value of the operand.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>result = not (a &gt; 5)  # result is False</code></li></p>
+</ul>
+<p></li></p>
+</ul>
+<h4>3.2 Real-World Applications:</h4>
+<p><p>Logical operators are essential in scenarios where multiple conditions must be evaluated, such as:</p></p>
+<ul>
+<ul>
+<li><strong>Form Validation</strong>: Ensuring that all required fields in a form are filled out correctly.</li>
+<li><strong>Game Development</strong>: Checking multiple conditions for game logic, such as whether a player can attack based on their current state.</li>
+</ul>
+</ul>
+<h3>4. Assignment Operators</h3>
+<p><p>Assignment operators are used to assign values to variables. They can also perform operations during the assignment.</p></p>
+<h4>4.1 Definitions and Examples:</h4>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Assignment</strong> (<code>=</code>): Assigns the value of the right operand to the left operand.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>a = 5  # a is now 5</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Addition assignment</strong> (<code>+=</code>): Adds the right operand to the left operand and assigns the result.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>a += 2  # a is now 7</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Subtraction assignment</strong> (<code>-=</code>): Subtracts the right operand from the left operand and assigns the result.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>a -= 3  # a is now 4</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Multiplication assignment</strong> (<code>*=</code>): Multiplies the left operand by the right operand and assigns the result.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>a *= 2  # a is now 8</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Division assignment</strong> (<code>/=</code>): Divides the left operand by the right operand and assigns the result.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>a /= 4  # a is now 2.0</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Modulus assignment</strong> (<code>%=</code>): Applies modulus operation and assigns the result.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>a %= 3  # a is now 2.0</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Exponentiation assignment</strong> (<code>**=</code>): Raises the left operand to the power of the right operand and assigns the result.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>a **= 2  # a is now 4</code></li></p>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Floor division assignment</strong> (<code>//=</code>): Applies floor division and assigns the result.</p></p>
+<ul>
+<ul>
+<li>Example:
+</ul>
+<p><code>python</p>
+<p>a //= 2  # a is now 2</code></li></p>
+</ul>
+<p></li></p>
+</ul>
+<h4>4.2 Real-World Applications:</h4>
+<p><p>Assignment operators are fundamental in programming, allowing for dynamic variable manipulation. They are used in:</p></p>
+<ul>
+<ul>
+<li><strong>Looping Constructs</strong>: Updating counters in loops, such as counting iterations or summing values.</li>
+<li><strong>Data Processing</strong>: Incrementing values in data analysis, such as aggregating totals or averages.</li>
+</ul>
+</ul>
+<hr />
+<h2>Connecting the Concepts</h2>
+<p><p>Understanding operators is crucial for effective programming in Python. Each type of operator serves a specific purpose, and they often work together to achieve complex functionalities. </p></p>
+<p><p>For example, you might use <strong>arithmetic operators</strong> to compute a total cost, <strong>comparison operators</strong> to validate if the customer is eligible for a discount, <strong>logical operators</strong> to apply multiple conditions, and <strong>assignment operators</strong> to manage the state of your variables throughout your code.</p></p>
+<h3>A Real-World Story</h3>
+<p><p>Imagine you are developing an e-commerce application. When a user adds items to their shopping cart, you need to calculate the total price using arithmetic operators. You want to apply a discount if the total exceeds a certain amount, so you use comparison operators to check if the condition is met. If the user has a loyalty account, you might want to add additional discounts, which requires logical operators to evaluate multiple conditions.</p></p>
+<p><p>As the user checks out, you would use assignment operators to update the user's total and ensure the correct amount is charged. This interconnected use of operators allows you to create a seamless and functional user experience.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In this report, we explored the various types of operators in Python—<strong>Arithmetic</strong>, <strong>Comparison</strong>, <strong>Logical</strong>, and <strong>Assignment Operators</strong>. We examined their definitions, provided examples, and discussed their real-world applications. </p></p>
+<p><p>Understanding these operators is essential as they form the foundation of programming logic. They enable you to manipulate data, control the flow of operations, and create dynamic applications. The skills you have acquired in this section will significantly enhance your coding proficiency as you continue your journey in Python programming.</p></p>
+<h3>Call to Action</h3>
+<p><p>Now that you have gained insights into operators, practice using them in your own programs. Experiment with different combinations and see how they interact. Try building small projects that incorporate various operators to solidify your understanding.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the result of the expression `10 % 3`?", "options": [{"id": "A", "text": "3", "explanation": "Incorrect. The modulus operation returns the remainder, not the divisor."}, {"id": "B", "text": "1", "explanation": "Correct. `10 % 3` equals 1 because 3 fits into 10 three times with a remainder of 1."}, {"id": "C", "text": "0", "explanation": "Incorrect. 0 is the result of a modulus operation when the first number is a multiple of the second."}, {"id": "D", "text": "10", "explanation": "Incorrect. This is simply the value of the first operand, not the result of the modulus operation."}], "correct_answer": "B"}, {"question": "Which of the following comparisons is true if `a = 5` and `b = 10`?", "options": [{"id": "A", "text": "`a > b`", "explanation": "Incorrect. `5` is not greater than `10`."}, {"id": "B", "text": "`a < b`", "explanation": "Correct. `5` is less than `10`, so this comparison is true."}, {"id": "C", "text": "`a == b`", "explanation": "Incorrect. The values of `a` and `b` are not equal."}, {"id": "D", "text": "`a != b`", "explanation": "This is also true, but since only one option is correct, this option is not the answer to the question."}], "correct_answer": "B"}, {"question": "What will be the value of `x` after executing `x = 2; x += 3`?", "options": [{"id": "A", "text": "2", "explanation": "Incorrect. The initial value of `x` is 2, but it changes after the operation."}, {"id": "B", "text": "3", "explanation": "Incorrect. `x` becomes 5 after adding 3."}, {"id": "C", "text": "5", "explanation": "Correct. `x += 3` means `x = x + 3`, so `2 + 3` equals 5."}, {"id": "D", "text": "6", "explanation": "Incorrect. This is not the result of the operation."}], "correct_answer": "C"}, {"question": "What does `not (a < b)` return if `a = 5` and `b = 10`?", "options": [{"id": "A", "text": "True", "explanation": "Correct. The expression evaluates to `not True`, which is `False`."}, {"id": "B", "text": "False", "explanation": "Incorrect. The result is not false but rather the negation of the true condition."}, {"id": "C", "text": "0", "explanation": "Incorrect. It does not return a numerical value but a boolean."}, {"id": "D", "text": "1", "explanation": "Incorrect. While `1` may represent `True` in some contexts, this operation specifically returns a boolean."}], "correct_answer": "A"}, {"question": "If `x = 10`, what will be the value of `x` after `x //= 3`?", "options": [{"id": "A", "text": "3", "explanation": "Incorrect. This value does not reflect the outcome of floor division."}, {"id": "B", "text": "4", "explanation": "Correct. `10 // 3` results in `3` because floor division returns the largest whole number."}, {"id": "C", "text": "5", "explanation": "Incorrect. This is not the outcome of the floor division."}, {"id": "D", "text": "2", "explanation": "Incorrect. The result is higher than `2`."}], "correct_answer": "B"}], "why_it_matters": "Understanding operators is critical for effective coding, as they allow you to perform calculations, comparisons, and logical decisions. Mastery of these concepts is essential for progressing further in your programming journey, enabling you to tackle more complex programming challenges with confidence."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
