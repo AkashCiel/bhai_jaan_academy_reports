@@ -1,0 +1,473 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Control Structures**: if statements, else, and elif.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Control Structures**: if statements, else, and elif.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: manishkumarfd7882@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Control Structures: If Statements, Else, and Elif</h1>
+<h2>Introduction:</h2>
+<p><p>Welcome to the next step in your journey through Python programming! Building on the foundational concepts of <strong>Basic Syntax</strong>, <strong>Variables and Data Types</strong>, and <strong>Operators</strong>, we now dive into <strong>Control Structures</strong>, a pivotal aspect of programming that allows you to dictate the flow of your code based on certain conditions. Control structures enable your programs to make decisions, which is essential for creating dynamic and interactive applications.</p></p>
+<p><p>In this report, we will explore the three primary control structures in Python: <code>if</code>, <code>else</code>, and <code>elif</code>. By the end of this report, you will have a comprehensive understanding of how these constructs work, their syntax, real-world applications, and future directions in programming paradigms. </p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>What are Control Structures?</h3>
+<p><p><strong>Control structures</strong> are constructs that manage the flow of execution in a program based on certain conditions. They allow programmers to specify which parts of the code should execute under specific circumstances. Control structures are crucial for implementing logic in programming, enabling the code to respond dynamically to user input, data, or other conditions.</p></p>
+<p><p>In Python, the three primary control structures are:</p>
+<p>1. <code>if</code> statements: Execute a block of code if a specified condition is true.</p>
+<p>2. <code>else</code> statements: Execute a block of code if the corresponding <code>if</code> condition is false.</p>
+<p>3. <code>elif</code> statements (short for "else if"): Allow checking multiple conditions sequentially.</p></p>
+<h3>The Syntax of Control Structures</h3>
+<p><p>The basic syntax for <code>if</code>, <code>else</code>, and <code>elif</code> statements is structured as follows:</p></p>
+<p><p><code>python</p>
+<p>if condition_1:</p>
+<p># Execute this block if condition_1 is true</p>
+<p>statement_1</p>
+<p>elif condition_2:</p>
+<p># Execute this block if condition_2 is true</p>
+<p>statement_2</p>
+<p>else:</p>
+<p># Execute this block if none of the above conditions are true</p>
+<p>statement_3</code></p></p>
+<ul>
+<ul>
+<li><strong>Indentation</strong>: In Python, indentation is crucial as it defines the scope of the code blocks. Each block under an <code>if</code>, <code>elif</code>, or <code>else</code> must be indented consistently.</li>
+<li><strong>Conditions</strong>: Conditions can involve comparisons (using operators like <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>) and logical operations (using <code>and</code>, <code>or</code>, <code>not</code>).</li>
+</ul>
+</ul>
+<h3>Example of Control Structures</h3>
+<p><p>Let’s consider a simple example that demonstrates how control structures can be used to determine the grade of a student based on their score.</p></p>
+<p><p>```python</p>
+<p>score = 85</p></p>
+<p><p>if score &gt;= 90:</p>
+<p>grade = 'A'</p>
+<p>elif score &gt;= 80:</p>
+<p>grade = 'B'</p>
+<p>elif score &gt;= 70:</p>
+<p>grade = 'C'</p>
+<p>else:</p>
+<p>grade = 'D'</p></p>
+<p><p>print("The student's grade is:", grade)</p>
+<p>```</p></p>
+<p><p>In this example:</p>
+<ul>
+<li>If the score is 90 or above, the grade is 'A'.</li>
+<li>If the score is between 80 and 89, the grade is 'B'.</li>
+<li>If the score is between 70 and 79, the grade is 'C'.</li>
+<li>If the score is below 70, the grade is 'D'.</p></li>
+</ul>
+<h3>Real-World Applications of Control Structures</h3>
+<p><p>Control structures like <code>if</code>, <code>else</code>, and <code>elif</code> are foundational in programming and have numerous real-world applications, including:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>User Input Validation</strong>: Ensuring that user inputs fall within acceptable ranges or formats.</li>
+<li><strong>Game Logic</strong>: Making decisions based on player actions, such as winning or losing conditions.</li>
+<li><strong>Finance Applications</strong>: Calculating discounts based on purchase amounts or user categories.</li>
+<li><strong>Web Development</strong>: Serving different content based on user roles or request parameters.</li>
+</ul>
+<p></ol></p>
+<h4>Example: User Input Validation</h4>
+<p><p>Consider a scenario where a user is prompted to enter their age, and the program needs to respond differently based on the input:</p></p>
+<p><p>```python</p>
+<p>age = int(input("Please enter your age: "))</p></p>
+<p><p>if age &lt; 0:</p>
+<p>print("Invalid age. Please enter a positive number.")</p>
+<p>elif age &lt; 18:</p>
+<p>print("You are a minor.")</p>
+<p>elif age &lt; 65:</p>
+<p>print("You are an adult.")</p>
+<p>else:</p>
+<p>print("You are a senior citizen.")</p>
+<p>```</p></p>
+<p><p>In this example, the program determines if the age is valid and provides feedback accordingly.</p></p>
+<hr />
+<h2>Detailed Explanations of Each Control Structure</h2>
+<h3>The <code>if</code> Statement</h3>
+<p><p>The <code>if</code> statement is the simplest form of control structure. When a specified condition evaluates to <code>True</code>, the code block associated with the <code>if</code> statement is executed.</p></p>
+<h4>Syntax:</h4>
+<p><p><code>python</p>
+<p>if condition:</p>
+<p># Code block to execute if condition is true</code></p></p>
+<h4>Example:</h4>
+<p><p>```python</p>
+<p>temperature = 30</p></p>
+<p><p>if temperature &gt; 25:</p>
+<p>print("It's a hot day!")</p>
+<p>```</p></p>
+<p><p><strong>Explanation</strong>: In this example, if the temperature exceeds 25 degrees, the message is printed.</p></p>
+<h4>Common Misconceptions:</h4>
+<ul>
+<ul>
+<li><strong>Single Condition</strong>: Some beginners might think that <code>if</code> statements can only handle one condition. In reality, <code>if</code> can evaluate complex conditions using logical operators.</li>
+<li><strong>No <code>else</code> Needed</strong>: An <code>if</code> statement does not require an <code>else</code> block; it can stand alone.</li>
+</ul>
+</ul>
+<h3>The <code>else</code> Statement</h3>
+<p><p>The <code>else</code> statement is used in conjunction with an <code>if</code> statement to define what should happen if the condition in the <code>if</code> statement evaluates to <code>False</code>.</p></p>
+<h4>Syntax:</h4>
+<p><p><code>python</p>
+<p>if condition:</p>
+<p># Code block if condition is true</p>
+<p>else:</p>
+<p># Code block if condition is false</code></p></p>
+<h4>Example:</h4>
+<p><p>```python</p>
+<p>number = 10</p></p>
+<p><p>if number % 2 == 0:</p>
+<p>print("The number is even.")</p>
+<p>else:</p>
+<p>print("The number is odd.")</p>
+<p>```</p></p>
+<p><p><strong>Explanation</strong>: This code evaluates whether a number is even or odd. If the condition is not met (the number is odd), the <code>else</code> block executes.</p></p>
+<h3>The <code>elif</code> Statement</h3>
+<p><p>The <code>elif</code> statement allows for multiple conditions to be evaluated in sequence. If the first condition is false, the program checks the next condition, and so on.</p></p>
+<h4>Syntax:</h4>
+<p><p><code>python</p>
+<p>if condition1:</p>
+<p># Code block if condition1 is true</p>
+<p>elif condition2:</p>
+<p># Code block if condition2 is true</p>
+<p>else:</p>
+<p># Code block if none of the conditions are true</code></p></p>
+<h4>Example:</h4>
+<p><p>```python</p>
+<p>score = 75</p></p>
+<p><p>if score &gt;= 90:</p>
+<p>print("Grade: A")</p>
+<p>elif score &gt;= 80:</p>
+<p>print("Grade: B")</p>
+<p>elif score &gt;= 70:</p>
+<p>print("Grade: C")</p>
+<p>else:</p>
+<p>print("Grade: D")</p>
+<p>```</p></p>
+<p><p><strong>Explanation</strong>: In this grading example, the program checks multiple conditions to determine the correct grade based on the score.</p></p>
+<h3>Practical Implementation Considerations</h3>
+<p><p>When implementing control structures in your code, consider the following:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Readability</strong>: Ensure that your conditions are clear and understandable. This improves maintainability.</li>
+<li><strong>Logical Order</strong>: Structure your conditions from the most specific to the most general. This order prevents unintended executions.</li>
+<li><strong>Nested Conditions</strong>: While you can nest <code>if</code> statements, avoid excessive nesting as it can make the code hard to read.</li>
+</ul>
+<p></ol></p>
+<h3>Future Directions</h3>
+<p><p>As programming languages evolve, so do control structures. Future directions may include:</p>
+<ul>
+<li><strong>Pattern Matching</strong>: Languages like Python are exploring new syntax for more complex condition evaluations that can improve code clarity and efficiency.</li>
+<li><strong>Declarative Programming</strong>: Shifting towards declarative paradigms could allow for more intuitive control structures that focus on the "what" rather than the "how."</p></li>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Control structures are vital for creating dynamic and responsive programs. By mastering <code>if</code>, <code>else</code>, and <code>elif</code> statements, you can write code that reacts to various conditions, making your applications smarter and more user-friendly. As you continue your learning journey, consider how these structures can be applied in real-world scenarios, from simple decision-making tasks to complex algorithms.</p></p>
+<h3>Call to Action</h3>
+<p><p>To further your understanding, practice writing control structures in different contexts. Try creating small programs that require user input and respond differently based on that input. In doing so, you'll strengthen your coding skills and prepare yourself for more advanced programming concepts.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What will be the output of the following code?", "options": [{"id": "A", "text": "Minor", "explanation": "Incorrect. The condition `age < 18` is false, so \"Minor\" will not be printed."}, {"id": "B", "text": "Adult", "explanation": "Correct. Since age is 20, which is not less than 18, the output will be \"Adult\"."}, {"id": "C", "text": "No output", "explanation": "Incorrect. The program produces output."}, {"id": "D", "text": "Error", "explanation": "Incorrect. There is no syntax error in the code."}], "correct_answer": "B"}, {"question": "How many `elif` statements can you include in a single control structure?", "options": [{"id": "A", "text": "Up to 5", "explanation": "Incorrect. There is no fixed limit to the number of `elif` statements."}, {"id": "B", "text": "Unlimited", "explanation": "Correct. You can have as many `elif` statements as needed."}, {"id": "C", "text": "Only 1", "explanation": "Incorrect. You can include multiple `elif` statements."}, {"id": "D", "text": "Up to 10", "explanation": "Incorrect. There is no upper limit."}], "correct_answer": "B"}, {"question": "What will happen if all conditions in an `if`-`elif`-`else` structure evaluate to false?", "options": [{"id": "A", "text": "An error will occur", "explanation": "Incorrect. No error occurs; it simply evaluates conditions."}, {"id": "B", "text": "The program will terminate", "explanation": "Incorrect. The program continues to run."}, {"id": "C", "text": "The code under `else` will execute", "explanation": "Correct. If all conditions are false, the code under `else` executes."}, {"id": "D", "text": "The code will skip all conditions", "explanation": "Incorrect. The program will run the `else` block if no conditions are true."}], "correct_answer": "C"}, {"question": "In the following code snippet, what will be the output if the input is 0?", "options": [{"id": "A", "text": "Positive", "explanation": "Incorrect. The number is not greater than 0."}, {"id": "B", "text": "Negative", "explanation": "Incorrect. The number is not less than 0."}, {"id": "C", "text": "Zero", "explanation": "Correct. The `else` block executes when the input is 0."}, {"id": "D", "text": "No output", "explanation": "Incorrect. There is output printed."}], "correct_answer": "C"}, {"question": "Which of the following statements about `if` statements is true?", "options": [{"id": "A", "text": "An `if` statement must always be followed by an `else` statement.", "explanation": "Incorrect. An `if` statement can exist without an `else`."}, {"id": "B", "text": "You can nest `if` statements inside other `if` statements.", "explanation": "Correct. Nested `if` statements are valid and often used."}, {"id": "C", "text": "An `if` statement cannot include logical operators.", "explanation": "Incorrect. `if` statements can use logical operators."}, {"id": "D", "text": "An `if` statement does not need to be followed by a colon.", "explanation": "Incorrect. An `if` statement must end with a colon."}], "correct_answer": "B"}], "why_it_matters": "Understanding control structures is essential for anyone learning programming. They enable you to create responsive applications that can make decisions, enhancing user interaction and functionality. As you continue to build on these concepts, you will be better prepared for complex programming challenges."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
