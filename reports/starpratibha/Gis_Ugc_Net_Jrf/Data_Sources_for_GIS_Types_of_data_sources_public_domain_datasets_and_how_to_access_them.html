@@ -1,0 +1,514 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Data Sources for GIS**: Types of data sources; public domain datasets and how to access them.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Data Sources for GIS**: Types of data sources; public domain datasets and how to access them.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: star_pratibha@rediffmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Data Sources for GIS: Types of Data Sources; Public Domain Datasets and How to Access Them</h1>
+<h2>Introduction:</h2>
+<p><p>In your previous learning journey about Geographic Information Systems (GIS), you have established a solid foundation by exploring core concepts, types of geospatial data, map design, and coordinate systems. Each of these elements plays a crucial role in how we analyze and visualize geographic information. The focus of this report is to deepen your understanding of <strong>data sources for GIS</strong>, which is an essential aspect of any GIS project. </p></p>
+<p><p>Data sources are the backbone of GIS, providing the necessary information to create meaningful maps and conduct spatial analyses. Understanding the different types of data sources, identifying where to find public domain datasets, and learning how to access these datasets will enhance your ability to utilize GIS effectively in various applications such as urban planning, environmental monitoring, and disaster management.</p></p>
+<p><p>This report will cover:</p></p>
+<p><ol></p>
+<ul>
+<li>Key concepts and definitions related to GIS data sources.</li>
+<li>Types of data sources commonly used in GIS.</li>
+<li>An overview of public domain datasets and how to access them.</li>
+<li>Real-world applications of GIS data sources.</li>
+<li>Advanced applications and current research frontiers in GIS data sourcing.</li>
+<li>An interactive quiz to test your understanding.</li>
+</ul>
+<p></ol></p>
+<p><p>By the end of this report, you will be well-equipped to navigate the vast landscape of GIS data sources, empowering you to make informed decisions in your future GIS endeavors.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>Definition of GIS Data Sources</h3>
+<p><p><strong>GIS Data Sources</strong> refer to the various origins from which geospatial data is obtained for use in GIS applications. These sources can include both raw data collected through various methods and pre-processed datasets that are ready for analysis. Understanding these sources is critical because the quality and accuracy of your GIS projects greatly depend on the data you use.</p></p>
+<h3>Types of Data Sources</h3>
+<p><p>GIS data sources can be broadly categorized into the following types:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Primary Data Sources</strong>:</li>
+<li><strong>Field Surveys</strong>: Data collected directly from the field using tools like GPS, total stations, or surveying equipment.<ul>
+<li><strong>Example</strong>: A city planner conducting a field survey to gather data on existing infrastructure like roads and utilities.</li>
+</ul>
+</ul>
+<p></li></p>
+<ul>
+<li><strong>Remote Sensing</strong>: Data derived from satellite or aerial imagery. This method can capture large areas and provide valuable information about land use, vegetation, and environmental change.<ul>
+<li><strong>Example</strong>: Using satellite imagery to track deforestation rates in a specific region.</li>
+</ul>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Crowdsourced Data</strong>: Information collected by volunteers or the public through mobile applications or online platforms.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: OpenStreetMap, a collaborative mapping platform where users contribute geographic data.</li>
+</ul>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Secondary Data Sources</strong>:</p></p>
+<p></li></p>
+<ul>
+<li><strong>Public Domain Datasets</strong>: Existing datasets that are available for public use, often provided by government agencies, NGOs, and research institutions.<ul>
+<li><strong>Example</strong>: The U.S. Geological Survey (USGS) provides access to a variety of geospatial datasets, including topographic maps and geological surveys.</li>
+</ul>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Commercial Datasets</strong>: Data purchased from private companies that may include specialized information such as demographic data, real estate data, and market analysis.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: Esri's Business Analyst dataset, which provides detailed demographic and consumer data.</li>
+</ul>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Integrated Data Sources</strong>: These sources combine data from various origins, offering a more comprehensive view.</p></p>
+<p></li></p>
+<ul>
+<li><strong>Example</strong>: Geographic Information Clearinghouses that compile datasets from multiple agencies and organizations into a single accessible platform.</li>
+</ul>
+<p></ol></p>
+<h3>Understanding Data Quality</h3>
+<p><p>While exploring data sources, it is essential to consider data quality, which can significantly impact the outcomes of your GIS analyses. Key factors affecting data quality include:</p></p>
+<ul>
+<ul>
+<li><strong>Accuracy</strong>: How close the data is to the true value.</li>
+<li><strong>Precision</strong>: The level of detail or exactness of the data.</li>
+<li><strong>Completeness</strong>: Whether all necessary data is included.</li>
+<li><strong>Consistency</strong>: Whether data is uniform across different datasets.</li>
+</ul>
+</ul>
+<p><p>Understanding these factors will help you assess the reliability of the data you choose for your GIS projects.</p></p>
+<hr />
+<h2>Real-World Applications:</h2>
+<h3>Urban Planning</h3>
+<p><p>In urban planning, GIS data sources are utilized to analyze existing infrastructure, assess land use, and plan future developments. For instance, city planners may use public domain datasets from local government agencies to evaluate population density and zoning regulations. By integrating primary data from field surveys with secondary data from public sources, planners can create detailed maps that inform decision-making.</p></p>
+<h3>Environmental Monitoring</h3>
+<p><p>Environmental scientists use GIS data sources to monitor changes in ecosystems, assess habitat loss, and track pollution levels. For example, satellite imagery from remote sensing can provide insights into changes in land cover over time. Researchers can access public domain datasets from organizations like NASA or the National Oceanic and Atmospheric Administration (NOAA) to supplement their findings.</p></p>
+<h3>Disaster Management</h3>
+<p><p>In disaster management, timely and accurate data is crucial for effective response and recovery efforts. GIS data sources can help identify risk zones, track the movement of hazards like floods or wildfires, and coordinate disaster response efforts. Public domain datasets, such as FEMA flood maps, are invaluable for emergency planners and responders.</p></p>
+<hr />
+<h2>Accessing Public Domain Datasets</h2>
+<h3>Major Public Domain Datasets</h3>
+<p><p>Numerous organizations provide access to public domain datasets that can be utilized in GIS applications. Here are some notable examples:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>U.S. Geological Survey (USGS)</strong>:</li>
+<li>Provides various datasets, including topographic maps, satellite imagery, and geological information.</li>
+<li>
+</ul>
+<p><p><strong>Link: <a href="https://www.usgs.gov/core-science-systems/national-geospatial-program/national-map">USGS National Map</a></strong></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>National Oceanic and Atmospheric Administration (NOAA)</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Offers datasets related to weather, climate, and oceanography.</li>
+<li>
+</ul>
+<p><p><strong>Link: <a href="https://data.noaa.gov/">NOAA Data Access</a></strong></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>OpenStreetMap</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>A collaborative mapping platform that provides free geographic data, including roads, buildings, and natural features.</li>
+<li>
+</ul>
+<p><p><strong>Link: <a href="https://www.openstreetmap.org/">OpenStreetMap</a></strong></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Data.gov</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>The U.S. government's open data portal, which provides access to thousands of datasets across various domains.</li>
+<li>
+</ul>
+<p><p><strong>Link: <a href="https://www.data.gov/">Data.gov</a></strong></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Natural Earth</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>A public domain map dataset that provides free vector and raster map data for use in GIS applications.</li>
+<li><strong>Link: <a href="https://www.naturalearthdata.com/">Natural Earth</a></strong></li>
+</ul>
+<p></ol></p>
+<h3>How to Access Datasets</h3>
+<p><p>Accessing public domain datasets typically involves the following steps:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Identify the Dataset</strong>: Determine which dataset is relevant to your project by researching available public domain sources.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Navigate to the Source</strong>: Visit the website of the organization offering the dataset. Most organizations have user-friendly interfaces for searching and downloading data.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Download the Data</strong>: Follow the provided instructions to download the data in the desired format (e.g., shapefile, GeoJSON, CSV).</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Import into GIS Software</strong>: Once downloaded, import the dataset into your GIS software (e.g., QGIS, ArcGIS) for analysis and visualization.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Evaluate Data Quality</strong>: Assess the dataset's accuracy, completeness, and consistency before using it in your analyses.</p></p>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers</h2>
+<h3>Integrating AI and Machine Learning</h3>
+<p><p>The integration of artificial intelligence (AI) and machine learning (ML) in GIS is revolutionizing how data is analyzed and interpreted. These technologies can automate the processing of large datasets, enabling more efficient data analysis and improved decision-making. For instance, AI algorithms can analyze satellite imagery to detect changes in land use or identify patterns in environmental data.</p></p>
+<h3>Big Data in GIS</h3>
+<p><p>The advent of big data presents both opportunities and challenges for GIS professionals. With vast amounts of spatial data being generated from sources like social media, IoT devices, and mobile applications, GIS practitioners must develop strategies to manage and analyze this data effectively. Emerging tools and frameworks are being developed to handle big data, enabling real-time analysis and visualization.</p></p>
+<h3>Future Directions</h3>
+<p><p>The future of GIS data sourcing is likely to be influenced by several key trends:</p></p>
+<ul>
+<ul>
+<li><strong>Increased Availability of Open Data</strong>: As governments and organizations continue to promote transparency, the availability of public domain datasets is expected to grow, providing richer resources for GIS projects.</li>
+<li><strong>Collaboration and Crowdsourcing</strong>: The use of crowdsourced data will likely expand, allowing communities to contribute to GIS datasets and improving the accuracy of geographic information.</li>
+<li><strong>Enhanced Data Integration</strong>: Future GIS applications will increasingly integrate diverse data sources, including social media, sensor data, and traditional datasets, for more comprehensive analyses.</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Understanding data sources for GIS is crucial for anyone looking to harness the power of geographic information systems effectively. By exploring various types of data sources, accessing public domain datasets, and considering data quality, you can significantly enhance your GIS projects. The integration of advanced technologies like AI and big data analytics will further shape the future of GIS, making it an exciting field to be part of.</p></p>
+<p><p>As you continue your learning journey in GIS, take the time to explore the datasets mentioned in this report. Experiment with different sources and tools, and consider how you can apply these insights to real-world challenges in urban planning, environmental monitoring, and disaster management.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is a primary data source in GIS?", "options": [{"id": "A", "text": "Data collected from existing databases", "explanation": "Incorrect. This describes a secondary data source."}, {"id": "B", "text": "Data obtained from public domain datasets", "explanation": "Incorrect. This refers to public domain datasets, which are secondary sources."}, {"id": "C", "text": "Data gathered directly from field surveys", "explanation": "Correct. Primary data sources are those collected directly from the field or through original research."}, {"id": "D", "text": "Data purchased from commercial vendors", "explanation": "Incorrect. This pertains to commercial datasets, which are also secondary."}], "correct_answer": "C"}, {"question": "Which organization provides access to topographic maps and geological information?", "options": [{"id": "A", "text": "NOAA", "explanation": "Incorrect. NOAA focuses on weather and climate data."}, {"id": "B", "text": "USGS", "explanation": "Correct. The U.S. Geological Survey (USGS) provides various datasets, including topographic maps and geological surveys."}, {"id": "C", "text": "OpenStreetMap", "explanation": "Incorrect. OpenStreetMap is a collaborative platform for general geographic data."}, {"id": "D", "text": "Data.gov", "explanation": "Incorrect. Data.gov is a portal for various datasets, but USGS specifically relates to geological information."}], "correct_answer": "B"}, {"question": "What is the primary benefit of crowdsourced data in GIS?", "options": [{"id": "A", "text": "It is always accurate and reliable.", "explanation": "Incorrect. Crowdsourced data varies in accuracy and reliability."}, {"id": "B", "text": "It allows for the collection of data from a larger community.", "explanation": "Correct. Crowdsourced data enables contributions from a larger community, often leading to more comprehensive datasets."}, {"id": "C", "text": "It requires no verification before use.", "explanation": "Incorrect. Crowdsourced data often requires verification to ensure quality."}, {"id": "D", "text": "It is available only from government sources.", "explanation": "Incorrect. Crowdsourced data is not limited to government sources."}], "correct_answer": "B"}, {"question": "Which of the following is a key factor in assessing data quality in GIS?", "options": [{"id": "A", "text": "Data size", "explanation": "Incorrect. While data size can be a consideration, it is not a direct measure of quality."}, {"id": "B", "text": "Data format", "explanation": "Incorrect. Data format is important but does not directly assess quality."}, {"id": "C", "text": "Data completeness", "explanation": "Correct. Completeness is a key factor in determining the overall quality of the data."}, {"id": "D", "text": "Data source", "explanation": "Incorrect. Data source can influence quality but does not directly measure it."}], "correct_answer": "C"}, {"question": "What is one of the future trends in GIS data sourcing?", "options": [{"id": "A", "text": "Decreased availability of open data", "explanation": "Incorrect. Open data availability is expected to increase, not decrease."}, {"id": "B", "text": "Increased reliance on paper maps", "explanation": "Incorrect. The trend is moving away from paper maps as digital technologies advance."}, {"id": "C", "text": "Enhanced integration of diverse data sources", "explanation": "Correct. Future GIS applications will likely integrate diverse data sources for more comprehensive analyses."}, {"id": "D", "text": "Reduced use of crowdsourced data", "explanation": "Incorrect. Crowdsourced data is expected to grow in use."}], "correct_answer": "C"}], "why_it_matters": "Understanding GIS data sources is vital for your learning journey, as it allows you to make informed decisions about the information you use in your projects. The ability to effectively source and evaluate data opens up numerous possibilities for analysis and applications in various fields, from urban planning to environmental monitoring. Continue to explore and experiment with different datasets to enhance your skills and understanding of GIS."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
