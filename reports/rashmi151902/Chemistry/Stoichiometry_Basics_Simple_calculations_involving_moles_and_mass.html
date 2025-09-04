@@ -1,0 +1,452 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Stoichiometry Basics**: Simple calculations involving moles and mass.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Stoichiometry Basics**: Simple calculations involving moles and mass.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: rashmi151902@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Stoichiometry Basics: Simple Calculations Involving Moles and Mass</h1>
+<h2>Introduction:</h2>
+<p><p>As we continue our journey in chemistry, we arrive at a crucial concept known as <strong>stoichiometry</strong>. This area of study builds directly upon our previous understanding of <strong>the mole concept</strong>, which introduced us to the idea of quantifying matter in chemistry. Stoichiometry allows us to understand the relationships between substances in chemical reactions, enabling us to predict the quantities of reactants and products involved.</p></p>
+<p><p>In this report, we will explore the basics of stoichiometry, focusing on simple calculations involving moles and mass. We will delve into key concepts, provide real-world applications, and connect these ideas to our broader learning framework. By the end, you will have a comprehensive understanding of stoichiometry and its importance in both theoretical and practical chemistry.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>What is Stoichiometry?</h3>
+<p><p><strong>Stoichiometry</strong> is the part of chemistry that deals with the calculation of reactants and products in chemical reactions. The term comes from the Greek words "stoicheion," meaning element, and "metron," meaning measure. It allows chemists to understand the proportions in which elements combine and how much of each substance is produced or required in a chemical reaction.</p></p>
+<h3>The Mole Concept Recap</h3>
+<p><p>Before diving into stoichiometry, let's briefly recap the <strong>mole concept</strong>:</p></p>
+<ul>
+<ul>
+<li>A mole is a unit in chemistry used to express amounts of a chemical substance. It is defined as exactly (6.022 \times 10^{23}) entities (atoms, molecules, ions, etc.). This number is known as <strong>Avogadro's number</strong>.</li>
+<li>The mole allows chemists to convert between atomic mass units and grams, making it easier to work with macroscopic quantities of substances.</li>
+</ul>
+</ul>
+<h3>Molar Mass</h3>
+<p><p><strong>Molar mass</strong> is the mass of one mole of a substance, typically expressed in grams per mole (g/mol). It can be calculated by summing the atomic masses of the elements in a compound. For example:</p></p>
+<ul>
+<ul>
+<li>The molar mass of water (H₂O) can be calculated as follows:</li>
+<li>Hydrogen: (1.01 \, \text{g/mol} \times 2 = 2.02 \, \text{g/mol})</li>
+<li>Oxygen: (16.00 \, \text{g/mol} \times 1 = 16.00 \, \text{g/mol})</li>
+<li>Total molar mass of H₂O = (2.02 + 16.00 = 18.02 \, \text{g/mol})</li>
+</ul>
+</ul>
+<h3>Reaction Stoichiometry</h3>
+<p><p>In a chemical reaction, stoichiometry allows us to express the relationships between the amounts of reactants and products. For example, consider the following balanced chemical equation:</p></p>
+<p><p>[</p>
+<p>2 \, \text{H}_2 + \text{O}_2 \rightarrow 2 \, \text{H}_2\text{O}</p>
+<p>]</p></p>
+<p><p>From this equation, we can infer the following:</p></p>
+<ul>
+<ul>
+<li><strong>Mole Ratio</strong>: The coefficients indicate the ratio in which reactants combine and products form. Here, 2 moles of hydrogen react with 1 mole of oxygen to produce 2 moles of water.</li>
+<li><strong>Mass Relationships</strong>: If we know the mass of one reactant, we can calculate the mass of the others using their molar masses and the mole ratio.</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications:</h2>
+<p><p>Stoichiometry is not merely an academic exercise; it has numerous practical applications in various fields, including:</p></p>
+<h3>1. Pharmaceuticals</h3>
+<p><p>In the pharmaceutical industry, stoichiometry is crucial for drug formulation. Accurate measurements of reactants are essential to ensure the correct dosage of active ingredients. For example, if a drug requires a specific concentration of an active compound, stoichiometric calculations help determine how much of each ingredient to use.</p></p>
+<h3>2. Environmental Science</h3>
+<p><p>Stoichiometry plays a significant role in environmental chemistry, particularly in understanding chemical reactions in natural systems. For instance, calculating the stoichiometry of nutrients in fertilizers helps optimize their application in agricultural practices, reducing environmental impact.</p></p>
+<h3>3. Food Chemistry</h3>
+<p><p>In food science, stoichiometry aids in recipe formulation and scaling. When creating large batches of food, understanding the stoichiometric relationships between ingredients ensures consistency in taste and texture.</p></p>
+<h3>4. Combustion Reactions</h3>
+<p><p>Stoichiometry is essential for analyzing combustion reactions, such as burning fossil fuels. By calculating the stoichiometric ratios of reactants and products, scientists can assess the efficiency of combustion and its environmental impact.</p></p>
+<h3>5. Industrial Processes</h3>
+<p><p>In manufacturing, stoichiometry is applied to optimize production processes. For example, in the production of ammonia via the Haber process, it is vital to know the stoichiometric ratios to maximize yield and minimize waste.</p></p>
+<hr />
+<h2>A Rich Narrative: Understanding Stoichiometry through a Cooking Analogy</h2>
+<p><p>To make stoichiometry more relatable, let's imagine it as a cooking scenario. Suppose you're preparing a fruit salad:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Ingredients (Reactants)</strong>: You need specific amounts of fruits (e.g., apples, bananas, and grapes). Each fruit represents a different reactant.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Recipe (Chemical Equation)</strong>: The recipe provides a clear ratio of ingredients. For example, it might state, "For every 2 apples, you need 1 banana and 3 grapes."</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Moles and Mass</strong>: If you know the weight of the apples you have, you can calculate how many bananas and grapes you need. This is similar to how chemists use stoichiometry to calculate the amount of reactants and products in a chemical reaction.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Scaling Up</strong>: If you're making a larger batch for a party, you would need to double or triple the amounts of each ingredient while maintaining the same ratios. This reflects the principle of stoichiometry in balancing chemical equations.</p></p>
+<p></li></p>
+<p></ol></p>
+<p><p>This cooking analogy illustrates how stoichiometry applies not only in chemistry but also in everyday situations where precise measurements and ratios are vital.</p></p>
+<hr />
+<h2>Step-by-Step Stoichiometric Calculations</h2>
+<p><p>To solidify our understanding, let’s work through some examples of stoichiometric calculations.</p></p>
+<h3>Example 1: Calculate Mass from Moles</h3>
+<p><p>Suppose you have 3 moles of water (H₂O) and you want to find the mass.</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Identify Molar Mass</strong>: The molar mass of water is 18.02 g/mol.</li>
+<li><strong>Use the Formula</strong>: Mass = Moles × Molar Mass</li>
+<li><strong>Calculation</strong>: Mass = (3 \, \text{moles} \times 18.02 \, \text{g/mol} = 54.06 \, \text{g})</li>
+</ul>
+<p></ol></p>
+<p><p>Thus, 3 moles of water weigh 54.06 grams.</p></p>
+<h3>Example 2: Calculate Moles from Mass</h3>
+<p><p>Now, let's say you have 36.04 grams of water and want to find the number of moles.</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Identify Molar Mass</strong>: Again, the molar mass of water is 18.02 g/mol.</li>
+<li><strong>Use the Formula</strong>: Moles = Mass / Molar Mass</li>
+<li><strong>Calculation</strong>: Moles = (36.04 \, \text{g} / 18.02 \, \text{g/mol} \approx 2.00 \, \text{moles})</li>
+</ul>
+<p></ol></p>
+<p><p>Thus, 36.04 grams of water correspond to approximately 2 moles.</p></p>
+<h3>Example 3: Using Stoichiometry in a Reaction</h3>
+<p><p>Consider the combustion of propane (C₃H₈):</p></p>
+<p><p>[</p>
+<p>C_3H_8 + 5O_2 \rightarrow 3CO_2 + 4H_2O</p>
+<p>]</p></p>
+<p><p>If you start with 2 moles of propane, how many moles of oxygen are needed?</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Mole Ratio</strong>: From the balanced equation, 1 mole of propane reacts with 5 moles of oxygen.</li>
+<li><strong>Calculation</strong>: Moles of O₂ needed = (2 \, \text{moles C}_3\text{H}_8 \times 5 \, \text{moles O}_2 / 1 \, \text{mole C}_3\text{H}_8 = 10 \, \text{moles O}_2)</li>
+</ul>
+<p></ol></p>
+<p><p>Thus, you will need 10 moles of oxygen to completely combust 2 moles of propane.</p></p>
+<hr />
+<h2>Common Misconceptions</h2>
+<p><ol></p>
+<ul>
+<li><strong>Stoichiometry is Only for Gases</strong>: While stoichiometry is often used in gas calculations (like reactions involving gases), it applies to solids and liquids as well.</li>
+<li><strong>Balanced Equations are Unimportant</strong>: Balanced equations are crucial for accurate stoichiometric calculations; without them, the mole ratios and mass relationships cannot be determined.</li>
+<li><strong>Mass is Always Conserved</strong>: While mass conservation is a principle in closed systems, stoichiometry also accounts for the formation of products and their corresponding masses.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>Further Exploration</h2>
+<p><p>As you continue your journey in chemistry, consider exploring the following topics:</p></p>
+<ul>
+<ul>
+<li><strong>Limiting Reactants</strong>: Understanding how to identify the reactant that will be completely consumed in a reaction.</li>
+<li><strong>Percent Yield</strong>: Learning how to calculate the efficiency of a reaction by comparing actual yield to theoretical yield.</li>
+<li><strong>Gas Stoichiometry</strong>: Delving into calculations involving gases at standard temperature and pressure (STP).</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In this report, we have covered the basics of stoichiometry, focusing on simple calculations involving moles and mass. Through real-world applications, analogies, and step-by-step calculations, we have seen the importance of stoichiometry in chemistry and its relevance in various fields.</p></p>
+<p><p>As you move forward, remember that stoichiometry is a foundational concept that will serve you well in more advanced chemistry topics. Continue to practice your calculations and explore the fascinating relationships between reactants and products in chemical reactions.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the definition of stoichiometry?", "options": [{"id": "A", "text": "The study of the physical properties of matter", "explanation": "Incorrect. While physical properties are important, stoichiometry specifically deals with the relationships in reactions."}, {"id": "B", "text": "The calculation of reactants and products in chemical reactions", "explanation": "Correct. Stoichiometry focuses on calculating the amounts of substances involved in chemical reactions."}, {"id": "C", "text": "The measurement of temperature in chemical reactions", "explanation": "Incorrect. Temperature measurement is a separate aspect of chemistry."}, {"id": "D", "text": "The analysis of the chemical structure of compounds", "explanation": "Incorrect. Analyzing chemical structure is not the main focus of stoichiometry."}], "correct_answer": "B"}, {"question": "How many grams are in 2 moles of water (H\u2082O)?", "options": [{"id": "A", "text": "9.01 g", "explanation": "Incorrect. This is not the correct calculation for water's mass."}, {"id": "B", "text": "36.04 g", "explanation": "Incorrect. This is the mass of 2 moles of oxygen, not water."}, {"id": "C", "text": "54.06 g", "explanation": "Correct. 2 moles \u00d7 18.02 g/mol = 36.04 g."}, {"id": "D", "text": "18.02 g", "explanation": "Incorrect. This is the mass of 1 mole of water, not 2 moles."}], "correct_answer": "C"}, {"question": "In the reaction \\(C_3H_8 + 5O_2 \\rightarrow 3CO_2 + 4H_2O\\), how many moles of oxygen are required to react with 4 moles of propane?", "options": [{"id": "A", "text": "10 moles", "explanation": "Correct. 4 moles of propane require \\(4 \\times 5 = 20\\) moles of oxygen."}, {"id": "B", "text": "20 moles", "explanation": "Incorrect. This miscalculates the required moles of oxygen."}, {"id": "C", "text": "8 moles", "explanation": "Incorrect. This does not follow the stoichiometric ratio."}, {"id": "D", "text": "5 moles", "explanation": "Incorrect. This is the requirement for 1 mole of propane."}], "correct_answer": "A"}, {"question": "What is the molar mass of sodium chloride (NaCl)?", "options": [{"id": "A", "text": "40.00 g/mol", "explanation": "Incorrect. This does not account for both sodium and chloride."}, {"id": "B", "text": "58.44 g/mol", "explanation": "Correct. Na (22.99 g/mol) + Cl (35.45 g/mol) = 58.44 g/mol."}, {"id": "C", "text": "22.99 g/mol", "explanation": "Incorrect. This is the mass of sodium only."}, {"id": "D", "text": "35.45 g/mol", "explanation": "Incorrect. This is the mass of chloride only."}], "correct_answer": "B"}, {"question": "Why is it important to balance chemical equations in stoichiometry?", "options": [{"id": "A", "text": "To ensure the reaction has enough energy", "explanation": "Incorrect. Energy is a separate consideration."}, {"id": "B", "text": "To determine the color of the products", "explanation": "Incorrect. The color is not related to balancing equations."}, {"id": "C", "text": "To maintain the law of conservation of mass", "explanation": "Correct. Balancing ensures that mass is conserved in the reaction."}, {"id": "D", "text": "To predict the temperature of the reaction", "explanation": "Incorrect. Temperature prediction is not related to balancing."}], "correct_answer": "C"}], "why_it_matters": "Understanding stoichiometry is crucial for anyone interested in chemistry, as it lays the groundwork for more advanced topics. Mastering these concepts allows you to predict outcomes in chemical reactions, optimize processes, and apply chemical knowledge in real-world scenarios."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
