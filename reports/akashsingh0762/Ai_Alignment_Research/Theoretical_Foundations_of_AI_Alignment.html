@@ -1,0 +1,425 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Theoretical Foundations of AI Alignment</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Theoretical Foundations of AI Alignment</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: akash.singh.0762@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Theoretical Foundations of AI Alignment</h1>
+<h2>Introduction:</h2>
+<p><p>As you embark on this journey to understand the <strong>Theoretical Foundations of AI Alignment</strong>, it is crucial to recognize how this subject builds upon your previous explorations in AI, machine learning, ethics, and safety research. Your foundational knowledge has equipped you with insights into how AI systems function and the importance of aligning their behaviors with human values. This report will delve deeper into the theoretical underpinnings of AI alignment, exploring the complexities, challenges, and implications of ensuring that AI systems act in ways that are beneficial to humanity.</p></p>
+<p><p>The alignment problem is often framed as ensuring that AI systems understand and pursue goals that are congruent with human intentions. As AI systems become more advanced, particularly in the realms of autonomy and decision-making, the need for robust alignment becomes even more pressing. This report will guide you through the key concepts of AI alignment, highlighting both theoretical perspectives and practical applications. </p></p>
+<h3>Key Concepts Covered in This Report:</h3>
+<ul>
+<ul>
+<li><strong>Decision Theory</strong>: Understanding how rational agents make choices under uncertainty.</li>
+<li><strong>Value Learning</strong>: Investigating how AI can infer human values and preferences.</li>
+<li><strong>Inverse Reinforcement Learning</strong>: Learning objectives by observing human behavior.</li>
+<li><strong>Robustness and Uncertainty</strong>: Ensuring that AI systems are resilient to unexpected changes in their environments.</li>
+<li><strong>Multi-Agent Systems</strong>: Exploring the dynamics of interactions among multiple AI agents.</li>
+</ul>
+</ul>
+<p><p>By the end of this report, you will have a comprehensive understanding of AI alignment's theoretical foundations, enabling you to appreciate its real-world implications and future directions.</p></p>
+<hr />
+<h2>Key Concepts in AI Alignment</h2>
+<h3>1. Decision Theory</h3>
+<p><p><strong>Definition</strong>: Decision theory provides a framework for understanding how agents (including AI) make decisions under conditions of uncertainty. It encompasses models of rational choice, utility theory, and the evaluation of risk.</p></p>
+<p><p><strong>Core Concepts</strong>:</p>
+<ul>
+<li><strong>Rationality</strong>: An agent is considered rational if it selects actions that maximize its expected utility based on its beliefs and preferences.</li>
+<li><strong>Expected Utility</strong>: Given a set of possible outcomes and their probabilities, the expected utility is calculated as:</li>
+</ul>
+<p>$$ E[U] = \sum_{i} P(x_i) U(x_i) $$</p>
+<p>where ( P(x_i) ) is the probability of outcome ( x_i ), and ( U(x_i) ) is the utility of that outcome.</p></p>
+<p><p><strong>Real-World Applications</strong>:</p>
+<ul>
+<li><strong>Healthcare</strong>: Decision theory is used to inform choices in treatment plans based on potential health outcomes and their probabilities.</li>
+<li><strong>Finance</strong>: Investors use decision theory to evaluate risks and returns when making investment choices.</p></li>
+</ul>
+<h3>2. Value Learning</h3>
+<p><p><strong>Definition</strong>: Value learning refers to the process through which AI systems identify and prioritize human values and preferences to align their actions accordingly.</p></p>
+<p><p><strong>Core Concepts</strong>:</p>
+<ul>
+<li><strong>Preferences</strong>: This involves understanding what individuals or groups value, which may not be explicitly stated.</li>
+<li><strong>Contextual Sensitivity</strong>: Values can change based on context, necessitating adaptive learning mechanisms.</p></li>
+</ul>
+<p><p><strong>Real-World Applications</strong>:</p>
+<ul>
+<li><strong>Personal Assistants</strong>: AI assistants like Siri or Alexa learn user preferences over time to provide more personalized experiences.</li>
+<li><strong>Recommendation Systems</strong>: Platforms like Netflix or Spotify analyze user behavior to recommend content that aligns with user preferences.</p></li>
+</ul>
+<h3>3. Inverse Reinforcement Learning (IRL)</h3>
+<p><p><strong>Definition</strong>: Inverse reinforcement learning is a method through which AI systems learn the underlying rewards that govern human behavior by observing their actions.</p></p>
+<p><p><strong>Core Concepts</strong>:</p>
+<ul>
+<li><strong>Observational Learning</strong>: Instead of being programmed with specific goals, the AI infers goals based on observed behavior.</li>
+<li><strong>Reward Functions</strong>: IRL aims to reconstruct the reward function that a human is implicitly optimizing.</p></li>
+</ul>
+<p><p><strong>Real-World Applications</strong>:</p>
+<ul>
+<li><strong>Robotics</strong>: Robots can learn complex tasks by observing human demonstrators, adapting their actions to align with human intentions.</li>
+<li><strong>Autonomous Vehicles</strong>: By observing human drivers, self-driving cars can learn to navigate in a manner consistent with human driving styles.</p></li>
+</ul>
+<h3>4. Robustness and Uncertainty</h3>
+<p><p><strong>Definition</strong>: Robustness in AI alignment refers to the ability of AI systems to perform reliably under uncertain conditions or when faced with unexpected scenarios.</p></p>
+<p><p><strong>Core Concepts</strong>:</p>
+<ul>
+<li><strong>Generalization</strong>: The capacity to apply learned knowledge to new, unseen situations.</li>
+<li><strong>Uncertainty Modeling</strong>: Techniques such as Bayesian inference can help AI systems quantify uncertainty and make informed decisions.</p></li>
+</ul>
+<p><p><strong>Real-World Applications</strong>:</p>
+<ul>
+<li><strong>Financial Trading</strong>: AI models that account for market volatility can better withstand economic downturns.</li>
+<li><strong>Healthcare Diagnostics</strong>: AI systems that incorporate uncertainty can yield more reliable diagnoses in ambiguous cases.</p></li>
+</ul>
+<h3>5. Multi-Agent Systems (MAS)</h3>
+<p><p><strong>Definition</strong>: Multi-agent systems involve multiple autonomous entities (agents) that interact within a shared environment, each potentially having different goals.</p></p>
+<p><p><strong>Core Concepts</strong>:</p>
+<ul>
+<li><strong>Cooperation vs. Competition</strong>: Agents may either work together towards a common goal or compete against one another, impacting overall system dynamics.</li>
+<li><strong>Communication Protocols</strong>: Agents must communicate effectively to coordinate actions and achieve alignment.</p></li>
+</ul>
+<p><p><strong>Real-World Applications</strong>:</p>
+<ul>
+<li><strong>Traffic Management</strong>: MAS can optimize traffic signals and routes by allowing vehicles to communicate with each other.</li>
+<li><strong>Ecosystem Simulations</strong>: AI can model interactions between species in an ecosystem, helping in conservation efforts.</p></li>
+</ul>
+<hr />
+<h2>Theoretical Perspectives on AI Alignment</h2>
+<h3>The Role of Ethics in AI Alignment</h3>
+<p><p>Understanding the ethical implications is vital in addressing the alignment problem. Ethical theories such as utilitarianism, deontology, and virtue ethics can provide frameworks for assessing AI behavior regarding human values. For instance, utilitarianism focuses on maximizing overall happiness, which can inform AI's decision-making processes, while deontological ethics emphasizes the importance of adherence to rules or duties.</p></p>
+<h3>Philosophical Underpinnings</h3>
+<p><p>The philosophical discourse around AI alignment often draws from classic philosophical debates about free will, agency, and morality. Questions arise about the extent to which AI can possess agency and make moral decisions. The Turing Test, for example, raises questions about whether machines can truly understand or exhibit human-like values.</p></p>
+<hr />
+<h2>Real-World Applications of AI Alignment</h2>
+<p><p>The implications of AI alignment extend across various industries, influencing how AI technologies are developed and deployed.</p></p>
+<h3>Healthcare</h3>
+<p><p>In healthcare, aligning AI systems with human values is critical for improving patient outcomes. AI can assist in diagnostics and treatment recommendations, but it must respect patient privacy, informed consent, and individual preferences. Robust alignment ensures that AI systems act in the best interests of patients, leading to improved trust and acceptance.</p></p>
+<h3>Autonomous Vehicles</h3>
+<p><p>In the realm of autonomous vehicles, alignment with human values is paramount. Vehicles must make split-second decisions that reflect ethical considerations, such as prioritizing passenger safety while minimizing harm to others. Developing AI systems that can navigate these moral dilemmas requires a deep understanding of human values and ethical frameworks.</p></p>
+<h3>Smart Cities</h3>
+<p><p>In smart cities, AI systems manage resources like energy and transportation, necessitating alignment with community values regarding sustainability, accessibility, and safety. By incorporating public input into AI decision-making processes, cities can enhance the effectiveness of their systems while ensuring they reflect collective human values.</p></p>
+<hr />
+<h2>Current and Future Directions in AI Alignment Research</h2>
+<p><p>As the field of AI alignment evolves, several key areas of research are emerging:</p></p>
+<h3>Scalable Oversight</h3>
+<p><p>Scalable oversight addresses the challenge of ensuring that AI systems remain aligned with human values as they operate in complex environments. Techniques such as hierarchical reinforcement learning can help manage the oversight of AI systems by breaking tasks down into manageable sub-tasks, facilitating better alignment at scale.</p></p>
+<h3>Causal Inference in AI Alignment</h3>
+<p><p>Causal inference techniques can enhance our understanding of the relationships between actions and outcomes in AI systems. By establishing causal relationships, researchers can design AI systems that better align with human intentions, leading to more predictable and reliable outcomes.</p></p>
+<h3>Long-term AI Risks</h3>
+<p><p>As AI systems become increasingly autonomous, understanding the long-term risks associated with alignment becomes crucial. Researchers are exploring potential failure modes in AI alignment, including issues related to reward hacking and specification gaming, where AI systems exploit loopholes in their reward structures.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In summary, the theoretical foundations of AI alignment encompass a rich tapestry of concepts and frameworks that are essential for ensuring that AI systems act in harmony with human values. By building upon foundational theories such as decision theory, value learning, and multi-agent systems, we can better navigate the complexities of aligning AI behavior with human intentions.</p></p>
+<p><p>As you continue your learning journey, consider the ethical implications of AI alignment and the importance of fostering human-AI collaboration. The future of AI depends on our ability to create systems that not only function efficiently but also resonate with our collective values and aspirations.</p></p>
+<h3>Call to Action</h3>
+<p><p>Explore further by delving into resources on decision theory, value learning, and the practical applications of AI alignment in industry. Engage with ongoing research and contribute to the discourse surrounding the ethical implications of AI technologies. Your insights and understanding are vital in shaping a future where AI serves humanity's best interests.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What does decision theory primarily focus on in the context of AI alignment?", "options": [{"id": "A", "text": "The development of ethical guidelines for AI systems", "explanation": "Incorrect. While ethics is important, decision theory is more focused on the decision-making process itself."}, {"id": "B", "text": "How agents make choices under uncertainty", "explanation": "Correct. Decision theory specifically addresses how rational agents make choices when faced with uncertainty."}, {"id": "C", "text": "The technical performance of AI algorithms", "explanation": "Incorrect. This option relates more to the performance aspect of algorithms rather than decision-making frameworks."}, {"id": "D", "text": "The historical development of AI technologies", "explanation": "Incorrect. The historical development is not the focus of decision theory; it is about current decision-making processes."}], "correct_answer": "B"}, {"question": "What is the primary goal of value learning in AI systems?", "options": [{"id": "A", "text": "To maximize computational efficiency", "explanation": "Incorrect. While efficiency is important, value learning specifically pertains to understanding human values."}, {"id": "B", "text": "To identify and prioritize human values and preferences", "explanation": "Correct. The primary goal of value learning is to ensure AI systems act in ways that align with what humans value."}, {"id": "C", "text": "To improve the speed of data processing", "explanation": "Incorrect. Speed of data processing is not the central aim of value learning."}, {"id": "D", "text": "To ensure AI systems operate independently", "explanation": "Incorrect. Value learning emphasizes alignment with human preferences rather than promoting independence."}], "correct_answer": "B"}, {"question": "Inverse reinforcement learning seeks to understand what aspect of human behavior?", "options": [{"id": "A", "text": "The computational complexity of decisions", "explanation": "Incorrect. Computational complexity is not the focus of inverse reinforcement learning."}, {"id": "B", "text": "The underlying rewards guiding human actions", "explanation": "Correct. Inverse reinforcement learning aims to infer the rewards that humans are optimizing based on their observed behavior."}, {"id": "C", "text": "The speed of learning algorithms", "explanation": "Incorrect. This option does not relate to the goals of inverse reinforcement learning."}, {"id": "D", "text": "The ethical implications of AI systems", "explanation": "Incorrect. While ethics is important, IRL specifically focuses on deducing human rewards."}], "correct_answer": "B"}, {"question": "What challenge does robustness in AI alignment address?", "options": [{"id": "A", "text": "The ethical implications of AI actions", "explanation": "Incorrect. Ethical implications are important but are not the primary focus of robustness."}, {"id": "B", "text": "The ability to perform reliably under uncertainty", "explanation": "Correct. Robustness ensures that AI systems can function effectively even when faced with unexpected conditions or uncertainties."}, {"id": "C", "text": "The historical development of AI technologies", "explanation": "Incorrect. The historical development of AI is not related to the concept of robustness."}, {"id": "D", "text": "The technical performance of algorithms", "explanation": "Incorrect. Technical performance is a separate aspect and does not encompass the concept of robustness."}], "correct_answer": "B"}, {"question": "What is a key area of research related to long-term AI risks?", "options": [{"id": "A", "text": "Historical analysis of AI technologies", "explanation": "Incorrect. Historical analysis does not address the current challenges of long-term risks."}, {"id": "B", "text": "Understanding the implications of reward hacking", "explanation": "Correct. Research into long-term AI risks often focuses on potential failure modes like reward hacking and specification gaming."}, {"id": "C", "text": "The computational efficiency of AI algorithms", "explanation": "Incorrect. Computational efficiency is not the central focus of long-term risk research."}, {"id": "D", "text": "The development of human-like intelligence", "explanation": "Incorrect. While developing human-like intelligence is an area of AI research, it does not directly relate to long-term risks."}], "correct_answer": "B"}], "why_it_matters": "Understanding AI alignment is critical as it impacts the development and deployment of AI technologies that deeply affect society. By mastering these concepts, you are better equipped to engage with the ongoing discourse in AI ethics and decision-making, ensuring that future AI systems genuinely serve humanity's collective interests."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
