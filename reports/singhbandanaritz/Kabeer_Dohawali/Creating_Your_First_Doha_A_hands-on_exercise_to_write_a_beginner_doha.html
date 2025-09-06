@@ -1,0 +1,409 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Creating Your First Doha**: A hands-on exercise to write a beginner doha.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Creating Your First Doha**: A hands-on exercise to write a beginner doha.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: singhbandanaritz@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Creating Your First Doha: A Hands-On Exercise to Write a Beginner Doha</h1>
+<h2>Introduction:</h2>
+<p><p>As we continue our journey through the rich literary heritage of <strong>Kabeer Dohawali</strong> and the profound philosophies of the 15th-century poet Kabir, we now turn our focus to an essential skill: writing your own doha. This exercise not only allows you to engage creatively with the themes we have explored but also deepens your understanding of the structure and essence of dohas. </p></p>
+<p><p>Previously, we delved into the <strong>historical context</strong> of Kabir’s work, the <strong>structure of dohas</strong>, and the <strong>thematic richness</strong> inherent in his verses. This foundation sets the stage for our current exploration, which emphasizes the <strong>practical application</strong> of this knowledge through writing. </p></p>
+<p><p>In this report, we will comprehensively cover:</p>
+<ul>
+<li>The fundamental components of a doha</li>
+<li>How to brainstorm ideas and themes</li>
+<li>Step-by-step guidance on crafting your first doha</li>
+<li>Tips for refinement and recitation</li>
+<li>Real-world applications of writing dohas</li>
+<li>A quiz to test your understanding</p></li>
+</ul>
+<p><p>By the end of this report, you will have the tools and confidence to create your own doha, contributing to the living tradition of Kabir’s poetic legacy.</p></p>
+<hr />
+<h2>Key Concepts and Definitions</h2>
+<h3>What is a Doha?</h3>
+<p><p>A <strong>doha</strong> is a form of <strong>Hindi poetry</strong> characterized by its concise structure, typically consisting of <strong>two lines</strong> with <strong>12 syllables each</strong>, making a total of <strong>24 syllables</strong>. The beauty of a doha lies in its ability to convey profound thoughts and emotions succinctly. The rhyme scheme often enhances its musical quality, making it memorable and impactful.</p></p>
+<h3>Structure of a Doha</h3>
+<ul>
+<ul>
+<li><strong>Lines</strong>: Two lines, each containing 12 syllables.</li>
+<li><strong>Rhyme</strong>: The two lines usually rhyme, adding to the lyrical quality.</li>
+<li><strong>Theme</strong>: Common themes include spirituality, morality, love, and social critique.</li>
+</ul>
+</ul>
+<p><p>For example:</p>
+<p><code>बुरा जो देखो सो तुम, बुरा ही कहो,</p>
+<p>अपने में झांक के देखो, तुमको क्या मिला।</code></p>
+<p><em>Translation</em>: "If you see something bad in others, speak of it as bad; Look within yourself, and see what you have."</p></p>
+<h3>The Essence of Writing a Doha</h3>
+<p><p>When writing a doha, it is crucial to focus on:</p>
+<ul>
+<li><strong>Clarity</strong>: Convey your message clearly.</li>
+<li><strong>Imagery</strong>: Use vivid imagery to evoke emotions.</li>
+<li><strong>Themes</strong>: Choose themes that resonate with your own experiences or societal issues.</li>
+<li><strong>Rhythm</strong>: Pay attention to the syllable count and rhyme scheme.</p></li>
+</ul>
+<hr />
+<h2>Brainstorming Ideas and Themes</h2>
+<p><p>Before you begin writing, take some time to brainstorm ideas. Here are some techniques to help you generate themes for your doha:</p></p>
+<h3>1. Reflect on Personal Experiences</h3>
+<p><p>Think about moments in your life that were significant or transformative. What insights did you gain from these experiences? </p></p>
+<h3>2. Explore Social Issues</h3>
+<p><p>Consider current social issues that resonate with you. Kabir often addressed caste discrimination and communal harmony. How can you reflect a modern-day issue in your doha?</p></p>
+<h3>3. Draw from Nature</h3>
+<p><p>Nature can be a rich source of inspiration. Observe the world around you—what lessons does nature teach you?</p></p>
+<h3>4. Use Existing Dohas as Inspiration</h3>
+<p><p>Revisit famous dohas from <strong>Kabeer Dohawali</strong>. Analyze their themes, structures, and messages. What elements resonate with you?</p></p>
+<hr />
+<h2>Step-by-Step Guide to Writing Your First Doha</h2>
+<h3>Step 1: Choose Your Theme</h3>
+<p><p>Select a theme based on your brainstorming. For example, you might choose "the impermanence of life," "the unity of humanity," or "the importance of love."</p></p>
+<h3>Step 2: Write Your Lines</h3>
+<p><p>Craft two lines that express your thoughts on the chosen theme. Remember to keep the syllable count in mind. Here’s a simple formula:</p></p>
+<ul>
+<ul>
+<li><strong>Line 1</strong>: Introduce the theme or message.</li>
+<li><strong>Line 2</strong>: Offer a reflection, insight, or metaphor related to that theme.</li>
+</ul>
+</ul>
+<h3>Example:</h3>
+<ul>
+<ul>
+<li><strong>Theme</strong>: The impermanence of life.</li>
+<li><strong>Line 1</strong>: "जीवन की धार बहती, पल में बदलती है,"</li>
+<li><strong>Line 2</strong>: "जो कल था वो गया, आज नया पल है।"</li>
+</ul>
+</ul>
+<p><p><em>Translation</em>: "The flow of life runs, changing in an instant; What was yesterday is gone, today a new moment."</p></p>
+<h3>Step 3: Revise for Clarity and Rhythm</h3>
+<p><p>Once you have your initial draft, read it aloud. Listen for the rhythm and flow. Make adjustments to ensure that the syllable count is correct and that the lines rhyme effectively.</p></p>
+<h3>Step 4: Get Feedback</h3>
+<p><p>Share your doha with friends or family. Ask for feedback on the clarity of your message and the emotional impact of your lines.</p></p>
+<h3>Step 5: Practice Recitation</h3>
+<p><p>Reciting your doha is an integral part of the experience. Practice it aloud, focusing on your tone, pace, and expression. This will help you connect more deeply with your creation.</p></p>
+<hr />
+<h2>Real-World Applications of Writing Dohas</h2>
+<p><p>Writing dohas can have several applications beyond personal expression:</p></p>
+<h3>1. <strong>Educational Tool</strong></h3>
+<p><p>Doha writing can be integrated into educational curricula to teach language, creativity, and cultural heritage.</p></p>
+<h3>2. <strong>Cultural Preservation</strong></h3>
+<p><p>Engaging with dohas helps preserve the tradition of oral poetry, ensuring that the teachings of poets like Kabir continue to resonate with future generations.</p></p>
+<h3>3. <strong>Social Commentary</strong></h3>
+<p><p>Dohas can serve as a means of social critique, allowing individuals to voice their perspectives on contemporary issues creatively and memorably.</p></p>
+<h3>4. <strong>Therapeutic Expression</strong></h3>
+<p><p>Writing poetry, including dohas, can be a therapeutic practice, helping individuals process emotions and experiences.</p></p>
+<h3>5. <strong>Community Engagement</strong></h3>
+<p><p>Hosting workshops or open mic events focused on doha writing can foster community engagement and cultural exchange.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Creating your first doha is not only a personal achievement but also a way to contribute to the ongoing dialogue inspired by Kabir. By understanding the structure, exploring themes, and practicing writing and recitation, you engage with a rich literary tradition that has profound implications for personal reflection and societal commentary.</p></p>
+<p><p>As you embark on this creative journey, remember that each doha you write is a unique reflection of your thoughts and experiences. Continue to explore the depths of your creativity, and share your dohas with others to inspire and provoke thought.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the typical syllable structure of a doha?", "options": [{"id": "A", "text": "8 syllables in each line", "explanation": "Incorrect. A doha consists of 12 syllables in each line, making a total of 24 syllables."}, {"id": "B", "text": "10 syllables in each line", "explanation": "Incorrect. Each line of a doha has 12 syllables, not 10."}, {"id": "C", "text": "12 syllables in each line", "explanation": "Correct. Each line of a doha has exactly 12 syllables, totaling 24 syllables."}, {"id": "D", "text": "24 syllables in each line", "explanation": "Incorrect. While a doha totals 24 syllables, it is divided into two lines of 12 syllables each."}], "correct_answer": "C"}, {"question": "Which of the following best describes the function of themes in dohas?", "options": [{"id": "A", "text": "They serve only to decorate the verses.", "explanation": "Incorrect. While themes can add aesthetic value, they primarily convey meaning and messages."}, {"id": "B", "text": "They convey deep moral, spiritual, or social messages.", "explanation": "Correct. Themes in dohas often convey deep moral, spiritual, or social messages, reflecting the poet's insights."}, {"id": "C", "text": "They are random and do not add meaning.", "explanation": "Incorrect. Themes are central to the meaning of dohas and are not random."}, {"id": "D", "text": "They must always be related to nature.", "explanation": "Incorrect. While some themes may relate to nature, dohas can encompass a wide range of topics."}], "correct_answer": "B"}, {"question": "What is the primary benefit of reciting your doha aloud?", "options": [{"id": "A", "text": "To memorize it for performance.", "explanation": "Incorrect. Memorization is not the primary focus; emotional connection is."}, {"id": "B", "text": "To connect with the emotional depth of the words.", "explanation": "Correct. Reciting allows you to connect with the emotional depth and rhythm of your words."}, {"id": "C", "text": "To impress others with your voice.", "explanation": "Incorrect. Impressing others is secondary to the personal connection with your work."}, {"id": "D", "text": "To ensure it follows the rhyme scheme.", "explanation": "Incorrect. While checking the rhyme scheme is important, emotional connection is the primary benefit of recitation."}], "correct_answer": "B"}, {"question": "When brainstorming themes for a doha, which approach is NOT recommended?", "options": [{"id": "A", "text": "Reflect on personal experiences.", "explanation": "Incorrect. Reflecting on personal experiences is a valuable way to generate themes."}, {"id": "B", "text": "Analyze famous dohas for inspiration.", "explanation": "Incorrect. Analyzing famous dohas can inspire and inform your own writing."}, {"id": "C", "text": "Choose a random word with no connection.", "explanation": "Correct. Choosing a random word without connection does not provide a meaningful theme."}, {"id": "D", "text": "Observe nature for lessons.", "explanation": "Incorrect. Nature observation can offer rich thematic inspiration."}], "correct_answer": "C"}, {"question": "What is one way dohas can serve as a social commentary?", "options": [{"id": "A", "text": "By only focusing on historical events.", "explanation": "Incorrect. While dohas can reference history, their social commentary is often rooted in present issues."}, {"id": "B", "text": "By expressing individual thoughts on contemporary issues.", "explanation": "Correct. Dohas can express individual thoughts and reflections on contemporary social issues."}, {"id": "C", "text": "By avoiding any reference to society.", "explanation": "Incorrect. Do has often reflect societal concerns and encourage dialogue."}, {"id": "D", "text": "By using complex language that is hard to understand.", "explanation": "Incorrect. Effective dohas typically use accessible language to communicate their messages clearly."}], "correct_answer": "B"}], "why_it_matters": "Understanding these concepts not only enhances your ability to write dohas but also deepens your connection to the cultural and spiritual legacy of Kabir. Engaging with this poetic form enriches your expression and fosters a greater appreciation for the power of language and creativity."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
