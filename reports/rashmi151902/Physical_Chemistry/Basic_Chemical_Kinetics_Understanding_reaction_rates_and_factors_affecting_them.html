@@ -1,0 +1,425 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Basic Chemical Kinetics**: Understanding reaction rates and factors affecting them.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Basic Chemical Kinetics**: Understanding reaction rates and factors affecting them.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: rashmi151902@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Basic Chemical Kinetics: Understanding Reaction Rates and Factors Affecting Them</h1>
+<h2>Introduction:</h2>
+<p><p>As we continue our exploration of <strong>Physical Chemistry</strong>, we've ventured through various essential topics that lay the groundwork for understanding complex chemical systems. Among these, we've examined thermodynamics and the behavior of matter across different states, leading us to the dynamic and intriguing field of <strong>Chemical Kinetics</strong>. In this report, we will delve into the principles of chemical kinetics, exploring reaction rates, the factors that influence them, and the real-world implications of these concepts.</p></p>
+<p><p>Chemical kinetics is pivotal for chemists, as it not only helps us understand how quickly reactions occur but also provides insight into mechanisms and pathways of reactions, which can be essential for fields ranging from pharmaceuticals to environmental science. By grasping these concepts, we can build upon our previous knowledge of thermodynamics and the behavior of gases, leading to a more comprehensive understanding of chemical processes.</p></p>
+<h3>Key Concepts:</h3>
+<ul>
+<ul>
+<li><strong>Reaction Rate</strong>: The speed at which reactants are converted into products in a chemical reaction.</li>
+<li><strong>Factors Affecting Reaction Rates</strong>: Concentration, temperature, surface area, catalysts, and the nature of reactants.</li>
+<li><strong>Rate Laws</strong>: Mathematical expressions that relate the rate of a reaction to the concentration of reactants.</li>
+<li><strong>Reaction Mechanisms</strong>: The step-by-step sequence of elementary reactions that lead to the overall reaction.</li>
+<li><strong>Activation Energy</strong>: The minimum energy required for a reaction to occur.</li>
+</ul>
+</ul>
+<hr />
+<h2>Understanding Reaction Rates</h2>
+<h3>Definition of Reaction Rate</h3>
+<p><p>The <strong>reaction rate</strong> is defined as the change in concentration of reactants or products per unit time. It can be expressed mathematically as:</p></p>
+<p><p>[</p>
+<p>\text{Rate} = -\frac{d[A]}{dt} = \frac{d[B]}{dt}</p>
+<p>]</p></p>
+<p><p>where ([A]) is the concentration of a reactant, ([B]) is the concentration of a product, and (t) is time. The negative sign indicates that the concentration of reactants decreases over time, while the concentration of products increases.</p></p>
+<h3>Units of Rate</h3>
+<p><p>The units of reaction rate are typically expressed in molarity per second (M/s) or moles per liter per second (mol/L·s). For example, if the concentration of a reactant decreases from 0.5 M to 0.3 M in 10 seconds, the average reaction rate can be calculated as:</p></p>
+<p><p>[</p>
+<p>\text{Rate} = -\frac{0.3 \, \text{M} - 0.5 \, \text{M}}{10 \, \text{s}} = 0.02 \, \text{M/s}</p>
+<p>]</p></p>
+<h3>Example of Reaction Rates</h3>
+<p><p>Consider the decomposition of hydrogen peroxide ((H_2O_2)):</p></p>
+<p><p>[</p>
+<p>2H_2O_2 \rightarrow 2H_2O + O_2</p>
+<p>]</p></p>
+<p><p>To measure the reaction rate, we could monitor the production of oxygen gas ((O_2)) over time. If we find that the concentration of (O_2) increases by 0.1 M in 5 minutes, we can derive the rate as follows:</p></p>
+<p><p>[</p>
+<p>\text{Rate} = \frac{0.1 \, \text{M}}{5 \, \text{min}} = 0.02 \, \text{M/min}</p>
+<p>]</p></p>
+<hr />
+<h2>Factors Affecting Reaction Rates</h2>
+<p><p>Understanding the factors that influence reaction rates is crucial for controlling and optimizing chemical processes. Here are the key factors:</p></p>
+<h3>1. Concentration</h3>
+<p><p>The concentration of reactants plays a significant role in determining reaction rates. Generally, an increase in reactant concentration leads to an increase in reaction rate. This relationship can often be explained by the collision theory, which states that more particles in a given volume lead to a higher frequency of collisions, thus increasing the likelihood of reaction.</p></p>
+<p><p><strong>Example</strong>: In the reaction between hydrochloric acid ((HCl)) and sodium thiosulfate ((Na_2S_2O_3)), increasing the concentration of (HCl) results in a faster formation of sulfur, observable as a cloudiness in the solution.</p></p>
+<h3>2. Temperature</h3>
+<p><p>Temperature is another critical factor affecting reaction rates. Typically, increasing the temperature increases the kinetic energy of molecules, leading to more frequent and energetic collisions. This increase in energy can also help overcome the <strong>activation energy</strong> barrier, allowing more reactions to occur.</p></p>
+<p><p><strong>Example</strong>: The decomposition of ammonium chloride ((NH_4Cl)) is faster at higher temperatures, illustrating how temperature can accelerate reactions.</p></p>
+<h3>3. Surface Area</h3>
+<p><p>For solid reactants, increased surface area can enhance reaction rates. This is particularly relevant in heterogeneous reactions, where reactants are in different phases (e.g., solid and gas).</p></p>
+<p><p><strong>Example</strong>: Finely powdered solid reactants react more quickly than larger chunks of the same material because the powder exposes more area for collisions with other reactants.</p></p>
+<h3>4. Catalysts</h3>
+<p><p>Catalysts are substances that speed up chemical reactions without being consumed in the process. They work by providing an alternative reaction pathway with a lower activation energy.</p></p>
+<p><p><strong>Example</strong>: In the Haber process for synthesizing ammonia ((NH_3)), iron catalysts are used to increase the reaction rate without being consumed.</p></p>
+<h3>5. Nature of Reactants</h3>
+<p><p>The physical and chemical properties of reactants, including their molecular structure and bond strength, also influence reaction rates. For instance, reactions involving ionic compounds generally occur faster than those involving covalent compounds due to the stronger interactions in ionic bonds.</p></p>
+<hr />
+<h2>Rate Laws and Reaction Mechanisms</h2>
+<h3>Rate Laws</h3>
+<p><p>Rate laws are mathematical equations that relate the rate of a reaction to the concentration of reactants. A general form for a simple reaction (A + B \rightarrow C) can be expressed as:</p></p>
+<p><p>[</p>
+<p>\text{Rate} = k[A]^m[B]^n</p>
+<p>]</p></p>
+<p><p>where:</p>
+<ul>
+<li>(k) is the rate constant,</li>
+<li>([A]) and ([B]) are the concentrations of the reactants,</li>
+<li>(m) and (n) are the reaction orders with respect to each reactant.</p></li>
+</ul>
+<p><p>The values of (m) and (n) are determined experimentally and indicate how the rate depends on the concentration of each reactant.</p></p>
+<h3>Example of Rate Law</h3>
+<p><p>For the reaction:</p></p>
+<p><p>[</p>
+<p>2NO + O_2 \rightarrow 2NO_2</p>
+<p>]</p></p>
+<p><p>if the rate law is found to be:</p></p>
+<p><p>[</p>
+<p>\text{Rate} = k[NO]^2[O_2]</p>
+<p>]</p></p>
+<p><p>it indicates that the reaction is second-order with respect to (NO) and first-order with respect to (O_2).</p></p>
+<h3>Reaction Mechanisms</h3>
+<p><p>A <strong>reaction mechanism</strong> describes the step-by-step sequence of elementary reactions that occur during the course of a chemical reaction. Understanding the mechanism helps chemists to elucidate how reactants are transformed into products.</p></p>
+<p><p><strong>Example</strong>: In the oxidation of hydrogen to form water:</p></p>
+<p><p>[</p>
+<p>2H_2 + O_2 \rightarrow 2H_2O</p>
+<p>]</p></p>
+<p><p>the mechanism may involve multiple steps, including the formation of intermediates such as hydroxyl radicals.</p></p>
+<h3>Activation Energy</h3>
+<p><p>Activation energy ((E_a)) is the minimum energy required for a reaction to proceed. It is a critical concept in understanding reaction rates, as it influences how many molecules have sufficient energy to react.</p></p>
+<p><p>The Arrhenius equation is a fundamental relationship that links the rate constant ((k)) to temperature and activation energy:</p></p>
+<p><p>[</p>
+<p>k = A e^{-\frac{E_a}{RT}}</p>
+<p>]</p></p>
+<p><p>where (A) is the pre-exponential factor, (R) is the gas constant, and (T) is the temperature in Kelvin.</p></p>
+<hr />
+<h2>Real-World Applications</h2>
+<h3>1. Pharmaceutical Industry</h3>
+<p><p>Understanding reaction kinetics is crucial in the pharmaceutical industry for drug development. The rate of reactions can impact the efficacy and stability of medications. By optimizing reaction conditions, chemists can enhance drug formulation, ensuring that active ingredients are effective and long-lasting.</p></p>
+<h3>2. Environmental Chemistry</h3>
+<p><p>Chemical kinetics aids in understanding the rates of pollutant degradation in the environment. For instance, the kinetics of reactions involving ozone in the atmosphere helps researchers develop strategies to combat air pollution.</p></p>
+<h3>3. Industrial Processes</h3>
+<p><p>In chemical manufacturing, optimizing reaction rates can lead to increased production efficiency and cost savings. For example, the Haber process for ammonia synthesis relies on catalysts to enhance reaction rates, making it feasible for large-scale production.</p></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers</h2>
+<h3>Emerging Technologies</h3>
+<p><p>Recent advancements in technology enable chemists to study reaction kinetics at unprecedented levels of detail. Techniques such as ultra-fast spectroscopy and high-throughput screening allow for real-time observation of reaction processes, leading to deeper insights into mechanisms and rate laws.</p></p>
+<h3>Future Directions</h3>
+<p><p>As we look to the future, the integration of artificial intelligence (AI) and machine learning (ML) in chemical kinetics offers exciting possibilities. These technologies can be employed to predict reaction outcomes and optimize conditions, potentially revolutionizing the field.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In summary, chemical kinetics is a vital field that bridges our understanding of reaction rates and the factors influencing them. By integrating concepts of concentration, temperature, surface area, catalysts, and the nature of reactants, we can better grasp the complexities of chemical reactions. The knowledge gained from studying kinetics not only enhances our understanding of fundamental science but also has profound implications across various industries.</p></p>
+<p><p>As you continue your learning journey, consider exploring the intricate connections between kinetics, thermodynamics, and molecular behavior, and how they intersect with real-world applications. The landscape of chemical kinetics is constantly evolving, promising exciting developments in both research and practical applications.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary factor that generally increases the reaction rate when the concentration of reactants is increased?", "options": [{"id": "A", "text": "Temperature decreases", "explanation": "Incorrect - Increasing concentration usually leads to an increase in temperature due to more collisions."}, {"id": "B", "text": "Kinetic energy decreases", "explanation": "Incorrect - Higher concentrations typically increase kinetic energy due to more collisions."}, {"id": "C", "text": "Frequency of collisions increases", "explanation": "Correct - More reactants lead to more frequent collisions, increasing the chance of reaction."}, {"id": "D", "text": "Activation energy decreases", "explanation": "Incorrect - Activation energy is a fixed value for a given reaction and does not change with concentration."}], "correct_answer": "C"}, {"question": "What does the rate law of a reaction express?", "options": [{"id": "A", "text": "The total amount of product formed", "explanation": "Incorrect - The rate law does not express the total amount of product but the rate of reaction."}, {"id": "B", "text": "The relationship between the rate of the reaction and the concentration of reactants", "explanation": "Correct - The rate law describes how the rate depends on concentrations of reactants."}, {"id": "C", "text": "The physical state of the reactants", "explanation": "Incorrect - While physical states may influence rates, they are not expressed in the rate law."}, {"id": "D", "text": "The temperature at which the reaction occurs", "explanation": "Incorrect - The rate law does not directly relate to the temperature at which the reaction occurs."}], "correct_answer": "B"}, {"question": "How does a catalyst affect a chemical reaction?", "options": [{"id": "A", "text": "It decreases the reaction rate", "explanation": "Incorrect - Catalysts increase the reaction rate."}, {"id": "B", "text": "It increases the activation energy required for the reaction", "explanation": "Incorrect - Catalysts lower the activation energy, not increase it."}, {"id": "C", "text": "It provides an alternative pathway with a lower activation energy", "explanation": "Correct - Catalysts create an alternative pathway with a lower activation energy."}, {"id": "D", "text": "It changes the stoichiometry of the reaction", "explanation": "Incorrect - Catalysts do not change the stoichiometry of the reaction."}], "correct_answer": "C"}, {"question": "What is activation energy?", "options": [{"id": "A", "text": "The total energy of the products", "explanation": "Incorrect - Activation energy is not the energy of products but the energy needed to start a reaction."}, {"id": "B", "text": "The energy required to initiate a reaction", "explanation": "Correct - Activation energy is the minimum energy needed to initiate a chemical reaction."}, {"id": "C", "text": "The energy released during a reaction", "explanation": "Incorrect - This describes the energy change during a reaction, not activation energy."}, {"id": "D", "text": "The energy of the reactants", "explanation": "Incorrect - Activation energy is not related to the total energy of reactants."}], "correct_answer": "B"}, {"question": "Why are reaction mechanisms important in chemical kinetics?", "options": [{"id": "A", "text": "They determine the temperature of a reaction", "explanation": "Incorrect - Mechanisms do not determine temperature but can affect rates."}, {"id": "B", "text": "They provide detailed steps of how reactants are transformed into products", "explanation": "Correct - Mechanisms detail the step-by-step process of how reactants become products."}, {"id": "C", "text": "They describe the rate law of the reaction", "explanation": "Incorrect - Rate laws relate to the overall reaction but are not mechanisms themselves."}, {"id": "D", "text": "They indicate the physical state of the reactants", "explanation": "Incorrect - While physical states can be part of mechanisms, they do not define their importance."}], "correct_answer": "B"}], "why_it_matters": "Understanding the fundamentals of chemical kinetics is crucial for anyone interested in chemistry, as it provides the tools to predict and manipulate reaction behaviors. This knowledge is essential for applications in research, industry, and environmental science, making it a pivotal area of study in physical chemistry."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
