@@ -1,0 +1,392 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: The Greeks</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">The Greeks</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: akash.singh.0762@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>The Greeks: A Comprehensive Beginner-Friendly Educational Report</h1>
+<h2>Introduction:</h2>
+<p><p>The world of <strong>options trading</strong> is vast and intricate, often described through various essential concepts that help traders make informed decisions. One such critical area is understanding "The Greeks." This report aims to provide a detailed exploration of the Greeks, building on the knowledge you've acquired in previous learning modules, particularly around options pricing and risk management. As your understanding deepens, we will connect the dots between the Greeks and their practical applications in the trading world, providing comprehensive insights for both theoretical foundations and real-world implications.</p></p>
+<p><p>The Greeks—delta, gamma, theta, vega, and rho—are metrics that offer insight into how different factors influence the pricing of options. They serve as a framework for traders to manage risk and make educated predictions about price movements. In this report, we will explore each Greek in detail, offering definitions, applications, and the implications of each in options trading.</p></p>
+<h2>Key Concepts:</h2>
+<h3>1. Delta</h3>
+<p><p><strong>Definition</strong>: Delta ((\Delta)) measures the sensitivity of an option's price to changes in the price of the underlying asset. It represents the rate of change of the option's price with respect to a $1 change in the underlying asset's price.</p></p>
+<p><p><strong>Example</strong>: If an option has a delta of 0.5, it means that for every $1 increase in the underlying asset, the option's price is expected to increase by $0.50.</p></p>
+<p><p><strong>Real-World Application</strong>:</p>
+<ul>
+<li><strong>Hedging</strong>: Traders can use delta to hedge positions in the underlying asset. For instance, if a trader holds an option with a delta of 0.5 and wants to hedge against a move in the underlying stock, they could short 50 shares of the underlying for every option contract held.</p></li>
+</ul>
+<p><p><strong>Think About This</strong>: How might a trader's perception of an underlying asset's movement influence their decision to buy or sell options based on delta?</p></p>
+<h3>2. Gamma</h3>
+<p><p><strong>Definition</strong>: Gamma ((\Gamma)) measures the rate of change of delta over time. It indicates how much the delta of an option will change as the underlying asset's price changes.</p></p>
+<p><p><strong>Example</strong>: If an option has a gamma of 0.1, and the delta is currently 0.5, a $1 increase in the underlying asset would increase the delta to 0.6.</p></p>
+<p><p><strong>Real-World Application</strong>:</p>
+<ul>
+<li><strong>Understanding Risk</strong>: Gamma helps traders understand the risk associated with their positions. High gamma values indicate that delta can change rapidly, meaning the trader must adjust their hedging strategies more frequently.</p></li>
+</ul>
+<p><p><strong>Common Misconception</strong>: Many traders think gamma only affects long options positions. However, gamma impacts both long and short positions, making it essential for managing risk across all types of trades.</p></p>
+<h3>3. Theta</h3>
+<p><p><strong>Definition</strong>: Theta ((\Theta)) measures the rate at which an option's price decreases as it approaches its expiration date. It reflects time decay.</p></p>
+<p><p><strong>Example</strong>: If an option has a theta of -0.05, it means that the option's price will decrease by approximately $0.05 for every day that passes, assuming all else remains constant.</p></p>
+<p><p><strong>Real-World Application</strong>:</p>
+<ul>
+<li><strong>Option Writers</strong>: Option sellers (or writers) benefit from theta because they earn premium as options lose value over time. Conversely, option buyers must be mindful of time decay, especially in shorter-term trades.</p></li>
+</ul>
+<p><p><strong>Further Exploration</strong>: Consider how theta plays a role in choosing expiration dates and how it interacts with other Greeks, particularly in strategies like straddles and strangles.</p></p>
+<h3>4. Vega</h3>
+<p><p><strong>Definition</strong>: Vega ((V)) measures an option's sensitivity to changes in the volatility of the underlying asset. Higher volatility generally increases an option's price.</p></p>
+<p><p><strong>Example</strong>: If an option has a vega of 0.2, a 1% increase in implied volatility would increase the option's price by $0.20.</p></p>
+<p><p><strong>Real-World Application</strong>:</p>
+<ul>
+<li><strong>Volatility Trading</strong>: Traders can use vega to capitalize on changes in market volatility. If a trader anticipates higher volatility in the near future, they might buy options with high vega to benefit from rising prices.</p></li>
+</ul>
+<p><p><strong>Key Takeaway</strong>: Understanding vega is crucial for developing strategies around earnings reports, economic releases, or other events that may spike volatility.</p></p>
+<h3>5. Rho</h3>
+<p><p><strong>Definition</strong>: Rho ((\rho)) measures the sensitivity of an option's price to changes in interest rates. It indicates how much the price of an option will change for a 1% change in interest rates.</p></p>
+<p><p><strong>Example</strong>: If an option has a rho of 0.05, a 1% increase in interest rates would increase the option's price by $0.05.</p></p>
+<p><p><strong>Real-World Application</strong>:</p>
+<ul>
+<li><strong>Interest Rate Impact</strong>: Traders need to consider rho when dealing with longer-term options, as interest rate changes can significantly impact the pricing of these options.</p></li>
+</ul>
+<h3>Summary of the Greeks</h3>
+<p><p>| Greek  | Measures                | Impact on Price |</p>
+<p>|--------|------------------------|-----------------|</p>
+<p>| Delta  | Sensitivity to price changes | Direct relationship with the underlying asset |</p>
+<p>| Gamma  | Rate of change of delta | Indicates risk and volatility |</p>
+<p>| Theta  | Time decay             | Decreases with time, affecting option buyers |</p>
+<p>| Vega   | Sensitivity to volatility | Increases with higher volatility |</p>
+<p>| Rho    | Sensitivity to interest rates | Influences longer-term options pricing |</p></p>
+<hr />
+<h2>Real-World Applications:</h2>
+<p><p>The Greeks are not merely academic constructs; they have significant implications in real-world trading scenarios. Here are some practical applications:</p></p>
+<h3>Portfolio Management</h3>
+<p><p>Traders use the Greeks to balance their portfolios. For instance, by understanding the delta of their positions, they can create a delta-neutral portfolio, where the overall delta is zero, mitigating risk associated with price changes in underlying assets.</p></p>
+<h3>Strategy Development</h3>
+<p><p>Different trading strategies leverage the Greeks to optimize outcomes:</p>
+<ul>
+<li><strong>Straddles and Strangles</strong>: These strategies benefit from high vega, as they profit from volatility regardless of the direction of price movement.</li>
+<li><strong>Iron Condors</strong>: This strategy typically has a low delta and benefits from time decay, making theta a critical consideration for traders.</p></li>
+</ul>
+<h3>Risk Assessment</h3>
+<p><p>Sophisticated traders often employ models that incorporate the Greeks to assess risk dynamically. For example, adjustments can be made to a trading strategy based on changes in gamma or vega, allowing for proactive risk management.</p></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers:</h2>
+<p><p>As the financial markets evolve, so too does the understanding and application of the Greeks. Advanced quantitative models and algorithms increasingly incorporate these metrics to optimize trading strategies. Emerging technologies like machine learning and big data analytics are being explored to enhance predictive capabilities related to the Greeks.</p></p>
+<h3>Future Implications</h3>
+<p><p>The integration of artificial intelligence (AI) in options trading is set to transform how traders interpret the Greeks. AI-driven models can analyze vast amounts of market data to predict the movements of the Greeks more accurately, allowing traders to make more informed decisions.</p></p>
+<p><p><strong>Research Challenges</strong>: As markets become more complex, the challenge lies in accurately modeling the Greeks under various market conditions, including extreme volatility events.</p></p>
+<h3>Industry Trends</h3>
+<p><p>The rise of retail trading platforms and the democratization of options trading means that understanding the Greeks is more essential than ever. Education around these concepts is critical for new traders to navigate the increasingly competitive landscape effectively.</p></p>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>Understanding the Greeks is pivotal for anyone venturing into options trading. Each Greek offers unique insights that can help traders manage risk, develop strategies, and make informed decisions. As you continue your journey in options trading, consider how the Greeks can enhance your approach, from portfolio management to strategy development.</p></p>
+<p><p>This report has provided a comprehensive overview of the Greeks, highlighting their definitions, real-world applications, and future implications. As you further explore the dynamic world of options trading, remember that mastery of the Greeks will be a valuable asset in your trading toolkit.</p></p>
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What does delta measure in options trading?", "options": [{"id": "A", "text": "The rate at which an option's price decreases over time", "explanation": "Incorrect. This describes theta, which measures time decay."}, {"id": "B", "text": "The sensitivity of an option's price to changes in the price of the underlying asset", "explanation": "Correct. Delta measures how much an option's price changes with a $1 change in the underlying asset."}, {"id": "C", "text": "The rate of change of delta over time", "explanation": "Incorrect. This is the definition of gamma."}, {"id": "D", "text": "The sensitivity of an option's price to changes in interest rates", "explanation": "Incorrect. This defines rho, which measures sensitivity to interest rates."}], "correct_answer": "B"}, {"question": "What does gamma indicate?", "options": [{"id": "A", "text": "The rate at which an option's price decreases as expiration approaches", "explanation": "Incorrect. This describes theta."}, {"id": "B", "text": "The sensitivity of an option's price to changes in volatility", "explanation": "Incorrect. This describes vega."}, {"id": "C", "text": "The rate of change of delta over time", "explanation": "Correct. Gamma measures how delta changes as the price of the underlying asset changes."}, {"id": "D", "text": "The sensitivity of an option's price to changes in interest rates", "explanation": "Incorrect. This is the definition of rho."}], "correct_answer": "C"}, {"question": "How does theta affect option buyers?", "options": [{"id": "A", "text": "It increases the option's price as expiration approaches", "explanation": "Incorrect. Theta reflects time decay, which decreases the option's price."}, {"id": "B", "text": "It decreases the option's price as expiration approaches", "explanation": "Correct. Theta represents the loss of value as time passes, negatively impacting option buyers."}, {"id": "C", "text": "It measures the option's sensitivity to volatility", "explanation": "Incorrect. This describes vega."}, {"id": "D", "text": "It measures the impact of interest rates on the option's price", "explanation": "Incorrect. This is the definition of rho."}], "correct_answer": "B"}, {"question": "What would a trader with a high vega option expect?", "options": [{"id": "A", "text": "Decreased sensitivity to price changes", "explanation": "Incorrect. High vega indicates increased sensitivity, not decreased."}, {"id": "B", "text": "Increased sensitivity to changes in volatility", "explanation": "Correct. A high vega means the option\u2019s price is more sensitive to changes in volatility."}, {"id": "C", "text": "No effect from time decay", "explanation": "Incorrect. All options experience time decay; high vega does not shield from this."}, {"id": "D", "text": "A stable market environment", "explanation": "Incorrect. High vega typically indicates an expectation of market movement."}], "correct_answer": "B"}, {"question": "Why is rho important for long-term options?", "options": [{"id": "A", "text": "It measures the time decay of the option", "explanation": "Incorrect. Theta measures time decay."}, {"id": "B", "text": "It assesses sensitivity to changes in the underlying asset's price", "explanation": "Incorrect. This is delta's role."}, {"id": "C", "text": "It indicates how interest rate changes can affect option pricing", "explanation": "Correct. Rho is crucial for understanding how interest rate changes affect long-term options pricing."}, {"id": "D", "text": "It helps understand how volatility influences option pricing", "explanation": "Incorrect. This describes vega."}], "correct_answer": "C"}], "why_it_matters": "Understanding the Greeks is essential for any options trader. It enhances your ability to manage risk, develop strategies, and make informed trading decisions, ultimately contributing to your success in the financial markets. Keep exploring these concepts and consider how they can be integrated into your trading practices."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
