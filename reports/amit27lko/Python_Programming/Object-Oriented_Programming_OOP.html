@@ -1,0 +1,455 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Object-Oriented Programming (OOP)</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Object-Oriented Programming (OOP)</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: amit27.lko@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Comprehensive Report on Object-Oriented Programming (OOP)</h1>
+<h2>Introduction:</h2>
+<p><p>As you embark on the next phase of your programming journey, we will delve into <strong>Object-Oriented Programming (OOP)</strong>, a paradigm that will greatly enhance your coding capabilities. Having established a solid foundation in Python programming, including data structures, string manipulation, and file I/O, you are now ready to explore how OOP can streamline your code, improve reusability, and better model real-world problems.</p></p>
+<p><p>OOP is a programming style that uses "objects" to design applications. These objects can represent real-world entities, making it easier to structure your code around them, thus promoting better organization and modularity. This report will guide you through the key concepts of OOP, its applications, and its significance in modern programming.</p></p>
+<hr />
+<h2>Key Concepts of Object-Oriented Programming:</h2>
+<p><p>To fully grasp OOP, we will explore several core concepts, each providing a building block for understanding how this paradigm functions:</p></p>
+<h3>1. Objects and Classes</h3>
+<p><p><strong>Definitions:</strong></p>
+<ul>
+<li><strong>Object</strong>: An object is an instance of a class. It can hold data and has methods (functions) that can operate on that data.</li>
+<li><strong>Class</strong>: A class is a blueprint for creating objects. It defines a set of attributes and methods that the objects created from the class will have.</p></li>
+</ul>
+<p><p><strong>Example:</strong></p>
+<p>Imagine you are creating a program to manage a library. You might create a class called <code>Book</code>:</p></p>
+<p><p>```python</p>
+<p>class Book:</p>
+<p>def <strong>init</strong>(self, title, author):</p>
+<p>self.title = title</p>
+<p>self.author = author</p></p>
+<p><pre><code>def display_info(self):</p>
+<p>print(f"Title: {self.title}, Author: {self.author}")</p>
+<p></code></pre></p>
+<p><p>```</p></p>
+<p><p>Here, <code>Book</code> is a class with a constructor (<code>__init__</code>) that initializes the title and author attributes. The method <code>display_info</code> prints out the book's details.</p></p>
+<h3>2. Encapsulation</h3>
+<p><p><strong>Definition:</strong></p>
+<p>Encapsulation is the bundling of data (attributes) and methods (functions) that operate on the data into a single unit or class. It restricts direct access to some of the object's components, which can prevent the accidental modification of data.</p></p>
+<p><p><strong>Example:</strong></p>
+<p>Continuing with the <code>Book</code> class, you might want to keep the <code>author</code> attribute private:</p></p>
+<p><p>```python</p>
+<p>class Book:</p>
+<p>def <strong>init</strong>(self, title, author):</p>
+<p>self.title = title</p>
+<p>self.__author = author  # Private attribute</p></p>
+<p><pre><code>def display_info(self):</p>
+<p>print(f"Title: {self.title}, Author: {self.__author}")</p>
+<p></code></pre></p>
+<p><p>```</p></p>
+<p><p>In this code, <code>__author</code> is a private attribute. It cannot be accessed directly from outside the class, promoting encapsulation.</p></p>
+<h3>3. Inheritance</h3>
+<p><p><strong>Definition:</strong></p>
+<p>Inheritance allows a new class (child class) to inherit the properties and methods of an existing class (parent class). This promotes code reusability and makes it easier to create a family of related objects.</p></p>
+<p><p><strong>Example:</strong></p>
+<p>You can create a <code>EBook</code> class that inherits from the <code>Book</code> class:</p></p>
+<p><p>```python</p>
+<p>class EBook(Book):</p>
+<p>def <strong>init</strong>(self, title, author, file_size):</p>
+<p>super().<strong>init</strong>(title, author)  # Call the constructor of the parent class</p>
+<p>self.file_size = file_size</p></p>
+<p><pre><code>def display_info(self):</p>
+<p>super().display_info()  # Call the parent class's method</p>
+<p>print(f"File Size: {self.file_size} MB")</p>
+<p></code></pre></p>
+<p><p>```</p></p>
+<p><p><code>EBook</code> inherits the <code>display_info</code> method from <code>Book</code> but also has its own attribute, <code>file_size</code>, and can enhance the functionality of the parent class.</p></p>
+<h3>4. Polymorphism</h3>
+<p><p><strong>Definition:</strong></p>
+<p>Polymorphism allows methods to do different things based on the object it is acting upon, even when they share the same name. It enables the same interface to be used for different underlying data types.</p></p>
+<p><p><strong>Example:</strong></p>
+<p>Let’s add another class, <code>AudioBook</code>, which also inherits from <code>Book</code>:</p></p>
+<p><p>```python</p>
+<p>class AudioBook(Book):</p>
+<p>def <strong>init</strong>(self, title, author, duration):</p>
+<p>super().<strong>init</strong>(title, author)</p>
+<p>self.duration = duration</p></p>
+<p><pre><code>def display_info(self):</p>
+<p>super().display_info()</p>
+<p>print(f"Duration: {self.duration} hours")</p>
+<p></code></pre></p>
+<p><p>```</p></p>
+<p><p>Both <code>EBook</code> and <code>AudioBook</code> can be treated as <code>Book</code> objects, but they implement <code>display_info</code> in their own way, showcasing polymorphism.</p></p>
+<h3>5. Abstraction</h3>
+<p><p><strong>Definition:</strong></p>
+<p>Abstraction is the concept of hiding the complex reality while exposing only the necessary parts of an object. This simplifies the interaction with the object as the user does not need to understand all the inner workings.</p></p>
+<p><p><strong>Example:</strong></p>
+<p>Suppose you have a class that handles database operations. The user of the class can perform operations without knowing the details of how the operations are implemented.</p></p>
+<p><p>```python</p>
+<p>class Database:</p>
+<p>def connect(self):</p>
+<p># Code to connect to a database</p>
+<p>pass</p></p>
+<p><pre><code>def fetch_data(self):</p>
+<p># Code to fetch data</p>
+<p>pass</p>
+<p></code></pre></p>
+<p><p>```</p></p>
+<p><p>The user interacts with the <code>Database</code> class without needing to understand the connection mechanisms, promoting abstraction.</p></p>
+<hr />
+<h2>Real-World Applications of OOP:</h2>
+<p><p>Now that we have explored the fundamental concepts of OOP, let’s look at its practical applications across various industries:</p></p>
+<h3>1. Software Development</h3>
+<p><p>OOP is widely used in software development for building maintainable and scalable applications. For example, in web development, frameworks like Django and Flask utilize OOP principles to create robust applications.</p></p>
+<h3>2. Game Development</h3>
+<p><p>In game development, OOP allows developers to create characters, items, and environments as objects, making it easier to manage interactions and behaviors. Each game character can be represented as an object with attributes like health, strength, and methods for actions like attacking or defending.</p></p>
+<h3>3. GUI Applications</h3>
+<p><p>Graphical User Interface (GUI) applications often use OOP to manage the different components of the interface. Each element, such as buttons, windows, and text fields, can be represented as objects. For instance, a button object can have methods to handle click events and attributes for its label and position.</p></p>
+<h3>4. Simulation Software</h3>
+<p><p>In simulation software, OOP can model real-world systems, such as traffic systems or ecosystems. Each entity in the simulation can be an object with properties and behaviors, allowing for more straightforward modeling of complex interactions.</p></p>
+<h3>5. Data Science</h3>
+<p><p>In data science, libraries like Pandas and Scikit-learn are built using OOP principles. Data frames and machine learning models can be treated as objects, each possessing methods for manipulation and analysis.</p></p>
+<hr />
+<h2>Theoretical Foundations and Practical Implications:</h2>
+<h3>Theoretical Foundations:</h3>
+<p><p>OOP emerged in the 1960s and gained popularity in the 1980s with languages like Smalltalk. Its principles were influenced by early programming concepts but focused on modeling real-world scenarios. </p></p>
+<h4>Key Advantages:</h4>
+<ul>
+<ul>
+<li><strong>Improved Code Reusability</strong>: Through inheritance, developers can create new classes based on existing ones, reducing redundancy.</li>
+<li><strong>Enhanced Maintainability</strong>: Encapsulation and abstraction simplify code management and debugging.</li>
+<li><strong>Better Collaboration</strong>: OOP allows multiple developers to work on different classes and modules without conflicts.</li>
+</ul>
+</ul>
+<h3>Practical Implications:</h3>
+<p><p>When applying OOP in real-world projects, consider the following:</p></p>
+<ul>
+<ul>
+<li><strong>Design Patterns</strong>: Familiarize yourself with common design patterns (like Singleton, Factory, and Observer) that utilize OOP principles to solve recurring design problems.</li>
+<li><strong>Testing</strong>: OOP facilitates unit testing, where individual objects can be tested in isolation, improving reliability.</li>
+<li><strong>Frameworks and Libraries</strong>: Leverage existing frameworks that implement OOP, saving development time and effort.</li>
+</ul>
+</ul>
+<hr />
+<h2>Current State and Future Directions:</h2>
+<h3>Current Trends:</h3>
+<p><p>OOP remains a dominant paradigm in software development. Languages like Python, Java, and C# continue to emphasize OOP principles, catering to both beginner and advanced programmers. With the rise of microservices and serverless architecture, OOP is adapting to support modular design in cloud-native applications.</p></p>
+<h3>Future Directions:</h3>
+<p><p>Looking ahead, the future of OOP may involve:</p></p>
+<ul>
+<ul>
+<li><strong>Integration with Functional Programming</strong>: Combining OOP with functional programming paradigms can lead to more flexible and powerful coding practices.</li>
+<li><strong>Enhanced Support for Concurrency</strong>: As applications increasingly require parallel processing, OOP will need to evolve to facilitate safe and effective concurrent programming.</li>
+<li><strong>Artificial Intelligence and Machine Learning</strong>: OOP principles are being applied to AI and ML, where objects can represent models and datasets, promoting better organization and reuse of code.</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>Object-Oriented Programming is a powerful paradigm that enhances your programming ability by allowing you to model real-world entities, promote code reusability, and improve maintainability. As you continue your programming journey, mastering OOP will equip you with essential skills for developing scalable applications in various domains. </p></p>
+<p><p>To further your understanding, I encourage you to explore OOP in Python through hands-on projects. Start with simple class designs and gradually incorporate more complex concepts like inheritance and polymorphism. </p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is an object in OOP?", "options": [{"id": "A", "text": "A blueprint for creating classes", "explanation": "Incorrect. A class is a blueprint, not an object."}, {"id": "B", "text": "An instance of a class", "explanation": "Correct. An object is indeed an instance created from a class."}, {"id": "C", "text": "A method that inherits from another class", "explanation": "Incorrect. A method cannot inherit; it is associated with an object or class."}, {"id": "D", "text": "A way to hide data from users", "explanation": "Incorrect. Hiding data is part of encapsulation, not the definition of an object."}], "correct_answer": "B"}, {"question": "What does encapsulation achieve in OOP?", "options": [{"id": "A", "text": "It allows for method overloading.", "explanation": "Incorrect. Method overloading refers to defining multiple methods with the same name but different parameters."}, {"id": "B", "text": "It restricts access to certain components of an object.", "explanation": "Correct. Encapsulation restricts access to an object's internal state."}, {"id": "C", "text": "It enables objects to inherit properties from other objects.", "explanation": "Incorrect. Inheritance is a separate concept that allows one class to inherit from another."}, {"id": "D", "text": "It allows different data types to use the same method.", "explanation": "Incorrect. This describes polymorphism."}], "correct_answer": "B"}, {"question": "Inheritance allows a new class to inherit properties from which of the following?", "options": [{"id": "A", "text": "Another new class", "explanation": "Incorrect. Inheritance specifically involves a parent class."}, {"id": "B", "text": "A parent class", "explanation": "Correct. Inheritance allows a child class to inherit from a parent class."}, {"id": "C", "text": "An object", "explanation": "Incorrect. An object is an instance, not a class."}, {"id": "D", "text": "A method", "explanation": "Incorrect. Methods do not inherit properties; classes do."}], "correct_answer": "B"}, {"question": "Which of the following is an example of polymorphism?", "options": [{"id": "A", "text": "A class defining multiple methods with the same name but different parameters.", "explanation": "Incorrect. This describes method overloading, not polymorphism."}, {"id": "B", "text": "A class that cannot access its private attributes.", "explanation": "Incorrect. This describes encapsulation."}, {"id": "C", "text": "A method that can behave differently based on the object invoking it.", "explanation": "Correct. Polymorphism allows methods to act differently based on the object."}, {"id": "D", "text": "A subclass that extends the functionality of its parent class.", "explanation": "Incorrect. This describes inheritance."}], "correct_answer": "C"}, {"question": "What is one of the primary advantages of OOP?", "options": [{"id": "A", "text": "It mandates the use of global variables.", "explanation": "Incorrect. OOP does not mandate global variables; it encourages encapsulation."}, {"id": "B", "text": "It allows for easier debugging of code.", "explanation": "Correct. OOP\u2019s structure helps isolate errors, making debugging easier."}, {"id": "C", "text": "It promotes the use of procedural programming techniques.", "explanation": "Incorrect. OOP is distinct from procedural programming."}, {"id": "D", "text": "It eliminates the need for functions in programming.", "explanation": "Incorrect. Functions are still crucial in OOP."}], "correct_answer": "B"}], "why_it_matters": "Understanding OOP concepts is vital for your growth as a programmer. By mastering these principles, you will be well-equipped to handle complex programming challenges and develop efficient, reusable code in your projects. Continue exploring OOP and apply these concepts in your programming endeavors!"};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
