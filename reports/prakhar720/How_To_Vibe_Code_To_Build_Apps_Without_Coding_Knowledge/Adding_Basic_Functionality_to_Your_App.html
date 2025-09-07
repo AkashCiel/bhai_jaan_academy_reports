@@ -1,0 +1,564 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Adding Basic Functionality to Your App</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Adding Basic Functionality to Your App</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: prakhar720@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Adding Basic Functionality to Your App</h1>
+<h2>Introduction:</h2>
+<p><p>Welcome to the next exciting phase of your no-code app development journey! Building upon your foundational knowledge of no-code platforms, user interface (UI) design fundamental concepts, and user experience (UX) principles, we now turn our attention to <strong>adding basic functionality to your app</strong>. This step is crucial as it transforms your static designs into dynamic, interactive applications that can effectively serve user needs.</p></p>
+<p><p>In this report, we will delve deep into the various functionalities you can incorporate into your app, exploring both theoretical foundations and practical applications. We'll bridge our past learning with the current topic by emphasizing how these functionalities enhance user engagement and overall app performance. By the end of this report, you will not only understand the basic functionalities available but also how to implement them effectively using no-code tools.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>Understanding App Functionality</h3>
+<p><p><strong>Functionality</strong> refers to the specific features and capabilities that an app offers to its users. It encompasses everything from simple actions like button presses to complex processes like data handling and user authentication. </p></p>
+<p><ol></p>
+<ul>
+<li><strong>Types of Functionality</strong>:</li>
+<li><strong>User Interaction:</strong> Features that allow users to engage with the app, such as buttons, forms, and sliders.</li>
+<li><strong>Data Management:</strong> Capabilities that enable data storage, retrieval, and manipulation.</li>
+<li><strong>Integration:</strong> Connecting your app with external services or APIs to extend its capabilities.</li>
+<li><strong>User Authentication:</strong> Ensuring secure access to the app through login systems.</li>
+<li><strong>Notifications:</strong> Alerts that inform users about updates or actions within the app.</li>
+</ul>
+<p></ol></p>
+<p><p>Understanding these functionalities will help you build a robust application that meets user needs effectively.</p></p>
+<h3>Adding Basic Functionality in No-Code Platforms</h3>
+<p><p>No-code platforms have revolutionized the way app functionality is added, making it accessible even for those without programming knowledge. Here are some common functionalities you can integrate:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Forms and Data Input</strong>:</li>
+<li><strong>Purpose:</strong> Collect user information, feedback, or any other data.</li>
+<li><strong>Implementation:</strong> Most no-code platforms provide form builders where you can drag and drop input fields, like text boxes, radio buttons, and dropdown menus.</li>
+<li>
+</ul>
+<p><p><strong>Example:</strong> Creating a contact form that collects user names, emails, and messages.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Dynamic Content</strong>:</p></p>
+<p></li></p>
+<ul>
+<li><strong>Purpose:</strong> Allow your app to display real-time information.</li>
+<li><strong>Implementation:</strong> Use databases to store content and connect to dynamic elements in your app.</li>
+<li>
+</ul>
+<p><p><strong>Example:</strong> An event app that shows upcoming events fetched from a database.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>User Authentication</strong>:</p></p>
+<p></li></p>
+<ul>
+<li><strong>Purpose:</strong> Secure your app by allowing only authorized users to access certain features.</li>
+<li><strong>Implementation:</strong> Integrate authentication features that require users to log in.</li>
+<li>
+</ul>
+<p><p><strong>Example:</strong> A fitness app that requires users to log in to track personal workouts.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Integrations</strong>:</p></p>
+<p></li></p>
+<ul>
+<li><strong>Purpose:</strong> Connect your app with other services for enhanced functionality.</li>
+<li><strong>Implementation:</strong> Use integration tools within no-code platforms to connect with services like Google Maps, Stripe for payments, or Mailchimp for email marketing.</li>
+<li>
+</ul>
+<p><p><strong>Example:</strong> An e-commerce app that allows users to pay via Stripe.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Notifications</strong>:</p></p>
+<p></li></p>
+<ul>
+<li><strong>Purpose:</strong> Keep users informed about important updates.</li>
+<li><strong>Implementation:</strong> Use built-in notification systems to send alerts to users.</li>
+<li><strong>Example:</strong> A project management app that notifies users about upcoming deadlines.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>Real-World Applications:</h2>
+<p><p>To better understand the importance and implementation of functionality, let’s explore some real-world applications of basic app functionalities:</p></p>
+<h3>Case Study: Event Management App</h3>
+<p><p>Imagine you're building an event management app. Here's how basic functionalities can enhance the user experience:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>User Registration and Login</strong>:</li>
+<li>
+</ul>
+<p><p>Users can create accounts, allowing them to personalize their experience and track their event registrations.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Event Listings</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>A dynamic content feature that fetches and displays events from a database, allowing users to browse upcoming events effortlessly.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Ticket Purchase</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>Integration with payment processors like Stripe enables users to purchase tickets directly through the app. </p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Push Notifications</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>Users receive notifications about event reminders, changes, or new events based on their preferences.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Feedback Forms</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>After attending an event, users can fill out feedback forms to help improve future events.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>Practical Implementation Considerations</h2>
+<p><p>When integrating functionalities into your app, consider the following:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>User-Centric Design</strong>:</li>
+<li>
+</ul>
+<p><p>Always keep your target audience in mind. Design functionalities that cater to their needs and preferences.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Testing</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>After implementing new functionalities, rigorously test them to ensure they work seamlessly. Gather user feedback to identify any issues.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Performance</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>Monitor how added functionalities affect your app's performance. Ensure that the app remains responsive and fast, even with additional features.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Documentation and Tutorials</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>Provide users with clear documentation or tutorials on how to use new features. This can enhance user satisfaction and engagement.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Scalability</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>As you add functionalities, consider how they will scale with increased user demand. Ensure that your backend can handle a larger volume of data and interactions.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h3>Common Misconceptions</h3>
+<p><ol></p>
+<ul>
+<li><strong>"No-Code Means No Functionality"</strong>:</li>
+<li>
+</ul>
+<p><p>Many believe that no-code platforms cannot handle complex functionalities. In reality, with the right platform, you can create sophisticated applications that serve advanced needs.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>"Adding Functionality is Always Complicated"</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>While some functionalities may require more work than others, most no-code platforms simplify the process significantly through visual interfaces and pre-built components.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>"Functionality Equals Complexity"</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Basic functionalities can enhance user experience without overcomplicating the app. Focus on user-friendly designs that prioritize usability.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>Future Directions</h2>
+<p><p>As technology continues to evolve, so will the functionalities available in no-code platforms. Here are some emerging trends and future directions:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Enhanced AI Integration</strong>:</li>
+<li>
+</ul>
+<p><p>Future no-code platforms may incorporate AI tools to automate complex tasks, making it easier to implement functionalities like personalized user experiences.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Increased Interoperability</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>As more platforms emerge, seamless integration between no-code tools and traditional coding environments will become more common.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Greater Focus on Security</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>As data privacy concerns grow, future no-code platforms will likely place a greater emphasis on providing robust security features out of the box.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Advanced Analytics</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Incorporating sophisticated analytics tools will allow developers to gain deeper insights into user behavior and app performance, informing future functionality decisions.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>Incorporating basic functionality into your app is a critical step that bridges your design with user interaction. It transforms your static layouts into engaging experiences that can meet user needs. By understanding and implementing functionalities like forms, user authentication, integrations, and notifications, you enhance your app's value and usability.</p></p>
+<p><p>As you continue your journey in no-code app development, remember that the learning never stops. Embrace new technologies and trends to keep your skills sharp and your apps competitive. </p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the purpose of adding basic functionality to an app?", "options": [{"id": "A", "text": "To make the app look more attractive", "explanation": "Incorrect. While aesthetics are important, functionality is primarily about user interaction and tasks."}, {"id": "B", "text": "To allow users to interact with the app and perform tasks", "explanation": "Correct. Basic functionality enhances user engagement and allows them to perform meaningful tasks within the app."}, {"id": "C", "text": "To limit the app's capabilities", "explanation": "Incorrect. Adding functionality aims to expand the app's capabilities, not limit them."}, {"id": "D", "text": "To make the app easier to delete", "explanation": "Incorrect. The goal is to create a useful app, not to facilitate its deletion."}], "correct_answer": "B"}, {"question": "Which of the following functionalities allows users to securely access specific features of an app?", "options": [{"id": "A", "text": "User Interaction", "explanation": "Incorrect. User interaction focuses on how users engage but does not ensure security."}, {"id": "B", "text": "Data Management", "explanation": "Incorrect. Data management deals with storing and handling data, not securing access."}, {"id": "C", "text": "User Authentication", "explanation": "Correct. User authentication is essential for securing access to certain features of an app."}, {"id": "D", "text": "Notifications", "explanation": "Incorrect. Notifications inform users but do not control access to app features."}], "correct_answer": "C"}, {"question": "What is one way to implement dynamic content in a no-code app?", "options": [{"id": "A", "text": "By creating static text fields", "explanation": "Incorrect. Static text fields do not allow for dynamic updates."}, {"id": "B", "text": "By fetching data from a database", "explanation": "Correct. Fetching data from a database allows the app to display real-time information."}, {"id": "C", "text": "By using high-resolution images only", "explanation": "Incorrect. High-resolution images do not relate to dynamic content."}, {"id": "D", "text": "By limiting user input", "explanation": "Incorrect. Limiting user input would restrict dynamic content creation."}], "correct_answer": "B"}, {"question": "Which functionality allows users to receive alerts about important updates in an app?", "options": [{"id": "A", "text": "User Authentication", "explanation": "Incorrect. User authentication secures access, not alerts users."}, {"id": "B", "text": "Dynamic Content", "explanation": "Incorrect. Dynamic content displays real-time information but does not send alerts."}, {"id": "C", "text": "Notifications", "explanation": "Correct. Notifications are specifically designed to alert users about updates or actions."}, {"id": "D", "text": "Data Management", "explanation": "Incorrect. Data management focuses on handling data and does not encompass alert systems."}], "correct_answer": "C"}, {"question": "What is a common misconception about no-code platforms?", "options": [{"id": "A", "text": "They are only for simple apps", "explanation": "Correct. Many believe no-code tools are limited to simple applications, but they can handle complex projects."}, {"id": "B", "text": "They cannot handle complex functionalities", "explanation": "Incorrect. While some may think this, no-code platforms can indeed manage complex functionalities."}, {"id": "C", "text": "They simplify the app development process", "explanation": "Incorrect. This is actually true; no-code platforms often simplify development."}, {"id": "D", "text": "They require programming knowledge", "explanation": "Incorrect. No-code platforms are designed specifically for users without programming knowledge."}], "correct_answer": "A"}], "why_it_matters": "Understanding the basic functionalities and how to implement them is crucial for your growth as a no-code developer. It empowers you to create apps that not only look good but also offer real value to users. Keep exploring and enhancing your skills!"};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
