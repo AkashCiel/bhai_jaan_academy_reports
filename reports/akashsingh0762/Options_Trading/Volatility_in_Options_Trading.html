@@ -1,0 +1,524 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Volatility in Options Trading</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Volatility in Options Trading</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: akash.singh.0762@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Volatility in Options Trading: A Comprehensive Report</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your exploration of options trading, we dive deeper into <strong>volatility</strong>, a critical concept that shapes the landscape of options pricing and trading strategies. Your previous learning journey has equipped you with foundational knowledge about options, including how they work, various strategies, and the role of <strong>The Greeks</strong> in assessing risk and pricing. Now, we will expand upon these concepts by investigating how volatility influences options trading and how traders leverage this knowledge to make informed decisions. </p></p>
+<p><p>Volatility, in the context of options trading, refers to the degree of variation in the price of an underlying asset over time. Understanding volatility is essential for evaluating the potential risks and rewards associated with trading options. This report will provide a comprehensive overview of volatility, including its types, measurement, implications for options pricing, and real-world applications. We will also discuss emerging trends, future directions, and interactive elements to enhance your learning experience.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>What Is Volatility?</h3>
+<p><p>Volatility can be defined as the statistical measure of the dispersion of returns for a given security or market index. In simpler terms, it indicates how drastically the price of an asset can change over a certain period. Higher volatility implies a greater range of price movement, while lower volatility indicates more stable prices.</p></p>
+<h4>Types of Volatility</h4>
+<p><ol></p>
+<ul>
+<li><strong>Historical Volatility (HV)</strong>:</li>
+<li>Historical volatility measures the past price fluctuations of an asset over a specified time frame.</li>
+<li>It is typically calculated using standard deviation based on historical prices.</li>
+<li>
+</ul>
+<p><p>Example: If a stock’s price fluctuated greatly over the past month, it has high historical volatility.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Implied Volatility (IV)</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Implied volatility reflects the market's expectations of future volatility based on the prices of options.</li>
+<li>It is derived from an option's market price using pricing models, such as the Black-Scholes model.</li>
+<li>
+</ul>
+<p><p>A high IV suggests that traders expect significant price movement in the underlying asset, while a low IV indicates expectations of stability.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Future Volatility</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Though harder to predict, future volatility refers to the anticipated fluctuations in a security's price based on current market conditions and trends.</li>
+</ul>
+<p></ol></p>
+<h4>Measuring Volatility</h4>
+<p><p>Volatility can be measured using various statistical tools:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Standard Deviation</strong>: A common statistical measure that quantifies the variability of asset returns.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>VIX Index</strong>: Often referred to as the "fear index," the VIX measures the implied volatility of S&amp;P 500 index options, providing insight into market sentiment.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Bollinger Bands</strong>: A technical analysis tool that uses standard deviations to create bands around a moving average, indicating potential price volatility.</p></p>
+<p></li></p>
+</ul>
+<hr />
+<h2>The Role of Volatility in Options Pricing</h2>
+<p><p>Volatility is one of the key factors that influence options pricing, directly affecting the premiums that traders pay for options contracts. The relationship between volatility and options pricing can be understood through the framework of the Black-Scholes model, which incorporates volatility as a critical variable.</p></p>
+<h3>The Black-Scholes Model</h3>
+<p><p>The Black-Scholes model is a mathematical model used to price European-style options. The formula considers several factors, including:</p></p>
+<ul>
+<ul>
+<li>Current price of the underlying asset</li>
+<li>Strike price of the option</li>
+<li>Time until expiration</li>
+<li>Risk-free interest rate</li>
+<li><strong>Volatility</strong> of the underlying asset</li>
+</ul>
+</ul>
+<p><p>The formula for the price of a call option is given as follows:</p></p>
+<p><p>[</p>
+<p>C = S_0 N(d_1) - X e^{-rt} N(d_2)</p>
+<p>]</p></p>
+<p><p>Where:</p>
+<ul>
+<li>(C) = Call option price</li>
+<li>(S_0) = Current stock price</li>
+<li>(X) = Strike price</li>
+<li>(r) = Risk-free interest rate</li>
+<li>(t) = Time to expiration (in years)</li>
+<li>(N(d)) = Cumulative distribution function for a standard normal distribution</li>
+<li>(d_1) and (d_2) are calculated using the following formulas:</p></li>
+</ul>
+<p><p>[</p>
+<p>d_1 = \frac{\ln(S_0/X) + (r + \sigma^2/2)t}{\sigma \sqrt{t}}</p>
+<p>]</p></p>
+<p><p>[</p>
+<p>d_2 = d_1 - \sigma \sqrt{t}</p>
+<p>]</p></p>
+<p><p>Where (\sigma) represents the volatility of the underlying asset. </p></p>
+<h3>How Volatility Affects Option Pricing</h3>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>High Volatility</strong>: When the market anticipates higher volatility, the premiums for options increase. This is because higher volatility increases the likelihood that the option will end up in-the-money at expiration.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Low Volatility</strong>: Conversely, when volatility is low, options premiums decrease, as the market perceives a reduced chance of significant price movement.</p></p>
+<p></li></p>
+</ul>
+<h3>Practical Implications of Volatility in Trading Strategies</h3>
+<p><p>Understanding volatility can help traders develop strategies that align with market expectations:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Buying Options in High Volatility</strong>:</li>
+<li>
+</ul>
+<p><p>Traders may buy options during periods of high volatility when they anticipate significant price movements. This strategy can lead to higher potential returns if the underlying asset moves favorably.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Selling Options in Low Volatility</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>In contrast, selling options during low volatility can be advantageous. Sellers receive premiums from buyers who expect future volatility, allowing them to profit if the asset price remains stable.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Straddle and Strangle Strategies</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>These strategies involve buying both call and put options on the same underlying asset. Traders use them when they expect high volatility but are uncertain about the direction of price movement.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>Real-World Applications</h2>
+<p><p>Understanding volatility is crucial for making informed trading decisions across various financial markets. Here are some real-world applications of volatility in options trading:</p></p>
+<h3>Case Study: The 2020 Market Crash</h3>
+<p><p>During the early months of the COVID-19 pandemic in 2020, global markets experienced unprecedented volatility. The <strong>VIX index</strong> spiked, reflecting heightened investor fear and uncertainty. Traders who correctly predicted the volatility could have profited from options strategies that capitalized on rapid price movements.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: A trader who anticipated the market downturn could have purchased put options on major indices, profiting as the prices plummeted. Conversely, those who recognized the potential for recovery could have employed call options to benefit from subsequent rebounds.</li>
+</ul>
+</ul>
+<h3>Options Trading During Earnings Reports</h3>
+<p><p>Earnings announcements often result in increased volatility due to market reactions to a company's financial performance. Traders frequently utilize implied volatility to gauge potential price movements post-announcement.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: A trader expecting a significant price reaction due to an earnings report may buy straddles, betting on large price swings regardless of the direction.</li>
+</ul>
+</ul>
+<h3>Hedging Strategies</h3>
+<p><p>Volatility can also be a critical consideration for hedging strategies. Investors may use options to hedge against potential losses in their portfolios, particularly during periods of heightened market uncertainty.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: An investor holding a large position in a volatile stock might purchase put options as insurance against price declines, effectively reducing their potential losses.</li>
+</ul>
+</ul>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers</h2>
+<p><p>As you advance in your options trading journey, understanding volatility will open doors to more complex strategies and insights. Here are some advanced applications and current research frontiers:</p></p>
+<h3>Volatility Surface and Skew</h3>
+<p><p>The volatility surface is a three-dimensional graph that represents the implied volatility of options across different strike prices and expiration dates. The shape of this surface can provide insights into market sentiment and expectations.</p></p>
+<ul>
+<ul>
+<li><strong>Volatility Skew</strong>: This phenomenon describes how implied volatility varies with strike prices. Typically, out-of-the-money puts have higher implied volatility than calls, reflecting the market's fear of significant downturns.</li>
+</ul>
+</ul>
+<h3>Machine Learning in Volatility Prediction</h3>
+<p><p>Advancements in machine learning and artificial intelligence are paving the way for more accurate volatility predictions. Researchers are exploring algorithms that analyze historical data, market sentiment, and macroeconomic indicators to forecast future volatility trends.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: Machine learning models can analyze vast datasets to identify patterns in price movements, allowing traders to adapt their strategies based on predicted volatility.</li>
+</ul>
+</ul>
+<h3>The Role of Behavioral Finance</h3>
+<p><p>Understanding how investor psychology impacts market volatility is an emerging area of research. Behavioral finance explores how emotions and cognitive biases influence trading decisions and contribute to market fluctuations.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: During periods of high uncertainty, traders may overreact to news, leading to exaggerated market movements. Recognizing these patterns can help traders make more rational decisions.</li>
+</ul>
+</ul>
+<h3>Emerging Technologies and Future Implications</h3>
+<p><p>The future of options trading and volatility analysis will likely be influenced by technological advancements:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Blockchain and Decentralized Finance (DeFi)</strong>: Innovations in blockchain technology could lead to new options trading platforms and liquidity sources, transforming how volatility is assessed and managed.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Real-Time Data Analytics</strong>: As access to real-time data becomes more prevalent, traders will have the tools to react quickly to changing market conditions, enhancing their ability to capitalize on volatility.</p></p>
+<p></li></p>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Understanding volatility is paramount for anyone engaged in options trading. As we have explored in this report, volatility significantly influences options pricing, trading strategies, and overall market behavior. By grasping the nuances of historical and implied volatility, traders can make informed decisions that align with market expectations.</p></p>
+<p><p>Your journey in options trading is a continuous learning experience, and mastering volatility will equip you with the skills to navigate the complexities of financial markets. We encourage you to further explore the tools and techniques discussed, whether through practical application or deepening your theoretical understanding.</p></p>
+<h3>Call to Action</h3>
+<ul>
+<ul>
+<li><strong>Explore Advanced Strategies</strong>: Engage in real-world trading simulations to practice employing strategies that leverage volatility.</li>
+<li><strong>Stay Updated</strong>: Follow market trends and news to enhance your understanding of factors influencing volatility.</li>
+<li><strong>Research Machine Learning Applications</strong>: Investigate how technology can aid in predicting and analyzing volatility.</li>
+</ul>
+</ul>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What does implied volatility (IV) represent in options trading?", "options": [{"id": "A", "text": "The historical price fluctuations of an asset", "explanation": "Incorrect. Historical volatility measures past price fluctuations, not future expectations."}, {"id": "B", "text": "The market's expectations of future volatility based on option prices", "explanation": "Correct. Implied volatility reflects the market's outlook on future volatility derived from option pricing."}, {"id": "C", "text": "The actual price movements of an underlying asset", "explanation": "Incorrect. Actual price movements refer to realized volatility, not implied."}, {"id": "D", "text": "The average price of an asset over time", "explanation": "Incorrect. The average price is a separate measure and does not relate to volatility."}], "correct_answer": "B"}, {"question": "Which model is commonly used to price European-style options and incorporates volatility as a critical variable?", "options": [{"id": "A", "text": "Capital Asset Pricing Model (CAPM)", "explanation": "Incorrect. CAPM is used to determine expected returns based on risk, not option pricing."}, {"id": "B", "text": "Black-Scholes Model", "explanation": "Correct. The Black-Scholes model is specifically designed for pricing options, factoring in volatility."}, {"id": "C", "text": "Dividend Discount Model (DDM)", "explanation": "Incorrect. DDM focuses on stock valuation based on dividends, not options."}, {"id": "D", "text": "Gordon Growth Model", "explanation": "Incorrect. The Gordon Growth Model is used for valuing stocks with dividend growth, unrelated to options."}], "correct_answer": "B"}, {"question": "What is a common strategy traders use when they expect increased volatility in the market?", "options": [{"id": "A", "text": "Buying put options only", "explanation": "Incorrect. Buying put options alone does not capitalize on volatility in both directions."}, {"id": "B", "text": "Selling call options", "explanation": "Incorrect. Selling call options does not align with expectations of increased volatility."}, {"id": "C", "text": "Buying straddles", "explanation": "Correct. Buying straddles involves purchasing both call and put options, profiting from large price movements."}, {"id": "D", "text": "Holding cash", "explanation": "Incorrect. Holding cash does not take advantage of volatility opportunities."}], "correct_answer": "C"}, {"question": "How does high historical volatility affect options premiums?", "options": [{"id": "A", "text": "It decreases premiums due to lower risk", "explanation": "Incorrect. High volatility does not reduce premiums; it increases perceived risk."}, {"id": "B", "text": "It has no effect on premiums", "explanation": "Incorrect. Historical volatility directly influences premiums."}, {"id": "C", "text": "It increases premiums due to greater risk", "explanation": "Correct. High historical volatility increases the likelihood of options being in-the-money, raising premiums."}, {"id": "D", "text": "It only affects put options premiums", "explanation": "Incorrect. High volatility affects both call and put options premiums."}], "correct_answer": "C"}, {"question": "What is the VIX index commonly referred to as?", "options": [{"id": "A", "text": "The interest rate index", "explanation": "Incorrect. The VIX does not measure interest rates."}, {"id": "B", "text": "The fear index", "explanation": "Correct. The VIX is known as the \"fear index\" as it reflects market expectations of volatility."}, {"id": "C", "text": "The growth index", "explanation": "Incorrect. The VIX does not measure growth; it measures volatility."}, {"id": "D", "text": "The dividend index", "explanation": "Incorrect. The VIX is unrelated to dividends."}], "correct_answer": "B"}], "why_it_matters": "Understanding volatility is crucial for your learning journey in options trading. It not only influences pricing and strategy but also helps you anticipate market movements and manage risk effectively. As you continue to build your expertise, applying these concepts in real-world scenarios will enhance your trading acumen and decision-making skills."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
