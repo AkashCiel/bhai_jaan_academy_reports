@@ -1,0 +1,457 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Advanced Data Structures</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Advanced Data Structures</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: amit27.lko@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Advanced Data Structures: A Comprehensive Guide</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your journey through the world of Python programming, it’s time to delve into <strong>Advanced Data Structures</strong>. Having previously explored the basics of data structures, including lists, tuples, and dictionaries, you now stand at the threshold of a deeper understanding that can significantly enhance your programming effectiveness. Advanced data structures not only allow for more efficient data management but also pave the way for solving complex problems in various domains such as software development, data analytics, and machine learning.</p></p>
+<p><p>In this report, we will explore the intricacies of advanced data structures, including their theoretical foundations, practical implications, real-world applications, and future directions. As you read through this guide, you’ll discover how these structures integrate with your existing knowledge and enhance your programming capabilities.</p></p>
+<hr />
+<h2>Key Concepts of Advanced Data Structures:</h2>
+<h3>1. Trees</h3>
+<h4>1.1 Definition and Types of Trees</h4>
+<p><p>A <strong>Tree</strong> is a hierarchical data structure that consists of nodes connected by edges. Unlike linear data structures, trees allow for a more flexible organization of data, making them ideal for representing relationships and hierarchies.</p></p>
+<ul>
+<ul>
+<li><strong>Binary Tree</strong>: Each node has at most two children, referred to as the left and right child.</li>
+<li><strong>Binary Search Tree (BST)</strong>: A binary tree with the property that left children are less than the parent node and right children are greater.</li>
+<li><strong>Balanced Trees</strong> (e.g., AVL Trees, Red-Black Trees): These trees maintain a balanced height to ensure efficient operations.</li>
+<li><strong>N-ary Tree</strong>: A tree where each node can have at most N children.</li>
+</ul>
+</ul>
+<h4>1.2 Real-World Applications of Trees</h4>
+<ul>
+<ul>
+<li><strong>File Systems</strong>: The organizational structure of files and directories often resembles a tree.</li>
+<li><strong>Databases</strong>: B-trees and B+ trees are used in databases to allow for efficient data retrieval.</li>
+<li><strong>Decision Making</strong>: Trees are used in algorithms like decision trees for machine learning, helping to make predictions based on input data.</li>
+</ul>
+</ul>
+<h3>2. Graphs</h3>
+<h4>2.1 Definition and Types of Graphs</h4>
+<p><p>A <strong>Graph</strong> is a data structure used to represent relationships between objects. A graph consists of vertices (nodes) and edges (connections).</p></p>
+<ul>
+<ul>
+<li><strong>Directed Graph</strong>: Edges have a direction, indicating a one-way relationship.</li>
+<li><strong>Undirected Graph</strong>: Edges have no direction, indicating a two-way relationship.</li>
+<li><strong>Weighted Graph</strong>: Edges have weights, representing costs, distances, or other metrics associated with the connection.</li>
+</ul>
+</ul>
+<h4>2.2 Real-World Applications of Graphs</h4>
+<ul>
+<ul>
+<li><strong>Social Networks</strong>: Users can be represented as nodes, and friendships as edges in social media applications.</li>
+<li><strong>Route Planning</strong>: Graphs are used in navigation systems to find the shortest path between locations.</li>
+<li><strong>Network Design</strong>: Graphs help in designing and analyzing networks, including telecommunications and computer networks.</li>
+</ul>
+</ul>
+<h3>3. Heaps</h3>
+<h4>3.1 Definition and Types of Heaps</h4>
+<p><p>A <strong>Heap</strong> is a specialized tree-based data structure that satisfies the heap property. In a max heap, for instance, the parent node is always greater than or equal to its children.</p></p>
+<ul>
+<ul>
+<li><strong>Max Heap</strong>: The maximum element is at the root.</li>
+<li><strong>Min Heap</strong>: The minimum element is at the root.</li>
+</ul>
+</ul>
+<h4>3.2 Real-World Applications of Heaps</h4>
+<ul>
+<ul>
+<li><strong>Priority Queues</strong>: Heaps are commonly used to implement priority queues, where the highest (or lowest) priority element is served first.</li>
+<li><strong>Heap Sort</strong>: An efficient sorting algorithm that uses the heap data structure.</li>
+<li><strong>Graph Algorithms</strong>: Algorithms like Dijkstra’s use heaps to efficiently find the shortest path in weighted graphs.</li>
+</ul>
+</ul>
+<h3>4. Hash Tables</h3>
+<h4>4.1 Definition and Functionality</h4>
+<p><p>A <strong>Hash Table</strong> is a data structure that maps keys to values using a hash function. This allows for efficient data retrieval, insertion, and deletion.</p></p>
+<h4>4.2 Real-World Applications of Hash Tables</h4>
+<ul>
+<ul>
+<li><strong>Caching</strong>: Hash tables are used in caching systems to store frequently accessed data for quick retrieval.</li>
+<li><strong>Database Indexing</strong>: Indexing in databases often utilizes hash tables to speed up query performance.</li>
+<li><strong>Symbol Tables</strong>: Compilers use hash tables to store variable names and their corresponding data types.</li>
+</ul>
+</ul>
+<hr />
+<h2>Theoretical Foundations:</h2>
+<h3>1. Time Complexity</h3>
+<p><p>Understanding the time complexity of operations is crucial when working with advanced data structures. Here’s a brief overview:</p></p>
+<ul>
+<ul>
+<li><strong>Trees</strong>: Search, insertion, and deletion operations can generally be performed in O(log n) time for balanced trees.</li>
+<li><strong>Graphs</strong>: Operations depend on the representation (adjacency list vs. adjacency matrix). Searching can be O(V + E) for breadth-first and depth-first searches.</li>
+<li><strong>Heaps</strong>: Insertions and deletions can be done in O(log n) time.</li>
+</ul>
+</ul>
+<h3>2. Space Complexity</h3>
+<p><p>Space complexity is also an important consideration, as different data structures have varying levels of space efficiency. For example:</p></p>
+<ul>
+<ul>
+<li>Trees require more space compared to arrays due to the overhead of pointers.</li>
+<li>Graphs can be memory-intensive if using an adjacency matrix for sparse graphs.</li>
+<li>Hash tables can have wasteful space if there are many collisions.</li>
+</ul>
+</ul>
+<hr />
+<h2>Practical Implications:</h2>
+<h3>1. Choosing the Right Data Structure</h3>
+<p><p>Selecting the appropriate data structure is crucial for optimizing performance:</p></p>
+<ul>
+<ul>
+<li>Use <strong>trees</strong> when data needs to be stored hierarchically and requires efficient searching.</li>
+<li>Use <strong>graphs</strong> when modeling relationships and connections between items.</li>
+<li>Use <strong>heaps</strong> when implementing priority queues.</li>
+<li>Use <strong>hash tables</strong> for fast access to data based on unique keys.</li>
+</ul>
+</ul>
+<h3>2. Implementation Considerations</h3>
+<p><p>When implementing these data structures, consider the following:</p></p>
+<ul>
+<ul>
+<li>Understand the trade-offs between different structures to choose one that suits your specific use case.</li>
+<li>Be aware of potential pitfalls, such as the need to maintain balance in trees or handle collisions in hash tables.</li>
+</ul>
+</ul>
+<hr />
+<h2>Current Trends and Future Directions:</h2>
+<h3>1. Advanced Data Structures in Machine Learning</h3>
+<p><p>Machine learning algorithms increasingly rely on advanced data structures for efficient data processing and model training:</p></p>
+<ul>
+<ul>
+<li><strong>Decision Trees</strong> are used in classification algorithms.</li>
+<li><strong>Graphs</strong> can represent complex relationships in social networks, enabling better predictions.</li>
+</ul>
+</ul>
+<h3>2. Emerging Technologies</h3>
+<p><p>With the rise of big data, advanced data structures are evolving to handle larger datasets:</p></p>
+<ul>
+<ul>
+<li><strong>Distributed Hash Tables (DHTs)</strong> are used in peer-to-peer networks.</li>
+<li><strong>Graph Databases</strong> are gaining popularity for their ability to handle complex relationships efficiently.</li>
+</ul>
+</ul>
+<h3>3. Research Challenges</h3>
+<p><p>Ongoing research focuses on improving the efficiency and scalability of advanced data structures:</p></p>
+<ul>
+<ul>
+<li>Developing algorithms that optimize space and time complexity.</li>
+<li>Exploring new data structures that can integrate with machine learning models.</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>As you conclude this comprehensive exploration of advanced data structures, remember that these concepts will significantly enhance your programming skills. Understanding trees, graphs, heaps, and hash tables provides you with the tools needed to solve complex problems efficiently. </p></p>
+<p><p>To continue your learning journey, consider exploring real-world scenarios where these structures are applied, or delve into advanced algorithms that leverage these data structures for improved performance.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "Which of the following statements accurately describes a Binary Search Tree (BST)?", "options": [{"id": "A", "text": "Each node can have any number of children.", "explanation": "Incorrect. In a BST, each node can only have up to two children."}, {"id": "B", "text": "The left child must be less than the parent node, and the right child must be greater.", "explanation": "Correct. This is the defining property of a Binary Search Tree."}, {"id": "C", "text": "All nodes are arranged in a circular manner.", "explanation": "Incorrect. BSTs are not circular; they are hierarchical."}, {"id": "D", "text": "It is a type of graph with weighted edges.", "explanation": "Incorrect. A BST is not a graph; it is a specific type of tree."}], "correct_answer": "B"}, {"question": "In which scenario would you choose to use a heap over a binary search tree?", "options": [{"id": "A", "text": "When you require fast search operations.", "explanation": "Incorrect. Binary search trees generally provide faster search operations."}, {"id": "B", "text": "When you need to implement a priority queue.", "explanation": "Correct. Heaps are ideal for implementing priority queues."}, {"id": "C", "text": "When you want to store data in a sorted manner.", "explanation": "Incorrect. A binary search tree maintains sorted order, while heaps do not."}, {"id": "D", "text": "When you need to represent hierarchical data.", "explanation": "Incorrect. Trees are better suited for hierarchical data representation than heaps."}], "correct_answer": "B"}, {"question": "Which of the following is a common application of hash tables?", "options": [{"id": "A", "text": "Storing hierarchical data.", "explanation": "Incorrect. Hierarchical data is typically stored in trees."}, {"id": "B", "text": "Implementing navigation systems.", "explanation": "Incorrect. Graphs are used in navigation systems, not hash tables."}, {"id": "C", "text": "Storing user sessions in a web application.", "explanation": "Correct. Hash tables are commonly used to store user sessions for quick access."}, {"id": "D", "text": "Performing depth-first search on a graph.", "explanation": "Incorrect. Depth-first search is an algorithm used with graphs."}], "correct_answer": "C"}, {"question": "What is the primary advantage of using balanced trees such as AVL trees?", "options": [{"id": "A", "text": "They require less memory than unbalanced trees.", "explanation": "Incorrect. Balanced trees may not necessarily require less memory."}, {"id": "B", "text": "They ensure O(log n) time complexity for search, insert, and delete operations.", "explanation": "Correct. Balanced trees maintain O(log n) time complexity for various operations."}, {"id": "C", "text": "They can store more data than unbalanced trees.", "explanation": "Incorrect. The capacity does not necessarily differ between balanced and unbalanced trees."}, {"id": "D", "text": "They are easier to implement than unbalanced trees.", "explanation": "Incorrect. Balanced trees can be more complex to implement than unbalanced ones."}], "correct_answer": "B"}, {"question": "Which of the following is true about graphs?", "options": [{"id": "A", "text": "Every node in a graph must have the same number of edges.", "explanation": "Incorrect. Nodes can have different numbers of edges."}, {"id": "B", "text": "Graphs can represent relationships that are not hierarchically structured.", "explanation": "Correct. Graphs are ideal for representing non-hierarchical relationships."}, {"id": "C", "text": "Graphs cannot be weighted.", "explanation": "Incorrect. Graphs can be weighted or unweighted."}, {"id": "D", "text": "All graphs are directed.", "explanation": "Incorrect. Graphs can be directed or undirected."}], "correct_answer": "B"}], "why_it_matters": "Understanding advanced data structures is crucial for any aspiring programmer or data scientist. These structures are essential for efficient data management and algorithm design, impacting everything from application performance to user experience. Explore these concepts further to become proficient in tackling complex programming challenges."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
