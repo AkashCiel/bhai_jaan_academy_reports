@@ -1,0 +1,494 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Error Handling**: Try, except blocks, and managing exceptions.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Error Handling**: Try, except blocks, and managing exceptions.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: manishkumarfd7882@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Error Handling: Try, Except Blocks, and Managing Exceptions</h1>
+<h2>Introduction:</h2>
+<p><p>As we progress through our Python programming journey, we have covered fundamental concepts such as <strong>Basic Syntax</strong>, <strong>Variables and Data Types</strong>, <strong>Operators</strong>, <strong>Control Structures</strong>, <strong>Loops</strong>, <strong>Functions</strong>, and more. Each of these elements contributes to our understanding of how to write clean, efficient, and effective code. </p></p>
+<p><p>In this report, we will explore <strong>Error Handling</strong>, a crucial aspect of programming that ensures our code can gracefully handle unexpected situations. As we delve into this topic, we will focus on <strong>try, except blocks</strong>, and how to manage exceptions effectively. This knowledge is vital for creating robust applications that can withstand runtime errors and provide meaningful feedback to users.</p></p>
+<p><p>By the end of this report, you will not only have a solid understanding of error handling in Python but also appreciate its real-world applications, advanced implementations, and future directions in programming.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>Understanding Errors and Exceptions</h3>
+<p><p>Before diving into error handling techniques, we must first understand what errors and exceptions are.</p></p>
+<ul>
+<ul>
+<li><strong>Error</strong>: An error refers to a problem that arises during the execution of a program. This could be a syntax error (detected at compile time) or a runtime error (occurs during execution).</li>
+<li><strong>Exception</strong>: An exception is a specific kind of error that can be caught and handled. In Python, exceptions are raised when the interpreter encounters an unexpected situation, such as dividing by zero or trying to access a non-existent file.</li>
+</ul>
+</ul>
+<h3>The Importance of Error Handling</h3>
+<p><p>Error handling is essential for several reasons:</p></p>
+<ul>
+<ul>
+<li><strong>User Experience</strong>: Properly managing exceptions can improve user experience by providing descriptive error messages rather than abrupt program crashes.</li>
+<li><strong>Debugging</strong>: Catching exceptions allows developers to debug their code effectively by pinpointing where things go wrong.</li>
+<li><strong>Robustness</strong>: Applications that handle errors gracefully are generally more robust, as they can continue to function in the face of unexpected scenarios.</li>
+</ul>
+</ul>
+<hr />
+<h2>Try and Except Blocks</h2>
+<h3>Basic Syntax of Try-Except</h3>
+<p><p>The primary mechanism for error handling in Python is the <strong>try-except</strong> block. The basic syntax is as follows:</p></p>
+<p><p><code>python</p>
+<p>try:</p>
+<p># Code that may raise an exception</p>
+<p>except ExceptionType:</p>
+<p># Code that runs if the specified exception occurs</code></p></p>
+<h3>How It Works</h3>
+<p><ol></p>
+<ul>
+<li><strong>try Block</strong>: The code within the <code>try</code> block is executed first. If an exception occurs within this block, the execution is immediately transferred to the corresponding <code>except</code> block.</li>
+<li><strong>except Block</strong>: This block handles the exception. You can specify different exception types to handle various errors appropriately.</li>
+</ul>
+<p></ol></p>
+<h3>Example of Try-Except</h3>
+<p><p>Let's consider a simple example where we attempt to divide two numbers:</p></p>
+<p><p>```python</p>
+<p>def divide_numbers(a, b):</p>
+<p>try:</p>
+<p>result = a / b</p>
+<p>except ZeroDivisionError:</p>
+<p>return "Error: Cannot divide by zero."</p>
+<p>return result</p></p>
+<p><p>print(divide_numbers(10, 2))  # Output: 5.0</p>
+<p>print(divide_numbers(10, 0))  # Output: Error: Cannot divide by zero.</p>
+<p>```</p></p>
+<p><p>In this example, the <code>ZeroDivisionError</code> is caught, and a meaningful message is returned instead of a crash.</p></p>
+<hr />
+<h2>Catching Multiple Exceptions</h2>
+<p><p>You can also handle multiple exceptions within the same try block. This is done by specifying different <code>except</code> clauses for each exception type:</p></p>
+<p><p>```python</p>
+<p>def safe_divide(a, b):</p>
+<p>try:</p>
+<p>result = a / b</p>
+<p>except ZeroDivisionError:</p>
+<p>return "Error: Division by zero."</p>
+<p>except TypeError:</p>
+<p>return "Error: Invalid input type."</p>
+<p>return result</p></p>
+<p><p>print(safe_divide(10, 2))  # Output: 5.0</p>
+<p>print(safe_divide(10, 0))  # Output: Error: Division by zero.</p>
+<p>print(safe_divide(10, "a"))  # Output: Error: Invalid input type.</p>
+<p>```</p></p>
+<h3>Catch-All Exception</h3>
+<p><p>If you want to catch any exception, you can use a generic <code>except</code> clause:</p></p>
+<p><p>```python</p>
+<p>def general_safe_divide(a, b):</p>
+<p>try:</p>
+<p>result = a / b</p>
+<p>except Exception as e:</p>
+<p>return f"An error occurred: {e}"</p>
+<p>return result</p></p>
+<p><p>print(general_safe_divide(10, 0))  # Output: An error occurred: division by zero</p>
+<p>```</p></p>
+<p><p>Using a catch-all can be useful in debugging, but it is generally better to handle specific exceptions to avoid masking unexpected problems.</p></p>
+<hr />
+<h2>Finally Block</h2>
+<p><p>In addition to <code>try</code> and <code>except</code>, Python provides a <code>finally</code> block that can be used to execute code regardless of whether an exception occurred or not. This is particularly useful for cleanup actions, such as closing files or releasing resources.</p></p>
+<h3>Syntax of Finally</h3>
+<p><p><code>python</p>
+<p>try:</p>
+<p># Code that may raise an exception</p>
+<p>except ExceptionType:</p>
+<p># Code that runs if the specified exception occurs</p>
+<p>finally:</p>
+<p># Code that runs no matter what</code></p></p>
+<h3>Example of Finally</h3>
+<p><p><code>python</p>
+<p>def file_operation(filename):</p>
+<p>try:</p>
+<p>file = open(filename, 'r')</p>
+<p># Perform file operations</p>
+<p>except FileNotFoundError:</p>
+<p>return "Error: File not found."</p>
+<p>finally:</p>
+<p>file.close()  # Ensures that the file is closed whether an error occurred or not</code></p></p>
+<hr />
+<h2>Real-World Applications of Error Handling</h2>
+<h3>1. User Input Validation</h3>
+<p><p>One common application of error handling is validating user input. For example, when prompting users for numerical input, you can ensure that they provide valid numbers using try-except blocks.</p></p>
+<p><p><code>python</p>
+<p>def get_user_age():</p>
+<p>while True:</p>
+<p>try:</p>
+<p>age = int(input("Please enter your age: "))</p>
+<p>return age</p>
+<p>except ValueError:</p>
+<p>print("Invalid input! Please enter a valid number.")</code></p></p>
+<h3>2. File Operations</h3>
+<p><p>Another common scenario is handling file operations. During file reading or writing, it's essential to handle exceptions that may arise, such as <code>FileNotFoundError</code>.</p></p>
+<p><p><code>python</p>
+<p>def read_file(filename):</p>
+<p>try:</p>
+<p>with open(filename, 'r') as file:</p>
+<p>return file.read()</p>
+<p>except FileNotFoundError:</p>
+<p>return "Error: File not found."</code></p></p>
+<h3>3. Network Operations</h3>
+<p><p>In network programming, error handling plays a crucial role in managing connectivity issues. When making API requests or connecting to a server, exceptions can arise due to network failure or incorrect URLs.</p></p>
+<p><p>```python</p>
+<p>import requests</p></p>
+<p><p>def fetch_data(url):</p>
+<p>try:</p>
+<p>response = requests.get(url)</p>
+<p>response.raise_for_status()  # Raises an HTTPError for bad responses</p>
+<p>return response.json()</p>
+<p>except requests.exceptions.RequestException as e:</p>
+<p>return f"Network error: {e}"</p>
+<p>```</p></p>
+<hr />
+<h2>Advanced Topics in Error Handling</h2>
+<h3>Custom Exceptions</h3>
+<p><p>Python allows you to define your own custom exceptions. This can be useful when you want to raise exceptions that are specific to your application's needs.</p></p>
+<p><p>```python</p>
+<p>class NegativeValueError(Exception):</p>
+<p>pass</p></p>
+<p><p>def validate_positive(number):</p>
+<p>if number &lt; 0:</p>
+<p>raise NegativeValueError("Number must be positive.")</p></p>
+<p><p>try:</p>
+<p>validate_positive(-5)</p>
+<p>except NegativeValueError as e:</p>
+<p>print(e)  # Output: Number must be positive.</p>
+<p>```</p></p>
+<h3>Using the <code>raise</code> Statement</h3>
+<p><p>The <code>raise</code> statement can be used to trigger exceptions intentionally. This is particularly useful in input validation or when creating custom exceptions.</p></p>
+<p><p><code>python</p>
+<p>def check_age(age):</p>
+<p>if age &lt; 0:</p>
+<p>raise ValueError("Age cannot be negative.")</p>
+<p>return "Age is valid."</code></p></p>
+<h3>Exception Hierarchy</h3>
+<p><p>Understanding the exception hierarchy in Python can help you catch exceptions more effectively. For example, <code>ValueError</code> is a subclass of <code>Exception</code>, which means that catching <code>Exception</code> will also catch <code>ValueError</code>.</p></p>
+<p><p>You can view the hierarchy using the following code:</p></p>
+<p><p>```python</p>
+<p>import traceback</p></p>
+<p><p>print("Exception hierarchy:")</p>
+<p>print(traceback.extract_stack())</p>
+<p>```</p></p>
+<hr />
+<h2>Future Directions in Error Handling</h2>
+<h3>Emerging Technologies</h3>
+<p><p>As programming languages evolve, so do practices in error handling. Technologies such as <strong>Machine Learning</strong> are enabling smarter error detection and handling mechanisms. For instance, systems could learn from historical error data to predict and prevent future occurrences.</p></p>
+<h3>Research Challenges</h3>
+<p><p>One challenge in error handling is balancing robustness with complexity. Striking the right balance between catching every possible error and maintaining readable code is a continuous area of research and development.</p></p>
+<h3>Industry Trends</h3>
+<p><p>The trend towards <strong>Agile Development</strong> and <strong>Continuous Integration/Continuous Deployment (CI/CD)</strong> practices emphasizes the need for effective error handling in real-time applications. As applications become more complex, robust error handling strategies will be critical for maintaining user satisfaction and system reliability.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In this report, we explored the fundamental concepts of error handling in Python, focusing on <strong>try, except blocks</strong>, and managing exceptions. We discussed the importance of error handling in improving user experience, debugging, and creating robust applications. </p></p>
+<p><p>By understanding how to catch and manage exceptions, you can write code that gracefully handles errors and provides meaningful feedback to users. This is an essential skill as you continue your journey in programming.</p></p>
+<p><p>As you move forward, consider how you can implement error handling in your current projects. Whether it's validating user input, managing file operations, or ensuring network reliability, robust error handling will enhance your applications' quality.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What does the `except` block do in a try-except statement?", "options": [{"id": "A", "text": "It executes code that always runs, even if no error occurs.", "explanation": "Incorrect. The `finally` block executes code that always runs, regardless of whether an error occurred."}, {"id": "B", "text": "It executes code if an exception occurs in the try block.", "explanation": "Correct. The `except` block is used to handle exceptions that are raised in the `try` block."}, {"id": "C", "text": "It defines a custom exception type.", "explanation": "Incorrect. Custom exception types are defined using class definitions, not the `except` block."}, {"id": "D", "text": "It raises an exception in the program.", "explanation": "Incorrect. The `raise` statement is used to raise exceptions."}], "correct_answer": "B"}, {"question": "Which of the following is a common application of error handling?", "options": [{"id": "A", "text": "Enhancing the performance of a program.", "explanation": "Incorrect. Error handling typically does not directly enhance performance."}, {"id": "B", "text": "Validating user input.", "explanation": "Correct. Error handling is often used to validate user input and manage incorrect entries."}, {"id": "C", "text": "Improving code readability.", "explanation": "Incorrect. While error handling can contribute to readability, its primary purpose is to manage exceptions."}, {"id": "D", "text": "Increasing the complexity of the code.", "explanation": "Incorrect. Effective error handling aims to simplify code, not increase complexity."}], "correct_answer": "B"}, {"question": "How can you catch multiple exceptions in a single try-except block?", "options": [{"id": "A", "text": "Use multiple try blocks.", "explanation": "Incorrect. Using multiple try blocks does not catch multiple exceptions in one block."}, {"id": "B", "text": "Separate the exceptions with commas in one except block.", "explanation": "Incorrect. You cannot separate exceptions with commas; they must be handled in separate except clauses."}, {"id": "C", "text": "Create a custom exception class.", "explanation": "Incorrect. Creating a custom exception class does not address catching multiple exceptions."}, {"id": "D", "text": "Use multiple except clauses for each exception type.", "explanation": "Correct. You can handle multiple exceptions by using separate except clauses for each type of exception."}], "correct_answer": "D"}, {"question": "What is the purpose of the `finally` block in a try-except statement?", "options": [{"id": "A", "text": "To execute code only if an exception occurs.", "explanation": "Incorrect. The `finally` block executes code regardless of exceptions, not just when they occur."}, {"id": "B", "text": "To execute code regardless of whether an exception occurred.", "explanation": "Correct. The `finally` block is used to execute code that should run no matter what happens in the try-except blocks."}, {"id": "C", "text": "To define a custom exception type.", "explanation": "Incorrect. Custom exception types are defined outside of the try-except structure."}, {"id": "D", "text": "To catch exceptions.", "explanation": "Incorrect. The `finally` block does not catch exceptions; that is the role of the `except` block."}], "correct_answer": "B"}, {"question": "What is the likely outcome of running the following code?", "options": [{"id": "A", "text": "The function will return -10.", "explanation": "Incorrect. The function raises a ValueError and does not return -10."}, {"id": "B", "text": "An error message will be printed.", "explanation": "Correct. The exception is caught, and the error message \"Number must be positive.\" is printed."}, {"id": "C", "text": "The function will execute without any output.", "explanation": "Incorrect. The function will not execute successfully; it raises an exception."}, {"id": "D", "text": "The program will crash.", "explanation": "Incorrect. The program does not crash because the exception is handled properly."}], "correct_answer": "B"}], "why_it_matters": "Understanding error handling is crucial for any programmer. It equips you with the tools to write resilient code that can adapt to unexpected situations, improving the overall user experience and reliability of your applications. As you advance in your programming journey, mastering error handling will significantly enhance your coding skills and your ability to develop complex applications."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
