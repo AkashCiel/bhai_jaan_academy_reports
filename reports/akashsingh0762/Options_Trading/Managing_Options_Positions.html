@@ -1,0 +1,504 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Managing Options Positions</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Managing Options Positions</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: akash.singh.0762@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Managing Options Positions: A Comprehensive Guide</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your exploration of options trading, you now delve into <strong>Managing Options Positions</strong>. This critical topic encompasses strategies and techniques essential for navigating the complexities of options trading effectively. Your previous studies have laid a strong foundation in options trading, including the mechanics of options, the Greeks, volatility, and risk management strategies. This report will build upon those concepts, providing you with a detailed understanding of how to manage options positions to optimize your trading performance.</p></p>
+<p><p>The ability to manage options positions effectively can significantly influence your success as a trader. This involves monitoring your positions, adjusting strategies based on market conditions, and understanding how various factors impact your trades. By mastering these skills, you will enhance your capacity for risk management, improve your decision-making processes, and increase your potential for profitability in the options market.</p></p>
+<hr />
+<h2>Key Concepts in Managing Options Positions</h2>
+<h3>1. Understanding Position Management</h3>
+<p><p>Position management refers to the ongoing process of overseeing your options positions to maximize returns and minimize risks. It encompasses several key components:</p></p>
+<ul>
+<ul>
+<li><strong>Monitoring</strong>: Keeping a close watch on your positions to detect changes in market conditions, volatility, and underlying asset prices.</li>
+<li><strong>Adjustment</strong>: Modifying your positions in response to changing market dynamics or personal trading goals.</li>
+<li><strong>Exit Strategies</strong>: Establishing clear criteria for closing positions, whether to lock in profits or cut losses.</li>
+</ul>
+</ul>
+<h3>2. Types of Positions</h3>
+<p><p>To manage your options positions effectively, it is crucial to understand the different types of positions you can hold:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Long Positions</strong>: Owning options contracts gives you the right to buy (call) or sell (put) the underlying asset. For example, if you purchase a call option on a stock, you benefit from upward price movements.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Short Positions</strong>: Selling options contracts obligates you to fulfill the terms of the contract if exercised. This can include writing covered calls or cash-secured puts.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Spread Positions</strong>: Involves holding multiple options contracts simultaneously to limit risk. For instance, a bull call spread consists of buying a call option and selling another call option at a higher strike price.</p></p>
+<p></li></p>
+</ul>
+<h3>3. The Role of The Greeks in Position Management</h3>
+<p><p>The Greeks are essential tools for managing options positions. They provide insights into how different factors affect the pricing of options. Here’s a brief recap of the most relevant Greeks:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Delta ($\Delta$)</strong>: Measures the sensitivity of an option's price to changes in the price of the underlying asset. A higher delta indicates a stronger correlation with the asset price.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Gamma ($\Gamma$)</strong>: Indicates the rate of change of delta. It helps traders understand the potential for volatility and the impact of significant price movements.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Theta ($\Theta$)</strong>: Represents time decay, indicating how much value an option loses as it approaches expiration. It’s crucial for managing long positions where time decay can erode profits.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Vega ($\nu$)</strong>: Measures sensitivity to changes in implied volatility. Understanding vega helps in assessing the impact of volatility changes on your options positions.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Rho ($\rho$)</strong>: Reflects the impact of interest rates on option pricing. While often less prominent than other Greeks, it’s important in specific market conditions.</p></p>
+<p></li></p>
+</ul>
+<h3>4. Position Sizing and Risk Management</h3>
+<p><p>Effective position sizing is a critical component of managing options positions. It involves determining how much capital to allocate to each trade based on your overall trading strategy and risk tolerance. Here are some key principles:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Risk-Reward Ratio</strong>: Establish a favorable risk-reward ratio for each trade. This means that the potential reward should outweigh the potential risk.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Diversification</strong>: Avoid concentrating too much capital in a single position. Diversifying across different options can help mitigate risk.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Stop-Loss Orders</strong>: Implement stop-loss orders to limit potential losses. This automated approach can protect your capital if the market moves against you.</p></p>
+<p></li></p>
+</ul>
+<h3>5. Adjustment Strategies</h3>
+<p><p>Managing options positions often requires adjustments to respond to changing market conditions. Here are some common adjustment strategies:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Rolling</strong>: Extending the duration of your option position by closing an existing position and opening a new one with a later expiration date.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Straddles and Strangles</strong>: Implementing straddles (buying both call and put options at the same strike price) or strangles (buying call and put options at different strike prices) to capitalize on expected volatility.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Closing Positions</strong>: Knowing when to exit your positions is critical. This could be based on hitting predefined profit targets, breaching stop-loss limits, or changes in market sentiment.</p></p>
+<p></li></p>
+</ul>
+<h3>6. Emotional Discipline and Psychological Factors</h3>
+<p><p>Managing options positions also requires emotional discipline and awareness of psychological factors that can influence trading decisions. Key considerations include:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Avoiding Overtrading</strong>: Resist the temptation to make frequent trades based on short-term market fluctuations. Stick to your trading plan.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Recognizing Biases</strong>: Be aware of cognitive biases, such as overconfidence or loss aversion, that can affect decision-making.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Maintaining a Trading Journal</strong>: Documenting your trades, strategies, and emotional responses can help identify patterns and improve future decisions.</p></p>
+<p></li></p>
+</ul>
+<hr />
+<h2>Real-World Applications of Managing Options Positions</h2>
+<h3>Case Study 1: A Bullish Market Scenario</h3>
+<p><p>Consider a trader who holds a long call option on a stock anticipating a bullish trend. As the stock price rises, the trader monitors the delta and gamma. As the market conditions change, the trader may decide to:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Adjust the Position</strong>: If the stock price rises significantly, the trader may roll the call option to a higher strike price to lock in profits while maintaining exposure to further upside potential.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Implement a Stop-Loss</strong>: Setting a stop-loss order at a certain percentage below the current price can protect against sudden market reversals.</p></p>
+<p></li></p>
+<p></ol></p>
+<h3>Case Study 2: A Volatile Market Environment</h3>
+<p><p>In a volatile market, a trader holding a strangle strategy may experience significant fluctuations in the underlying asset. The trader could:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Monitor Vega</strong>: As implied volatility increases, the trader may see the value of both options rise. At this point, the trader can choose to close one leg of the position to lock in profits.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Adjust the Strangle</strong>: If market sentiment shifts, the trader might convert the strangle into a straddle by buying a new contract at-the-money to benefit from anticipated price swings.</p></p>
+<p></li></p>
+<p></ol></p>
+<h3>Case Study 3: Navigating a Bearish Market</h3>
+<p><p>In a bearish market, a trader with a long put option might consider:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Exiting the Position</strong>: If the underlying asset’s price declines significantly and approaches the expiration date, the trader may decide to sell the put option at a profit.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Implementing a Hedge</strong>: The trader could also sell a call option against the long put position (creating a synthetic short position) to generate income and mitigate losses.</p></p>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>Future Directions in Managing Options Positions</h2>
+<p><p>As the financial markets evolve, so do the strategies and technologies available for managing options positions. Here are some future directions to consider:</p></p>
+<h3>1. Algorithmic Trading and AI</h3>
+<p><p>The rise of algorithmic trading and AI-driven platforms is changing the landscape of options trading. Automated systems can analyze vast amounts of market data, identify patterns, and execute trades with precision. This can lead to more efficient position management and quicker responses to market changes.</p></p>
+<h3>2. Advanced Analytics and Machine Learning</h3>
+<p><p>Utilizing advanced analytics and machine learning algorithms can provide traders with deeper insights into market trends, volatility patterns, and potential price movements. These tools can enhance decision-making processes for managing options positions.</p></p>
+<h3>3. Integration of Blockchain Technology</h3>
+<p><p>Blockchain technology is enhancing transparency and security in financial transactions, including options trading. Smart contracts can automate various aspects of options trading, including execution and settlement, thereby improving efficiency in managing positions.</p></p>
+<h3>4. Increased Focus on ESG Factors</h3>
+<p><p>As environmental, social, and governance (ESG) factors gain prominence, options traders may need to consider these variables when managing positions. Understanding how ESG factors impact underlying assets can lead to more informed trading decisions.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In summary, managing options positions is a multifaceted process that combines various strategies, analytical tools, and psychological discipline. With your growing expertise in options trading, you are now equipped to navigate the complexities of position management effectively. By understanding how to monitor, adjust, and exit positions, you can enhance your trading performance and achieve your financial goals.</p></p>
+<p><p>As you continue your journey in options trading, consider exploring more advanced topics such as algorithmic trading, risk management strategies, and the impact of global events on the options market. Engaging with these subjects will deepen your understanding and further enhance your skills.</p></p>
+<h3>Key Takeaways:</h3>
+<ul>
+<ul>
+<li>Position management involves monitoring, adjusting, and exiting options positions.</li>
+<li>The Greeks play a crucial role in understanding options pricing and position management.</li>
+<li>Emotional discipline and a clear trading plan are essential for successful trading.</li>
+<li>Future trends in technology and market dynamics will shape the future of options trading.</li>
+</ul>
+</ul>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of position management in options trading?", "options": [{"id": "A", "text": "To create new financial instruments", "explanation": "Incorrect. While creating financial instruments is part of finance, it is not the purpose of position management."}, {"id": "B", "text": "To oversee and optimize trading performance", "explanation": "Correct. The primary purpose of position management is to oversee and optimize trading performance through monitoring and adjustments."}, {"id": "C", "text": "To limit the number of trades executed", "explanation": "Incorrect. Position management does not aim to limit trades but rather to manage existing positions effectively."}, {"id": "D", "text": "To eliminate all risks associated with trading", "explanation": "Incorrect. While reducing risk is a goal, it is impossible to eliminate all risks in trading."}], "correct_answer": "B"}, {"question": "Which Greek measures the sensitivity of an option's price to changes in the price of the underlying asset?", "options": [{"id": "A", "text": "Theta", "explanation": "Incorrect. Theta measures time decay, not sensitivity to the underlying asset's price."}, {"id": "B", "text": "Delta", "explanation": "Correct. Delta measures how much an option's price is expected to change when the underlying asset's price changes."}, {"id": "C", "text": "Vega", "explanation": "Incorrect. Vega measures an option's sensitivity to changes in volatility, not the asset price."}, {"id": "D", "text": "Rho", "explanation": "Incorrect. Rho measures an option's sensitivity to interest rate changes, not the asset price."}], "correct_answer": "B"}, {"question": "What is the primary benefit of using stop-loss orders in managing options positions?", "options": [{"id": "A", "text": "They guarantee profit on every trade", "explanation": "Incorrect. Stop-loss orders do not guarantee profits; they are designed to limit losses."}, {"id": "B", "text": "They limit potential losses on a position", "explanation": "Correct. Stop-loss orders are used to limit potential losses by automatically closing a position at a predetermined price."}, {"id": "C", "text": "They increase the number of trades executed", "explanation": "Incorrect. Stop-loss orders do not increase the number of trades; they manage existing positions."}, {"id": "D", "text": "They automatically close all positions", "explanation": "Incorrect. Stop-loss orders only close specific positions that reach the set price, not all positions."}], "correct_answer": "B"}, {"question": "When might a trader choose to roll an options position?", "options": [{"id": "A", "text": "When the market is stable", "explanation": "Incorrect. Rolling is typically used in dynamic market conditions rather than stable ones."}, {"id": "B", "text": "To lock in profits from a winning position", "explanation": "Incorrect. While rolling can preserve profits, it is primarily done to maintain exposure to further movement."}, {"id": "C", "text": "When anticipating further movement in the underlying asset", "explanation": "Correct. Traders roll positions to extend their exposure to the underlying asset, especially when they anticipate further movement."}, {"id": "D", "text": "To avoid paying commissions", "explanation": "Incorrect. Rolling positions does not inherently avoid commissions; it is a strategic decision."}], "correct_answer": "C"}, {"question": "How can emotional discipline impact options trading?", "options": [{"id": "A", "text": "It eliminates the need for analysis", "explanation": "Incorrect. Emotional discipline does not replace the need for analysis; it complements it."}, {"id": "B", "text": "It leads to more frequent trading", "explanation": "Incorrect. Emotional discipline helps avoid overtrading, not encourage it."}, {"id": "C", "text": "It helps prevent irrational decision-making", "explanation": "Correct. Emotional discipline is crucial in preventing irrational decision-making and maintaining a consistent trading strategy."}, {"id": "D", "text": "It guarantees profits", "explanation": "Incorrect. Emotional discipline does not guarantee profits; it merely helps in making more rational trading decisions."}], "correct_answer": "C"}], "why_it_matters": "Understanding these concepts is essential for managing options positions effectively, leading to improved trading performance and risk management in your trading journey. Continue exploring these principles to enhance your skills and achieve your financial goals in options trading."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
