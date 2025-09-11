@@ -1,0 +1,480 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Regular Expressions</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Regular Expressions</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: amit27.lko@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Comprehensive Guide to Regular Expressions</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your Python programming journey, having built a solid foundation in concepts such as data structures, string manipulation, and file handling, you are now ready to delve into an essential tool for text processing: <strong>Regular Expressions (Regex)</strong>. This powerful feature allows you to search, match, and manipulate strings with unmatched precision and efficiency. </p></p>
+<p><p>In this report, we will explore regular expressions from the ground up, drawing connections to your previous learning. You'll discover how to leverage regex to enhance your programming skills, particularly in the realms of data validation, text parsing, and complex string manipulations. </p></p>
+<p><p>As we embark on this exploration of regex, consider it a new tool in your programming toolkit that builds upon your understanding of strings—a concept you've already encountered. Just as data structures help you organize and manage data efficiently, regular expressions will enable you to handle text data with sophistication.</p></p>
+<hr />
+<h2>Key Concepts of Regular Expressions</h2>
+<h3>What is a Regular Expression?</h3>
+<p><p>A <strong>Regular Expression</strong> is a sequence of characters that form a search pattern. This pattern can be used to match strings, extract substrings, and perform substitutions. Regular expressions are widely used in programming, particularly for validating input, searching text, and manipulating string data.</p></p>
+<h3>Basic Syntax of Regular Expressions</h3>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Literals</strong>: Characters that match themselves. For example, the regex <code>hello</code> matches the string "hello".</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Metacharacters</strong>: Special characters with specific meanings, such as:</p></p>
+<p></li></p>
+<ul>
+<li><code>.</code>: Matches any character except a newline.</li>
+<li><code>^</code>: Matches the start of a string.</li>
+<li><code>$</code>: Matches the end of a string.</li>
+<li><code>*</code>: Matches 0 or more repetitions of the preceding character.</li>
+<li><code>+</code>: Matches 1 or more repetitions of the preceding character.</li>
+<li>
+</ul>
+<p><p><code>?</code>: Matches 0 or 1 occurrence of the preceding character.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Character Classes</strong>: Denoted by square brackets <code>[]</code>, they define a set of characters to match. For example, <code>[abc]</code> matches any one of the characters a, b, or c.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Quantifiers</strong>: Specify how many times a character or group can occur:</p></p>
+<p></li></p>
+<ul>
+<li><code>{n}</code>: Exactly n occurrences.</li>
+<li><code>{n,}</code>: At least n occurrences.</li>
+<li>
+</ul>
+<p><p><code>{n,m}</code>: Between n and m occurrences.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Groups and Ranges</strong>: Parentheses <code>()</code> are used to group parts of a regex for applying quantifiers. For example, <code>(ab)*</code> matches "ab", "abab", etc.</p></p>
+<p></li></p>
+<p></ol></p>
+<h3>Common Regex Patterns</h3>
+<ul>
+<ul>
+<li><strong>Email Validation</strong>: A basic pattern for validating emails might look like:
+</ul>
+<p><code>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</code></li></p>
+<ul>
+<li><strong>Phone Number Validation</strong>: A simple regex for US phone numbers could be:
+</ul>
+<p><code>^\(\d{3}\) \d{3}-\d{4}$</code></li></p>
+<ul>
+<li><strong>Date Formats</strong>: To match a date in the format "DD/MM/YYYY", you might use:
+</ul>
+<p><code>^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$</code></li></p>
+</ul>
+<h3>Regex in Python</h3>
+<p><p>In Python, the <code>re</code> module provides the functionality for working with regular expressions. Here are some common functions:</p></p>
+<ul>
+<ul>
+<li><strong><code>re.match(pattern, string)</code></strong>: Checks for a match only at the beginning of the string.</li>
+<li><strong><code>re.search(pattern, string)</code></strong>: Searches the string for a match anywhere.</li>
+<li><strong><code>re.findall(pattern, string)</code></strong>: Returns a list of all matches found in the string.</li>
+<li><strong><code>re.sub(pattern, repl, string)</code></strong>: Replaces occurrences of the pattern with a specified replacement.</li>
+</ul>
+</ul>
+<h3>Example Usage</h3>
+<p><p>Let's consider an example where you want to validate email addresses using regex in Python:</p></p>
+<p><p>```python</p>
+<p>import re</p></p>
+<p><p>def is_valid_email(email):</p>
+<p>pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$'</p>
+<p>return re.match(pattern, email) is not None</p></p>
+<h1>Test the function</h1>
+<p><p>test_email = "example@example.com"</p>
+<p>print(is_valid_email(test_email))  # Output: True</p>
+<p>```</p></p>
+<hr />
+<h2>Real-World Applications of Regular Expressions</h2>
+<p><p>Regular expressions are not just theoretical concepts; they have a wide range of practical applications in various fields, including:</p></p>
+<h3>1. Data Validation</h3>
+<p><p>Regex is extensively used for validating user inputs in web forms and applications. For example, ensuring that an email address or phone number adheres to a specified format can prevent errors and improve data quality.</p></p>
+<h3>2. Text Parsing</h3>
+<p><p>In data analysis and natural language processing (NLP), regex is a powerful tool for extracting relevant information from unstructured text. For instance, you can use regex to extract hashtags from social media posts or to identify specific patterns in logs.</p></p>
+<h3>3. Search and Replace Operations</h3>
+<p><p>Regex enables advanced search and replace functionality in text editors and programming languages. For example, you can easily replace all occurrences of a specific pattern in a document or codebase with a new string.</p></p>
+<h3>4. Web Scraping</h3>
+<p><p>When scraping data from websites, regex can help identify and extract specific elements from HTML or JSON responses. This is useful for gathering data for analysis or automation tasks.</p></p>
+<h3>5. Data Cleaning</h3>
+<p><p>In data preprocessing, regex can be used to clean and standardize data by removing unwanted characters, correcting formats, or extracting meaningful patterns.</p></p>
+<h3>Case Study: Web Form Validation</h3>
+<p><p>Imagine you're developing a web application that requires user registration. You need to ensure that users input valid email addresses and phone numbers. By implementing regex in your validation logic, you can enhance the user experience and reduce errors.</p></p>
+<p><p>```python</p>
+<p>def validate_registration(email, phone):</p>
+<p>email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$'</p>
+<p>phone_pattern = r'^(\d{3}) \d{3}-\d{4}$'</p></p>
+<p><pre><code>if not re.match(email_pattern, email):</p>
+<p>return "Invalid email address"</p>
+<p>if not re.match(phone_pattern, phone):</p>
+<p>return "Invalid phone number"</p>
+<p>return "Registration successful"</p>
+<p></code></pre></p>
+<h1>Example usage</h1>
+<p><p>print(validate_registration("user@example.com", "(123) 456-7890"))  # Output: Registration successful</p>
+<p>```</p></p>
+<hr />
+<h2>Theoretical Foundations of Regular Expressions</h2>
+<p><p>To understand the power of regular expressions, it's essential to explore their theoretical foundations:</p></p>
+<h3>Finite Automata</h3>
+<p><p>Regular expressions can be represented as finite automata, which are abstract machines that process input strings. There are two types:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Deterministic Finite Automata (DFA)</strong>: A finite state machine that accepts or rejects strings of symbols and only produces one unique computation (path) of states for each input string.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Nondeterministic Finite Automata (NFA)</strong>: Similar to DFA, but allows for multiple paths of computation. NFAs can be converted to DFAs.</p></p>
+<p></li></p>
+<p></ol></p>
+<h3>Regular Languages</h3>
+<p><p>Regular expressions describe <strong>regular languages</strong>, which are a class of languages that can be recognized by finite automata. The significance lies in their simplicity and efficiency for certain types of problems, such as pattern matching.</p></p>
+<h3>Chomsky Hierarchy</h3>
+<p><p>Regular expressions occupy the lowest level of the Chomsky hierarchy, which classifies languages based on their generative power. The hierarchy includes:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Regular Languages</strong>: Described by regular expressions and recognized by finite automata.</li>
+<li><strong>Context-Free Languages</strong>: Recognized by pushdown automata and described by context-free grammars.</li>
+<li><strong>Context-Sensitive Languages</strong>: Recognized by linear-bounded automata.</li>
+<li><strong>Recursively Enumerable Languages</strong>: Recognized by Turing machines.</li>
+</ul>
+<p></ol></p>
+<p><p>Understanding these theoretical foundations helps you appreciate the efficiency and limitations of regular expressions in various computational contexts.</p></p>
+<hr />
+<h2>Current State and Future Directions of Regular Expressions</h2>
+<h3>Current Trends</h3>
+<p><p>Regular expressions are widely used across various industries, from web development to data science. As the demand for data-driven solutions increases, the need for efficient text processing tools like regex continues to grow.</p></p>
+<h3>Emerging Technologies</h3>
+<p><p>The integration of regular expressions with machine learning and natural language processing is an exciting frontier. For example, regex can be used in conjunction with NLP techniques to enhance text classification and sentiment analysis.</p></p>
+<h3>Research Challenges</h3>
+<p><p>Despite their power, regular expressions can become complex and difficult to maintain, especially for intricate patterns. Research is ongoing to develop more user-friendly regex tools and libraries that simplify the creation and testing of regular expressions.</p></p>
+<h3>Industry Trends</h3>
+<p><p>As more organizations leverage big data and machine learning, regex will remain a vital skill for data scientists and developers. The ability to efficiently process and analyze text data will be crucial for deriving insights and making informed decisions.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In this comprehensive exploration of regular expressions, we've covered the foundational concepts, practical applications, and theoretical underpinnings of this powerful text processing tool. With your understanding of string manipulation and data validation, you now have the skills to implement regex effectively in your projects.</p></p>
+<p><p>As you continue your programming journey, consider the various ways regex can enhance your applications. Whether validating user input, parsing data, or cleaning text, regular expressions are a vital tool in your arsenal.</p></p>
+<h3>Call to Action</h3>
+<p><p>As a next step, experiment with regular expressions in your own projects. Challenge yourself to validate different types of data, extract patterns from text, or even create a small application that relies on regex for its functionality. The more you practice, the more proficient you'll become in utilizing this essential skill.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What does the metacharacter `^` represent in a regular expression?", "options": [{"id": "A", "text": "End of the string", "explanation": "Incorrect. The `^` metacharacter does not represent the end of the string; it represents the start."}, {"id": "B", "text": "Start of the string", "explanation": "Correct. The `^` metacharacter is used to match the start of a string."}, {"id": "C", "text": "Any character", "explanation": "Incorrect. The period `.` represents any character except a newline."}, {"id": "D", "text": "Zero or more occurrences", "explanation": "Incorrect. The `*` metacharacter represents zero or more occurrences of the preceding character."}], "correct_answer": "B"}, {"question": "Which regex pattern would correctly match a US phone number in the format `(123) 456-7890`?", "options": [{"id": "A", "text": "`^\\d{3}-\\d{3}-\\d{4}$`", "explanation": "Incorrect. This pattern does not account for parentheses, which are required in the format."}, {"id": "B", "text": "`^\\(\\d{3}\\) \\d{3}-\\d{4}$`", "explanation": "Correct. This pattern correctly matches the specified format of US phone numbers."}, {"id": "C", "text": "`^\\d{10}$`", "explanation": "Incorrect. This pattern matches a 10-digit number without formatting."}, {"id": "D", "text": "`^\\d{3} \\d{3} \\d{4}$`", "explanation": "Incorrect. This pattern does not include parentheses or hyphens."}], "correct_answer": "B"}, {"question": "What function in Python's `re` module would you use to find all occurrences of a pattern in a string?", "options": [{"id": "A", "text": "`re.match()`", "explanation": "Incorrect. `re.match()` checks for a match only at the beginning of the string."}, {"id": "B", "text": "`re.search()`", "explanation": "Incorrect. `re.search()` searches for a match anywhere in the string but does not return all occurrences."}, {"id": "C", "text": "`re.findall()`", "explanation": "Correct. `re.findall()` returns a list of all matches found in the string."}, {"id": "D", "text": "`re.sub()`", "explanation": "Incorrect. `re.sub()` is used for replacing occurrences of a pattern with a specified replacement."}], "correct_answer": "C"}, {"question": "In regex, what does the `+` quantifier signify?", "options": [{"id": "A", "text": "Zero or one occurrence", "explanation": "Incorrect. The `?` quantifier signifies zero or one occurrence."}, {"id": "B", "text": "One or more occurrences", "explanation": "Correct. The `+` quantifier signifies one or more occurrences of the preceding character."}, {"id": "C", "text": "Exactly one occurrence", "explanation": "Incorrect. The `{n}` quantifier indicates exactly one occurrence only if n=1."}, {"id": "D", "text": "A specific number of occurrences", "explanation": "Incorrect. The `{n,m}` quantifier indicates a range of occurrences."}], "correct_answer": "B"}, {"question": "Which of the following regex patterns would match a valid email address format?", "options": [{"id": "A", "text": "`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$`", "explanation": "Correct. This pattern matches a wide range of valid email formats."}, {"id": "B", "text": "`^[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$`", "explanation": "Incorrect. This pattern does not accommodate the \"@\" symbol or multiple characters before the domain."}, {"id": "C", "text": "`^\\w+@\\w+\\.\\w{2,3}$`", "explanation": "Incorrect. This pattern is too simplistic and does not cover all valid email scenarios."}, {"id": "D", "text": "`^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$`", "explanation": "Incorrect. While this pattern is close, it is less precise than option A."}], "correct_answer": "A"}], "why_it_matters": "Understanding regular expressions is crucial for effective data manipulation and validation in programming. Mastery of regex will enhance your ability to work with text data, paving the way for more advanced data analysis and processing tasks in your ongoing learning journey."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
