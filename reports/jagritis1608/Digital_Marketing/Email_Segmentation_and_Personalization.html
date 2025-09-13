@@ -1,0 +1,441 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Email Segmentation and Personalization</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Email Segmentation and Personalization</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: jagritis1608@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Email Segmentation and Personalization: A Comprehensive Report</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue to explore the intricate landscape of digital marketing, the topic of <strong>Email Segmentation and Personalization</strong> emerges as a vital area that builds upon your previous learning in <strong>Email Marketing Essentials</strong>, <strong>Understanding Target Audiences</strong>, and <strong>Content Creation Strategies</strong>. In an era where consumers are inundated with information, the need for tailored communication has never been more critical. This report will delve deep into the concepts of email segmentation and personalization, elucidating their significance, theoretical foundations, real-world applications, current trends, and future directions.</p></p>
+<p><p>By understanding how to segment email lists and personalize content, you will not only enhance your digital marketing strategies but also foster stronger relationships with your audience. This report aims to provide you with a comprehensive understanding of these concepts, equipping you with the knowledge necessary to implement effective email marketing campaigns.</p></p>
+<hr />
+<h2>Key Concepts and Definitions</h2>
+<h3>What is Email Segmentation?</h3>
+<p><p><strong>Email segmentation</strong> is the process of dividing an email list into smaller, more targeted groups based on specific criteria. This allows marketers to tailor messages to the unique characteristics, preferences, and behaviors of different segments, enhancing the relevance of the content delivered to each recipient.</p></p>
+<h4>Why Segmentation Matters</h4>
+<ul>
+<ul>
+<li><strong>Increased Engagement:</strong> Targeted emails are more likely to resonate with recipients, leading to higher open rates, click-through rates, and conversions.</li>
+<li><strong>Improved Deliverability:</strong> Segmented lists can improve overall email deliverability, as engaged users are less likely to mark emails as spam.</li>
+<li><strong>Personalized Experiences:</strong> Segmentation facilitates the creation of personalized experiences for users, which can significantly enhance customer satisfaction and loyalty.</li>
+</ul>
+</ul>
+<h3>Types of Segmentation</h3>
+<p><p>There are several common methods for segmenting email lists:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Demographic Segmentation:</strong> Based on variables such as age, gender, income, education, and job title.</li>
+<li><strong>Geographic Segmentation:</strong> Dividing users based on their location, which can be particularly useful for businesses with physical stores or regional offers.</li>
+<li><strong>Psychographic Segmentation:</strong> Focusing on consumers' lifestyles, interests, values, and personality traits.</li>
+<li><strong>Behavioral Segmentation:</strong> Segmenting based on user behavior, such as purchase history, email engagement, and website activity.</li>
+</ul>
+<p></ol></p>
+<h3>What is Personalization?</h3>
+<p><p><strong>Email personalization</strong> refers to the practice of creating tailored email content for individual recipients based on their preferences, behaviors, and characteristics. This goes beyond simply addressing the recipient by name; it involves crafting messages and offers that resonate with the recipient's specific needs and interests.</p></p>
+<h4>Importance of Personalization</h4>
+<ul>
+<ul>
+<li><strong>Enhanced Relevance:</strong> Personalized emails are more relevant to recipients, increasing the likelihood of engagement.</li>
+<li><strong>Higher Conversion Rates:</strong> Personalized content can lead to higher conversion rates, as recipients are more likely to act on offers that align with their interests.</li>
+<li><strong>Stronger Relationships:</strong> Personalization fosters a sense of connection and loyalty between brands and consumers.</li>
+</ul>
+</ul>
+<h3>The Relationship Between Segmentation and Personalization</h3>
+<p><p>Segmentation and personalization are interdependent. Effective segmentation provides the foundation for personalization. By understanding the different segments of your email list, you can tailor your content, subject lines, and calls to action to meet the specific needs of each group. This holistic approach enhances the overall effectiveness of your email marketing campaigns.</p></p>
+<hr />
+<h2>Real-World Applications</h2>
+<p><p>To illustrate the significance of email segmentation and personalization, let's explore some real-world examples:</p></p>
+<h3>Case Study 1: Amazon</h3>
+<p><p><strong>Amazon</strong> is renowned for its sophisticated email marketing strategies. By employing segmentation based on past purchase behavior, browsing history, and demographic information, Amazon sends personalized product recommendations to its users. This strategy not only increases engagement but also drives substantial sales, as customers are more likely to purchase items that are relevant to their interests.</p></p>
+<h3>Case Study 2: Spotify</h3>
+<p><p><strong>Spotify</strong> utilizes segmentation to create personalized playlists for its users, such as "Discover Weekly." Each user receives a curated selection of songs based on their listening habits and preferences. Spotify sends emails to notify users about new playlists, event reminders, and concert announcements tailored to their interests, significantly enhancing user engagement and satisfaction.</p></p>
+<h3>Case Study 3: Airbnb</h3>
+<p><p><strong>Airbnb</strong> segments its email lists based on user preferences, such as travel history and search behavior. By sending personalized emails featuring tailored travel recommendations, special offers, and destination guides, Airbnb increases bookings and enhances user experience.</p></p>
+<p><p>These examples underscore how effective segmentation and personalization can lead to improved engagement, higher conversion rates, and stronger customer relationships.</p></p>
+<hr />
+<h2>Theoretical Foundations of Email Segmentation and Personalization</h2>
+<h3>The Psychology of Personalization</h3>
+<p><p>Understanding the psychological principles behind personalization can enhance your email marketing strategies. Personalization taps into the human need for belonging and recognition. According to the <strong>Self-Determination Theory</strong>, people are motivated by the need for autonomy, competence, and relatedness. Personalized emails fulfill the need for relatedness, making recipients feel valued and understood.</p></p>
+<h3>Data-Driven Decision Making</h3>
+<p><p>Effective segmentation and personalization rely on data analysis. By analyzing consumer behavior, preferences, and engagement metrics, marketers can make informed decisions about how to segment their lists and personalize their content. Tools such as <strong>Google Analytics</strong>, <strong>CRM systems</strong>, and <strong>email marketing platforms</strong> provide valuable insights into user behavior, enabling marketers to create targeted campaigns.</p></p>
+<h3>The Role of Machine Learning</h3>
+<p><p>As technology evolves, so do the approaches to segmentation and personalization. Machine learning algorithms can analyze vast amounts of data to identify patterns and predict user behavior, allowing for even more refined segmentation and personalized content. For example, AI can help determine the optimal timing for sending emails based on user engagement patterns.</p></p>
+<hr />
+<h2>Practical Implementation Considerations</h2>
+<h3>Building a Segmentation Strategy</h3>
+<p><ol></p>
+<ul>
+<li><strong>Define Your Segmentation Criteria:</strong> Determine the criteria that are most relevant to your business and audience.</li>
+<li><strong>Collect and Analyze Data:</strong> Use surveys, purchase history, and user behavior data to inform your segmentation strategy.</li>
+<li><strong>Create Segmented Lists:</strong> Use your email marketing platform to create segmented lists based on your defined criteria.</li>
+<li><strong>Test and Optimize:</strong> Continuously monitor the performance of segmented campaigns and adjust your strategy based on results.</li>
+</ul>
+<p></ol></p>
+<h3>Crafting Personalized Content</h3>
+<p><ol></p>
+<ul>
+<li><strong>Use Dynamic Content:</strong> Leverage dynamic content features in your email marketing platform to tailor messages to individual recipients.</li>
+<li><strong>Personalize Subject Lines:</strong> Incorporate personalization tokens in subject lines to increase open rates.</li>
+<li><strong>Tailor Offers and Recommendations:</strong> Use data to provide personalized product recommendations and special offers based on individual preferences.</li>
+</ul>
+<p></ol></p>
+<h3>Common Misconceptions</h3>
+<ul>
+<ul>
+<li><strong>Misconception:</strong> Segmentation is only for large companies.</li>
+<li>
+</ul>
+<p><p><strong>Clarification:</strong> Businesses of all sizes can benefit from segmentation by tailoring their email marketing efforts to better meet the needs of their audience.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Misconception:</strong> Personalization is too complex and time-consuming.</p></p>
+<p></li></p>
+<ul>
+<li><strong>Clarification:</strong> While effective personalization requires strategy and data, many email marketing platforms offer tools to streamline the process.</li>
+</ul>
+</ul>
+<hr />
+<h2>Current State and Future Directions</h2>
+<h3>Emerging Trends in Email Marketing</h3>
+<p><ol></p>
+<ul>
+<li><strong>Hyper-Personalization:</strong> Moving beyond basic personalization, hyper-personalization involves delivering content that is contextually relevant to the user’s current situation, such as their location or recent behavior.</li>
+<li><strong>AI and Automation:</strong> The use of AI in email marketing is on the rise, enabling marketers to automate segmentation and personalization processes, improving efficiency and effectiveness.</li>
+<li><strong>Interactive Emails:</strong> Incorporating interactive elements, such as polls and quizzes, can enhance user engagement and provide valuable data for segmentation.</li>
+</ul>
+<p></ol></p>
+<h3>Challenges and Opportunities</h3>
+<ul>
+<ul>
+<li><strong>Data Privacy:</strong> As regulations like GDPR and CCPA become more stringent, marketers must navigate data privacy challenges while still delivering personalized experiences.</li>
+<li><strong>Over-Personalization:</strong> Striking the right balance between personalization and privacy is crucial. Overly personalized content can come across as intrusive.</li>
+</ul>
+</ul>
+<h3>The Future of Email Segmentation and Personalization</h3>
+<p><p>The future of email segmentation and personalization is likely to involve even more sophisticated technology, such as AI-driven predictive analytics and behavioral targeting. As consumer expectations evolve, marketers must continually adapt their strategies to deliver relevant, timely, and personalized content.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>As we conclude this deep dive into email segmentation and personalization, it is clear that these concepts are integral to creating successful email marketing campaigns. By leveraging segmentation to understand your audience and personalizing content to meet their unique needs, you can foster stronger relationships with your customers and drive significant results for your business.</p></p>
+<h3>Key Takeaways:</h3>
+<ul>
+<ul>
+<li>Email segmentation allows for targeted communication based on specific criteria, enhancing engagement and relevance.</li>
+<li>Personalization goes beyond using the recipient's name; it involves crafting tailored messages that resonate with individual interests.</li>
+<li>The relationship between segmentation and personalization is vital for effective email marketing.</li>
+<li>Current trends, such as hyper-personalization and AI integration, will shape the future of email marketing.</li>
+</ul>
+</ul>
+<h3>Call to Action</h3>
+<p><p>As you further explore the world of email marketing, consider implementing segmentation and personalization strategies in your campaigns. Experiment with different approaches, analyze the results, and continue to refine your strategies to achieve greater success in engaging your audience.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of email segmentation?", "options": [{"id": "A", "text": "To send the same email to all subscribers", "explanation": "Incorrect. Sending the same email to all subscribers does not utilize segmentation."}, {"id": "B", "text": "To divide an email list into targeted groups for tailored messaging", "explanation": "Correct. Segmentation allows for tailored messaging to targeted groups."}, {"id": "C", "text": "To increase the number of emails sent per week", "explanation": "Incorrect. Increasing the number of emails sent does not relate to segmentation."}, {"id": "D", "text": "To reduce the unsubscribe rate", "explanation": "Incorrect. While segmentation can reduce unsubscribe rates, that is not its primary purpose."}], "correct_answer": "B"}, {"question": "Which of the following is an example of demographic segmentation?", "options": [{"id": "A", "text": "Sending emails based on past purchase behavior", "explanation": "Incorrect. This refers to behavioral segmentation."}, {"id": "B", "text": "Targeting users based on their age and income", "explanation": "Correct. Age and income are demographic factors."}, {"id": "C", "text": "Segmenting users by their geographic location", "explanation": "Incorrect. This represents geographic segmentation."}, {"id": "D", "text": "Grouping users by their engagement with previous emails", "explanation": "Incorrect. This pertains to behavioral segmentation."}], "correct_answer": "B"}, {"question": "What is a key benefit of email personalization?", "options": [{"id": "A", "text": "It guarantees higher open rates", "explanation": "Incorrect. Personalization increases the likelihood of open rates but does not guarantee it."}, {"id": "B", "text": "It makes emails appear less relevant", "explanation": "Incorrect. Personalization increases relevance, not reduces it."}, {"id": "C", "text": "It can lead to higher conversion rates", "explanation": "Correct. Personalized content is more likely to drive conversions."}, {"id": "D", "text": "It is only effective for large companies", "explanation": "Incorrect. Personalization can benefit businesses of all sizes."}], "correct_answer": "C"}, {"question": "What is hyper-personalization in email marketing?", "options": [{"id": "A", "text": "Using the recipient's name in the subject line", "explanation": "Incorrect. This is basic personalization, not hyper-personalization."}, {"id": "B", "text": "Sending the same content to everyone", "explanation": "Incorrect. Hyper-personalization involves tailored content."}, {"id": "C", "text": "Delivering content that is contextually relevant to the user's situation", "explanation": "Correct. Hyper-personalization involves contextually relevant content."}, {"id": "D", "text": "Increasing the frequency of email sends", "explanation": "Incorrect. Increasing frequency does not equate to hyper-personalization."}], "correct_answer": "C"}, {"question": "What is a common misconception about segmentation?", "options": [{"id": "A", "text": "Segmentation is only necessary for large businesses", "explanation": "Correct. This is a common misconception; businesses of all sizes can benefit from segmentation."}, {"id": "B", "text": "Segmentation can improve email engagement", "explanation": "Incorrect. Segmentation does improve engagement."}, {"id": "C", "text": "Segmentation is based on user behavior", "explanation": "Incorrect. Segmentation can indeed be based on user behavior."}, {"id": "D", "text": "Segmentation can be automated", "explanation": "Incorrect. Segmentation can be automated with the right tools."}], "correct_answer": "A"}], "why_it_matters": "Understanding these concepts is crucial for your journey in digital marketing. By mastering segmentation and personalization, you can create more effective email campaigns, foster better relationships with your audience, and ultimately drive greater business success. Continue exploring these strategies to enhance your marketing efforts!"};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
