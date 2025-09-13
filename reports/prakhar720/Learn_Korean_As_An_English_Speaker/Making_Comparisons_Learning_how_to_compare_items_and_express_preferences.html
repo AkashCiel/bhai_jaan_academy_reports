@@ -1,0 +1,419 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Making Comparisons**: Learning how to compare items and express preferences.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Making Comparisons**: Learning how to compare items and express preferences.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: prakhar720@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Making Comparisons: Learning How to Compare Items and Express Preferences</h1>
+<h2>Introduction:</h2>
+<p><p>As part of your ongoing journey in learning the Korean language, you have built a strong foundation that includes the fundamentals of Hangul, essential vocabulary, and basic grammar structures. You have explored various topics such as greetings, numbers, common verbs, and food vocabulary. In this report, we will introduce a new but crucial concept: <strong>Making Comparisons</strong>. This topic naturally extends your ability to express preferences and opinions, which is vital for everyday conversations and deeper social interactions in Korean.</p></p>
+<p><p>Understanding how to compare items and express your preferences will not only enhance your conversational skills but will also allow you to engage more fully with cultural nuances. Comparisons can help you articulate why you prefer one item over another, whether it’s food, clothes, or experiences. By mastering this skill, you will be better equipped to navigate everyday situations, engage in discussions, and express your individuality.</p></p>
+<p><p>This report will cover key concepts and definitions related to making comparisons in the Korean language, provide real-world applications, and offer a rich narrative connecting these concepts to your previous learning. Additionally, we will discuss advanced applications and current research frontiers related to this topic, culminating in an interactive quiz to reinforce your understanding.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>1. Understanding Comparisons</h3>
+<p><p><strong>Comparison</strong> is a linguistic tool that allows us to evaluate two or more items based on specific characteristics. In Korean, comparisons can be made between nouns, adjectives, and verbs. </p></p>
+<h4>Types of Comparisons:</h4>
+<ul>
+<ul>
+<li><strong>Equal Comparisons</strong>: Expressing that two items are the same in some way.</li>
+<li><strong>Comparative Comparisons</strong>: Indicating one item has more or less of a certain quality than another.</li>
+<li><strong>Superlative Comparisons</strong>: Describing one item as having the highest or lowest degree of a quality among a group.</li>
+</ul>
+</ul>
+<h3>2. Key Vocabulary for Comparisons</h3>
+<p><p>To effectively make comparisons, you will need to familiarize yourself with certain vocabulary and structures in Korean:</p></p>
+<ul>
+<ul>
+<li><strong>같다 (gatda)</strong>: to be the same</li>
+<li><strong>더 (deo)</strong>: more</li>
+<li><strong>덜 (deol)</strong>: less</li>
+<li><strong>가장 (gajang)</strong>: the most</li>
+<li><strong>제일 (jeil)</strong>: the best</li>
+</ul>
+</ul>
+<h4>Examples:</h4>
+<ul>
+<ul>
+<li><strong>이 사과는 저 사과와 같다.</strong> (I sagwaneun jeo sagwa-wa gatda.) - "This apple is the same as that apple."</li>
+<li><strong>이 책이 저 책보다 더 재미있다.</strong> (I chaegi jeo chaekboda deo jaemi-itda.) - "This book is more interesting than that book."</li>
+<li><strong>그 영화는 가장 재미있다.</strong> (Geu yeonghwa-neun gajang jaemi-itda.) - "That movie is the most interesting."</li>
+</ul>
+</ul>
+<h3>3. Structural Patterns for Comparisons</h3>
+<p><p>Understanding how to structure sentences for comparisons is crucial. Here are some common patterns:</p></p>
+<h4>Equal Comparisons:</h4>
+<ul>
+<ul>
+<li><strong>Noun + (이/가) + 같다</strong> </li>
+<li>Example: <strong>그 사람은 나와 같다.</strong> (Geu saram-eun na-wa gatda.) - "That person is the same as me."</li>
+</ul>
+</ul>
+<h4>Comparative Comparisons:</h4>
+<ul>
+<ul>
+<li><strong>Noun + (이/가) + 더/덜 + adjective</strong></li>
+<li>Example: <strong>이 집이 저 집보다 더 크다.</strong> (I jib-i jeo jibboda deo keuda.) - "This house is bigger than that house."</li>
+</ul>
+</ul>
+<h4>Superlative Comparisons:</h4>
+<ul>
+<ul>
+<li><strong>Noun + (이/가) + 가장 + adjective</strong></li>
+<li>Example: <strong>이 음식이 제일 맛있다.</strong> (I eumsik-i jeil masitda.) - "This food is the best."</li>
+</ul>
+</ul>
+<h3>4. Expressing Preferences</h3>
+<p><p>Once you are comfortable with making comparisons, you can express your preferences. This often involves using the phrase <strong>더 좋아하다 (deo joahada)</strong>, which means "to prefer."</p></p>
+<h4>Example:</h4>
+<ul>
+<ul>
+<li><strong>나는 커피보다 차를 더 좋아한다.</strong> (Naneun keopiboda cha-reul deo joahanda.) - "I prefer tea over coffee."</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications:</h2>
+<h3>Everyday Scenarios</h3>
+<p><p>To illustrate the importance of making comparisons and expressing preferences, let’s consider a few everyday scenarios where these skills are essential:</p></p>
+<h4>1. Shopping</h4>
+<p><p>When shopping, you often compare prices, quality, and features. For instance, when deciding between two smartphones, you might say:</p>
+<ul>
+<li><strong>이 폰이 저 폰보다 더 비싸다.</strong> (I pon-i jeo ponboda deo bissada.) - "This phone is more expensive than that phone."</p></li>
+</ul>
+<p><p>This skill is not just limited to shopping; it applies to food choices, clothing, and other consumer products.</p></p>
+<h4>2. Dining Out</h4>
+<p><p>When dining out, you might compare dishes on the menu. For example:</p>
+<ul>
+<li><strong>이 불고기가 저 불고기보다 더 맛있다.</strong> (I bulgogi-ga jeo bulgogi-boda deo masitda.) - "This bulgogi is tastier than that bulgogi."</p></li>
+</ul>
+<p><p>Being able to express your preferences in these contexts enhances your social interactions and demonstrates your growing language proficiency.</p></p>
+<h4>3. Travel Experiences</h4>
+<p><p>If you’ve traveled to different places, you might compare your experiences:</p>
+<ul>
+<li><strong>서울이 부산보다 더 흥미롭다.</strong> (Seoul-i Busanboda deo heungmiropda.) - "Seoul is more interesting than Busan."</p></li>
+</ul>
+<p><p>This allows you to share your experiences and engage in discussions about travel preferences, which is often a common topic of conversation.</p></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers</h2>
+<p><p>As you progress in your Korean studies, understanding comparisons also opens doors to more advanced language applications. Here are some areas where these skills are particularly relevant:</p></p>
+<h3>1. Language Nuances and Cultural Context</h3>
+<p><p>Understanding how to compare and express preferences is deeply connected to cultural context. For example, in Korean culture, expressing modesty is important. Thus, making comparisons might require careful phrasing to avoid appearing boastful or overly assertive.</p></p>
+<h3>2. Emerging Technologies in Language Learning</h3>
+<p><p>Technological advancements such as language learning apps and AI-powered tutors are increasingly incorporating comparison exercises. These tools allow learners to practice comparisons in interactive ways, reinforcing understanding through real-time feedback.</p></p>
+<h3>3. Future Directions in Language Acquisition</h3>
+<p><p>Research continues to explore the cognitive processes involved in making comparisons across languages. Understanding these processes can enhance teaching methodologies and learning strategies, allowing for more tailored language instruction that meets learners’ needs.</p></p>
+<h3>4. Industry Trends</h3>
+<p><p>In fields such as marketing and advertising, the ability to make effective comparisons can significantly influence consumer behavior. This skill is fundamental for crafting compelling messaging that resonates with customers.</p></p>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>In this report, we explored the fundamental concepts of making comparisons in the Korean language, connecting them to your previous learning about vocabulary, grammar, and cultural contexts. Understanding how to compare items and express preferences is essential for effective communication and enhances your ability to navigate everyday interactions.</p></p>
+<p><p>As you continue your learning journey, practice these skills by engaging in conversations, making comparisons about your daily life, and expressing your preferences. The ability to articulate why you prefer one thing over another enriches your language experience and deepens your connection to Korean culture.</p></p>
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the Korean word for \"to be the same\"?", "options": [{"id": "A", "text": "\ub354 (deo)", "explanation": "Incorrect. \"\ub354\" means \"more.\""}, {"id": "B", "text": "\uac19\ub2e4 (gatda)", "explanation": "Correct. \"\uac19\ub2e4\" translates to \"to be the same.\""}, {"id": "C", "text": "\uac00\uc7a5 (gajang)", "explanation": "Incorrect. \"\uac00\uc7a5\" means \"the most.\""}, {"id": "D", "text": "\uc81c\uc77c (jeil)", "explanation": "Incorrect. \"\uc81c\uc77c\" translates to \"the best.\""}], "correct_answer": "B"}, {"question": "How would you express that one book is more interesting than another in Korean?", "options": [{"id": "A", "text": "\uc774 \ucc45\uc774 \uc800 \ucc45\ubcf4\ub2e4 \uac00\uc7a5 \uc7ac\ubbf8\uc788\ub2e4.", "explanation": "Incorrect. This means \"This book is the most interesting compared to that book.\""}, {"id": "B", "text": "\uc774 \ucc45\uc774 \uc800 \ucc45\ubcf4\ub2e4 \ub354 \uc7ac\ubbf8\uc788\ub2e4.", "explanation": "Correct. This translates to \"This book is more interesting than that book.\""}, {"id": "C", "text": "\uc774 \ucc45\uc774 \uc800 \ucc45\uacfc \uac19\ub2e4.", "explanation": "Incorrect. This means \"This book is the same as that book.\""}, {"id": "D", "text": "\uc774 \ucc45\uc774 \uc800 \ucc45\ubcf4\ub2e4 \ub35c \uc7ac\ubbf8\uc788\ub2e4.", "explanation": "Incorrect. This means \"This book is less interesting than that book.\""}], "correct_answer": "B"}, {"question": "What does \"\ub098\ub294 \ucee4\ud53c\ubcf4\ub2e4 \ucc28\ub97c \ub354 \uc88b\uc544\ud55c\ub2e4\" mean?", "options": [{"id": "A", "text": "I like coffee more than tea.", "explanation": "Incorrect. This reverses the preference expressed in the sentence."}, {"id": "B", "text": "I prefer tea over coffee.", "explanation": "Correct. This translates to \"I prefer tea over coffee.\""}, {"id": "C", "text": "I think tea is the best.", "explanation": "Incorrect. This implies something different regarding the quality of tea."}, {"id": "D", "text": "I dislike coffee and tea.", "explanation": "Incorrect. This does not reflect any preference."}], "correct_answer": "B"}, {"question": "Which of the following is a correct way to express a superlative comparison in Korean?", "options": [{"id": "A", "text": "\uc774 \uc9d1\uc774 \uc800 \uc9d1\ubcf4\ub2e4 \ub354 \uc791\ub2e4.", "explanation": "Incorrect. This describes a comparative, not a superlative."}, {"id": "B", "text": "\uc774 \uc74c\uc2dd\uc774 \uc81c\uc77c \ub9db\uc788\ub2e4.", "explanation": "Correct. This means \"This food is the best.\""}, {"id": "C", "text": "\uc774 \uc601\ud654\uac00 \uc800 \uc601\ud654\ubcf4\ub2e4 \ub35c \ud765\ubbf8\ub86d\ub2e4.", "explanation": "Incorrect. This also describes a comparative situation."}, {"id": "D", "text": "\uadf8 \uc0ac\ub78c\uc740 \ub098\uc640 \uac19\ub2e4.", "explanation": "Incorrect. This indicates equality, not a comparison of degree."}], "correct_answer": "B"}, {"question": "What is the function of \"\ub35c\" in a comparative sentence?", "options": [{"id": "A", "text": "It indicates equality.", "explanation": "Incorrect. \"\ub35c\" does not indicate equality."}, {"id": "B", "text": "It means \"more.\"", "explanation": "Incorrect. \"\ub354\" means \"more,\" not \"\ub35c.\""}, {"id": "C", "text": "It means \"less.\"", "explanation": "Correct. \"\ub35c\" translates to \"less.\""}, {"id": "D", "text": "It indicates the highest degree.", "explanation": "Incorrect. It does not denote the highest degree."}], "correct_answer": "C"}], "why_it_matters": "Understanding how to make comparisons and express preferences is fundamental to effective communication in any language. As you continue to explore the Korean language and culture, these skills will help you express your opinions and engage in meaningful conversations, enriching your overall learning experience. Continue practicing, and don\u2019t hesitate to explore more about the intricacies of the language!"};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
