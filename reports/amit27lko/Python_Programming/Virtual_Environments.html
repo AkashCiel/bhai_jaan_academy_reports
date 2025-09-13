@@ -1,0 +1,487 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Virtual Environments</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Virtual Environments</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: amit27.lko@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Educational Report on Virtual Environments</h1>
+<h2>Introduction:</h2>
+<p><p>In the digital age, the way we interact with technology has evolved dramatically. One significant advancement is the emergence of <strong>virtual environments</strong> (VEs), which offer immersive experiences that blur the lines between reality and the digital world. As you continue your exploration of programming and technology, particularly after mastering core Python concepts and data manipulation, understanding virtual environments will enrich your knowledge of how these tools can be created, utilized, and integrated into various applications.</p></p>
+<p><p>This report will delve into the concept of virtual environments, beginning with foundational definitions, exploring their technical underpinnings, and discussing their real-world applications. We will also examine emerging trends and future directions in the field. By the end of this report, you will gain a comprehensive understanding of virtual environments and their relevance in various domains.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>What are Virtual Environments?</h3>
+<p><p>At its core, a <strong>virtual environment</strong> refers to a simulated setting created by computer software where users can interact with a digitally constructed space. This environment can mimic the real world (as in virtual reality), or it can create entirely fantastical settings (as in gaming or artistic applications). </p></p>
+<h4>Key Definitions:</h4>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Virtual Reality (VR)</strong>: A fully immersive experience in a computer-generated environment, often requiring specialized hardware such as VR headsets. Users can interact with the virtual world in a manner similar to the real world.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Augmented Reality (AR)</strong>: An overlay of digital information on the real world. Unlike VR, AR enhances the real environment rather than replacing it. Examples include smartphone apps that superimpose graphics onto physical spaces.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Mixed Reality (MR)</strong>: A blend of VR and AR that allows real and digital elements to coexist and interact in real-time.</p></p>
+<p></li></p>
+</ul>
+<h4>Theoretical Foundations:</h4>
+<p><p>To understand virtual environments thoroughly, we can break down their components:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Hardware</strong>: </li>
+<li><strong>Input Devices</strong>: Tools like VR gloves, motion sensors, and haptic feedback devices that allow users to interact with the virtual environment.</li>
+<li>
+</ul>
+<p><p><strong>Output Devices</strong>: Displays, VR headsets, and speakers that render the virtual experience.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Software</strong>: </p></p>
+<p></li></p>
+<ul>
+<li><strong>Game Engines</strong>: Platforms like Unity and Unreal Engine that facilitate the creation of virtual environments.</li>
+<li>
+</ul>
+<p><p><strong>Simulation Software</strong>: Programs designed for specific applications, such as training simulations for medical professionals or pilots.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>User Interaction</strong>: </p></p>
+<p></li></p>
+<ul>
+<li>The methods through which users interact with virtual environments, including gaze tracking, gesture controls, and voice commands.</li>
+</ul>
+<p></ol></p>
+<h3>The Evolution of Virtual Environments</h3>
+<p><p>The history of virtual environments can be traced back to early computer graphics and simulations. Notable milestones include:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>1960s</strong>: The development of <strong>Sketchpad</strong>, the first graphical computing program, which laid the groundwork for graphical user interfaces and simulations.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>1980s</strong>: The advent of early VR systems such as <strong>VPL Research's DataGlove</strong>, which allowed for rudimentary interaction in virtual spaces.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>1990s</strong>: The rise of consumer VR with products like the <strong>Sega VR</strong> headset, although these early attempts faced technical limitations.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>2010s and Beyond</strong>: A resurgence in VR technology due to advancements in computing power, graphics, and accessibility, leading to products like the <strong>Oculus Rift</strong> and <strong>HTC Vive</strong>.</p></p>
+<p></li></p>
+</ul>
+<hr />
+<h2>Real-World Applications:</h2>
+<p><p>Virtual environments have diverse applications across various fields. Below are some prominent examples:</p></p>
+<h3>1. <strong>Gaming and Entertainment</strong></h3>
+<p><p>One of the most visible applications of virtual environments is in gaming. Titles like <strong>Beat Saber</strong> and <strong>Half-Life: Alyx</strong> provide immersive experiences that engage players in ways traditional games cannot. </p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: <strong>Beat Saber</strong>, a VR rhythm game, allows players to slash blocks representing musical beats with lightsabers, creating an engaging and physically active gaming experience.</li>
+</ul>
+</ul>
+<h3>2. <strong>Education and Training</strong></h3>
+<p><p>Virtual environments are transforming education by providing immersive learning experiences.</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Medical Training</strong>: Medical students can practice surgeries in a risk-free environment using VR simulations. This hands-on approach enhances learning and retention compared to traditional methods.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Virtual Classrooms</strong>: Platforms like <strong>Engage</strong> enable educators to conduct classes in virtual spaces, fostering collaboration and interaction among students regardless of their physical location.</p></p>
+<p></li></p>
+</ul>
+<h3>3. <strong>Architecture and Design</strong></h3>
+<p><p>Architects and designers utilize virtual environments to visualize projects before construction. </p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: Using software like <strong>SketchUp</strong> combined with VR, architects can create a virtual walkthrough of a building, allowing clients to experience the space before it is built, leading to better design decisions.</li>
+</ul>
+</ul>
+<h3>4. <strong>Healthcare</strong></h3>
+<p><p>Healthcare professionals are increasingly using virtual environments for therapeutic purposes, including:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Exposure Therapy</strong>: VR can simulate environments for patients to confront phobias in a controlled setting, helping them gradually overcome their fears.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Pain Management</strong>: Virtual environments can distract patients during painful procedures, reducing their perception of pain.</p></p>
+<p></li></p>
+</ul>
+<h3>5. <strong>Military and Defense</strong></h3>
+<p><p>The military employs virtual environments for training purposes, providing soldiers with realistic simulations of combat scenarios without the associated risks.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: The U.S. Army uses the <strong>Synthetic Training Environment</strong> (STE) to train soldiers in a variety of combat scenarios in a virtual landscape that mirrors real-world conditions.</li>
+</ul>
+</ul>
+<h3>6. <strong>Real Estate</strong></h3>
+<p><p>Real estate professionals use virtual environments to conduct virtual tours of properties, enabling potential buyers to explore homes without physically visiting them.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: Companies like <strong>Matterport</strong> create 3D models of homes, allowing clients to navigate through spaces virtually.</li>
+</ul>
+</ul>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers:</h2>
+<p><p>As technology continues to evolve, so does the potential for virtual environments. Some of the current research frontiers and emerging technologies include:</p></p>
+<h3>1. <strong>Social Virtual Reality</strong></h3>
+<p><p>Platforms like <strong>VRChat</strong> and <strong>AltspaceVR</strong> are exploring social interactions in virtual environments, enabling users to meet and socialize in digital spaces. Future developments may include more sophisticated avatars and social norms adapted to virtual interactions.</p></p>
+<h3>2. <strong>Artificial Intelligence Integration</strong></h3>
+<p><p>Integrating AI into virtual environments can create more dynamic and responsive experiences. AI-driven characters can interact with users in a more lifelike manner, enhancing immersion.</p></p>
+<h3>3. <strong>Enhanced Haptic Feedback</strong></h3>
+<p><p>Advancements in haptic technology allow users to feel physical sensations within virtual environments, making experiences more realistic. Future developments may include full-body suits that provide feedback throughout the body.</p></p>
+<h3>4. <strong>Accessibility Improvements</strong></h3>
+<p><p>As virtual environments become more mainstream, efforts to make them accessible to people with disabilities are gaining traction. This includes developing adaptive technologies that allow users with limited mobility or sensory impairments to engage with virtual experiences.</p></p>
+<h3>5. <strong>Cross-Platform Experiences</strong></h3>
+<p><p>Future virtual environments may focus on cross-platform compatibility, enabling users to interact across different devices and platforms seamlessly. This would promote a more inclusive and connected virtual ecosystem.</p></p>
+<hr />
+<h2>Future Directions:</h2>
+<p><p>The future of virtual environments is bright, with numerous possibilities for innovation and growth. Key trends to watch include:</p></p>
+<h3>1. <strong>Increased Adoption in Business</strong></h3>
+<p><p>The use of virtual environments for remote collaboration and team-building activities is expected to grow, particularly as more companies embrace remote work.</p></p>
+<h3>2. <strong>Integration with 5G Technology</strong></h3>
+<p><p>With the rollout of 5G networks, virtual environments will become more accessible and responsive, allowing for smoother experiences and lower latency.</p></p>
+<h3>3. <strong>Gaming Industry Expansion</strong></h3>
+<p><p>The gaming industry will continue to explore new genres and storytelling techniques that leverage the immersive potential of virtual environments.</p></p>
+<h3>4. <strong>Sustainable Design Practices</strong></h3>
+<p><p>Virtual environments can model sustainable practices in architecture and urban planning, allowing designers to simulate the environmental impact of their projects.</p></p>
+<h3>5. <strong>Health and Wellness Applications</strong></h3>
+<p><p>The potential for virtual environments in mental health treatment, rehabilitation, and wellness applications will likely expand, providing new avenues for support and therapy.</p></p>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>Virtual environments represent a fascinating and rapidly evolving field that bridges technology and human experience. By understanding the foundational concepts, real-world applications, and future directions of virtual environments, you are better equipped to appreciate their impact on various domains. </p></p>
+<p><p>As you continue your journey in technology and programming, consider how you might apply your skills to develop or enhance virtual environments. Whether it’s creating immersive games, designing educational tools, or exploring new ways to connect people in virtual spaces, the possibilities are vast.</p></p>
+<h3>Call to Action:</h3>
+<p><p>Explore the world of virtual environments further! Consider experimenting with different VR platforms, participating in online forums, or even creating simple virtual experiences using tools like Unity or Unreal Engine. The more you engage with this technology, the more opportunities you will discover.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary difference between virtual reality (VR) and augmented reality (AR)?", "options": [{"id": "A", "text": "VR replaces the real world; AR adds to it.", "explanation": "Correct. VR immerses users in a completely digital environment, while AR overlays digital elements onto the real world."}, {"id": "B", "text": "VR requires specialized hardware; AR does not.", "explanation": "Incorrect. While VR does often require specialized hardware, AR can also use devices like smartphones."}, {"id": "C", "text": "VR is only for gaming; AR is for education.", "explanation": "Incorrect. Both VR and AR have applications in gaming and education."}, {"id": "D", "text": "VR is more expensive than AR.", "explanation": "Incorrect. The cost of VR and AR can vary widely based on technology and application."}], "correct_answer": "A"}, {"question": "Which of the following is NOT a common application of virtual environments?", "options": [{"id": "A", "text": "Medical training", "explanation": "Incorrect. Medical training often utilizes virtual environments for simulations."}, {"id": "B", "text": "Virtual tourism", "explanation": "Incorrect. Virtual tourism involves exploring locations in a digital format."}, {"id": "C", "text": "Email management", "explanation": "Correct. Email management does not typically involve virtual environments."}, {"id": "D", "text": "Gaming", "explanation": "Incorrect. Gaming is a primary use of virtual environments."}], "correct_answer": "C"}, {"question": "What does the term \"mixed reality\" refer to?", "options": [{"id": "A", "text": "A combination of virtual and augmented reality.", "explanation": "Correct. Mixed reality blends real and digital elements that can interact with each other."}, {"id": "B", "text": "An environment that exists only in the imagination.", "explanation": "Incorrect. Mixed reality refers to actual technology, not just imagination."}, {"id": "C", "text": "A term used for digital art installations.", "explanation": "Incorrect. While it may involve digital art, mixed reality is broader than that."}, {"id": "D", "text": "Virtual environments designed for therapeutic purposes.", "explanation": "Incorrect. While therapeutic applications exist, mixed reality encompasses more than just therapy."}], "correct_answer": "A"}, {"question": "Which technology is key to creating immersive virtual environments?", "options": [{"id": "A", "text": "Game Engines", "explanation": "Correct. Game engines like Unity and Unreal Engine are fundamental for building virtual environments."}, {"id": "B", "text": "Satellite Technology", "explanation": "Incorrect. Satellite technology is unrelated to virtual environment creation."}, {"id": "C", "text": "Data Analytics", "explanation": "Incorrect. Data analytics is used for understanding data trends but not specifically for creating virtual environments."}, {"id": "D", "text": "Email Systems", "explanation": "Incorrect. Email systems have no connection to virtual environments."}], "correct_answer": "A"}, {"question": "How might the future of virtual environments be enhanced by 5G technology?", "options": [{"id": "A", "text": "It will increase the cost of VR hardware.", "explanation": "Incorrect. 5G aims to improve accessibility, not necessarily increase costs."}, {"id": "B", "text": "It will reduce latency and improve accessibility.", "explanation": "Correct. 5G can provide faster connections, reducing latency and enhancing user experiences in virtual environments."}, {"id": "C", "text": "It will eliminate the need for any hardware.", "explanation": "Incorrect. Hardware will still be required for VR experiences."}, {"id": "D", "text": "It will restrict the use of VR in public spaces.", "explanation": "Incorrect. 5G is likely to expand the use of VR in various settings, including public spaces."}], "correct_answer": "B"}], "why_it_matters": "Understanding virtual environments and their applications is crucial as technology continues to integrate into our daily lives. Mastering these concepts will empower you to innovate and contribute to future developments in this exciting field."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
