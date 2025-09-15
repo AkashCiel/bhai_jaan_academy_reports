@@ -1,0 +1,564 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Introduction to Databases</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Introduction to Databases</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: amit27.lko@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Introduction to Databases</h1>
+<h2>Introduction:</h2>
+<p><p>In your journey through Python programming, you've built a strong foundation that includes essential concepts such as data structures, string manipulation, and file I/O. These elements are crucial as we step into the world of databases, where the ability to store, retrieve, and manipulate data efficiently becomes paramount. This report will serve as a comprehensive introduction to databases, bridging your prior knowledge in programming with new concepts that will enhance your data management skills.</p></p>
+<p><p>Imagine databases as a well-organized library. Each book in the library represents a piece of information, and the way these books are categorized and stored is akin to how data is structured in a database. Just as a librarian can quickly locate a book based on its title or author, a database allows you to query and retrieve specific data efficiently.</p></p>
+<p><p>In this report, we will explore key concepts in databases, including their types, structures, and real-world applications. We'll delve into theoretical foundations, practical implications, and current trends, ensuring a well-rounded understanding of databases that prepares you for future challenges in data management.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>What is a Database?</h3>
+<p><p>A <strong>database</strong> is an organized collection of data that allows for easy access, management, and updating. Databases can handle vast amounts of information while providing mechanisms to retrieve and manipulate that data efficiently. </p></p>
+<h4>Key Definitions:</h4>
+<ul>
+<ul>
+<li><strong>Data</strong>: Raw facts and figures without context.</li>
+<li><strong>Information</strong>: Data processed to have meaning.</li>
+<li><strong>Database Management System (DBMS)</strong>: Software that allows users to create, manage, and manipulate databases.</li>
+</ul>
+</ul>
+<h3>Types of Databases:</h3>
+<p><p>Databases can be classified into several types based on their structure and usage. Here are the most common types:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Relational Databases</strong>:</li>
+<li>Store data in tables with predefined relationships.</li>
+<li>Use Structured Query Language (SQL) for database manipulation.</li>
+<li>
+</ul>
+<p><p>Examples: MySQL, PostgreSQL, Oracle Database.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>NoSQL Databases</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Designed for unstructured data and flexible data models.</li>
+<li>Include document stores, key-value stores, and column-family stores.</li>
+<li>
+</ul>
+<p><p>Examples: MongoDB, Cassandra, Redis.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Object-Oriented Databases</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Store data in the form of objects, similar to object-oriented programming.</li>
+<li>Suitable for applications with complex data structures.</li>
+<li>
+</ul>
+<p><p>Examples: db4o, ObjectDB.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Distributed Databases</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Data is distributed across multiple locations or servers.</li>
+<li>Enhances reliability and performance by allowing concurrent access.</li>
+<li>
+</ul>
+<p><p>Examples: Google Spanner, Amazon DynamoDB.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Cloud Databases</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Managed database services offered through cloud computing platforms.</li>
+<li>Provide scalability and flexibility without the need for physical infrastructure.</li>
+<li>Examples: Amazon RDS, Google Cloud SQL.</li>
+</ul>
+<p></ol></p>
+<h3>Database Models:</h3>
+<h4>1. Relational Model:</h4>
+<p><p>The relational model organizes data into tables (relations), where each row represents a record and each column represents an attribute of the record.</p></p>
+<ul>
+<ul>
+<li><strong>Primary Key</strong>: A unique identifier for each record in a table.</li>
+<li><strong>Foreign Key</strong>: A field in one table that links to the primary key of another table.</li>
+</ul>
+</ul>
+<p><p><strong>Example</strong>: In a database for a bookstore, you might have a <code>Books</code> table with columns for <code>ISBN</code>, <code>Title</code>, <code>Author</code>, and <code>Price</code>. Each book's <code>ISBN</code> serves as the primary key.</p></p>
+<h4>2. Document Model:</h4>
+<p><p>Used primarily in NoSQL databases, the document model stores data as documents, often in JSON or XML format. Each document can have a unique structure, allowing for flexibility.</p></p>
+<p><p><strong>Example</strong>: A document for a book might look like this in JSON format:</p>
+<p><code>json</p>
+<p>{</p>
+<p>"ISBN": "1234567890",</p>
+<p>"Title": "Learn Python",</p>
+<p>"Author": "John Doe",</p>
+<p>"Price": 29.99</p>
+<p>}</code></p></p>
+<h4>3. Key-Value Model:</h4>
+<p><p>This model stores data as a collection of key-value pairs, where each key is unique.</p></p>
+<p><p><strong>Example</strong>: A user profile might be stored as:</p>
+<ul>
+<li>Key: <code>user:123</code></li>
+<li>Value: <code>{ "name": "Alice", "age": 30, "email": "alice@example.com" }</code></p></li>
+</ul>
+<h3>Key Operations in Databases:</h3>
+<p><ol></p>
+<ul>
+<li><strong>CRUD Operations</strong>:</li>
+<li><strong>Create</strong>: Inserting new records.</li>
+<li><strong>Read</strong>: Retrieving existing records.</li>
+<li><strong>Update</strong>: Modifying existing records.</li>
+<li>
+</ul>
+<p><p><strong>Delete</strong>: Removing records.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Queries</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Structured Query Language (SQL) is the standard language for querying relational databases.</li>
+<li>
+</ul>
+<p><p>Example of a basic SQL query to retrieve all books:</p>
+<p><code>sql</p>
+<p>SELECT * FROM Books;</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Transactions</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>A transaction is a sequence of operations performed as a single logical unit of work.</li>
+<li>Ensures data integrity and consistency using ACID properties (Atomicity, Consistency, Isolation, Durability).</li>
+</ul>
+<p></ol></p>
+<h3>Real-World Applications:</h3>
+<p><p>Databases are integral to various industries and applications. Here are a few examples:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>E-commerce</strong>:</li>
+<li>Online stores use databases to manage product listings, customer orders, and payment information.</li>
+<li>
+</ul>
+<p><p>Efficient querying and transaction management ensure a smooth shopping experience.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Healthcare</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Hospitals and clinics utilize databases to store patient records, treatment histories, and billing information.</li>
+<li>
+</ul>
+<p><p>Ensures data privacy and compliance with regulations like HIPAA.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Finance</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Banks and financial institutions rely on databases to manage accounts, transactions, and customer data.</li>
+<li>
+</ul>
+<p><p>Real-time processing and security measures are critical in this sector.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Social Media</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p>Platforms like Facebook and Twitter manage vast amounts of user-generated content, relationships, and interactions through sophisticated database systems.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Education</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Educational institutions use databases to manage student records, course registrations, and grades.</li>
+</ul>
+<p></ol></p>
+<h3>Theoretical Foundations:</h3>
+<p><p>Understanding the theoretical foundations of databases helps in designing efficient systems. This includes:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Normalization</strong>: A process to eliminate data redundancy by organizing data into tables and defining relationships.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Data Integrity</strong>: Ensuring accuracy and consistency of data over its lifecycle. This includes constraints like unique keys, foreign keys, and check constraints.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Indexing</strong>: A data structure technique to improve the speed of data retrieval operations on a database table.</p></p>
+<p></li></p>
+</ul>
+<h3>Practical Implications:</h3>
+<p><p>As you learn about databases, consider how these theoretical concepts translate into practical applications:</p></p>
+<ul>
+<ul>
+<li>When designing a database for an application, think about how to structure your data to avoid redundancy and ensure integrity.</li>
+<li>Use indexing for frequently queried fields to enhance performance.</li>
+<li>Understand the implications of using transactions in multi-user environments to maintain data consistency.</li>
+</ul>
+</ul>
+<h3>Current Trends and Future Directions:</h3>
+<p><p>The database landscape is constantly evolving, driven by advancements in technology. Here are some current trends and future directions:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Big Data</strong>: The rise of big data technologies has led to the development of databases that can handle vast amounts of unstructured data. Technologies like Hadoop and Spark are often integrated with databases for analytics.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Artificial Intelligence</strong>: AI and machine learning are being integrated into databases to automate data management tasks, optimize query performance, and enhance data security.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Database as a Service (DBaaS)</strong>: Cloud providers are increasingly offering managed database services, allowing organizations to focus on applications without worrying about database maintenance.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Graph Databases</strong>: With the growing importance of social and relational data, graph databases are gaining popularity for their ability to efficiently represent and query relationships.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Blockchain</strong>: Emerging as a new paradigm for data storage, blockchain technology offers decentralized and tamper-proof data management solutions, particularly in finance and supply chain.</p></p>
+<p></li></p>
+</ul>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>In this report, we have explored the foundational concepts of databases, including their types, structures, operations, and real-world applications. You have seen how databases are essential for managing data in various industries and how theoretical concepts translate into practical applications. As you continue your journey in programming and data management, understanding databases will be a critical skill that enhances your capabilities.</p></p>
+<p><p>Consider diving deeper into advanced database topics like optimization techniques, stored procedures, and database security. As you explore further, remember that databases are not just about storage; they are about making data work for you.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is a primary key in a relational database?", "options": [{"id": "A", "text": "A unique identifier for each record in a table", "explanation": "Correct. A primary key uniquely identifies each record in a table, ensuring no two records are the same."}, {"id": "B", "text": "A field that links to another table", "explanation": "Incorrect. A foreign key links one table to another but is not a primary key."}, {"id": "C", "text": "The most important field in a database", "explanation": "Incorrect. While primary keys are important, this option does not accurately define what a primary key is."}, {"id": "D", "text": "A type of SQL query", "explanation": "Incorrect. SQL queries are used to manipulate data but do not define what a primary key is."}], "correct_answer": "A"}, {"question": "Which of the following is a characteristic of NoSQL databases?", "options": [{"id": "A", "text": "They use SQL as their primary query language.", "explanation": "Incorrect. NoSQL databases do not use SQL as their primary query language."}, {"id": "B", "text": "They are designed for unstructured data.", "explanation": "Correct. NoSQL databases are specifically designed to handle unstructured data and provide flexibility in data models."}, {"id": "C", "text": "They only support relational data models.", "explanation": "Incorrect. NoSQL databases can support various data models, not just relational."}, {"id": "D", "text": "They require a predefined schema.", "explanation": "Incorrect. NoSQL databases often allow for schema-less designs."}], "correct_answer": "B"}, {"question": "What does the term \"normalization\" refer to in database design?", "options": [{"id": "A", "text": "The process of storing data in a cloud environment.", "explanation": "Incorrect. Cloud storage is not related to normalization."}, {"id": "B", "text": "The process of organizing data to reduce redundancy.", "explanation": "Correct. Normalization is aimed at organizing data to minimize redundancy and dependency."}, {"id": "C", "text": "The process of retrieving data using SQL queries.", "explanation": "Incorrect. Querying data is not what normalization refers to."}, {"id": "D", "text": "The process of creating backups of a database.", "explanation": "Incorrect. Backups are an essential part of database management but are not related to normalization."}], "correct_answer": "B"}, {"question": "Which type of database is best suited for managing relationships and connections between data points?", "options": [{"id": "A", "text": "Document Database", "explanation": "Incorrect. Document databases store data in documents but are not optimized for relationships."}, {"id": "B", "text": "Key-Value Store", "explanation": "Incorrect. Key-value stores are efficient for simple data retrieval but do not manage relationships well."}, {"id": "C", "text": "Graph Database", "explanation": "Correct. Graph databases are specifically designed to manage and query relationships between data points."}, {"id": "D", "text": "Relational Database", "explanation": "Incorrect. While relational databases manage relationships, graph databases are more efficient for complex relationships."}], "correct_answer": "C"}, {"question": "What is the purpose of transactions in a database?", "options": [{"id": "A", "text": "To permanently delete all records from a table.", "explanation": "Incorrect. Transactions do not delete records; they ensure operations are completed successfully."}, {"id": "B", "text": "To ensure data integrity and consistency across operations.", "explanation": "Correct. Transactions ensure that all operations within them are completed successfully or none at all, maintaining data integrity."}, {"id": "C", "text": "To create new tables in the database.", "explanation": "Incorrect. Transactions do not create tables; they manage operations on existing data."}, {"id": "D", "text": "To optimize database performance.", "explanation": "Incorrect. While transactions can impact performance, their primary purpose is to maintain data integrity."}], "correct_answer": "B"}], "why_it_matters": "Understanding databases is critical for anyone looking to manage data effectively in today\u2019s data-driven world. The skills and knowledge you acquire will be foundational as you explore more advanced database concepts and applications in your future learning journey."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
