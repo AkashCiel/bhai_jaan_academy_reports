@@ -1,0 +1,452 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Regular Expressions**: Basics of pattern matching with regex.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Regular Expressions**: Basics of pattern matching with regex.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: manishkumarfd7882@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Regular Expressions: Basics of Pattern Matching with Regex</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your journey through programming, we now arrive at an exciting and powerful concept: <strong>Regular Expressions (regex)</strong>. Regular expressions serve as a critical tool in the arsenal of any programmer, enabling the ability to efficiently search, match, and manipulate strings based on specific patterns. This topic aligns well with your previous learning about Python programming, where you utilized basic syntax, data types, and functions to write code. Regular expressions build upon these skills by providing a way to work with strings in a highly flexible manner.</p></p>
+<p><p>Regex can feel a bit daunting at first, much like learning a new language. However, with a solid understanding of its components and practical applications, you will soon find it an invaluable tool in your programming toolkit. Whether you are validating email addresses, searching through large texts, or extracting specific data from strings, regular expressions streamline these tasks efficiently.</p></p>
+<p><p>In this report, we will cover the key concepts of regular expressions, common use cases, practical applications, and advanced topics that will prepare you for future challenges in programming. By the end of this report, you will have a comprehensive understanding of regex and how to implement it in Python.</p></p>
+<hr />
+<h2>Key Concepts and Definitions:</h2>
+<h3>What are Regular Expressions?</h3>
+<p><p>Regular expressions are sequences of characters that define a search pattern. They are typically used for string pattern matching and manipulation. Regex can be used to:</p></p>
+<ul>
+<ul>
+<li>Search for specific patterns within strings.</li>
+<li>Validate input formats (e.g., email addresses, phone numbers).</li>
+<li>Replace substrings.</li>
+<li>Split strings based on certain criteria.</li>
+</ul>
+</ul>
+<h3>Basic Syntax of Regular Expressions</h3>
+<p><p>Understanding the syntax of regex is crucial to leveraging its power. Here are some fundamental components:</p></p>
+<h4>1. <strong>Literals</strong>:</h4>
+<p><p>These are the most straightforward regex components. A literal matches itself. For example, the regex <code>cat</code> will match the string "cat".</p></p>
+<h4>2. <strong>Metacharacters</strong>:</h4>
+<p><p>These characters have special meanings in regex. Some important metacharacters include:</p>
+<ul>
+<li><strong><code>.</code></strong>: Matches any single character (except newline).</li>
+<li><strong><code>^</code></strong>: Matches the start of a string.</li>
+<li><strong><code>$</code></strong>: Matches the end of a string.</li>
+<li><strong><code>*</code></strong>: Matches zero or more occurrences of the preceding element.</li>
+<li><strong><code>+</code></strong>: Matches one or more occurrences of the preceding element.</li>
+<li><strong><code>?</code></strong>: Matches zero or one occurrence of the preceding element.</p></li>
+</ul>
+<h4>3. <strong>Character Classes</strong>:</h4>
+<p><p>Character classes allow you to define a set of characters. For example:</p>
+<ul>
+<li><strong><code>[abc]</code></strong>: Matches 'a', 'b', or 'c'.</li>
+<li><strong><code>[^abc]</code></strong>: Matches any character except 'a', 'b', or 'c'.</li>
+<li><strong><code>[0-9]</code></strong>: Matches any digit.</p></li>
+</ul>
+<h4>4. <strong>Quantifiers</strong>:</h4>
+<p><p>Quantifiers specify how many instances of a character or group must be present for a match:</p>
+<ul>
+<li><strong><code>{n}</code></strong>: Matches exactly n occurrences.</li>
+<li><strong><code>{n,}</code></strong>: Matches n or more occurrences.</li>
+<li><strong><code>{n,m}</code></strong>: Matches between n and m occurrences.</p></li>
+</ul>
+<h4>5. <strong>Groups and Ranges</strong>:</h4>
+<p><p>Parentheses are used to define groups. For example, <code>(abc)+</code> matches one or more occurrences of "abc". </p></p>
+<h3>Anchors:</h3>
+<p><p>Anchors help to specify the position of a match:</p>
+<ul>
+<li><strong><code>^</code></strong>: Indicates the start of a string.</li>
+<li><strong><code>$</code></strong>: Indicates the end of a string.</p></li>
+</ul>
+<h3>Escape Sequences:</h3>
+<p><p>To match metacharacters literally, you need to escape them using a backslash (<code>\</code>). For example, to match a period, use <code>\.</code>.</p></p>
+<h3>Example Patterns:</h3>
+<ul>
+<ul>
+<li><strong><code>^[A-Za-z0-9]+@[A-Za-z]+\.[A-Za-z]{2,3}$</code></strong>: Matches a basic email format.</li>
+<li><strong><code>\d{3}-\d{2}-\d{4}</code></strong>: Matches a social security number format (e.g., 123-45-6789).</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications:</h2>
+<p><p>Regular expressions are widely used across various domains. Here are a few practical applications:</p></p>
+<h3>1. <strong>Data Validation:</strong></h3>
+<p><p>Regex is often used to validate user input. For instance, checking whether an email address is correctly formatted can be achieved with a regex pattern. </p></p>
+<h4>Example:</h4>
+<p><p>```python</p>
+<p>import re</p></p>
+<p><p>def validate_email(email):</p>
+<p>pattern = r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Z|a-z]{2,}$'</p>
+<p>return re.match(pattern, email) is not None</p></p>
+<p><p>print(validate_email("example@mail.com"))  # True</p>
+<p>```</p></p>
+<h3>2. <strong>Searching and Replacing Text:</strong></h3>
+<p><p>Regex can find specific patterns in text and replace them. This is useful in editing documents or processing logs.</p></p>
+<h4>Example:</h4>
+<p><p>```python</p>
+<p>import re</p></p>
+<p><p>text = "The rain in Spain stays mainly in the plain."</p>
+<p>new_text = re.sub(r'Spain', 'France', text)</p>
+<p>print(new_text)  # The rain in France stays mainly in the plain.</p>
+<p>```</p></p>
+<h3>3. <strong>Extracting Information:</strong></h3>
+<p><p>You can extract specific data from strings using regex. For example, extracting dates from a text file.</p></p>
+<h4>Example:</h4>
+<p><p>```python</p>
+<p>import re</p></p>
+<p><p>text = "Today's date is 2023-10-05."</p>
+<p>date_pattern = r'\d{4}-\d{2}-\d{2}'</p>
+<p>date = re.findall(date_pattern, text)</p>
+<p>print(date)  # ['2023-10-05']</p>
+<p>```</p></p>
+<h3>4. <strong>Web Scraping:</strong></h3>
+<p><p>In web scraping, regex is often used to extract data from HTML or text documents. </p></p>
+<h4>Example:</h4>
+<p><p>```python</p>
+<p>import re</p>
+<p>import requests</p></p>
+<p><p>url = 'https://example.com/'</p>
+<p>response = requests.get(url)</p>
+<p>emails = re.findall(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}', response.text)</p>
+<p>print(emails)  # Extracted emails from the webpage</p>
+<p>```</p></p>
+<h3>5. <strong>Log File Analysis:</strong></h3>
+<p><p>Regex can be employed to analyze and extract relevant information from log files, which are often extensive and unstructured.</p></p>
+<h4>Example:</h4>
+<p><p>```python</p>
+<p>import re</p></p>
+<p><p>log_data = """</p>
+<p>INFO - 2023-10-01 12:00:00 - User login successful</p>
+<p>ERROR - 2023-10-01 12:05:00 - Failed to connect to database</p>
+<p>"""</p>
+<p>error_pattern = r'ERROR - \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} - (.*)'</p>
+<p>errors = re.findall(error_pattern, log_data)</p>
+<p>print(errors)  # ['Failed to connect to database']</p>
+<p>```</p></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers:</h2>
+<h3>1. <strong>Natural Language Processing (NLP):</strong></h3>
+<p><p>Regex plays a crucial role in NLP by enabling text preprocessing, including tokenization, stemming, and lemmatization. It helps filter out irrelevant data and format text before feeding it into NLP models.</p></p>
+<h3>2. <strong>Security:</strong></h3>
+<p><p>In cybersecurity, regex is used to identify patterns indicative of malicious behavior, such as SQL injection attempts or cross-site scripting.</p></p>
+<h3>3. <strong>Machine Learning:</strong></h3>
+<p><p>Regex can assist in feature extraction by identifying relevant patterns in textual data. This is particularly useful in sentiment analysis and spam detection.</p></p>
+<h3>4. <strong>Data Science:</strong></h3>
+<p><p>In data science, regex can be used to clean and preprocess data before analysis. It helps in standardizing formats and removing inconsistencies in datasets.</p></p>
+<h3>5. <strong>Emerging Technologies:</strong></h3>
+<p><p>As technologies evolve, the demand for regex is increasing in fields such as AI-driven data extraction and automated code generation, which require precise pattern recognition.</p></p>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>Regular expressions are an invaluable skill for any programmer, providing powerful capabilities for string manipulation, validation, and extraction. As you have learned, regex can simplify complex tasks, making your code cleaner and more efficient. With your foundation in Python programming, you can easily integrate regex into your projects, enhancing your ability to handle data effectively.</p></p>
+<p><p>To further deepen your understanding of regular expressions, practice writing regex patterns for various real-world scenarios. Explore different regex flavors, as implementations may vary slightly between programming languages. The more you practice, the more proficient you'll become.</p></p>
+<h3>Call to Action:</h3>
+<p><p>Explore regex resources, practice with online regex testers, and implement regex in your projects. Regular expressions are a skill that pays off in many areas of programming and data manipulation.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What does the regex pattern `^[A-Za-z0-9]+@[A-Za-z]+\\.[A-Z|a-z]{2,3}$` match?", "options": [{"id": "A", "text": "A string containing only digits", "explanation": "Incorrect, this pattern requires letters and symbols, not just digits."}, {"id": "B", "text": "A valid email address format", "explanation": "Correct, as it matches a basic structure of an email address."}, {"id": "C", "text": "A string that starts with a digit", "explanation": "Incorrect, the pattern specifies that it must start with alphanumeric characters."}, {"id": "D", "text": "A string that ends with a number", "explanation": "Incorrect, it checks for a specific pattern rather than just ending with a number."}], "correct_answer": "B"}, {"question": "Which metacharacter matches any single character except a newline?", "options": [{"id": "A", "text": "`*`", "explanation": "Incorrect, `*` specifies zero or more occurrences of the preceding character."}, {"id": "B", "text": "`.`", "explanation": "Correct, as `.` matches any single character except a newline."}, {"id": "C", "text": "`^`", "explanation": "Incorrect, `^` indicates the start of a string."}, {"id": "D", "text": "`$`", "explanation": "Incorrect, `$` indicates the end of a string."}], "correct_answer": "B"}, {"question": "How would you define a regex pattern to match a phone number format of `123-456-7890`?", "options": [{"id": "A", "text": "`\\d{3}-\\d{3}-\\d{4}`", "explanation": "Correct, as it accurately describes the phone number format."}, {"id": "B", "text": "`[0-9]{3}.[0-9]{3}.[0-9]{4}`", "explanation": "Incorrect, as `.` matches any character, not just the hyphen."}, {"id": "C", "text": "`\\d{3}\\d{3}\\d{4}`", "explanation": "Incorrect, it lacks the hyphens that separate the groups."}, {"id": "D", "text": "`(\\d{3})-(\\d{3})-(\\d{4})`", "explanation": "Incorrect, while it matches the format, it includes unnecessary parentheses."}], "correct_answer": "A"}, {"question": "Which regex component would you use to match one or more occurrences of a character?", "options": [{"id": "A", "text": "`*`", "explanation": "Incorrect, `*` matches zero or more occurrences."}, {"id": "B", "text": "`?`", "explanation": "Incorrect, `?` matches zero or one occurrence."}, {"id": "C", "text": "`+`", "explanation": "Correct, as `+` specifically matches one or more occurrences."}, {"id": "D", "text": "`{n}`", "explanation": "Incorrect, `{n}` matches exactly n occurrences."}], "correct_answer": "C"}, {"question": "In the context of regex, what does the escape sequence `\\d` represent?", "options": [{"id": "A", "text": "Any digit character", "explanation": "Correct, as `\\d` is specifically used to match any digit (0-9)."}, {"id": "B", "text": "Any whitespace character", "explanation": "Incorrect, that would be represented by `\\s`."}, {"id": "C", "text": "Any alphanumeric character", "explanation": "Incorrect, any alphanumeric character would be matched by `\\w`."}, {"id": "D", "text": "Any special character", "explanation": "Incorrect, special characters don\u2019t have a direct mapping in regex."}], "correct_answer": "A"}], "why_it_matters": "Understanding regex is essential for effective string manipulation and data validation, enabling you to tackle complex programming challenges with confidence. Embrace this powerful tool as you continue to grow in your programming journey!"};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
