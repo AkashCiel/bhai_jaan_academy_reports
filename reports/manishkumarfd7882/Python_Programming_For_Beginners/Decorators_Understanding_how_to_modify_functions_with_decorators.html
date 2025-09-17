@@ -1,0 +1,496 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Decorators**: Understanding how to modify functions with decorators.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Decorators**: Understanding how to modify functions with decorators.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: manishkumarfd7882@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Decorators: Understanding How to Modify Functions with Decorators</h1>
+<h2>Introduction:</h2>
+<p><p>Welcome to an exciting new chapter in your Python programming journey! As we dive deeper into the world of functions, we will explore a powerful and flexible feature of Python known as <strong>decorators</strong>. This report builds on your foundational knowledge of functions, as you've learned to encapsulate code into reusable blocks. Now, we will take that concept even further by discovering how to modify and enhance functions dynamically.</p></p>
+<p><p>Decorators allow you to wrap and modify the behavior of functions or methods, enabling you to add functionality or modify output without changing the original function's code. This is a vital skill in Python programming, as it promotes code reusability, modularity, and cleaner designs.</p></p>
+<p><p>In this report, we will cover the following key areas:</p>
+<ul>
+<li>Understanding decorators: their purpose, structure, and syntax.</li>
+<li>Practical applications of decorators in real-world scenarios.</li>
+<li>Examining the theoretical foundations behind decorators.</li>
+<li>Exploring advanced concepts and future directions in decorator usage.</li>
+<li>Engaging in interactive assessments to reinforce learning.</p></li>
+</ul>
+<p><p>Let’s begin by establishing a solid understanding of what decorators are and how they fit into the broader context of Python programming.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>What Are Decorators?</h3>
+<p><p><strong>Definition</strong>: A decorator is a function that takes another function as an argument, extends or alters its behavior, and returns a new function. Decorators are often used in Python to add functionality to existing functions in a clean and readable manner.</p></p>
+<h4>Basic Structure of a Decorator:</h4>
+<p><p>To understand decorators, let’s look at their basic structure:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Function to Decorate</strong>: This is the original function we want to enhance.</li>
+<li><strong>Decorator Function</strong>: This function takes the original function as an argument, defines a nested function that adds the desired behavior, and returns this nested function.</li>
+</ul>
+<p></ol></p>
+<p><p>Here’s a simple example to illustrate:</p></p>
+<p><p>```python</p>
+<p>def simple_decorator(func):</p>
+<p>def wrapper():</p>
+<p>print("Something is happening before the function is called.")</p>
+<p>func()</p>
+<p>print("Something is happening after the function is called.")</p>
+<p>return wrapper</p></p>
+<p><p>@simple_decorator</p>
+<p>def say_hello():</p>
+<p>print("Hello!")</p></p>
+<p><p>say_hello()</p>
+<p>```</p></p>
+<p><p><strong>Explanation of the Code</strong>:</p>
+<ul>
+<li>The <code>simple_decorator</code> function is a decorator that takes <code>func</code> as an argument.</li>
+<li>Inside <code>simple_decorator</code>, a nested function called <code>wrapper</code> is defined. It adds behavior before and after calling the original function.</li>
+<li>The <code>@simple_decorator</code> syntax is a shorthand for applying the decorator to the <code>say_hello</code> function.</p></li>
+</ul>
+<p><p>When you run <code>say_hello()</code>, the output will be:</p>
+<p><code>Something is happening before the function is called.</p>
+<p>Hello!</p>
+<p>Something is happening after the function is called.</code></p></p>
+<h4>Key Attributes of Decorators:</h4>
+<p><ol></p>
+<ul>
+<li><strong>Higher Order Functions</strong>: Decorators are higher order functions because they operate on other functions (i.e., they take a function as an argument).</li>
+<li><strong>Return Functions</strong>: They return a new function that typically extends or alters the behavior of the original function.</li>
+<li><strong>Syntax Sugar</strong>: The <code>@decorator_name</code> syntax provides a clean and readable way to apply decorators.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h3>Real-World Applications of Decorators:</h3>
+<p><p>Now that we have a foundational understanding of what decorators are, let’s explore some practical applications that illustrate their utility in real-world scenarios.</p></p>
+<h4>1. Logging:</h4>
+<p><p>Logging is crucial for monitoring application behavior. You can create a decorator that logs function calls, arguments, and return values.</p></p>
+<p><p>```python</p>
+<p>def log_decorator(func):</p>
+<p>def wrapper(<em>args, </em><em>kwargs):</p>
+<p>print(f"Function '{func.<strong>name</strong>}' called with arguments: {args} and keyword arguments: {kwargs}")</p>
+<p>result = func(</em>args, **kwargs)</p>
+<p>print(f"Function '{func.<strong>name</strong>}' returned: {result}")</p>
+<p>return result</p>
+<p>return wrapper</p></p>
+<p><p>@log_decorator</p>
+<p>def add(a, b):</p>
+<p>return a + b</p></p>
+<p><p>add(3, 5)</p>
+<p>```</p></p>
+<p><p><strong>Output</strong>:</p>
+<p><code>Function 'add' called with arguments: (3, 5) and keyword arguments: {}</p>
+<p>Function 'add' returned: 8</code></p></p>
+<h4>2. Authentication:</h4>
+<p><p>In web applications, you can use decorators to manage user authentication. For example, if a user is not logged in, the decorator can redirect them to the login page.</p></p>
+<p><p>```python</p>
+<p>def require_login(func):</p>
+<p>def wrapper(user):</p>
+<p>if not user.is_authenticated:</p>
+<p>return "Redirecting to login page..."</p>
+<p>return func(user)</p>
+<p>return wrapper</p></p>
+<p><p>@require_login</p>
+<p>def access_secure_page(user):</p>
+<p>return "Welcome to the secure page!"</p></p>
+<h1>Simulating a user object</h1>
+<p><p>class User:</p>
+<p>def <strong>init</strong>(self, authenticated):</p>
+<p>self.is_authenticated = authenticated</p></p>
+<p><p>user1 = User(authenticated=False)</p>
+<p>print(access_secure_page(user1))</p>
+<p>```</p></p>
+<p><p><strong>Output</strong>:</p>
+<p><code>Redirecting to login page...</code></p></p>
+<h4>3. Timing Functions:</h4>
+<p><p>You can create a decorator to measure the time a function takes to execute, which is beneficial for performance analysis.</p></p>
+<p><p>```python</p>
+<p>import time</p></p>
+<p><p>def timing_decorator(func):</p>
+<p>def wrapper(<em>args, </em><em>kwargs):</p>
+<p>start_time = time.time()</p>
+<p>result = func(</em>args, **kwargs)</p>
+<p>end_time = time.time()</p>
+<p>print(f"Function '{func.<strong>name</strong>}' executed in {end_time - start_time:.4f} seconds")</p>
+<p>return result</p>
+<p>return wrapper</p></p>
+<p><p>@timing_decorator</p>
+<p>def compute_square(n):</p>
+<p>return [i ** 2 for i in range(n)]</p></p>
+<p><p>compute_square(1000000)</p>
+<p>```</p></p>
+<p><p><strong>Output</strong>:</p>
+<p><code>Function 'compute_square' executed in 0.1234 seconds</code></p></p>
+<p><p>These examples showcase how decorators can enhance functionality in a clean and reusable manner. Each application addresses a common need in software development, illustrating the power and versatility of decorators.</p></p>
+<hr />
+<h2>Theoretical Foundations of Decorators:</h2>
+<h3>Understanding Closures</h3>
+<p><p>To grasp decorators fully, it’s essential to understand <strong>closures</strong>. A closure occurs when a nested function remembers the values of its enclosing lexical scope even when the function is executed outside that scope.</p></p>
+<p><p>In the context of decorators:</p>
+<ul>
+<li>The outer function (the decorator) defines the inner function (the wrapper) that can access its arguments and variables.</li>
+<li>This allows the decorator to extend or modify the behavior of the original function dynamically.</p></li>
+</ul>
+<p><p>Here's a quick example of a closure:</p></p>
+<p><p>```python</p>
+<p>def outer_function(message):</p>
+<p>def inner_function():</p>
+<p>print(message)</p>
+<p>return inner_function</p></p>
+<p><p>closure = outer_function("Hello, World!")</p>
+<p>closure()  # Output: Hello, World!</p>
+<p>```</p></p>
+<h3>Decorator Chains</h3>
+<p><p>Decorators can be stacked, allowing multiple decorators to be applied to a single function. The order of application is from the innermost decorator to the outermost.</p></p>
+<p><p><code>python</p>
+<p>@decorator_one</p>
+<p>@decorator_two</p>
+<p>def my_function():</p>
+<p>pass</code></p></p>
+<p><p>In this example, <code>decorator_two</code> wraps <code>my_function</code>, and then <code>decorator_one</code> wraps the result of <code>decorator_two</code>. Understanding this chaining mechanism is vital for effectively using multiple decorators.</p></p>
+<hr />
+<h2>Advanced Applications and Future Directions:</h2>
+<h3>Emerging Technologies and Trends</h3>
+<p><p>As Python continues to evolve, decorators have found applications in various advanced technologies, including:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Machine Learning</strong>: Decorators can be used for data preprocessing steps, enabling the automatic application of transformations to datasets before training models.</li>
+<li><strong>Web Frameworks</strong>: Frameworks like Flask and Django extensively use decorators for route handling, middleware, and more, making them integral to web application development.</li>
+<li><strong>Asynchronous Programming</strong>: In asynchronous programming environments, decorators can manage concurrency and simplify the management of asynchronous tasks.</li>
+</ul>
+<p></ol></p>
+<h3>Research Challenges</h3>
+<p><p>Despite their utility, decorators can also introduce complexity. Challenges include:</p>
+<ul>
+<li>Debugging: Wrapped functions can obscure stack traces and make debugging more difficult.</li>
+<li>Performance: Overusing decorators can lead to performance overhead if not implemented carefully.</p></li>
+</ul>
+<h3>Future Directions</h3>
+<p><p>As Python evolves, expect to see:</p>
+<ul>
+<li>Enhanced decorator syntax and capabilities in future versions of Python.</li>
+<li>Greater integration of decorators with asynchronous programming paradigms.</li>
+<li>Expanded use in data science and machine learning applications.</p></li>
+</ul>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>In conclusion, decorators are a powerful aspect of Python that allows you to modify and enhance functions elegantly and efficiently. By understanding their structure, practical applications, and underlying principles, you are now equipped to use decorators effectively in your code. </p></p>
+<p><p>As you continue your programming journey, explore the possibilities that decorators offer. Try creating your own decorators, experimenting with chaining, and applying them to different use cases in your projects. This will deepen your understanding and enable you to write more modular and maintainable code.</p></p>
+<h3>Next Steps:</h3>
+<ul>
+<ul>
+<li>Experiment with creating decorators for various real-world applications.</li>
+<li>Explore how decorators are used in popular Python frameworks like Flask and Django.</li>
+<li>Continue learning about advanced decorator techniques, including class decorators and parameterized decorators.</li>
+</ul>
+</ul>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is a decorator in Python?", "options": [{"id": "A", "text": "A type of data structure used to store functions.", "explanation": "Incorrect. A decorator is not a data structure; it's a function that modifies another function."}, {"id": "B", "text": "A function that modifies the behavior of another function.", "explanation": "Correct. A decorator takes a function as an argument and returns a modified function."}, {"id": "C", "text": "A module for handling exceptions in Python.", "explanation": "Incorrect. Exception handling in Python is managed with try/except blocks, not decorators."}, {"id": "D", "text": "A library for creating graphical user interfaces.", "explanation": "Incorrect. While there are libraries for creating GUIs, decorators are not related to graphical interfaces."}], "correct_answer": "B"}, {"question": "How is a decorator applied to a function in Python?", "options": [{"id": "A", "text": "By calling the decorator function directly with the function as an argument.", "explanation": "Incorrect. While you can call a decorator directly, the common practice uses the `@` syntax."}, {"id": "B", "text": "By using the syntax `@decorator_name` above the function definition.", "explanation": "Correct. Using `@decorator_name` applies the decorator to the function defined below it."}, {"id": "C", "text": "By defining the decorator inside the function itself.", "explanation": "Incorrect. A decorator is typically defined outside the function it decorates."}, {"id": "D", "text": "By importing the decorator from a module.", "explanation": "Incorrect. While decorators can be imported, the application is done using the `@` syntax."}], "correct_answer": "B"}, {"question": "What is a closure in the context of decorators?", "options": [{"id": "A", "text": "A function that does not return any value.", "explanation": "Incorrect. A closure can return values; it retains access to variables from its enclosing scope."}, {"id": "B", "text": "A way to define functions within functions that retain access to their enclosing scope.", "explanation": "Correct. Closures allow inner functions to remember the environment in which they were created."}, {"id": "C", "text": "A programming construct used to manage exceptions.", "explanation": "Incorrect. Closures are not related to exception handling."}, {"id": "D", "text": "A method to create instances of classes.", "explanation": "Incorrect. Closures do not pertain to object instantiation."}], "correct_answer": "B"}, {"question": "What is the effect of stacking decorators on a function?", "options": [{"id": "A", "text": "The first decorator applied will have no effect on the function.", "explanation": "Incorrect. The first decorator affects the function and its behavior."}, {"id": "B", "text": "Decorators are applied in the order they are stacked, from the innermost to the outermost.", "explanation": "Correct. The innermost decorator wraps the function first, followed by the outer decorators."}, {"id": "C", "text": "Only the outermost decorator is executed.", "explanation": "Incorrect. All decorators in the stack are executed, affecting the function in sequence."}, {"id": "D", "text": "Stacking decorators will cause an error in function execution.", "explanation": "Incorrect. Stacking decorators is valid in Python and does not inherently cause errors."}], "correct_answer": "B"}, {"question": "What common use case can decorators serve in web development frameworks like Flask?", "options": [{"id": "A", "text": "To define data models for databases.", "explanation": "Incorrect. Data models are defined separately, often using ORMs."}, {"id": "B", "text": "To manage HTTP requests and route handling.", "explanation": "Correct. Decorators in Flask are commonly used to define routes and manage requests efficiently."}, {"id": "C", "text": "To create user interfaces for web applications.", "explanation": "Incorrect. User interfaces are typically handled using HTML/CSS, not decorators."}, {"id": "D", "text": "To optimize performance of algorithms.", "explanation": "Incorrect. While decorators can optimize functions, their primary role in web frameworks is related to routing."}], "correct_answer": "B"}], "why_it_matters": "Understanding decorators is crucial for enhancing your Python programming skills. They not only simplify code but also provide powerful tools for managing behavior in a modular and reusable way, making your applications cleaner and more maintainable. Continue exploring decorators to unlock their full potential!"};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
