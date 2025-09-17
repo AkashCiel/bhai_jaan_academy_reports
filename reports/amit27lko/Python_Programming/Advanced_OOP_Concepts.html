@@ -1,0 +1,491 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Advanced OOP Concepts</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Advanced OOP Concepts</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: amit27.lko@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Advanced OOP Concepts</h1>
+<h2>Introduction:</h2>
+<p><p>Welcome to your exploration of <strong>Advanced Object-Oriented Programming (OOP) Concepts</strong>! Building on your previous learning, where you cultivated essential programming skills and tackled advanced data structures, we will now delve deeper into the world of OOP. This paradigm is pivotal in modern software development, providing an organized approach to programming that promotes modularity and reusability.</p></p>
+<p><p>OOP is not just about writing code but about designing systems that are efficient, maintainable, and scalable. By understanding advanced OOP concepts, you will enhance your programming toolkit, enabling you to tackle more complex projects and applications. This report will cover key advanced OOP concepts, their theoretical foundations, real-world applications, and future directions.</p></p>
+<h3>Learning Framework</h3>
+<p><p>As a refresher, here’s a quick summary of the foundational concepts of OOP you've likely encountered:</p></p>
+<ul>
+<ul>
+<li><strong>Classes and Objects</strong>: The building blocks of OOP. Classes define blueprints, while objects are instances of these classes.</li>
+<li><strong>Encapsulation</strong>: Restricting access to certain components of objects to protect the integrity of the data.</li>
+<li><strong>Inheritance</strong>: A mechanism for creating a new class from an existing class, allowing for code reuse and extension.</li>
+<li><strong>Polymorphism</strong>: The ability of different classes to be treated as instances of the same class through a common interface.</li>
+</ul>
+</ul>
+<p><p>In this report, we'll build upon these concepts and introduce advanced topics such as <strong>abstraction</strong>, <strong>interfaces</strong>, <strong>mixins</strong>, <strong>composition over inheritance</strong>, and <strong>design patterns</strong>.</p></p>
+<hr />
+<h2>Key Concepts of Advanced OOP</h2>
+<h3>1. Abstraction</h3>
+<p><p><strong>Definition</strong>: Abstraction is the concept of hiding complex implementation details and showing only the essential features of an object. This allows developers to reduce complexity and increase efficiency.</p></p>
+<p><p><strong>Example</strong>: Consider a car. When you drive, you interact with the steering wheel, pedals, and dashboard. You don’t need to know how the engine works internally; you just need to know how to operate the car.</p></p>
+<ul>
+<ul>
+<li><strong>Real-World Application</strong>: In software, abstraction allows developers to create user interfaces that simplify interactions with complex systems. For instance, an API can abstract the complexity of database operations, allowing users to perform tasks without needing to understand the underlying SQL queries.</li>
+</ul>
+</ul>
+<p><p><strong>Implementation</strong>:</p>
+<p>In Python, abstraction can be implemented using abstract base classes (ABCs) from the <code>abc</code> module. An abstract class can define methods that must be created within any child classes.</p></p>
+<p><p>```python</p>
+<p>from abc import ABC, abstractmethod</p></p>
+<p><p>class Vehicle(ABC):</p>
+<p>@abstractmethod</p>
+<p>def start_engine(self):</p>
+<p>pass</p></p>
+<p><p>class Car(Vehicle):</p>
+<p>def start_engine(self):</p>
+<p>print("Car engine started")</p></p>
+<p><p>class Motorcycle(Vehicle):</p>
+<p>def start_engine(self):</p>
+<p>print("Motorcycle engine started")</p>
+<p>```</p></p>
+<h3>2. Interfaces</h3>
+<p><p><strong>Definition</strong>: An interface is a contract that defines a set of methods that a class must implement, without providing the implementation itself. This is crucial for building systems that are modular and interchangeable.</p></p>
+<p><p><strong>Example</strong>: Think of an interface as a remote control. The remote has buttons (methods) that allow you to control a television, but it doesn’t dictate how the television operates internally.</p></p>
+<ul>
+<ul>
+<li><strong>Real-World Application</strong>: Interfaces are extensively used in API design. They allow different systems to communicate with each other seamlessly. For example, a payment processing interface can be implemented by various payment service providers like PayPal, Stripe, or Square.</li>
+</ul>
+</ul>
+<p><p><strong>Implementation</strong>:</p>
+<p>Although Python does not have formal interfaces like some other languages (e.g., Java), you can achieve similar functionality using abstract base classes.</p></p>
+<p><p>```python</p>
+<p>from abc import ABC, abstractmethod</p></p>
+<p><p>class PaymentProcessor(ABC):</p>
+<p>@abstractmethod</p>
+<p>def process_payment(self, amount):</p>
+<p>pass</p></p>
+<p><p>class PayPal(PaymentProcessor):</p>
+<p>def process_payment(self, amount):</p>
+<p>print(f"Processing payment of ${amount} through PayPal.")</p></p>
+<p><p>class Stripe(PaymentProcessor):</p>
+<p>def process_payment(self, amount):</p>
+<p>print(f"Processing payment of ${amount} through Stripe.")</p>
+<p>```</p></p>
+<h3>3. Mixins</h3>
+<p><p><strong>Definition</strong>: A mixin is a type of class that provides methods that can be used by other classes, but is not intended to stand on its own. This allows for a flexible way to combine behaviors.</p></p>
+<p><p><strong>Example</strong>: Imagine a Swiss Army knife. It combines multiple tools into one compact device, allowing you to perform various tasks without needing separate tools.</p></p>
+<ul>
+<ul>
+<li><strong>Real-World Application</strong>: In web development, you might have different classes representing various user roles (Admin, Editor, Viewer). A <code>PermissionMixin</code> can be created to provide permission-related methods that can be shared across these classes.</li>
+</ul>
+</ul>
+<p><p><strong>Implementation</strong>:</p>
+<p>Mixins can be implemented by creating a class that contains the methods you want to share, which can then be inherited by other classes.</p></p>
+<p><p>```python</p>
+<p>class PermissionMixin:</p>
+<p>def has_permission(self, user):</p>
+<p>return user.is_authenticated</p></p>
+<p><p>class Admin(PermissionMixin):</p>
+<p>def manage_users(self):</p>
+<p>if self.has_permission(user):</p>
+<p>print("Managing users...")</p></p>
+<p><p>class Editor(PermissionMixin):</p>
+<p>def edit_content(self):</p>
+<p>if self.has_permission(user):</p>
+<p>print("Editing content...")</p>
+<p>```</p></p>
+<h3>4. Composition Over Inheritance</h3>
+<p><p><strong>Definition</strong>: This principle promotes using composition (combining simple objects to create more complex ones) over inheritance (extending existing classes) to achieve code reuse.</p></p>
+<p><p><strong>Example</strong>: Think of a car. Instead of inheriting from a generic vehicle class, you can compose a car using engines, wheels, and other parts, allowing for more flexibility.</p></p>
+<ul>
+<ul>
+<li><strong>Real-World Application</strong>: In a video game, instead of creating a complex hierarchy of character classes by inheriting from a base class, you can compose characters using various abilities and traits, allowing for diverse combinations without deep class hierarchies.</li>
+</ul>
+</ul>
+<p><p><strong>Implementation</strong>:</p>
+<p>Using composition, you can create classes that contain instances of other classes.</p></p>
+<p><p>```python</p>
+<p>class Engine:</p>
+<p>def start(self):</p>
+<p>print("Engine starting...")</p></p>
+<p><p>class Wheels:</p>
+<p>def roll(self):</p>
+<p>print("Wheels rolling...")</p></p>
+<p><p>class Car:</p>
+<p>def <strong>init</strong>(self):</p>
+<p>self.engine = Engine()</p>
+<p>self.wheels = Wheels()</p></p>
+<p><pre><code>def drive(self):</p>
+<p>self.engine.start()</p>
+<p>self.wheels.roll()</p>
+<p></code></pre></p>
+<p><p>```</p></p>
+<h3>5. Design Patterns</h3>
+<p><p><strong>Definition</strong>: Design patterns are general reusable solutions to common problems in software design. They provide a template for how to solve a problem in a way that can be reused in different contexts.</p></p>
+<ul>
+<ul>
+<li><strong>Examples</strong>: Common design patterns in OOP include Singleton, Observer, Factory, and Strategy patterns.</li>
+</ul>
+</ul>
+<p><p><strong>Real-World Application</strong>: Design patterns help in building reliable and maintainable software. For instance, the Singleton pattern ensures that a class has only one instance and provides a global point of access to it, which is useful for managing shared resources like database connections.</p></p>
+<p><p><strong>Implementation</strong>:</p>
+<p>Here’s an example of the Singleton pattern:</p></p>
+<p><p>```python</p>
+<p>class Singleton:</p>
+<p>_instance = None</p></p>
+<p><pre><code>def __new__(cls):</p>
+<p>if cls._instance is None:</p>
+<p>cls._instance = super(Singleton, cls).__new__(cls)</p>
+<p>return cls._instance</p>
+<p></code></pre></p>
+<h1>Usage</h1>
+<p><p>singleton1 = Singleton()</p>
+<p>singleton2 = Singleton()</p>
+<p>print(singleton1 is singleton2)  # True</p>
+<p>```</p></p>
+<hr />
+<h2>Real-World Applications</h2>
+<p><p>The advanced OOP concepts discussed above have vast applications across various domains:</p></p>
+<ul>
+<ul>
+<li><strong>Software Development</strong>: OOP principles facilitate the development of complex applications by promoting code reuse, making it easier to manage and update.</li>
+<li><strong>Game Development</strong>: Composition is particularly useful in game development, where characters can have different abilities and traits composed in a flexible manner.</li>
+<li><strong>Web Development</strong>: Frameworks like Django and Flask leverage OOP principles to create modular applications that are easy to extend and maintain.</li>
+<li><strong>Data Science</strong>: OOP can help organize data processing pipelines and machine learning models, making it easier to manage codebases as they grow.</li>
+</ul>
+</ul>
+<h3>Case Study: Building a Simple E-Commerce Application</h3>
+<p><p>Imagine you are tasked with developing a simple e-commerce application. You could utilize advanced OOP concepts as follows:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Classes and Objects</strong>: Create classes for <code>Product</code>, <code>Order</code>, and <code>User</code>.</li>
+<li><strong>Abstraction</strong>: Use an abstract class for <code>PaymentProcessor</code> to define payment methods without exposing details.</li>
+<li><strong>Interfaces</strong>: Define an interface for user roles that determines access levels.</li>
+<li><strong>Mixins</strong>: Implement a <code>DiscountMixin</code> to apply discounts to various products without duplicating code.</li>
+<li><strong>Composition</strong>: Use composition to build a <code>ShoppingCart</code> that can contain multiple <code>Product</code> instances.</li>
+<li><strong>Design Patterns</strong>: Implement the Factory pattern to create different types of <code>User</code> objects (Admin, Customer, etc.).</li>
+</ul>
+<p></ol></p>
+<p><p>This approach allows for a clean, maintainable codebase that can grow with the business's needs.</p></p>
+<hr />
+<h2>Current State and Future Directions</h2>
+<p><p>As we look toward the future, the principles of OOP continue to evolve. Here are some trends and directions to consider:</p></p>
+<ul>
+<ul>
+<li><strong>Integration with Functional Programming</strong>: Many programming languages, including Python, are blending OOP with functional programming concepts, allowing for more flexible and powerful coding styles.</li>
+<li><strong>Microservices Architecture</strong>: OOP is playing a crucial role in microservices, where different services are built as independent modules that communicate over networks.</li>
+<li><strong>Artificial Intelligence</strong>: OOP is increasingly being used in AI and machine learning projects, where encapsulation and abstraction help manage complex algorithms and data structures.</li>
+<li><strong>Continuous Learning</strong>: As technology evolves, OOP principles will continue to adapt, necessitating continuous learning for developers.</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In summary, advanced OOP concepts such as abstraction, interfaces, mixins, composition over inheritance, and design patterns provide powerful tools for building scalable and maintainable software. Understanding these concepts not only enhances your programming skills but also prepares you for future challenges in software development.</p></p>
+<h3>Call to Action</h3>
+<p><p>Continue to explore these concepts in your projects. Create small applications that incorporate these advanced OOP principles, and consider how they can improve your code organization and efficiency. The world of programming is vast, and mastering these concepts will set you on a path toward becoming an expert developer.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of abstraction in OOP?", "options": [{"id": "A", "text": "To create complex class hierarchies", "explanation": "Incorrect. While abstraction can involve complex class hierarchies, its main purpose is not to create them."}, {"id": "B", "text": "To hide complex implementation details", "explanation": "Correct. Abstraction focuses on hiding complex details, allowing users to interact with the essential features of an object."}, {"id": "C", "text": "To share methods between classes", "explanation": "Incorrect. Sharing methods is more related to mixins or inheritance."}, {"id": "D", "text": "To enforce method implementation in subclasses", "explanation": "Incorrect. This describes interfaces or abstract base classes but not abstraction itself."}], "correct_answer": "B"}, {"question": "What does the Composition Over Inheritance principle advocate?", "options": [{"id": "A", "text": "Extending classes to add functionality", "explanation": "Incorrect. This describes traditional inheritance, which the principle seeks to avoid."}, {"id": "B", "text": "Combining simple objects to create complex ones", "explanation": "Correct. Composition allows for greater flexibility and reduces complexity in class hierarchies."}, {"id": "C", "text": "Using abstract classes to define methods", "explanation": "Incorrect. Abstract classes can be part of OOP but do not pertain specifically to the composition principle."}, {"id": "D", "text": "Creating multiple subclasses for different behaviors", "explanation": "Incorrect. This reflects a more traditional approach to adding behaviors through subclassing, which can lead to rigid structures."}], "correct_answer": "B"}, {"question": "Which of the following is an example of a mixin?", "options": [{"id": "A", "text": "A class that defines a common interface", "explanation": "Incorrect. This describes an interface, not a mixin."}, {"id": "B", "text": "A class that provides shared behavior", "explanation": "Correct. A mixin provides shared methods that can be included in multiple classes."}, {"id": "C", "text": "A class that inherits from another", "explanation": "Incorrect. Inheriting from another class does not necessarily make it a mixin."}, {"id": "D", "text": "A class that manages database connections", "explanation": "Incorrect. While this class may provide shared behavior, it is more specific to a functionality rather than the general concept of a mixin."}], "correct_answer": "B"}, {"question": "What is the primary benefit of using interfaces in OOP?", "options": [{"id": "A", "text": "To provide default implementations of methods", "explanation": "Incorrect. Interfaces do not provide implementations; they define method signatures."}, {"id": "B", "text": "To allow classes to implement the same set of methods", "explanation": "Correct. Interfaces ensure that different classes adhere to a common contract, promoting consistency."}, {"id": "C", "text": "To create deep inheritance hierarchies", "explanation": "Incorrect. Interfaces encourage loose coupling rather than creating deep hierarchies."}, {"id": "D", "text": "To restrict access to class members", "explanation": "Incorrect. This describes encapsulation, not the purpose of interfaces."}], "correct_answer": "B"}, {"question": "What is a common use case for the Singleton pattern?", "options": [{"id": "A", "text": "To create multiple instances of a class", "explanation": "Incorrect. The Singleton pattern explicitly prevents multiple instances."}, {"id": "B", "text": "To ensure only one instance of a class exists", "explanation": "Correct. The Singleton pattern is designed to ensure that a class has only one instance and provides a global point of access."}, {"id": "C", "text": "To define a common interface for multiple classes", "explanation": "Incorrect. This describes interfaces, not the Singleton pattern."}, {"id": "D", "text": "To manage user permissions", "explanation": "Incorrect. While the Singleton pattern could manage a single instance of a permission handler, it is not its primary purpose."}], "correct_answer": "B"}], "why_it_matters": "Understanding these advanced OOP concepts is crucial for developing robust and scalable software, allowing you to create applications that are easier to maintain and extend as requirements evolve. Exploring these ideas will enhance your coding practices and prepare you for complex programming challenges."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
