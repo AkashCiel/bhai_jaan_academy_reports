@@ -1,0 +1,468 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Decorators and Generators</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Decorators and Generators</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: amit27.lko@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Comprehensive Educational Report on "Decorators and Generators"</h1>
+<h2>Introduction:</h2>
+<p><p>As you delve deeper into your Python programming journey, the exploration of <strong>decorators</strong> and <strong>generators</strong> will significantly enhance your understanding and capabilities in writing efficient, clean, and modular code. These advanced concepts build upon your knowledge of functions, data structures, and object-oriented programming (OOP) you have previously mastered. Decorators and generators not only simplify your code but also enable you to write Pythonic solutions to complex problems.</p></p>
+<p><p>In this report, we will comprehensively cover the definitions, functionalities, and applications of decorators and generators. We will also explore their theoretical foundations, real-world applications, and how they fit within the broader context of your learning. By the end of this report, you will possess a robust understanding of these concepts and how to implement them in practical scenarios.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>1. Understanding Functions as First-Class Citizens</h3>
+<p><p>Before diving into decorators and generators, it's crucial to understand that functions in Python are first-class citizens. This means:</p></p>
+<ul>
+<ul>
+<li><strong>Functions can be assigned to variables</strong>: You can assign a function to a variable and call it through that variable.</li>
+<li><strong>Functions can be passed as arguments</strong>: Functions can be passed as parameters to other functions, allowing for higher-order functions.</li>
+<li><strong>Functions can be returned from other functions</strong>: Functions can return other functions, enabling powerful programming patterns.</li>
+</ul>
+</ul>
+<h3>2. Decorators</h3>
+<h4>What are Decorators?</h4>
+<p><p>A <strong>decorator</strong> is a design pattern in Python that allows you to modify or enhance the behavior of a function or method without changing its actual code. Decorators are typically used to add functionality to existing code in a clean and readable manner.</p></p>
+<h4>How Decorators Work</h4>
+<p><p>Decorators in Python are functions that take another function as an argument and extend its behavior. Here's a basic structure of how a decorator works:</p></p>
+<p><p><code>python</p>
+<p>def my_decorator(func):</p>
+<p>def wrapper():</p>
+<p>print("Something is happening before the function is called.")</p>
+<p>func()</p>
+<p>print("Something is happening after the function is called.")</p>
+<p>return wrapper</code></p></p>
+<h4>Applying a Decorator</h4>
+<p><p>To apply a decorator to a function, you can use the <code>@decorator_name</code> syntax:</p></p>
+<p><p><code>python</p>
+<p>@my_decorator</p>
+<p>def say_hello():</p>
+<p>print("Hello!")</code></p></p>
+<p><p>When <code>say_hello()</code> is called, the output will be:</p></p>
+<p><p><code>Something is happening before the function is called.</p>
+<p>Hello!</p>
+<p>Something is happening after the function is called.</code></p></p>
+<h4>Use Cases for Decorators</h4>
+<p><ol></p>
+<ul>
+<li><strong>Logging</strong>: Automatically log function calls.</li>
+<li><strong>Access Control</strong>: Check if a user has permission to execute a function.</li>
+<li><strong>Caching</strong>: Store results of expensive function calls and return the cached result when the same inputs occur again.</li>
+<li><strong>Validation</strong>: Validate inputs before executing the function.</li>
+</ul>
+<p></ol></p>
+<h3>3. Generators</h3>
+<h4>What are Generators?</h4>
+<p><p>A <strong>generator</strong> is a special type of iterator in Python that allows you to iterate over a sequence of values without storing the entire sequence in memory. They are defined using a function but use the <code>yield</code> statement to produce a series of values lazily, one at a time.</p></p>
+<h4>How Generators Work</h4>
+<p><p>When a generator function is called, it does not execute immediately. Instead, it returns a generator object, which can be iterated over. Each time the <code>next()</code> function is called on a generator object, the function runs until it hits a <code>yield</code> statement, which produces a value and pauses the function’s state for the next call.</p></p>
+<p><p>Here is a basic generator function:</p></p>
+<p><p><code>python</p>
+<p>def count_up_to(n):</p>
+<p>count = 1</p>
+<p>while count &lt;= n:</p>
+<p>yield count</p>
+<p>count += 1</code></p></p>
+<h4>Using Generators</h4>
+<p><p>You can iterate through the generator using a for loop or by calling <code>next()</code>:</p></p>
+<p><p><code>python</p>
+<p>counter = count_up_to(5)</p>
+<p>for number in counter:</p>
+<p>print(number)</code></p></p>
+<p><p>This will output:</p></p>
+<p><p><code>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</code></p></p>
+<h4>Advantages of Generators</h4>
+<ul>
+<ul>
+<li><strong>Memory Efficiency</strong>: Generators yield items one at a time, which is more memory-efficient than storing large lists.</li>
+<li><strong>Represent Infinite Sequences</strong>: Generators can represent infinite sequences (e.g., the Fibonacci sequence) since they only compute the next item when requested.</li>
+<li><strong>Improved Performance</strong>: They can lead to improved performance for certain types of applications by avoiding the overhead of creating and managing large data structures.</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications:</h2>
+<h3>Decorators in Action</h3>
+<p><ol></p>
+<ul>
+<li><strong>Logging Decorator</strong>: In web applications, you might want to log every request made to an API. Using a decorator allows you to add this behavior without modifying the core logic of your functions.</li>
+</ul>
+<p></ol></p>
+<p><p>```python</p>
+<p>def logger(func):</p>
+<p>def wrapper(<em>args, </em><em>kwargs):</p>
+<p>print(f"Calling function {func.<strong>name</strong>} with arguments {args} and {kwargs}")</p>
+<p>return func(</em>args, **kwargs)</p>
+<p>return wrapper</p></p>
+<p><p>@logger</p>
+<p>def add(a, b):</p>
+<p>return a + b</p></p>
+<p><p>add(3, 5)</p>
+<p>```</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Authentication Decorator</strong>: When building web applications, you may want to restrict access to certain views. A decorator can check if a user is authenticated before allowing access to the view.</li>
+</ul>
+<p></ol></p>
+<p><p>```python</p>
+<p>def require_authentication(func):</p>
+<p>def wrapper(user):</p>
+<p>if user.is_authenticated:</p>
+<p>return func(user)</p>
+<p>else:</p>
+<p>raise Exception("User must be authenticated!")</p>
+<p>return wrapper</p></p>
+<p><p>@require_authentication</p>
+<p>def view_profile(user):</p>
+<p>return f"Profile of {user.name}"</p>
+<p>```</p></p>
+<h3>Generators in Action</h3>
+<p><ol></p>
+<ul>
+<li><strong>Data Streaming</strong>: Generators are particularly useful for processing large datasets, such as reading a large CSV file line by line without loading the entire file into memory.</li>
+</ul>
+<p></ol></p>
+<p><p>```python</p>
+<p>def read_large_file(file_object):</p>
+<p>for line in file_object:</p>
+<p>yield line.strip()</p></p>
+<p><p>with open('large_file.txt') as f:</p>
+<p>for line in read_large_file(f):</p>
+<p>print(line)</p>
+<p>```</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Asynchronous Programming</strong>: Generators can be used in asynchronous programming to yield control back to the event loop, allowing for non-blocking operations.</li>
+</ul>
+<p></ol></p>
+<p><p><code>python</p>
+<p>def async_generator():</p>
+<p>yield from range(5)</code></p></p>
+<hr />
+<h2>Theoretical Foundations:</h2>
+<h3>Understanding Closures in Decorators</h3>
+<p><p>Decorators leverage the concept of <strong>closures</strong> in Python. A closure occurs when a nested function captures the variables of its enclosing function. This allows the decorator to maintain state across function calls.</p></p>
+<h3>Iterators vs. Generators</h3>
+<p><p>While both iterators and generators are used for iterating through data, generators are simpler to implement and require less boilerplate code compared to custom iterator classes. A generator automatically implements the iterator protocol, making it easier to use.</p></p>
+<hr />
+<h2>Future Directions:</h2>
+<h3>Emerging Technologies</h3>
+<p><p>As Python continues to evolve, decorators and generators are likely to see further integration with asynchronous programming features and data processing libraries, improving performance and scalability. The rise of <strong>async/await</strong> syntax in Python aims to simplify asynchronous programming, and decorators will play a crucial role in enhancing these capabilities.</p></p>
+<h3>Research Challenges</h3>
+<p><p>While decorators and generators offer powerful abstractions, understanding their implications on performance and readability remains a challenge. Future research may focus on optimizing these constructs and developing best practices for their use in large-scale applications.</p></p>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>In this report, we explored the concepts of decorators and generators, their theoretical foundations, real-world applications, and future directions. Understanding these concepts will empower you to write more efficient and modular code, enhancing your Python programming capabilities.</p></p>
+<p><p>As you continue your journey, consider how you might apply decorators and generators in your projects. Explore the use of decorators for logging, access control, and caching, as well as generators for data processing and asynchronous programming. The potential for creativity and efficiency in your coding practices is vast.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of a decorator in Python?", "options": [{"id": "A", "text": "To create a new function with a different name", "explanation": "Incorrect. Decorators do not change the name of the function; they enhance its behavior."}, {"id": "B", "text": "To modify or extend the behavior of a function without changing its code", "explanation": "Correct. Decorators are specifically designed to modify or enhance the behavior of functions."}, {"id": "C", "text": "To improve the performance of a function", "explanation": "Incorrect. While decorators can lead to performance improvements indirectly, their primary role is not performance enhancement."}, {"id": "D", "text": "To convert a function into a generator", "explanation": "Incorrect. Decorators and generators serve different purposes; decorators modify behavior while generators yield values."}], "correct_answer": "B"}, {"question": "How do you apply a decorator to a function in Python?", "options": [{"id": "A", "text": "By defining the decorator within the function", "explanation": "Incorrect. You do not define the decorator inside the function to apply it."}, {"id": "B", "text": "By using the `@decorator_name` syntax above the function definition", "explanation": "Correct. Using the `@decorator_name` syntax is the standard way to apply a decorator."}, {"id": "C", "text": "By calling the decorator function within the function body", "explanation": "Incorrect. While you can call the decorator function, that is not how you apply it."}, {"id": "D", "text": "By creating a new function that contains the decorator", "explanation": "Incorrect. Creating a new function is not necessary to apply a decorator."}], "correct_answer": "B"}, {"question": "Which of the following best describes a generator?", "options": [{"id": "A", "text": "A function that runs immediately and returns a value", "explanation": "Incorrect. Generators do not run immediately; they return a generator object instead."}, {"id": "B", "text": "A special type of function that uses `yield` to produce a sequence of values", "explanation": "Correct. A generator produces a sequence of values using the `yield` statement."}, {"id": "C", "text": "A function that can only be called once", "explanation": "Incorrect. Generators can be resumed multiple times until they are exhausted."}, {"id": "D", "text": "A function that raises an error upon completion", "explanation": "Incorrect. Generators do not raise errors upon completion; they simply stop yielding values."}], "correct_answer": "B"}, {"question": "What is an advantage of using generators over lists?", "options": [{"id": "A", "text": "Generators are always faster than lists", "explanation": "Incorrect. While generators can be more efficient, they are not always faster than lists; it depends on the context."}, {"id": "B", "text": "Generators can represent infinite sequences without consuming memory", "explanation": "Correct. Generators can yield values one at a time, allowing for the representation of infinite sequences without using memory for all values."}, {"id": "C", "text": "Generators store all values in memory", "explanation": "Incorrect. Generators do not store values; they produce them on-the-fly."}, {"id": "D", "text": "Generators can only yield integer values", "explanation": "Incorrect. Generators can yield any type of data, not just integers."}], "correct_answer": "B"}, {"question": "Why are decorators useful in web applications?", "options": [{"id": "A", "text": "They make functions run faster", "explanation": "Incorrect. Decorators do not inherently make functions run faster."}, {"id": "B", "text": "They can automatically log function calls and manage authentication", "explanation": "Correct. Decorators can automate logging and manage access control, which is useful in web applications."}, {"id": "C", "text": "They simplify the syntax of Python", "explanation": "Incorrect. While decorators can simplify code, they do not change Python's syntax."}, {"id": "D", "text": "They allow functions to return multiple values", "explanation": "Incorrect. Functions can return multiple values regardless of decorators."}], "correct_answer": "B"}], "why_it_matters": "Understanding decorators and generators is crucial for writing efficient and maintainable code. They enable you to enhance the functionality of your programs while keeping your code clean and organized. As you continue your learning journey, exploring these concepts will prepare you for more advanced programming challenges and practices."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
