@@ -1,0 +1,574 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Web Development Frameworks</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Web Development Frameworks</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: amit27.lko@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Web Development Frameworks: A Comprehensive Guide</h1>
+<h2>Introduction:</h2>
+<p><p>As you embark on your journey into the world of <strong>web development frameworks</strong>, it's essential to recall your previous learning experiences. You have built a solid foundation in <strong>Python programming</strong>, advanced data structures, and object-oriented programming (OOP), and now you're ready to explore how these concepts apply to web development. </p></p>
+<p><p>Web development frameworks provide the backbone for building web applications efficiently and effectively, allowing developers to focus on creating features and functionalities rather than dealing with the nitty-gritty of the underlying technology. Just as you learned how to manage data structures and apply OOP principles, frameworks offer reusable components and structures that facilitate rapid application development.</p></p>
+<p><p>In this report, we will cover:</p></p>
+<ul>
+<ul>
+<li>Key concepts and definitions of web development frameworks</li>
+<li>Theoretical foundations and practical implications</li>
+<li>Real-world applications and examples</li>
+<li>Current trends and future directions in the field</li>
+</ul>
+</ul>
+<p><p>Let’s dive in!</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>What is a Web Development Framework?</h3>
+<p><p>A web development framework is a collection of tools and libraries designed to help developers build web applications more efficiently. It provides a structured way of organizing code and often includes pre-built components, allowing for faster development and easier maintenance.</p></p>
+<h4>Types of Web Development Frameworks:</h4>
+<p><ol></p>
+<ul>
+<li><strong>Front-End Frameworks</strong>: These are used for client-side development, focusing on how users interact with the web application. Examples include:</li>
+<li><strong>React</strong>: A JavaScript library for building user interfaces, particularly single-page applications (SPAs).</li>
+<li><strong>Angular</strong>: A platform for building mobile and desktop web applications.</li>
+<li>
+</ul>
+<p><p><strong>Vue.js</strong>: A progressive framework for building user interfaces.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Back-End Frameworks</strong>: These frameworks handle the server-side logic, database interactions, and application infrastructure. Examples include:</p></p>
+<p></li></p>
+<ul>
+<li><strong>Django</strong>: A high-level Python framework that encourages rapid development and clean, pragmatic design.</li>
+<li><strong>Flask</strong>: A lightweight WSGI web application framework in Python, ideal for small to medium-sized applications.</li>
+<li>
+</ul>
+<p><p><strong>Node.js</strong>: A JavaScript runtime built on Chrome's V8 JavaScript engine, commonly used for back-end development.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Full-Stack Frameworks</strong>: These frameworks combine both front-end and back-end functionalities. A popular example is:</p></p>
+<p></li></p>
+<ul>
+<li><strong>Ruby on Rails</strong>: A server-side web application framework written in Ruby, known for its convention over configuration philosophy.</li>
+</ul>
+<p></ol></p>
+<h3>The Importance of Frameworks</h3>
+<p><p>Frameworks are essential in the web development process because they:</p>
+<ul>
+<li><strong>Enhance Productivity</strong>: By providing pre-built components, developers can focus on application logic rather than repetitive tasks.</li>
+<li><strong>Promote Code Reusability</strong>: Frameworks encourage organized code, making it easier to reuse components across different projects.</li>
+<li><strong>Facilitate Best Practices</strong>: Many frameworks enforce coding standards and architectural patterns, leading to cleaner and more maintainable code.</p></li>
+</ul>
+<hr />
+<h2>Theoretical Foundations:</h2>
+<h3>MVC Architecture</h3>
+<p><p>Many web frameworks follow the <strong>Model-View-Controller (MVC)</strong> architecture, a design pattern that separates an application into three interconnected components:</p></p>
+<ul>
+<ul>
+<li><strong>Model</strong>: Represents the data structure and business logic.</li>
+<li><strong>View</strong>: Represents the user interface, what the users interact with.</li>
+<li><strong>Controller</strong>: Acts as an intermediary between the Model and the View, processing user input and updating the Model.</li>
+</ul>
+</ul>
+<p><p>This separation of concerns allows for better organization and scalability of applications. For example, when you learned about advanced data structures, you understood that organizing data effectively leads to efficient data manipulation. Similarly, the MVC architecture enables developers to manage complex applications more seamlessly.</p></p>
+<h3>RESTful Services</h3>
+<p><p>Frameworks often support the development of <strong>Representational State Transfer (REST)</strong> services, which allow different systems to communicate over HTTP. RESTful APIs enable applications to perform CRUD (Create, Read, Update, Delete) operations, connecting front-end and back-end components.</p></p>
+<p><p>Understanding REST is crucial, as it aligns with your learning in building APIs and working with databases. Using frameworks like Django or Flask, you can create RESTful services that facilitate data exchange between the client and server.</p></p>
+<hr />
+<h2>Real-World Applications:</h2>
+<h3>Building a Blog Application with Django</h3>
+<p><p>Let’s explore a practical example: building a simple blog application using Django.</p></p>
+<h4>Step 1: Setting up the Environment</h4>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Install Django</strong>: Using pip, you can install Django with the command:</p>
+<p><code>bash</p>
+<p>pip install django</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Create a Django Project</strong>:</p>
+<p><code>bash</p>
+<p>django-admin startproject myblog</p>
+<p>cd myblog</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Start the Development Server</strong>:</p>
+<p><code>bash</p>
+<p>python manage.py runserver</code></p></p>
+<p></li></p>
+<p></ol></p>
+<h4>Step 2: Creating a Blog App</h4>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Create a New App</strong>:</p>
+<p><code>bash</p>
+<p>python manage.py startapp blog</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Define Models</strong>: In <code>blog/models.py</code>, you define the data structure:</p>
+<p>```python</p>
+<p>from django.db import models</p></p>
+<p></li></p>
+<p></ol></p>
+<p><p>class Post(models.Model):</p>
+<p>title = models.CharField(max_length=200)</p>
+<p>content = models.TextField()</p>
+<p>created_at = models.DateTimeField(auto_now_add=True)</p></p>
+<p><pre><code>   def __str__(self):</p>
+<p>return self.title</p>
+<p></code></pre></p>
+<p><p>```</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Create Views</strong>: In <code>blog/views.py</code>, define how to display the blog posts:
+</ul>
+<p>```python</p>
+<p>from django.shortcuts import render</p>
+<p>from .models import Post</li></p>
+<p></ol></p>
+<p><p>def home(request):</p>
+<p>posts = Post.objects.all()</p>
+<p>return render(request, 'blog/home.html', {'posts': posts})</p>
+<p>```</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Set Up URLs</strong>: In <code>blog/urls.py</code>, map the view to a URL:
+</ul>
+<p>```python</p>
+<p>from django.urls import path</p>
+<p>from .views import home</li></p>
+<p></ol></p>
+<p><p>urlpatterns = [</p>
+<p>path('', home, name='home'),</p>
+<p>]</p>
+<p>```</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Integrate with the Main Project</strong>: In <code>myblog/urls.py</code>, include the blog URLs:
+</ul>
+<p>```python</p>
+<p>from django.contrib import admin</p>
+<p>from django.urls import path, include</li></p>
+<p></ol></p>
+<p><p>urlpatterns = [</p>
+<p>path('admin/', admin.site.urls),</p>
+<p>path('', include('blog.urls')),</p>
+<p>]</p>
+<p>```</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Create Templates</strong>: In the <code>templates</code> directory, create <code>home.html</code> to display posts.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Run the Server</strong>: Once everything is set up, run the server to see your blog in action.</p></p>
+<p></li></p>
+<p></ol></p>
+<p><p>This simple blog application illustrates how web frameworks streamline the development process, enabling you to focus on functionality rather than boilerplate code.</p></p>
+<h3>The Role of React in Front-End Development</h3>
+<p><p>React has gained immense popularity for building dynamic user interfaces. Let's discuss how React enhances user interaction in web applications.</p></p>
+<h4>Step 1: Setting Up a React Application</h4>
+<p><p>You can create a new React application using Create React App:</p>
+<p><code>bash</p>
+<p>npx create-react-app myapp</p>
+<p>cd myapp</p>
+<p>npm start</code></p></p>
+<h4>Step 2: Building Components</h4>
+<p><ol></p>
+<ul>
+<li><strong>Create a Component</strong>: In <code>src/components</code>, create a <code>Post.js</code> component:
+</ul>
+<p>```javascript</p>
+<p>import React from 'react';</li></p>
+<p></ol></p>
+<p><p>const Post = ({ title, content }) =&gt; {</p>
+<p>return (</p>
+<p><div></p>
+<h2>{title}</h2>
+<p><p>{content}</p></p>
+<p></div></p>
+<p>);</p>
+<p>};</p></p>
+<p><p>export default Post;</p>
+<p>```</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Use the Component</strong>: In <code>src/App.js</code>, import and use the <code>Post</code> component:
+</ul>
+<p>```javascript</p>
+<p>import React from 'react';</p>
+<p>import Post from './components/Post';</li></p>
+<p></ol></p>
+<p><p>function App() {</p>
+<p>return (</p>
+<p><div></p>
+<p><Post title="My First Post" content="This is the content of my first post." /></p>
+<p></div></p>
+<p>);</p>
+<p>}</p></p>
+<p><p>export default App;</p>
+<p>```</p></p>
+<p><p>This example showcases how React's component-based architecture allows developers to create reusable UI elements, enhancing productivity and maintainability.</p></p>
+<hr />
+<h2>Current Trends and Future Directions:</h2>
+<h3>Emerging Technologies</h3>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Serverless Architecture</strong>: Frameworks like <strong>AWS Lambda</strong> and <strong>Azure Functions</strong> are gaining traction, allowing developers to run code without managing servers, thus streamlining the deployment process.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Microservices</strong>: The shift towards microservices architecture promotes building applications as a collection of loosely coupled services. Frameworks like <strong>Spring Boot</strong> (Java) and <strong>Express.js</strong> (Node.js) are increasingly used to develop microservices.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Progressive Web Apps (PWAs)</strong>: Frameworks like <strong>Angular</strong> and <strong>React</strong> support building PWAs, which combine the best of web and mobile applications, providing a native app-like experience.</p></p>
+<p></li></p>
+<p></ol></p>
+<h3>Industry Trends</h3>
+<ul>
+<ul>
+<li><strong>Increased Adoption of JavaScript Frameworks</strong>: JavaScript continues to dominate web development, with frameworks like Vue.js, Angular, and React leading the charge.</li>
+<li><strong>Focus on Performance and User Experience</strong>: Developers are prioritizing performance optimization techniques and user experience design, leveraging frameworks to enhance both aspects.</li>
+</ul>
+</ul>
+<h3>Research Challenges and Opportunities</h3>
+<ul>
+<ul>
+<li>As the web landscape evolves, developers face challenges in keeping up with changing technologies and practices. Continuous learning and adaptation are essential in this fast-paced environment.</li>
+<li>There are opportunities for research in optimizing frameworks for better performance, security, and scalability.</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>In summary, web development frameworks play a crucial role in modern software development, allowing you to build scalable, maintainable, and efficient web applications. As you continue your journey in programming, understanding these frameworks will enhance your ability to create robust applications and stay relevant in the ever-evolving tech landscape.</p></p>
+<h3>Call to Action:</h3>
+<p><p>To further explore web development frameworks, consider building a project using Django, Flask, or React. Experiment with different features and libraries to strengthen your understanding and skills.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of a web development framework?", "options": [{"id": "A", "text": "To create databases for applications", "explanation": "Incorrect. While frameworks may interact with databases, their primary purpose is not to create them."}, {"id": "B", "text": "To enhance the performance of a web browser", "explanation": "Incorrect. Frameworks do not directly improve browser performance."}, {"id": "C", "text": "To provide tools and libraries for building web applications efficiently", "explanation": "Correct. Frameworks provide pre-built components and tools that streamline web application development."}, {"id": "D", "text": "To serve as a hosting platform for websites", "explanation": "Incorrect. Hosting platforms and frameworks serve different purposes."}], "correct_answer": "C"}, {"question": "Which architecture pattern is commonly followed by many web frameworks?", "options": [{"id": "A", "text": "Service-Oriented Architecture (SOA)", "explanation": "Incorrect. SOA is a broader architectural pattern but not as commonly used in web frameworks."}, {"id": "B", "text": "Model-View-Controller (MVC)", "explanation": "Correct. MVC is a design pattern that separates application concerns."}, {"id": "C", "text": "Event-Driven Architecture (EDA)", "explanation": "Incorrect. EDA is not a primary pattern for web frameworks."}, {"id": "D", "text": "Layered Architecture", "explanation": "Incorrect. Layered architecture is a structural approach but not specifically tied to web frameworks."}], "correct_answer": "B"}, {"question": "What does REST stand for in web development?", "options": [{"id": "A", "text": "Real-Time Event Streaming", "explanation": "Incorrect. This is not the correct interpretation of REST."}, {"id": "B", "text": "Representational State Transfer", "explanation": "Correct. REST stands for Representational State Transfer, a standard for web services."}, {"id": "C", "text": "Resourceful Endpoint Service Technology", "explanation": "Incorrect. This option is fabricated and does not represent REST."}, {"id": "D", "text": "Rapid Environment for System Testing", "explanation": "Incorrect. This is not related to REST."}], "correct_answer": "B"}, {"question": "Which of the following is a popular front-end framework?", "options": [{"id": "A", "text": "Django", "explanation": "Incorrect. Django is a back-end framework."}, {"id": "B", "text": "Flask", "explanation": "Incorrect. Flask is also a back-end framework."}, {"id": "C", "text": "React", "explanation": "Correct. React is widely used for front-end development."}, {"id": "D", "text": "Spring Boot", "explanation": "Incorrect. Spring Boot is a back-end framework commonly used in Java."}], "correct_answer": "C"}, {"question": "What is a key benefit of using web development frameworks?", "options": [{"id": "A", "text": "They eliminate the need for coding altogether", "explanation": "Incorrect. Frameworks do not eliminate coding; they simplify it."}, {"id": "B", "text": "They reduce the time required for application development", "explanation": "Correct. Frameworks provide reusable components, which can significantly speed up development."}, {"id": "C", "text": "They ensure that your code is always bug-free", "explanation": "Incorrect. While frameworks provide structure, they do not guarantee bug-free code."}, {"id": "D", "text": "They automatically optimize your application for search engines", "explanation": "Incorrect. Frameworks may help with SEO, but they do not automatically optimize applications."}], "correct_answer": "B"}], "why_it_matters": "Understanding web development frameworks is vital for modern developers. It allows you to build applications that are efficient, maintainable, and scalable, leveraging the power of reusable components and best practices. As you advance in your learning journey, mastering these frameworks will be essential to your success in the field."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
