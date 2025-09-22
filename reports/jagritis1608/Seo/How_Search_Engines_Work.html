@@ -1,0 +1,459 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: How Search Engines Work</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">How Search Engines Work</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: jagritis1608@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>How Search Engines Work</h1>
+<h2>Introduction:</h2>
+<p><p>Continuing from our exploration of Search Engine Optimization (SEO), it is essential to understand the foundation upon which SEO strategies are built: how search engines function. Grasping the mechanics of search engines not only enhances our ability to optimize websites effectively but also provides insight into how information is organized and retrieved in the digital landscape.</p></p>
+<p><p>Search engines are intricate systems that help users find relevant information among vast amounts of data on the web. They operate through a complex interplay of algorithms, indexing, crawling, and ranking processes. This report will delve deeply into how search engines work, connecting with your previous learning on SEO by emphasizing the significance of visibility, rankings, and user experience.</p></p>
+<h3>Key Concepts and Definitions:</h3>
+<h4>1. <strong>What is a Search Engine?</strong></h4>
+<p><p>A search engine is a software system designed to carry out web searches, meaning it searches the World Wide Web in a systematic way for particular information specified in a textual web search query. The most widely known search engines include Google, Bing, Yahoo, and DuckDuckGo.</p></p>
+<h4>2. <strong>Crawling:</strong></h4>
+<p><p>Crawling is the process by which search engines discover new and updated web pages. Search engines deploy bots or spiders that navigate the web, following links from page to page. This process is akin to a librarian cataloging new books in a library.</p></p>
+<ul>
+<ul>
+<li><strong>Example:</strong> When a new blog post is published, the search engine's crawler finds the post through its links or through sitemaps provided by the website.</li>
+</ul>
+</ul>
+<h4>3. <strong>Indexing:</strong></h4>
+<p><p>Once a page is crawled, it must be indexed. This involves processing the information found on the page and storing it in a database or index. The index is like a massive library where the search engine can quickly retrieve relevant information based on user queries.</p></p>
+<ul>
+<ul>
+<li><strong>Example:</strong> If a user searches for “best Italian restaurants,” the search engine refers to its index to find pages that contain relevant keywords, titles, and descriptions related to Italian dining.</li>
+</ul>
+</ul>
+<h4>4. <strong>Ranking:</strong></h4>
+<p><p>Ranking is the process by which search engines determine the order in which results will be displayed. Various factors influence ranking, including the relevance of content, site authority, and user engagement. </p></p>
+<ul>
+<ul>
+<li><strong>Example:</strong> If two websites provide information about Italian restaurants, the search engine will rank them based on which site it determines is more authoritative and relevant to the search term.</li>
+</ul>
+</ul>
+<h4>5. <strong>Search Algorithms:</strong></h4>
+<p><p>At the heart of a search engine is its algorithm, a set of rules that determines how results are ranked. Google, for instance, uses over 200 ranking factors, which are constantly updated to improve user experience.</p></p>
+<ul>
+<ul>
+<li><strong>Example:</strong> Google’s algorithm updates (e.g., Panda, Penguin, Hummingbird) aim to enhance the relevance and quality of search results, ensuring users find the information they need efficiently.</li>
+</ul>
+</ul>
+<hr />
+<h2>The Search Engine Lifecycle</h2>
+<p><p>To better understand how search engines work, we can examine their lifecycle through three main stages: crawling, indexing, and serving results.</p></p>
+<h3>1. Crawling</h3>
+<p><p>Crawling is the initial phase of the search engine lifecycle. It involves several steps:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Discovery:</strong> Search engines discover new pages through links and sitemaps. They follow hyperlinks on known pages to find new content. </p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Bots and Spiders:</strong> Search engines deploy automated programs, often called crawlers, spiders, or bots, to navigate the web. These bots are programmed to look for specific types of content and to follow links from one page to another.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Frequency:</strong> The frequency of crawling can vary. Some sites are crawled daily, while others may only be indexed weekly or monthly. Factors affecting crawling frequency include the site's update frequency, its authority, and the overall relevance of its content.</p></p>
+<p></li></p>
+</ul>
+<h4>Real-World Example:</h4>
+<p><p>Consider a news website that publishes multiple articles daily. Search engine bots are programmed to visit this site regularly to capture the latest news before users search for it. In contrast, a personal blog that updates less frequently might be crawled less often.</p></p>
+<p><p><strong>Think About This:</strong> How does the frequency of updates on a website affect its visibility in search results? </p></p>
+<h3>2. Indexing</h3>
+<p><p>Once crawled, a webpage enters the indexing stage:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Data Processing:</strong> The information from the page is analyzed and stored in a database. This includes text, images, videos, and metadata.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Structured Storage:</strong> Each indexed page is assigned a unique identifier, allowing the search engine to retrieve it quickly in response to a user's query. This structured storage is similar to how a library categorizes books based on genre, author, or publication date.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Relevance Metrics:</strong> During indexing, search engines evaluate the relevance of content based on various factors, including keyword occurrences, content length, and overall quality.</p></p>
+<p></li></p>
+</ul>
+<h4>Real-World Example:</h4>
+<p><p>When you search for “best coffee shops in Seattle,” the search engine retrieves pages from its index that are deemed relevant to your query, based on how well they match the keywords and phrases you've entered.</p></p>
+<p><p><strong>Practice Problem:</strong> Identify the main components of a webpage that could affect its indexing.</p></p>
+<h3>3. Serving Results</h3>
+<p><p>The final stage is serving results to the user:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Query Processing:</strong> When a user enters a search query, the search engine processes this input to understand the intent behind it. Natural language processing (NLP) techniques may be employed to interpret the query more accurately.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Ranking Algorithms:</strong> The search engine uses its ranking algorithms to determine which indexed pages are most relevant to the query. Factors like user engagement, page speed, and mobile-friendliness are also considered.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Display of Results:</strong> The results are displayed on the Search Engine Results Page (SERP), typically including a combination of organic listings, paid advertisements, and local listings.</p></p>
+<p></li></p>
+</ul>
+<h4>Real-World Example:</h4>
+<p><p>If you search for “Italian restaurants near me,” the search engine may provide a map with local listings at the top, followed by organic results for Italian restaurants, reflecting both your geographical location and the relevance of the content.</p></p>
+<p><p><strong>Common Misconception:</strong> Many people believe that search engines simply list pages based on keyword matches. In reality, the process is far more complex, involving hundreds of factors that determine relevance and authority.</p></p>
+<hr />
+<h2>Real-World Applications</h2>
+<p><p>Understanding how search engines work has profound implications for businesses and individuals looking to improve their online presence. Here are some key applications:</p></p>
+<h3>1. <strong>SEO Strategies:</strong></h3>
+<p><p>Knowledge of how search engines crawl, index, and rank content informs SEO strategies. For instance, businesses can optimize their websites to ensure they are easily crawlable and that their content is relevant to targeted keywords.</p></p>
+<h3>2. <strong>Content Creation:</strong></h3>
+<p><p>By understanding what factors influence indexing and ranking, content creators can produce more engaging and relevant material that meets user intent. This creates a win-win situation where users find valuable content, and businesses improve their search visibility.</p></p>
+<h3>3. <strong>Local SEO:</strong></h3>
+<p><p>For businesses with physical locations, understanding how search engines serve local results allows them to optimize their online presence effectively. This includes creating Google My Business listings and ensuring that their website contains relevant local keywords.</p></p>
+<h3>4. <strong>Performance Monitoring:</strong></h3>
+<p><p>By leveraging tools like Google Search Console and Bing Webmaster Tools, businesses can monitor how well their site is crawled and indexed, making it easier to identify issues and optimize accordingly.</p></p>
+<h3>5. <strong>Ad Campaigns:</strong></h3>
+<p><p>Understanding the ranking and display mechanisms of search engines can help businesses create effective pay-per-click (PPC) advertising campaigns that complement their organic SEO efforts.</p></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers</h2>
+<p><p>The field of search engines is continuously evolving, driven by technological advancements and changing user behaviors. Here are some emerging trends and research areas:</p></p>
+<h3>1. <strong>Voice Search Optimization:</strong></h3>
+<p><p>As voice-activated devices become more prevalent, optimizing for voice search is crucial. This involves using natural language and long-tail keywords, as users tend to phrase queries differently when speaking than typing.</p></p>
+<h3>2. <strong>Artificial Intelligence (AI):</strong></h3>
+<p><p>AI is transforming how search engines interpret user intent and improve search results. Machine learning algorithms can analyze vast amounts of data to identify patterns and enhance user experience.</p></p>
+<h3>3. <strong>User Experience (UX):</strong></h3>
+<p><p>Search engines are increasingly factoring in UX elements, such as page load speed and mobile responsiveness, into their ranking algorithms. This shift emphasizes the importance of providing a seamless experience for users.</p></p>
+<h3>4. <strong>Semantic Search:</strong></h3>
+<p><p>Search engines are moving towards semantic search, which focuses on understanding the meaning behind words rather than relying solely on keyword matching. This allows search engines to provide more relevant results based on context.</p></p>
+<h3>5. <strong>Augmented Reality (AR) and Virtual Reality (VR):</strong></h3>
+<p><p>As AR and VR technologies advance, search engines may begin integrating these elements into their search results, providing users with immersive experiences.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Understanding how search engines work lays the groundwork for effectively implementing SEO strategies. The intricate processes of crawling, indexing, and ranking are crucial to enhancing visibility and driving organic traffic. By leveraging this knowledge, businesses and individuals can optimize their online presence, ensuring they connect with their target audience effectively.</p></p>
+<p><p>As search engines continue to evolve, staying informed about current trends and advancements will be essential. Exploring the implications of voice search, AI, and UX will further enhance your ability to navigate the digital landscape.</p></p>
+<h3>Key Takeaways:</h3>
+<ul>
+<ul>
+<li>Search engines function through a lifecycle of crawling, indexing, and serving results.</li>
+<li>Knowledge of search engine mechanics informs effective SEO strategies.</li>
+<li>Staying updated on current trends is crucial for maintaining a competitive edge in digital marketing.</li>
+</ul>
+</ul>
+<p><p><strong>Call to Action:</strong> Dive deeper into the specifics of SEO by exploring advanced topics like on-page SEO, technical SEO, and local SEO strategies to further enhance your understanding and implementation of these concepts.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of crawling in the search engine lifecycle?", "options": [{"id": "A", "text": "To display results to users", "explanation": "Incorrect. Displaying results is part of serving results, not crawling."}, {"id": "B", "text": "To analyze and store webpage information", "explanation": "Incorrect. Analyzing and storing information is part of indexing, not crawling."}, {"id": "C", "text": "To discover new and updated web pages", "explanation": "Correct. Crawling's primary purpose is to discover new and updated web pages."}, {"id": "D", "text": "To process user queries", "explanation": "Incorrect. Processing user queries occurs when serving results."}], "correct_answer": "C"}, {"question": "How does indexing improve search engine performance?", "options": [{"id": "A", "text": "By storing user preferences", "explanation": "Incorrect. User preferences are not part of indexing."}, {"id": "B", "text": "By categorizing and structuring data for retrieval", "explanation": "Correct. Indexing categorizes and structures data, allowing for efficient retrieval."}, {"id": "C", "text": "By following links to find new pages", "explanation": "Incorrect. Following links is part of the crawling process."}, {"id": "D", "text": "By displaying ads to users", "explanation": "Incorrect. Displaying ads is related to advertising mechanisms, not indexing."}], "correct_answer": "B"}, {"question": "Which of the following factors is NOT typically considered in ranking algorithms?", "options": [{"id": "A", "text": "Content relevance", "explanation": "Incorrect. Content relevance is a crucial factor in ranking."}, {"id": "B", "text": "Page loading speed", "explanation": "Incorrect. Page loading speed is considered in ranking."}, {"id": "C", "text": "User's physical location", "explanation": "Incorrect. A user's physical location can influence local search results."}, {"id": "D", "text": "The color scheme of a website", "explanation": "Correct. The color scheme of a website does not affect ranking algorithms."}], "correct_answer": "D"}, {"question": "What is a key characteristic of semantic search?", "options": [{"id": "A", "text": "It relies solely on keyword matching.", "explanation": "Incorrect. Semantic search moves beyond keyword matching."}, {"id": "B", "text": "It focuses on understanding user intent and context.", "explanation": "Correct. Semantic search understands user intent and context for better results."}, {"id": "C", "text": "It ignores user engagement metrics.", "explanation": "Incorrect. User engagement metrics are important in determining relevance."}, {"id": "D", "text": "It does not utilize AI technology.", "explanation": "Incorrect. AI technology is integral to modern semantic search practices."}], "correct_answer": "B"}, {"question": "Which of the following is a critical application of understanding how search engines work?", "options": [{"id": "A", "text": "Creating irrelevant content", "explanation": "Incorrect. Creating irrelevant content does not leverage search engine understanding."}, {"id": "B", "text": "Optimizing for local search results", "explanation": "Correct. Understanding search engines allows for effective local search optimization."}, {"id": "C", "text": "Ignoring user experience", "explanation": "Incorrect. User experience is crucial for effective SEO."}, {"id": "D", "text": "Decreasing website visibility", "explanation": "Incorrect. The goal is to increase, not decrease, website visibility."}], "correct_answer": "B"}], "why_it_matters": "Understanding these concepts is vital for anyone looking to enhance their online presence and effectively implement SEO strategies, ensuring successful engagement with users in an increasingly digital world."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
