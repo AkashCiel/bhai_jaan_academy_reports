@@ -1,0 +1,448 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Web Scraping**: Using BeautifulSoup and requests for extracting data from websites.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Web Scraping**: Using BeautifulSoup and requests for extracting data from websites.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: manishkumarfd7882@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Web Scraping: Using BeautifulSoup and Requests for Extracting Data from Websites</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your journey in Python programming, you've already laid a solid foundation through concepts such as <strong>basic syntax</strong>, <strong>data types</strong>, <strong>control structures</strong>, and <strong>file handling</strong>. One practical application of your growing skill set is <strong>web scraping</strong>—the process of extracting data from websites. This report will introduce you to the world of web scraping using Python, specifically focusing on two powerful libraries: <strong>Requests</strong> and <strong>BeautifulSoup</strong>.</p></p>
+<p><p>Web scraping has become an essential skill in various fields, including data science, market research, and journalism. It allows you to automate the collection of data from web pages instead of manually copying and pasting. This capability opens the door to gathering insights from vast amounts of information available online, making it a valuable tool for anyone looking to leverage the power of data.</p></p>
+<p><p>In this report, we will explore the theoretical foundations of web scraping, practical implementations using Requests and BeautifulSoup, and real-world applications. We'll also address important ethical considerations and future directions in this rapidly evolving field.</p></p>
+<h2>Key Concepts and Definitions:</h2>
+<h3>What is Web Scraping?</h3>
+<p><p><strong>Web scraping</strong> refers to the automated process of extracting information from websites. This is often accomplished through the use of scripts or bots that navigate the web, retrieve the desired data, and store it in a structured format for analysis or further processing.</p></p>
+<h3>Common Terminology:</h3>
+<ul>
+<ul>
+<li><strong>HTML (HyperText Markup Language)</strong>: The standard markup language for creating web pages. HTML structures the content of a web page and is essential for web scraping.</li>
+<li><strong>HTTP (Hypertext Transfer Protocol)</strong>: The protocol used for transferring data over the web. Understanding how HTTP requests and responses work is critical for web scraping.</li>
+<li><strong>Web Crawler</strong>: A program that automatically navigates the web to collect data. Scrapers can be seen as specialized crawlers focused on specific data extraction.</li>
+<li><strong>API (Application Programming Interface)</strong>: A set of rules that allows different software entities to communicate. Some websites offer APIs as an alternative to scraping for accessing their data.</li>
+</ul>
+</ul>
+<h3>Important Libraries:</h3>
+<p><ol></p>
+<ul>
+<li><strong>Requests</strong>: A popular Python library for making HTTP requests. It simplifies the process of sending and receiving data from web servers.</li>
+<li><strong>BeautifulSoup</strong>: A Python library for parsing HTML and XML documents. It provides tools for navigating and searching through the parse tree to extract the desired information.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>Getting Started with Requests</h2>
+<h3>Installation</h3>
+<p><p>To begin web scraping, you must install the necessary libraries. You can do this using pip:</p></p>
+<p><p><code>bash</p>
+<p>pip install requests beautifulsoup4</code></p></p>
+<h3>Making HTTP Requests</h3>
+<p><p>The first step in web scraping is to retrieve the content of a web page. This is accomplished using Requests. Here’s how to make a simple GET request:</p></p>
+<p><p>```python</p>
+<p>import requests</p></p>
+<p><p>url = 'https://example.com'</p>
+<p>response = requests.get(url)</p></p>
+<p><p>if response.status_code == 200:</p>
+<p>print("Page retrieved successfully!")</p>
+<p>page_content = response.text</p>
+<p>else:</p>
+<p>print("Failed to retrieve the page.")</p>
+<p>```</p></p>
+<h3>Understanding Response Codes</h3>
+<p><p>When you make an HTTP request, the server responds with a status code. Common status codes include:</p></p>
+<ul>
+<ul>
+<li><strong>200</strong>: OK - The request was successful.</li>
+<li><strong>404</strong>: Not Found - The requested resource could not be found.</li>
+<li><strong>500</strong>: Internal Server Error - The server encountered an error.</li>
+</ul>
+</ul>
+<h3>Handling Response Data</h3>
+<p><p>Once you have the response, you can access the content of the page using the <code>.text</code> attribute. This will give you the raw HTML of the page.</p></p>
+<hr />
+<h2>Parsing HTML with BeautifulSoup</h2>
+<h3>Creating a BeautifulSoup Object</h3>
+<p><p>Once you have the HTML content, you can parse it using BeautifulSoup. Here’s how to create a BeautifulSoup object:</p></p>
+<p><p>```python</p>
+<p>from bs4 import BeautifulSoup</p></p>
+<p><p>soup = BeautifulSoup(page_content, 'html.parser')</p>
+<p>```</p></p>
+<h3>Navigating the Parse Tree</h3>
+<p><p>BeautifulSoup allows you to navigate the parse tree to locate the data you're interested in. Here are some common methods:</p></p>
+<ul>
+<ul>
+<li><strong>Finding Elements</strong>: You can search for tags using methods like <code>.find()</code> and <code>.find_all()</code>.</li>
+</ul>
+</ul>
+<p><p>```python</p></p>
+<h1>Finding a single element</h1>
+<p><p>header = soup.find('h1')</p>
+<p>print(header.text)</p></p>
+<h1>Finding all elements of a certain type</h1>
+<p><p>paragraphs = soup.find_all('p')</p>
+<p>for paragraph in paragraphs:</p>
+<p>print(paragraph.text)</p>
+<p>```</p></p>
+<h3>Extracting Attributes</h3>
+<p><p>You can also extract attributes from HTML tags, such as links from anchor tags.</p></p>
+<p><p><code>python</p>
+<p>links = soup.find_all('a')</p>
+<p>for link in links:</p>
+<p>href = link.get('href')</p>
+<p>print(href)</code></p></p>
+<hr />
+<h2>Real-World Applications of Web Scraping</h2>
+<h3>1. Data Collection for Research</h3>
+<p><p>Researchers often need to gather data from multiple sources for analysis. Web scraping provides a way to automate this process, enabling faster data collection from various academic and public resources.</p></p>
+<h3>2. Price Monitoring</h3>
+<p><p>E-commerce businesses utilize web scraping to monitor competitors’ prices. By regularly scraping product pages, they can adjust their pricing strategies in real-time to remain competitive.</p></p>
+<h3>3. Social Media Analysis</h3>
+<p><p>Data analysts scrape social media platforms to gather insights about trends, user sentiment, and engagement. This information can be invaluable for marketing strategies.</p></p>
+<h3>4. Job Listings Aggregation</h3>
+<p><p>Web scraping can be used to collect job postings from various career websites, aggregating them into a single platform for job seekers to access.</p></p>
+<h3>5. News Aggregation</h3>
+<p><p>News aggregators scrape headlines and articles from multiple news sources to provide users with a comprehensive view of current events.</p></p>
+<hr />
+<h2>Ethical Considerations</h2>
+<p><p>As you dive into web scraping, it’s crucial to understand the ethical implications associated with it. Here are key points to consider:</p></p>
+<ul>
+<ul>
+<li><strong>Respect Robots.txt</strong>: Websites often include a <code>robots.txt</code> file that outlines the rules for web crawlers. Always check this file before scraping a site.</li>
+<li><strong>Rate Limiting</strong>: Avoid overwhelming a server with requests. Implement delays between requests to mimic human browsing behavior.</li>
+<li><strong>Terms of Service</strong>: Review a website’s terms of service to ensure that scraping is allowed.</li>
+<li><strong>Personal Data</strong>: Be cautious about scraping personal data, as this can lead to legal issues.</li>
+</ul>
+</ul>
+<hr />
+<h2>Advanced Applications and Future Directions</h2>
+<h3>Machine Learning and Web Scraping</h3>
+<p><p>Web scraping can be combined with machine learning techniques to analyze trends and predict future outcomes based on historical data scraped from the web.</p></p>
+<h3>Emerging Technologies</h3>
+<p><p>The integration of web scraping with <strong>natural language processing (NLP)</strong> enables sentiment analysis from scraped content, providing insights into public opinion.</p></p>
+<h3>Challenges and Opportunities</h3>
+<ul>
+<ul>
+<li><strong>Dynamic Content</strong>: Many websites use JavaScript to load content dynamically, making it challenging to scrape. Tools like Selenium can help in these situations.</li>
+<li><strong>Legal Challenges</strong>: As web scraping becomes more widespread, legal frameworks may evolve, impacting how scraping is conducted.</li>
+</ul>
+</ul>
+<h3>Industry Trends</h3>
+<ul>
+<ul>
+<li><strong>Data Privacy Regulations</strong>: Increasing regulations around data privacy may affect scraping practices, necessitating compliance with laws like GDPR.</li>
+<li><strong>APIs vs. Scraping</strong>: As more companies adopt APIs for data access, the need for traditional web scraping may decline, but it will still be relevant for sites without APIs.</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Web scraping is a powerful tool that can enhance your data collection capabilities, especially as you continue to build on your Python programming skills. With Requests and BeautifulSoup, you can easily extract valuable data from websites for various applications, from research to competitive analysis. As you explore this field, remember to adhere to ethical practices and stay informed about emerging trends and technologies.</p></p>
+<h3>Call to Action</h3>
+<p><p>Now that you’ve grasped the fundamentals of web scraping, why not try scraping a simple website yourself? Start by collecting data from a news site or an e-commerce page. Experiment with different HTML elements, and see what insights you can uncover!</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of web scraping?", "options": [{"id": "A", "text": "To create websites from scratch", "explanation": "Incorrect. Creating websites is related to web development, not scraping."}, {"id": "B", "text": "To extract data from websites", "explanation": "Correct. Web scraping is specifically about extracting data from websites."}, {"id": "C", "text": "To host websites on servers", "explanation": "Incorrect. Hosting websites involves server management, not data extraction."}, {"id": "D", "text": "To generate random HTML content", "explanation": "Incorrect. Generating random HTML does not relate to the purpose of scraping."}], "correct_answer": "B"}, {"question": "Which Python library is used to make HTTP requests?", "options": [{"id": "A", "text": "BeautifulSoup", "explanation": "Incorrect. BeautifulSoup is used for parsing HTML, not making requests."}, {"id": "B", "text": "Selenium", "explanation": "Incorrect. Selenium is used for automating web browsers, not specifically for HTTP requests."}, {"id": "C", "text": "Requests", "explanation": "Correct. The Requests library is specifically designed for making HTTP requests."}, {"id": "D", "text": "NumPy", "explanation": "Incorrect. NumPy is used for numerical computations, not web scraping."}], "correct_answer": "C"}, {"question": "What is the purpose of the `robots.txt` file?", "options": [{"id": "A", "text": "To store images", "explanation": "Incorrect. While images may be referenced in a website, `robots.txt` does not store images."}, {"id": "B", "text": "To outline rules for web crawlers", "explanation": "Correct. The `robots.txt` file specifies which parts of a website can be crawled by web scrapers."}, {"id": "C", "text": "To create HTML structures", "explanation": "Incorrect. It does not create HTML structures; it provides guidelines for crawlers."}, {"id": "D", "text": "To manage server responses", "explanation": "Incorrect. It does not manage server responses."}], "correct_answer": "B"}, {"question": "How can you extract the text from an HTML element using BeautifulSoup?", "options": [{"id": "A", "text": "Using `element.get_text()`", "explanation": "Correct. The method `get_text()` retrieves the text from an HTML element."}, {"id": "B", "text": "Using `element.text()`", "explanation": "Incorrect. There is no `text()` method in BeautifulSoup."}, {"id": "C", "text": "Using `element.extract()`", "explanation": "Incorrect. `extract()` removes the element from the tree but does not return its text."}, {"id": "D", "text": "Using `element.innerHTML()`", "explanation": "Incorrect. There is no `innerHTML()` method in BeautifulSoup."}], "correct_answer": "A"}, {"question": "Why is it important to implement rate limiting when scraping?", "options": [{"id": "A", "text": "To reduce the amount of data collected", "explanation": "Incorrect. Rate limiting does not reduce the amount of data collected; it regulates the request frequency."}, {"id": "B", "text": "To prevent overwhelming the server", "explanation": "Correct. Implementing rate limiting prevents overwhelming the server and mimics human browsing behavior."}, {"id": "C", "text": "To speed up the scraping process", "explanation": "Incorrect. Rate limiting may slow down the scraping process, not speed it up."}, {"id": "D", "text": "To avoid using proxies", "explanation": "Incorrect. Rate limiting is unrelated to the use of proxies."}], "correct_answer": "B"}], "why_it_matters": "Understanding these concepts is crucial as you build your web scraping skills. They not only enhance your technical proficiency but also ensure that you navigate the ethical landscape effectively while extracting valuable data."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
