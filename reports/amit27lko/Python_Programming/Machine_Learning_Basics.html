@@ -1,0 +1,574 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Machine Learning Basics</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Machine Learning Basics</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: amit27.lko@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Machine Learning Basics</h1>
+<h2>Introduction:</h2>
+<p><p>As you expand your expertise in Python programming, you've ventured into the realm of data analysis using the Pandas library. This is a vital step toward understanding one of the most transformative fields in technology today: <strong>Machine Learning (ML)</strong>. In this report, we will explore the <strong>basics of machine learning</strong>, building upon your knowledge of programming, data structures, and data manipulation. </p></p>
+<p><p>Machine learning is a branch of artificial intelligence that enables computers to learn from data and make predictions or decisions without being explicitly programmed. By leveraging your programming skills, particularly in Python, you will find that applying machine learning concepts can be both intuitive and powerful.</p></p>
+<p><p>In this report, we will cover the foundational concepts of machine learning, delve into its various types and algorithms, discuss real-world applications, and explore future directions in this dynamic field. By the end, you will have a comprehensive understanding of machine learning basics, ready to apply your knowledge in practical scenarios.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>What is Machine Learning?</h3>
+<p><p><strong>Definition:</strong> Machine learning is a subset of artificial intelligence that focuses on the development of algorithms that enable computers to learn from and make predictions based on data.</p></p>
+<ul>
+<ul>
+<li><strong>Historical Context:</strong> The term "machine learning" was coined in the 1950s. Early work by pioneers like Arthur Samuel involved creating algorithms that could learn to play games like checkers. Since then, the field has evolved dramatically, with advancements in algorithms, computing power, and the availability of large datasets.</li>
+</ul>
+</ul>
+<h3>Types of Machine Learning</h3>
+<p><p>Machine learning can be broadly categorized into three types:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Supervised Learning</strong>:</p></p>
+<ul>
+<ul>
+<li><strong>Definition:</strong> In supervised learning, models are trained on labeled data, which means both the input data and the corresponding output (label) are provided. The model learns to map inputs to outputs.</li>
+<li><strong>Example Algorithms:</strong> Linear Regression, Logistic Regression, Support Vector Machines, Decision Trees, Neural Networks.</li>
+<li><strong>Real-World Applications:</strong> Email spam detection, credit scoring, and medical diagnosis.</li>
+</ul>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Unsupervised Learning</strong>:</p></p>
+<ul>
+<ul>
+<li><strong>Definition:</strong> In unsupervised learning, models are trained on data that does not have labeled outputs. The goal is to uncover hidden structures or patterns within the data.</li>
+<li><strong>Example Algorithms:</strong> K-Means Clustering, Hierarchical Clustering, Principal Component Analysis (PCA).</li>
+<li><strong>Real-World Applications:</strong> Customer segmentation, anomaly detection, and market basket analysis.</li>
+</ul>
+</ul>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Reinforcement Learning</strong>:</p></p>
+<ul>
+<ul>
+<li><strong>Definition:</strong> Reinforcement learning involves training models through a system of rewards and penalties, allowing them to learn optimal actions in a given environment.</li>
+<li><strong>Example Algorithms:</strong> Q-Learning, Deep Q-Networks, Proximal Policy Optimization.</li>
+<li><strong>Real-World Applications:</strong> Game playing (e.g., AlphaGo), robotics, and self-driving cars.</li>
+</ul>
+</ul>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>The Machine Learning Workflow</h2>
+<p><p>Understanding the typical workflow of a machine learning project is crucial for applying your knowledge effectively. The workflow consists of the following steps:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Problem Definition</strong>: Clearly define the problem you want to solve. This involves understanding the objective and the type of data available.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Data Collection</strong>: Gather relevant data from various sources, which could include databases, APIs, or web scraping.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Data Preprocessing</strong>: Clean and prepare the data for analysis. This step may involve handling missing values, normalizing data, and converting categorical variables to numerical formats.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Exploratory Data Analysis (EDA)</strong>: Analyze the data to understand its structure, distribution, and underlying patterns. Visualization tools such as Matplotlib and Seaborn can be beneficial here.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Model Selection</strong>: Choose an appropriate machine learning algorithm based on the problem type (supervised, unsupervised, reinforcement).</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Model Training</strong>: Train the model on the training dataset, adjusting parameters to minimize error.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Model Evaluation</strong>: Assess the model's performance using metrics such as accuracy, precision, recall, F1-score, or AUC-ROC, depending on the context.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Model Deployment</strong>: Once the model is validated, deploy it for real-world use, integrating it into applications or systems.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Monitoring and Maintenance</strong>: Continuously monitor the model's performance and update it as needed to adapt to new data.</p></p>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>Real-World Applications of Machine Learning</h2>
+<p><p>Machine learning has permeated various industries, transforming how businesses operate and make decisions. Here are some notable applications:</p></p>
+<h3>Healthcare</h3>
+<ul>
+<ul>
+<li><strong>Predictive Analytics</strong>: Machine learning algorithms can analyze patient data to predict health outcomes, such as readmission rates or disease progression.</li>
+<li><strong>Medical Imaging</strong>: Algorithms can help in diagnosing conditions by analyzing imaging data (e.g., X-rays, MRIs) and identifying anomalies.</li>
+</ul>
+</ul>
+<h3>Finance</h3>
+<ul>
+<ul>
+<li><strong>Fraud Detection</strong>: Machine learning models can identify unusual patterns in transaction data, flagging potential fraudulent activities in real-time.</li>
+<li><strong>Algorithmic Trading</strong>: Traders use machine learning to analyze market data and make investment decisions based on predictive models.</li>
+</ul>
+</ul>
+<h3>Retail</h3>
+<ul>
+<ul>
+<li><strong>Recommendation Systems</strong>: Companies like Amazon and Netflix leverage machine learning to analyze user behavior and provide personalized recommendations.</li>
+<li><strong>Inventory Management</strong>: Algorithms predict product demand, optimizing stock levels and reducing waste.</li>
+</ul>
+</ul>
+<h3>Transportation</h3>
+<ul>
+<ul>
+<li><strong>Autonomous Vehicles</strong>: Self-driving cars utilize machine learning for real-time decision-making, interpreting data from sensors and cameras to navigate safely.</li>
+<li><strong>Route Optimization</strong>: Delivery companies use algorithms to determine the most efficient routes, saving time and fuel.</li>
+</ul>
+</ul>
+<hr />
+<h2>Theoretical Foundations of Machine Learning</h2>
+<h3>Key Concepts and Definitions</h3>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Overfitting</strong>: A common problem where a model learns noise in the training data rather than the actual underlying patterns, resulting in poor performance on unseen data. Techniques such as cross-validation and regularization can help mitigate this issue.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Underfitting</strong>: When a model is too simplistic to capture the underlying structure of the data, leading to poor performance on both training and test datasets.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Bias-Variance Tradeoff</strong>: Understanding the balance between bias (error due to overly simplistic assumptions) and variance (error due to excessive complexity) is crucial for building effective models.</p></p>
+<p></li></p>
+</ul>
+<hr />
+<h2>Practical Implications of Machine Learning</h2>
+<h3>Tools and Libraries</h3>
+<p><p>As a Python programmer, you have access to a rich ecosystem of libraries for machine learning, including:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Scikit-learn</strong>: A powerful library that provides simple and efficient tools for data mining and data analysis, built on NumPy, SciPy, and Matplotlib.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>TensorFlow</strong>: An open-source library developed by Google for deep learning and machine learning applications.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Keras</strong>: A high-level neural networks API that runs on top of TensorFlow, allowing for easy and fast experimentation.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>PyTorch</strong>: An open-source machine learning framework that is popular for its dynamic computation graph and is widely used in research and production.</p></p>
+<p></li></p>
+</ul>
+<h3>Getting Started with Machine Learning in Python</h3>
+<p><p>To get started with machine learning, you can follow these steps:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Install Required Libraries</strong>: Use pip to install necessary libraries:</p>
+<p><code>bash</p>
+<p>pip install numpy pandas scikit-learn matplotlib seaborn</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Data Preparation</strong>: Load your dataset using Pandas and perform exploratory data analysis (EDA) to understand the data structure.</p>
+<p><code>python</p>
+<p>import pandas as pd</p>
+<p>data = pd.read_csv('data.csv')</p>
+<p>print(data.describe())</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Model Development</strong>: Choose a machine learning algorithm, train it with your data, and evaluate its performance.</p>
+<p>```python</p>
+<p>from sklearn.model_selection import train_test_split</p>
+<p>from sklearn.linear_model import LogisticRegression</p>
+<p>from sklearn.metrics import accuracy_score</p></p>
+<p><p>X = data[['feature1', 'feature2']]</p>
+<p>y = data['target']</p>
+<p>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)</p></p>
+<p><p>model = LogisticRegression()</p>
+<p>model.fit(X_train, y_train)</p>
+<p>predictions = model.predict(X_test)</p>
+<p>print(f'Accuracy: {accuracy_score(y_test, predictions)}')</p>
+<p>```</p></p>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>Current State and Future Directions</h2>
+<h3>Emerging Technologies in Machine Learning</h3>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Automated Machine Learning (AutoML)</strong>: Tools and frameworks that automate the process of applying machine learning to real-world problems, making it accessible to non-experts.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Federated Learning</strong>: A decentralized approach to training models across multiple devices while keeping data localized, enhancing privacy and security.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Explainable AI (XAI)</strong>: Techniques aimed at making machine learning models more interpretable and understandable, which is crucial for building trust in AI systems.</p></p>
+<p></li></p>
+<p></ol></p>
+<h3>Research Challenges and Opportunities</h3>
+<ul>
+<ul>
+<li><strong>Data Privacy</strong>: As machine learning applications grow, ensuring the privacy and security of personal data remains a significant challenge.</li>
+<li><strong>Bias and Fairness</strong>: Addressing biases in training data to create fair and equitable machine learning systems is a key area of research.</li>
+<li><strong>Scalability</strong>: Developing algorithms that can handle large volumes of data efficiently is essential for practical applications.</li>
+</ul>
+</ul>
+<h3>Industry Trends and Market Dynamics</h3>
+<ul>
+<ul>
+<li>The demand for skilled machine learning practitioners is surging as businesses increasingly seek to leverage data for competitive advantage.</li>
+<li>Emerging startups and established companies alike are investing in machine learning research and development, driving innovation across industries.</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In this report, we have explored the basics of machine learning, including its definitions, types, workflows, real-world applications, and theoretical foundations. As you continue your programming journey, understanding machine learning will empower you to tackle complex problems and contribute to innovative solutions in various fields.</p></p>
+<p><p>Machine learning is not just a trend; it is a powerful tool that can shape the future. By building on your programming skills and engaging with machine learning concepts, you are positioning yourself at the forefront of technological innovation. </p></p>
+<p><p><strong>Next Steps</strong>: Explore machine learning projects on platforms like Kaggle, or dive deeper into specific algorithms and their applications. The journey of learning is ongoing, and the possibilities are endless!</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What are the three main types of machine learning?", "options": [{"id": "A", "text": "Supervised, Unsupervised, Reinforcement", "explanation": "Correct. The three main types of machine learning are supervised, unsupervised, and reinforcement learning."}, {"id": "B", "text": "Classification, Regression, Clustering", "explanation": "Incorrect. Classification and regression are types of supervised learning, while clustering is part of unsupervised learning."}, {"id": "C", "text": "Linear, Non-linear, Hierarchical", "explanation": "Incorrect. Linear and non-linear relate to types of models, and hierarchical pertains to a specific clustering method."}, {"id": "D", "text": "Parametric, Non-parametric, Bayesian", "explanation": "Incorrect. These are broader categories related to statistical methods, not the types of machine learning."}], "correct_answer": "A"}, {"question": "What is overfitting in machine learning?", "options": [{"id": "A", "text": "A model performing well on unseen data", "explanation": "Incorrect. Overfitting results in poor performance on unseen data."}, {"id": "B", "text": "A model that learns noise from the training data", "explanation": "Correct. Overfitting occurs when a model learns noise and specific details from the training data instead of the general patterns."}, {"id": "C", "text": "A model that is too simplistic for the data", "explanation": "Incorrect. This describes underfitting, not overfitting."}, {"id": "D", "text": "A model that is optimized for speed", "explanation": "Incorrect. Speed is not a direct concern related to overfitting."}], "correct_answer": "B"}, {"question": "Which machine learning algorithm is commonly used for classification tasks?", "options": [{"id": "A", "text": "K-Means Clustering", "explanation": "Incorrect. K-Means is an unsupervised learning method used for clustering."}, {"id": "B", "text": "Linear Regression", "explanation": "Incorrect. Linear regression is used for predicting continuous values, thus it's not suitable for classification."}, {"id": "C", "text": "Decision Trees", "explanation": "Correct. Decision Trees are widely used for classification tasks, providing interpretable models."}, {"id": "D", "text": "Principal Component Analysis", "explanation": "Incorrect. PCA is a dimensionality reduction technique, not a classification algorithm."}], "correct_answer": "C"}, {"question": "What is the role of exploratory data analysis (EDA) in the machine learning workflow?", "options": [{"id": "A", "text": "To collect data from various sources", "explanation": "Incorrect. Data collection is a separate step before EDA."}, {"id": "B", "text": "To clean and prepare the data for analysis", "explanation": "Incorrect. Data cleaning is part of preprocessing, which occurs before EDA."}, {"id": "C", "text": "To analyze the data and uncover patterns", "explanation": "Correct. EDA is essential for analyzing the data to understand its structure, distribution, and underlying patterns."}, {"id": "D", "text": "To deploy the model for real-world use", "explanation": "Incorrect. Model deployment occurs after the model has been trained and evaluated."}], "correct_answer": "C"}, {"question": "Which of the following best describes reinforcement learning?", "options": [{"id": "A", "text": "Learning from labeled data", "explanation": "Incorrect. This describes supervised learning, which uses labeled data."}, {"id": "B", "text": "Learning from rewards and penalties", "explanation": "Correct. Reinforcement learning involves learning through a system of rewards and penalties."}, {"id": "C", "text": "Learning without labels or supervision", "explanation": "Incorrect. Unsupervised learning fits this description, not reinforcement learning."}, {"id": "D", "text": "Learning through trial and error with no feedback", "explanation": "Incorrect. Reinforcement learning utilizes feedback in the form of rewards or penalties."}], "correct_answer": "B"}], "why_it_matters": "Understanding these concepts is critical as you advance in machine learning, positioning you to effectively apply these principles in real-world applications and further your learning in this exciting field."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
