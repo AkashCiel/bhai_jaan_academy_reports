@@ -1,0 +1,579 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Introduction to Python</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Introduction to Python</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: check@razorpay.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Introduction to Python</h1>
+<p><p>Python is one of the most popular programming languages in the world today, celebrated for its simplicity, readability, and versatility. Whether you're a beginner looking to learn programming or an experienced developer expanding your toolkit, Python provides an accessible entry point that doesn’t compromise on power or functionality. This report aims to introduce you to Python by covering the theoretical foundations, practical applications, and current state of the language, while also looking ahead to its future directions.</p></p>
+<p><p>Throughout this report, we will explore key concepts in Python, real-world applications across various domains, and advanced applications that push the boundaries of what Python can achieve. We will also include interactive elements designed to enhance your understanding and retention of the material.</p></p>
+<hr />
+<h2>Key Concepts</h2>
+<h3>Basic Definition of Python</h3>
+<p><p><strong>Python</strong> is a high-level, interpreted programming language known for its clear syntax and readability. First released in 1991 by Guido van Rossum, Python was designed to emphasize code readability, allowing programmers to express concepts in fewer lines of code than in other languages like C++ or Java.</p></p>
+<ul>
+<ul>
+<li><strong>Interpreted Language:</strong> Unlike compiled languages that require a separate compilation step, Python code is executed directly by an interpreter, making it easier to test and debug.</li>
+<li><strong>High-Level Language:</strong> Python abstracts away most of the complex details of the computer's hardware, allowing developers to focus on programming logic rather than low-level operations.</li>
+</ul>
+</ul>
+<h3>Key Features of Python</h3>
+<p><ol></p>
+<ul>
+<li><strong>Simplicity and Readability</strong>:</li>
+<li>Python's syntax is designed to be intuitive and straightforward, which makes it easier for beginners to learn and for experienced programmers to maintain.</li>
+<li>
+</ul>
+<p><p><strong>Example</strong>: A simple "Hello, World!" program in Python looks like this:</p>
+<p><code>python</p>
+<p>print("Hello, World!")</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Extensive Libraries and Frameworks</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Python has a rich ecosystem of libraries and frameworks that facilitate various applications, from web development with Django and Flask to data analysis with Pandas and NumPy.</li>
+<li>
+</ul>
+<p><p><strong>Example</strong>: To perform data analysis, you might use:</p>
+<p><code>python</p>
+<p>import pandas as pd</p>
+<p>data = pd.read_csv('data.csv')</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Cross-Platform Compatibility</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Python runs on various operating systems, including Windows, macOS, and Linux, making it a versatile choice for developers.</li>
+<li>
+</ul>
+<p><p><strong>Example</strong>: A Python script written on a Windows machine can run on a Linux server without modification.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Community and Support</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Python has a large, active community, providing extensive documentation and support through forums, tutorials, and online courses.</li>
+<li><strong>Resource</strong>: <strong>Link: <a href="https://docs.python.org/3/">Python Official Documentation</a></strong></li>
+</ul>
+<p></ol></p>
+<h3>Data Types and Variables</h3>
+<p><p>Before diving deeper, it’s essential to understand the basic data types and how to use variables in Python.</p></p>
+<ul>
+<ul>
+<li><strong>Data Types</strong>:</li>
+<li><strong>Integer</strong>: Whole numbers (e.g., 10, -5).</li>
+<li><strong>Float</strong>: Decimal numbers (e.g., 3.14, -0.001).</li>
+<li><strong>String</strong>: Text data enclosed in quotes (e.g., "Hello").</li>
+<li>
+</ul>
+<p><p><strong>Boolean</strong>: Represents <code>True</code> or <code>False</code>.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Declaring Variables</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>Variables in Python are created when you assign a value to them.</li>
+<li><strong>Example</strong>:
+</ul>
+<p><code>python</p>
+<p>age = 25</p>
+<p>name = "Alice"</p>
+<p>is_student = True</code></li></p>
+</ul>
+<h3>Control Flow</h3>
+<p><p>Control flow statements allow you to dictate the execution path of your program. The most common control flow statements are:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>If Statements</strong>:</li>
+<li>Used to execute a block of code based on a condition.</li>
+<li>
+</ul>
+<p><p><strong>Example</strong>:</p>
+<p><code>python</p>
+<p>if age &gt;= 18:</p>
+<p>print("You are an adult.")</p>
+<p>else:</p>
+<p>print("You are a minor.")</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Loops</strong>:</p></p>
+<p></li></p>
+<ul>
+<li><strong>For Loop</strong>: Used to iterate over a sequence (like a list or string).</li>
+<li><strong>While Loop</strong>: Continues to execute as long as a condition is <code>True</code>.</li>
+<li><strong>Example</strong>:
+</ul>
+<p><code>python</p>
+<p>for i in range(5):</p>
+<p>print(i)</code></li></p>
+<p></ol></p>
+<h3>Functions</h3>
+<p><p>Functions are reusable blocks of code that perform specific tasks. They help in organizing code and reducing redundancy.</p></p>
+<ul>
+<ul>
+<li><strong>Defining a Function</strong>:</li>
+<li>Functions are defined using the <code>def</code> keyword.</li>
+<li>
+</ul>
+<p><p><strong>Example</strong>:</p>
+<p><code>python</p>
+<p>def greet(name):</p>
+<p>return f"Hello, {name}!"</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Calling a Function</strong>:</p></p>
+<p></li></p>
+<ul>
+<li>You can call a function by using its name followed by parentheses.</li>
+<li><strong>Example</strong>:
+</ul>
+<p><code>python</p>
+<p>message = greet("Alice")</p>
+<p>print(message)</code></li></p>
+</ul>
+<h3>Error Handling</h3>
+<p><p>Error handling is a critical aspect of programming that allows you to manage exceptions and unexpected errors gracefully.</p></p>
+<ul>
+<ul>
+<li><strong>Try-Except Block</strong>:</li>
+<li>Python uses <code>try</code> and <code>except</code> blocks to handle exceptions.</li>
+<li><strong>Example</strong>:
+</ul>
+<p><code>python</p>
+<p>try:</p>
+<p>result = 10 / 0</p>
+<p>except ZeroDivisionError:</p>
+<p>print("Cannot divide by zero!")</code></li></p>
+</ul>
+<hr />
+<h2>Real-World Applications</h2>
+<p><p>Python's versatility makes it suitable for a wide range of real-world applications across different fields. Here are some prominent examples:</p></p>
+<h3>Web Development</h3>
+<p><p>Python is widely used for web development, enabling developers to create robust and scalable web applications.</p></p>
+<ul>
+<ul>
+<li><strong>Django</strong>: A high-level Python web framework that encourages rapid development and clean, pragmatic design.</li>
+<li><strong>Flask</strong>: A micro-framework for Python that is lightweight and easy to extend.</li>
+<li><strong>Example Application</strong>: Instagram, the social media platform, uses Python for its backend services.</li>
+</ul>
+</ul>
+<h3>Data Science and Analytics</h3>
+<p><p>Python has become the go-to language for data analysis, visualization, and machine learning.</p></p>
+<ul>
+<ul>
+<li><strong>Libraries</strong>: Pandas for data manipulation, Matplotlib for plotting, and Scikit-learn for machine learning.</li>
+<li><strong>Example Application</strong>: Companies like Spotify use Python to analyze user data and recommend music based on listening habits.</li>
+</ul>
+</ul>
+<h3>Artificial Intelligence and Machine Learning</h3>
+<p><p>Python's simplicity and the availability of powerful libraries make it a favorite in the AI and ML fields.</p></p>
+<ul>
+<ul>
+<li><strong>TensorFlow and PyTorch</strong>: Leading frameworks for building machine learning models.</li>
+<li><strong>Example Application</strong>: Google uses TensorFlow to power its machine learning research and applications, including Google Translate.</li>
+</ul>
+</ul>
+<h3>Automation and Scripting</h3>
+<p><p>Python is often used for automating repetitive tasks or writing scripts to perform specific functions.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: Automating data entry in spreadsheets, scraping web data, or managing file systems.</li>
+<li><strong>Python Script Example</strong>:
+</ul>
+<p><code>python</p>
+<p>import os</p>
+<p>os.rename('old_file.txt', 'new_file.txt')</code></li></p>
+</ul>
+<h3>Game Development</h3>
+<p><p>Python is also used in game development, particularly for rapid prototyping and development.</p></p>
+<ul>
+<ul>
+<li><strong>Pygame</strong>: A set of Python modules designed for writing video games.</li>
+<li><strong>Example Application</strong>: Games like "Frets on Fire" have been developed using Python.</li>
+</ul>
+</ul>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers</h2>
+<p><p>As Python continues to evolve, several advanced applications and research frontiers are emerging. Here are some noteworthy developments:</p></p>
+<h3>Scientific Computing</h3>
+<p><p>Python is increasingly used in scientific research and simulations, aided by libraries like SciPy and NumPy, which provide support for mathematical and statistical computations.</p></p>
+<ul>
+<ul>
+<li><strong>Example Application</strong>: Researchers use Python to model complex systems in physics and biology.</li>
+</ul>
+</ul>
+<h3>Internet of Things (IoT)</h3>
+<p><p>Python is being adopted in IoT applications due to its ease of use and the growing availability of libraries that support hardware interaction.</p></p>
+<ul>
+<ul>
+<li><strong>Example</strong>: Raspberry Pi, a small and affordable computer, often runs Python for IoT projects, enabling users to create smart devices.</li>
+</ul>
+</ul>
+<h3>Blockchain Technology</h3>
+<p><p>Python is making inroads into blockchain development, with libraries like web3.py facilitating interaction with Ethereum.</p></p>
+<ul>
+<ul>
+<li><strong>Example Application</strong>: Developers use Python to create smart contracts and decentralized applications (dApps).</li>
+</ul>
+</ul>
+<h3>Natural Language Processing (NLP)</h3>
+<p><p>Python’s libraries such as NLTK and SpaCy are powerful tools for text processing and natural language understanding.</p></p>
+<ul>
+<ul>
+<li><strong>Example Application</strong>: Chatbots and virtual assistants utilize NLP to understand and process human language.</li>
+</ul>
+</ul>
+<h3>Emerging Technologies and Future Implications</h3>
+<p><p>The future of Python looks bright, with emerging technologies like quantum computing and augmented reality on the horizon.</p></p>
+<ul>
+<ul>
+<li><strong>Quantum Computing</strong>: Libraries like Qiskit allow Python developers to write quantum algorithms and run them on quantum computers.</li>
+<li><strong>Augmented Reality</strong>: Python frameworks like OpenCV are being used to develop AR applications.</li>
+</ul>
+</ul>
+<h3>Research Challenges and Opportunities</h3>
+<p><p>Despite its strengths, Python faces several challenges, such as:</p></p>
+<ul>
+<ul>
+<li><strong>Performance Limitations</strong>: Being an interpreted language, Python can be slower than compiled languages for certain tasks.</li>
+<li><strong>Concurrency</strong>: Python’s Global Interpreter Lock (GIL) can be a hindrance in multi-threaded applications.</li>
+</ul>
+</ul>
+<p><p>However, these challenges also present opportunities for innovation and improvement, such as enhancing Python's performance through Just-In-Time (JIT) compilation techniques.</p></p>
+<hr />
+<h2>Think About This</h2>
+<ul>
+<ul>
+<li>How does Python's readability contribute to its popularity among new programmers?</li>
+<li>In what ways do you think Python's extensive libraries influence its adoption across different industries?</li>
+<li>Consider an everyday task you perform repetitively. How might you use Python to automate that task?</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In summary, Python is a powerful and versatile programming language that opens doors to various fields, from web development to data science, automation, and beyond. Its simplicity, combined with a robust ecosystem of libraries and frameworks, makes it an ideal choice for both beginners and experienced developers. </p></p>
+<p><p>As you embark on your journey to learn Python, consider the myriad of applications it offers in the real world. Whether you aim to build web applications, analyze data, or explore cutting-edge technologies, Python provides the tools and community support to help you succeed.</p></p>
+<p><p><strong>Call to Action</strong>: Start experimenting with Python today! Download the latest version from the <a href="https://www.python.org/downloads/">official Python website</a>, and explore interactive platforms like <a href="https://www.codecademy.com/learn/learn-python-3">Codecademy</a> and <a href="https://leetcode.com/">LeetCode</a> to enhance your skills further.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is one of the primary reasons Python is considered a good choice for beginners?", "options": [{"id": "A", "text": "It is a compiled language.", "explanation": "Incorrect. Python is an interpreted language, not compiled."}, {"id": "B", "text": "It has complex syntax.", "explanation": "Incorrect. Python has a simple and clear syntax."}, {"id": "C", "text": "It emphasizes code readability.", "explanation": "Correct. Python's emphasis on readability makes it accessible."}, {"id": "D", "text": "It requires extensive knowledge of hardware.", "explanation": "Incorrect. Python abstracts hardware details, making it easier for beginners."}], "correct_answer": "C"}, {"question": "Which of the following is a popular web framework for Python?", "options": [{"id": "A", "text": "React", "explanation": "Incorrect. React is a JavaScript library for building user interfaces."}, {"id": "B", "text": "Django", "explanation": "Correct. Django is a widely used web framework in Python."}, {"id": "C", "text": "Angular", "explanation": "Incorrect. Angular is a TypeScript-based web application framework."}, {"id": "D", "text": "Vue.js", "explanation": "Incorrect. Vue.js is a JavaScript framework for building user interfaces."}], "correct_answer": "B"}, {"question": "Which Python library is commonly used for data manipulation?", "options": [{"id": "A", "text": "NumPy", "explanation": "Incorrect. NumPy is primarily used for numerical computations."}, {"id": "B", "text": "Beautiful Soup", "explanation": "Incorrect. Beautiful Soup is used for web scraping."}, {"id": "C", "text": "Pandas", "explanation": "Correct. Pandas is designed specifically for data manipulation and analysis."}, {"id": "D", "text": "Flask", "explanation": "Incorrect. Flask is a web framework for building web applications."}], "correct_answer": "C"}, {"question": "What is the purpose of the `try-except` block in Python?", "options": [{"id": "A", "text": "To define functions.", "explanation": "Incorrect. Functions are defined using the `def` keyword."}, {"id": "B", "text": "To handle exceptions.", "explanation": "Correct. The `try-except` block is used to handle exceptions in Python code."}, {"id": "C", "text": "To create loops.", "explanation": "Incorrect. Loops are created using `for` or `while`."}, {"id": "D", "text": "To declare variables.", "explanation": "Incorrect. Variables are declared through assignment statements."}], "correct_answer": "B"}, {"question": "In which application area is Python NOT commonly used?", "options": [{"id": "A", "text": "Web Development", "explanation": "Incorrect. Python is widely used in web development."}, {"id": "B", "text": "Game Development", "explanation": "Incorrect. Python is utilized in game development through libraries like Pygame."}, {"id": "C", "text": "Quantum Computing", "explanation": "Incorrect. Python is used in quantum computing with libraries like Qiskit."}, {"id": "D", "text": "Hardware Assembly", "explanation": "Correct. Python is not used for hardware assembly as it is a software programming language."}], "correct_answer": "D"}], "why_it_matters": "Understanding Python's fundamental concepts and its wide range of applications is crucial for anyone looking to enter the programming field. As you continue your learning journey, keep exploring the various resources available, and consider how you can apply Python to solve real-world problems."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
