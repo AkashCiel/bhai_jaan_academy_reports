@@ -1,0 +1,485 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: On-Page SEO Fundamentals</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">On-Page SEO Fundamentals</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: jagritis1608@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>On-Page SEO Fundamentals: A Comprehensive Guide</h1>
+<h2>Introduction:</h2>
+<p><p>Building upon our previous exploration of SEO, search engines, and keyword research, this report delves into the critical realm of <strong>On-Page SEO</strong>. This aspect of search engine optimization focuses on optimizing individual web pages to rank higher and earn more relevant traffic in search engines. While it is essential to understand how search engines function and the importance of keyword research, mastering On-Page SEO is vital for ensuring that your content is not only discoverable but also engaging to users.</p></p>
+<p><p>In this comprehensive guide, we will discuss the key concepts of On-Page SEO, including elements such as meta tags, headers, content quality, and user experience. Each section will provide theoretical foundations, practical implications, and real-world applications to help you grasp the significance of these components. Furthermore, we will explore emerging trends and future directions in On-Page SEO, ensuring that you are well-equipped to navigate the ever-evolving landscape of digital marketing.</p></p>
+<h3>What is On-Page SEO?</h3>
+<p><p><strong>On-Page SEO</strong> refers to the techniques and strategies employed directly on your website to improve its visibility and relevance in search engines. Unlike off-page SEO, which focuses on external factors like backlinks and social media signals, On-Page SEO is about optimizing the content and HTML source code of a page. The goal is to make your website more attractive to search engines and provide a better user experience.</p></p>
+<h3>Key Concepts and Definitions:</h3>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Meta Tags</strong>: These are snippets of text that describe a webpage's content. They include the title tag, which is displayed on search engine results pages (SERPs), and the meta description, which provides a brief summary of the page.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Headers (H1, H2, H3, etc.)</strong>: These are HTML tags used to define headings and subheadings on a webpage. Proper use of headers helps structure content and makes it easier for users and search engines to navigate.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Content Quality</strong>: High-quality, relevant content is crucial for On-Page SEO. It should answer users' questions, provide valuable information, and be well-structured to enhance readability.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Internal Linking</strong>: This involves linking to other pages within your website. Internal links help search engines understand the structure of your site and distribute page authority.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>User Experience (UX)</strong>: A well-designed user experience includes fast loading times, mobile optimization, and intuitive navigation. A positive UX keeps visitors engaged and reduces bounce rates.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Image Optimization</strong>: Images should be compressed and have descriptive alt tags. This enhances page load speed and improves accessibility for visually impaired users.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>URL Structure</strong>: URLs should be short, descriptive, and include relevant keywords. A clean URL structure enhances user experience and makes it easier for search engines to index pages.</p></p>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>Theoretical Foundations of On-Page SEO</h2>
+<h3>The Importance of Meta Tags</h3>
+<p><p><strong>Meta Tags</strong> serve as the first point of interaction between your content and potential visitors on SERPs. The title tag is especially significant because it affects click-through rates (CTR). A compelling title can entice users to click, while a poorly written one might lead to missed opportunities. </p></p>
+<p><p><strong>Example</strong>: For a webpage about vegan recipes, a title like "Delicious Vegan Recipes for Every Meal" is more appealing than a simple "Vegan Recipes."</p></p>
+<h4>Practical Implications:</h4>
+<ul>
+<ul>
+<li>Ensure that your title tag is under 60 characters so it doesn’t get cut off in search results.</li>
+<li>The meta description should be between 150-160 characters and include primary keywords to improve relevance.</li>
+</ul>
+</ul>
+<hr />
+<h3>Structuring with Headers</h3>
+<p><p>Headers not only help organize content but also improve readability. Search engines use headers to understand the hierarchy and context of information on a page.</p></p>
+<p><p><strong>Example</strong>: If your article is structured with clear H1 (main title) and H2 (subheadings) tags, it communicates to both users and search engines what the key topics are.</p></p>
+<h4>Practical Implications:</h4>
+<ul>
+<ul>
+<li>Use only one H1 tag per page, typically for the main title.</li>
+<li>Use H2 and H3 tags to break down sections and subsections, which helps with skimming and comprehension.</li>
+</ul>
+</ul>
+<hr />
+<h3>Crafting Quality Content</h3>
+<p><p>Quality content is the backbone of On-Page SEO. It should be informative, engaging, and tailored to meet the needs of your target audience. The content should also incorporate relevant keywords naturally, avoiding keyword stuffing.</p></p>
+<p><p><strong>Example</strong>: An article on fitness should not only include keywords like "exercise" and "health" but also offer valuable insights, such as workout tips or nutrition advice.</p></p>
+<h4>Practical Implications:</h4>
+<ul>
+<ul>
+<li>Aim for a content length of at least 1,000 words, as longer content tends to perform better in search rankings.</li>
+<li>Incorporate visuals, bullet points, and lists to enhance engagement.</li>
+</ul>
+</ul>
+<hr />
+<h3>The Role of Internal Linking</h3>
+<p><p>Internal linking is crucial for guiding users and search engines through your site. It helps distribute page authority and can reduce bounce rates by encouraging visitors to explore more content.</p></p>
+<p><p><strong>Example</strong>: If you have a blog post about "Healthy Eating," link to related posts like "Meal Prep Tips" or "Superfoods for a Healthy Diet."</p></p>
+<h4>Practical Implications:</h4>
+<ul>
+<ul>
+<li>Use descriptive anchor text that clearly indicates what the linked page is about.</li>
+<li>Limit the number of internal links to avoid overwhelming users.</li>
+</ul>
+</ul>
+<hr />
+<h3>Enhancing User Experience (UX)</h3>
+<p><p>User experience directly impacts your SEO performance. A website that is easy to navigate, loads quickly, and is mobile-friendly engages users, reduces bounce rates, and increases dwell time.</p></p>
+<p><p><strong>Example</strong>: A responsive design that adjusts to different screen sizes enhances usability across devices.</p></p>
+<h4>Practical Implications:</h4>
+<ul>
+<ul>
+<li>Use tools like Google PageSpeed Insights to analyze and improve loading times.</li>
+<li>Ensure your website is mobile-friendly, as mobile optimization is a ranking factor.</li>
+</ul>
+</ul>
+<hr />
+<h3>Optimizing Images</h3>
+<p><p>Images enhance the aesthetic appeal of a webpage but can also slow down loading times if not optimized. Proper image optimization involves using relevant file names, compressing images for faster loading, and adding alt tags for accessibility.</p></p>
+<p><p><strong>Example</strong>: Instead of naming an image "IMG_1234.jpg", use a descriptive name like "healthy-vegan-salad-recipe.jpg".</p></p>
+<h4>Practical Implications:</h4>
+<ul>
+<ul>
+<li>Compress images using tools like TinyPNG or ImageOptim.</li>
+<li>Use alt text to describe the image, which aids accessibility and helps with SEO.</li>
+</ul>
+</ul>
+<hr />
+<h3>Creating a Clean URL Structure</h3>
+<p><p>A well-structured URL is both user-friendly and beneficial for SEO. It should be descriptive, concise, and include relevant keywords.</p></p>
+<p><p><strong>Example</strong>: Instead of "www.example.com/page1?id=123", use "www.example.com/healthy-vegan-recipes".</p></p>
+<h4>Practical Implications:</h4>
+<ul>
+<ul>
+<li>Use hyphens to separate words in URLs.</li>
+<li>Avoid using special characters and numbers that do not add value to the URL.</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications</h2>
+<p><p>Understanding On-Page SEO is not just about theory; it's about applying these concepts to enhance your web presence. Below are some real-world applications:</p></p>
+<h3>Case Study: A Local Bakery</h3>
+<p><p>Imagine a local bakery that wishes to attract more customers through its website. By optimizing its site with On-Page SEO strategies, it can significantly improve its visibility:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Meta Tags</strong>: The bakery creates a title like "Freshly Baked Goods in Downtown" and a meta description that highlights its specialties, such as gluten-free options.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Content Quality</strong>: A blog section is added, featuring articles on baking tips, recipes, and the health benefits of certain ingredients.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>User Experience</strong>: The bakery ensures its website is mobile-friendly, making it easier for customers to place orders on their phones.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Internal Linking</strong>: Blog posts link back to product pages, encouraging visitors to explore the bakery's offerings.</p></p>
+<p></li></p>
+<p></ol></p>
+<p><p>By implementing these On-Page SEO strategies, the bakery sees an increase in website traffic, higher engagement rates, and ultimately, more foot traffic in its store.</p></p>
+<hr />
+<h2>Current Trends and Future Directions</h2>
+<p><p>The world of SEO is continuously evolving. Here are some current trends and future directions in On-Page SEO:</p></p>
+<h3>Voice Search Optimization</h3>
+<p><p>As smart speakers and voice assistants become more prevalent, optimizing for voice search is crucial. This involves focusing on natural language and long-tail keywords that reflect how people speak.</p></p>
+<h3>AI and Content Creation</h3>
+<p><p>Artificial intelligence is increasingly being used to analyze user behavior and generate content. Understanding how to leverage AI tools can enhance content creation and optimization processes.</p></p>
+<h3>User Experience Signals</h3>
+<p><p>Google is placing greater emphasis on user experience signals, such as Core Web Vitals, which measure loading performance, interactivity, and visual stability. Ensuring your site meets these criteria will be pivotal for future SEO success.</p></p>
+<h3>E-A-T Principles</h3>
+<p><p>Google’s emphasis on Expertise, Authority, and Trustworthiness (E-A-T) is growing. Websites focusing on high-quality, authoritative content will have a competitive edge in search rankings.</p></p>
+<h3>Local SEO</h3>
+<p><p>As local searches continue to rise, optimizing for local SEO through location-based keywords and Google My Business is crucial for businesses targeting specific geographical areas.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>On-Page SEO is a fundamental aspect of search engine optimization that directly influences your website's visibility and user engagement. By mastering the principles of meta tags, headers, content quality, internal linking, user experience, image optimization, and URL structure, you can significantly enhance your site's performance in search engines.</p></p>
+<p><p>As you continue your learning journey in SEO, remember that On-Page SEO is not a one-time task but an ongoing process that requires regular updates and adjustments to keep pace with changing algorithms and user expectations. </p></p>
+<p><p>To deepen your understanding, consider exploring the latest trends such as voice search optimization, AI content creation, and local SEO strategies. </p></p>
+<p><p><strong>Call to Action</strong>: Start applying these On-Page SEO strategies on your website today and monitor your changes through analytical tools to see the improvements in traffic and user engagement!</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of meta tags in On-Page SEO?", "options": [{"id": "A", "text": "To increase website loading speed", "explanation": "Incorrect. While loading speed is important for SEO, meta tags do not directly influence it."}, {"id": "B", "text": "To describe the content of a webpage", "explanation": "Correct. Meta tags, such as title tags and meta descriptions, describe the content of a webpage and impact click-through rates."}, {"id": "C", "text": "To provide links to external websites", "explanation": "Incorrect. Meta tags do not provide links to external websites; they summarize content."}, {"id": "D", "text": "To improve social media engagement", "explanation": "Incorrect. Meta tags do not directly influence social media engagement."}], "correct_answer": "B"}, {"question": "Why is it important to optimize headers (H1, H2, H3, etc.) in web content?", "options": [{"id": "A", "text": "They improve the aesthetic design of the page", "explanation": "Incorrect. Although headers can enhance design, their primary purpose is functional."}, {"id": "B", "text": "They help structure content and improve readability", "explanation": "Correct. Headers help structure content, making it easier for both users and search engines to navigate."}, {"id": "C", "text": "They are used for internal linking", "explanation": "Incorrect. Internal linking is a separate practice; headers do not inherently create links."}, {"id": "D", "text": "They automatically generate keywords", "explanation": "Incorrect. Headers do not generate keywords; they are used to organize content."}], "correct_answer": "B"}, {"question": "What is a key benefit of internal linking within your website?", "options": [{"id": "A", "text": "It increases the number of backlinks", "explanation": "Incorrect. Internal linking does not create external backlinks; they are separate strategies."}, {"id": "B", "text": "It helps search engines understand site structure", "explanation": "Correct. Internal linking helps search engines understand the structure and hierarchy of your website."}, {"id": "C", "text": "It improves social media shares", "explanation": "Incorrect. Internal links do not directly influence social media shares."}, {"id": "D", "text": "It replaces the need for external links", "explanation": "Incorrect. Internal links do not replace external links; they serve different purposes."}], "correct_answer": "B"}, {"question": "How can image optimization benefit On-Page SEO?", "options": [{"id": "A", "text": "It increases image resolution", "explanation": "Incorrect. Image optimization often reduces file size, not necessarily resolution."}, {"id": "B", "text": "It speeds up page loading times and enhances accessibility", "explanation": "Correct. Properly optimized images can improve loading times and provide better accessibility through alt text."}, {"id": "C", "text": "It adds unnecessary metadata to images", "explanation": "Incorrect. Image optimization aims to minimize unnecessary metadata."}, {"id": "D", "text": "It allows for more images on a page", "explanation": "Incorrect. While image optimization can allow for more images, its primary benefits focus on speed and accessibility."}], "correct_answer": "B"}, {"question": "What is the significance of a clean URL structure in On-Page SEO?", "options": [{"id": "A", "text": "It improves the aesthetic appeal of the website", "explanation": "Incorrect. While clean URLs can enhance aesthetics, their primary significance is functional."}, {"id": "B", "text": "It helps users and search engines understand page content", "explanation": "Correct. A clean URL structure helps both users and search engines understand the content and context of a page."}, {"id": "C", "text": "It increases the website's loading speed", "explanation": "Incorrect. URL structure does not directly influence loading speed."}, {"id": "D", "text": "It allows for longer keywords in the URL", "explanation": "Incorrect. Clean URLs typically favor shorter, descriptive phrases rather than longer keywords."}], "correct_answer": "B"}], "why_it_matters": "Understanding On-Page SEO fundamentals is essential for optimizing your website effectively. By applying these strategies, you can enhance your visibility, drive more traffic, and create a better user experience, ultimately leading to greater success in your online endeavors."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
