@@ -1,0 +1,522 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: APIs**: Understanding RESTful APIs and how to interact with them using requests.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">APIs**: Understanding RESTful APIs and how to interact with them using requests.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: manishkumarfd7882@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Understanding RESTful APIs and How to Interact with Them Using Requests</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your journey in Python programming, you've acquired foundational skills that have set the stage for deeper learning. Your previous exploration of <strong>Networking</strong> and <strong>Web Scraping</strong> has introduced you to the essentials of how applications communicate over networks. Now, we will delve into a powerful concept that enhances this communication: <strong>Application Programming Interfaces (APIs)</strong>, specifically <strong>RESTful APIs</strong>. Understanding RESTful APIs will allow you to interact with web services effectively, enabling you to retrieve, send, and manipulate data over the internet.</p></p>
+<p><p>APIs are the bridges that connect different software components, allowing them to communicate and share data. RESTful APIs, based on the principles of Representational State Transfer (REST), are among the most common types of APIs used today due to their simplicity and effectiveness. By learning how to interact with RESTful APIs using the <strong>requests</strong> library in Python, you will gain the ability to work with data from various sources, enhancing your projects and applications.</p></p>
+<p><p>In this report, we'll explore the following key areas:</p>
+<ul>
+<li>Theoretical foundations of APIs and RESTful architecture</li>
+<li>How to interact with RESTful APIs using Python's requests library</li>
+<li>Real-world applications and examples</li>
+<li>Advanced applications and future directions of APIs</li>
+<li>An interactive quiz to test your understanding</p></li>
+</ul>
+<p><p>Let's embark on this exciting journey into the world of RESTful APIs!</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>1. What is an API?</h3>
+<p><p>An <strong>Application Programming Interface (API)</strong> is a set of rules and protocols that allows different software applications to communicate with each other. APIs define the methods and data formats that applications can use to request and exchange information. Think of an API as a waiter in a restaurant: you (the client) tell the waiter (the API) what you want from the menu (the server), and the waiter brings it back to you.</p></p>
+<h4>Types of APIs:</h4>
+<ul>
+<ul>
+<li><strong>Web APIs</strong>: These APIs allow interaction over the internet, often using HTTP protocols.</li>
+<li><strong>Library APIs</strong>: These are interfaces provided by programming libraries or frameworks to interact with their functionalities.</li>
+<li><strong>Operating System APIs</strong>: These provide commands for interacting with the operating system.</li>
+</ul>
+</ul>
+<h4>Example:</h4>
+<p><p>When you use a mobile app to check the weather, the app communicates with a web API that retrieves weather data from a server and sends it back to your device in a format it can understand.</p></p>
+<h3>2. Understanding REST</h3>
+<p><p><strong>Representational State Transfer (REST)</strong> is an architectural style for designing networked applications. It relies on a stateless, client-server communication model and uses standard HTTP methods. RESTful APIs are designed to take advantage of existing protocols and are built around resources, which are entities that can be accessed and manipulated.</p></p>
+<h4>Key Principles of REST:</h4>
+<ul>
+<ul>
+<li><strong>Statelessness</strong>: Each API call from the client to the server must contain all the information needed to understand and process the request. The server does not store any context about the client between requests.</li>
+<li><strong>Resource-Based</strong>: Resources are identified by URLs, and clients interact with these resources using standard HTTP methods.</li>
+<li><strong>Standard Methods</strong>: RESTful APIs use standard HTTP methods, including:</li>
+<li><strong>GET</strong>: Retrieve data from the server.</li>
+<li><strong>POST</strong>: Send data to the server to create a new resource.</li>
+<li><strong>PUT</strong>: Update an existing resource on the server.</li>
+<li><strong>DELETE</strong>: Remove a resource from the server.</li>
+</ul>
+</ul>
+<h4>Example:</h4>
+<p><p>Consider a library system as a RESTful service. Each book can be a resource identified by a URL like <code>http://library.com/books/1</code>. To retrieve the information about the book, you would send a GET request to that URL.</p></p>
+<h3>3. What is a RESTful API?</h3>
+<p><p>A <strong>RESTful API</strong> is an API that adheres to the principles of REST. It allows developers to build APIs that are scalable and easy to use. The data exchanged between the client and server is typically formatted in <strong>JSON (JavaScript Object Notation)</strong> or <strong>XML (eXtensible Markup Language)</strong>.</p></p>
+<h4>Characteristics of RESTful APIs:</h4>
+<ul>
+<ul>
+<li><strong>Lightweight</strong>: RESTful APIs use less bandwidth compared to other architectures, making them efficient for web applications.</li>
+<li><strong>Scalable</strong>: The statelessness and resource-based nature make RESTful APIs easier to scale.</li>
+<li><strong>Cacheable</strong>: Responses from RESTful APIs can be cached to improve performance.</li>
+</ul>
+</ul>
+<h4>Example:</h4>
+<p><p>A RESTful API for a social media platform might allow users to create posts, retrieve their feed, and manage their profiles through various endpoints like:</p>
+<ul>
+<li><code>GET /posts</code>: Retrieve all posts.</li>
+<li><code>POST /posts</code>: Create a new post.</li>
+<li><code>DELETE /posts/{id}</code>: Delete a post by ID.</p></li>
+</ul>
+<hr />
+<h2>Interacting with RESTful APIs Using Python's Requests Library</h2>
+<p><p>Now that we understand the foundational concepts of APIs and RESTful services, let's dive into how to interact with RESTful APIs using Python's requests library. This library simplifies the process of sending HTTP requests and handling responses.</p></p>
+<h3>1. Setting Up Your Environment</h3>
+<p><p>Before we proceed, ensure you have Python installed on your machine along with the <code>requests</code> library. You can install the requests library using pip:</p></p>
+<p><p><code>bash</p>
+<p>pip install requests</code></p></p>
+<h3>2. Making Your First API Call</h3>
+<p><p>Let’s start by making a simple GET request to a public API. For this example, we will use the JSONPlaceholder API, a free fake online REST API for testing and prototyping.</p></p>
+<h4>Example: Making a GET Request</h4>
+<p><p>```python</p>
+<p>import requests</p></p>
+<h1>Define the API endpoint</h1>
+<p><p>url = 'https://jsonplaceholder.typicode.com/posts'</p></p>
+<h1>Make a GET request</h1>
+<p><p>response = requests.get(url)</p></p>
+<h1>Check the status code</h1>
+<p><p>if response.status_code == 200:</p>
+<p># Parse the JSON response</p>
+<p>data = response.json()</p>
+<p>print(data)</p>
+<p>else:</p>
+<p>print(f"Error: {response.status_code}")</p>
+<p>```</p></p>
+<h4>Explanation:</h4>
+<ul>
+<ul>
+<li>We import the <code>requests</code> library.</li>
+<li>We define the URL of the API endpoint.</li>
+<li>We make a GET request to the endpoint.</li>
+<li>We check if the request was successful by examining the status code (200 indicates success).</li>
+<li>If successful, we parse the JSON response and print it.</li>
+</ul>
+</ul>
+<h3>3. Sending Data with POST Requests</h3>
+<p><p>Now that you've made a GET request, let's learn how to send data to a RESTful API using a POST request. This is commonly used for creating new resources.</p></p>
+<h4>Example: Making a POST Request</h4>
+<p><p>```python</p>
+<p>import requests</p></p>
+<h1>Define the API endpoint</h1>
+<p><p>url = 'https://jsonplaceholder.typicode.com/posts'</p></p>
+<h1>Create a new post</h1>
+<p><p>new_post = {</p>
+<p>"title": "My New Post",</p>
+<p>"body": "This is the content of the post.",</p>
+<p>"userId": 1</p>
+<p>}</p></p>
+<h1>Make a POST request</h1>
+<p><p>response = requests.post(url, json=new_post)</p></p>
+<h1>Check the status code</h1>
+<p><p>if response.status_code == 201:</p>
+<p>print("Post created successfully!")</p>
+<p>print(response.json())</p>
+<p>else:</p>
+<p>print(f"Error: {response.status_code}")</p>
+<p>```</p></p>
+<h4>Explanation:</h4>
+<ul>
+<ul>
+<li>We define a dictionary representing the new post.</li>
+<li>We send a POST request with the JSON data.</li>
+<li>If the request is successful (status code 201), we confirm the creation of the post and print the response.</li>
+</ul>
+</ul>
+<h3>4. Updating Resources with PUT Requests</h3>
+<p><p>To update existing resources, we use the PUT method. This replaces the entire resource with the data provided in the request.</p></p>
+<h4>Example: Making a PUT Request</h4>
+<p><p>```python</p>
+<p>import requests</p></p>
+<h1>Define the API endpoint</h1>
+<p><p>url = 'https://jsonplaceholder.typicode.com/posts/1'</p></p>
+<h1>Update the post</h1>
+<p><p>updated_post = {</p>
+<p>"id": 1,</p>
+<p>"title": "Updated Post Title",</p>
+<p>"body": "Updated content of the post.",</p>
+<p>"userId": 1</p>
+<p>}</p></p>
+<h1>Make a PUT request</h1>
+<p><p>response = requests.put(url, json=updated_post)</p></p>
+<h1>Check the status code</h1>
+<p><p>if response.status_code == 200:</p>
+<p>print("Post updated successfully!")</p>
+<p>print(response.json())</p>
+<p>else:</p>
+<p>print(f"Error: {response.status_code}")</p>
+<p>```</p></p>
+<h4>Explanation:</h4>
+<ul>
+<ul>
+<li>We specify the URL of the post to be updated.</li>
+<li>We create a dictionary with the updated data.</li>
+<li>We send a PUT request with the updated JSON data.</li>
+</ul>
+</ul>
+<h3>5. Deleting Resources with DELETE Requests</h3>
+<p><p>Lastly, to remove a resource, we use the DELETE method.</p></p>
+<h4>Example: Making a DELETE Request</h4>
+<p><p>```python</p>
+<p>import requests</p></p>
+<h1>Define the API endpoint</h1>
+<p><p>url = 'https://jsonplaceholder.typicode.com/posts/1'</p></p>
+<h1>Make a DELETE request</h1>
+<p><p>response = requests.delete(url)</p></p>
+<h1>Check the status code</h1>
+<p><p>if response.status_code == 204:</p>
+<p>print("Post deleted successfully!")</p>
+<p>else:</p>
+<p>print(f"Error: {response.status_code}")</p>
+<p>```</p></p>
+<h4>Explanation:</h4>
+<ul>
+<ul>
+<li>We specify the URL of the post to be deleted.</li>
+<li>We send a DELETE request to remove the resource.</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications of RESTful APIs</h2>
+<p><p>RESTful APIs are widely used across various industries and applications. Here are some real-world scenarios where they play a critical role:</p></p>
+<h3>1. Social Media Platforms</h3>
+<p><p>Social media platforms like Facebook and Twitter provide RESTful APIs that allow developers to access user data, post updates, and retrieve feeds. For instance, a developer can create an application that displays a user's Twitter feed by fetching data using the Twitter API.</p></p>
+<h3>2. E-Commerce</h3>
+<p><p>E-commerce websites utilize RESTful APIs to manage product listings, handle user authentication, and process payments. For example, an online store might use an API to fetch product details or update inventory levels in real-time.</p></p>
+<h3>3. Weather Services</h3>
+<p><p>Weather applications use APIs to retrieve real-time weather data from various providers. A developer can create an application that shows current weather conditions by accessing a weather API like OpenWeatherMap.</p></p>
+<h3>4. Financial Services</h3>
+<p><p>Financial institutions use RESTful APIs to provide secure access to banking services, transactions, and account information. Developers can create applications that allow users to check account balances or transfer funds securely.</p></p>
+<h3>5. Internet of Things (IoT)</h3>
+<p><p>In IoT, devices often communicate with servers through RESTful APIs. For example, smart home devices may send data to a central server, where it can be analyzed or controlled remotely through a RESTful API.</p></p>
+<hr />
+<h2>Advanced Applications and Future Directions</h2>
+<p><p>As technology evolves, the landscape of APIs continues to change. Here are some advanced applications and emerging trends to watch:</p></p>
+<h3>1. GraphQL</h3>
+<p><p>While RESTful APIs are widely used, GraphQL is gaining popularity as an alternative. GraphQL allows clients to request only the data they need, reducing the amount of data transferred over the network and improving performance.</p></p>
+<h3>2. API Management Platforms</h3>
+<p><p>As the number of APIs grows, so does the need for effective management. API management platforms help organizations control access, monitor usage, and ensure security across their APIs.</p></p>
+<h3>3. Microservices Architecture</h3>
+<p><p>The microservices architecture promotes the development of applications as a collection of loosely coupled services, each exposed through RESTful APIs. This approach enhances scalability and maintainability.</p></p>
+<h3>4. Increased Focus on Security</h3>
+<p><p>As APIs become critical components of applications, security becomes paramount. Organizations are investing in securing their APIs through authentication, authorization, and encryption mechanisms.</p></p>
+<h3>5. AI and Machine Learning Integration</h3>
+<p><p>APIs are increasingly being used to integrate AI and machine learning services into applications, allowing developers to leverage advanced data processing capabilities without needing deep expertise in these areas.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Understanding RESTful APIs and how to interact with them using the requests library is a vital skill for any aspiring developer. As you've learned, APIs enable applications to communicate, share data, and extend functionalities in a modular way. This knowledge not only enhances your programming skill set but also opens doors to countless real-world applications and innovations.</p></p>
+<p><p>As you continue exploring the world of APIs, consider building projects that utilize various APIs for different functionalities. Engage with the community, contribute to open-source projects, and stay updated on the latest trends in API development.</p></p>
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What does API stand for?", "options": [{"id": "A", "text": "Application Protocol Interface", "explanation": "Incorrect. This is a misinterpretation of the acronym."}, {"id": "B", "text": "Application Programming Interface", "explanation": "Correct. API stands for Application Programming Interface."}, {"id": "C", "text": "Automatic Programming Interface", "explanation": "Incorrect. This option does not accurately reflect the acronym."}, {"id": "D", "text": "Automated Protocol Interface", "explanation": "Incorrect. This option does not correspond to the meaning of API."}], "correct_answer": "B"}, {"question": "Which HTTP method is used to create a new resource in a RESTful API?", "options": [{"id": "A", "text": "GET", "explanation": "Incorrect. GET is used to retrieve data."}, {"id": "B", "text": "POST", "explanation": "Correct. POST is the method used to create a new resource."}, {"id": "C", "text": "PUT", "explanation": "Incorrect. PUT is used to update an existing resource."}, {"id": "D", "text": "DELETE", "explanation": "Incorrect. DELETE is used to remove a resource."}], "correct_answer": "B"}, {"question": "What is a characteristic of RESTful APIs?", "options": [{"id": "A", "text": "They maintain session state between requests.", "explanation": "Incorrect. RESTful APIs are stateless and do not maintain session state."}, {"id": "B", "text": "They use a single endpoint for all operations.", "explanation": "Incorrect. RESTful APIs usually have multiple endpoints for different resources."}, {"id": "C", "text": "They are stateless, meaning each request contains all necessary information.", "explanation": "Correct. RESTful APIs are stateless; each request must contain all necessary information."}, {"id": "D", "text": "They are restricted to XML data format only.", "explanation": "Incorrect. RESTful APIs can use JSON or XML data formats."}], "correct_answer": "C"}, {"question": "Which of the following is NOT a standard HTTP method used in RESTful APIs?", "options": [{"id": "A", "text": "GET", "explanation": "Incorrect. GET is a standard HTTP method for retrieving data."}, {"id": "B", "text": "PATCH", "explanation": "Incorrect. PATCH is a standard HTTP method used to make partial updates."}, {"id": "C", "text": "EXECUTE", "explanation": "Correct. EXECUTE is not a standard HTTP method."}, {"id": "D", "text": "DELETE", "explanation": "Incorrect. DELETE is a standard HTTP method for removing resources."}], "correct_answer": "C"}, {"question": "Why is it important for APIs to be cacheable?", "options": [{"id": "A", "text": "To improve data security", "explanation": "Incorrect. Cacheability is not primarily about security."}, {"id": "B", "text": "To reduce server load and increase performance", "explanation": "Correct. Caching responses helps reduce server load and improve performance."}, {"id": "C", "text": "To maintain user sessions", "explanation": "Incorrect. Caching does not relate to maintaining user sessions."}, {"id": "D", "text": "To ensure all data is sent in XML format", "explanation": "Incorrect. Cacheability does not dictate data formats."}], "correct_answer": "B"}], "why_it_matters": "Understanding APIs and how to interact with them is crucial for modern software development. As you progress, consider experimenting with different APIs to build applications that leverage real-world data and services."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
