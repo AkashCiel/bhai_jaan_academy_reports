@@ -1,0 +1,480 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Functions</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Functions</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: check@razorpay.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h2>Introduction: Connecting Functions to Your Python Journey</h2>
+<p><p>As you continue your Python programming journey, you're stepping into a vital concept that will significantly enhance your coding capabilities: <strong>functions</strong>. Building upon your foundational understanding of <strong>basic syntax</strong>, <strong>data types</strong>, and <strong>control structures</strong>, functions will empower you to write more organized, modular, and reusable code. Just like a recipe in a cookbook allows for the preparation of a dish without needing to re-explain each ingredient every time, functions in Python encapsulate code that can be reused throughout your programs.</p></p>
+<p><p>In this report, we will explore the concept of functions in depth, covering their definitions, types, benefits, and real-world applications. You will also see how functions connect to the control structures you previously learned, enhancing your ability to manage program flow and logic. By the end of this report, you'll have a comprehensive understanding of functions in Python, along with practical insights and challenges that will pave the way for your growth as a programmer.</p></p>
+<hr />
+<h2>Key Concepts of Functions</h2>
+<h3>Definition of a Function</h3>
+<p><p>A <strong>function</strong> is a named block of code designed to perform a specific task. Functions help organize code into manageable sections, making it easier to read, maintain, and reuse. They can take parameters (inputs), perform operations, and return results (outputs). </p></p>
+<h4>Example of a Simple Function</h4>
+<p><p>Here’s a basic example of a function in Python:</p></p>
+<p><p><code>python</p>
+<p>def greet(name):</p>
+<p>return f"Hello, {name}!"</code></p></p>
+<p><p>In this example, <code>greet</code> is the function's name, and <code>name</code> is a parameter that allows you to pass in different names when calling the function.</p></p>
+<h3>Types of Functions</h3>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Built-in Functions</strong>: Python comes with many built-in functions, such as <code>print()</code>, <code>len()</code>, and <code>type()</code>. These functions are readily available for you to use without additional definitions.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>User-defined Functions</strong>: These are functions created by the programmer to perform specific tasks. You define these functions using the <code>def</code> keyword.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Anonymous Functions (Lambda Functions)</strong>: These are functions defined without a name using the <code>lambda</code> keyword, typically for short, simple operations.</p></p>
+<p></li></p>
+<p></ol></p>
+<h4>Example of a Lambda Function</h4>
+<p><p>Here's how you can define a simple lambda function to double a number:</p></p>
+<p><p><code>python</p>
+<p>double = lambda x: x * 2</code></p></p>
+<h3>Function Parameters and Arguments</h3>
+<p><p>Functions can accept inputs in the form of parameters. When you call a function, you provide arguments that correspond to these parameters.</p></p>
+<h4>Types of Parameters</h4>
+<ul>
+<ul>
+<li><strong>Positional Parameters</strong>: These are the most common type, where the order of arguments matters.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>def add(x, y):</p>
+<p>return x + y</code></p></p>
+<ul>
+<ul>
+<li><strong>Keyword Parameters</strong>: These allow you to specify which parameter you are providing values for, regardless of the order.</li>
+</ul>
+</ul>
+<p><p>```python</p>
+<p>def display_info(name, age):</p>
+<p>print(f"{name} is {age} years old.")</p></p>
+<p><p>display_info(age=30, name="Alice")</p>
+<p>```</p></p>
+<ul>
+<ul>
+<li><strong>Default Parameters</strong>: These parameters have default values that will be used if no argument is provided for them.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>def greet(name="World"):</p>
+<p>return f"Hello, {name}!"</code></p></p>
+<h3>Return Statement</h3>
+<p><p>The <code>return</code> statement is used to send back a result from a function. If there is no return statement, the function will return <code>None</code> by default.</p></p>
+<p><p><code>python</p>
+<p>def square(number):</p>
+<p>return number ** 2</code></p></p>
+<h3>Scope of Variables</h3>
+<p><p>Understanding the <strong>scope</strong> of variables within functions is essential. Variables defined inside a function are local to that function and cannot be accessed outside it.</p></p>
+<p><p>```python</p>
+<p>def my_function():</p>
+<p>local_var = "I am local"</p>
+<p>return local_var</p></p>
+<p><p>print(my_function())  # This will work</p>
+<p>print(local_var)      # This will raise a NameError</p>
+<p>```</p></p>
+<hr />
+<h2>Real-World Applications of Functions</h2>
+<p><p>Functions are not just a theoretical concept; they have numerous real-world applications across various fields:</p></p>
+<h3>1. Software Development</h3>
+<p><p>In software development, functions help break down complex tasks into smaller, manageable pieces. For example, in a web application, you might have functions for user authentication, data retrieval, and data processing.</p></p>
+<h3>2. Data Analysis</h3>
+<p><p>When analyzing data with libraries like Pandas or NumPy, functions allow you to create reusable code for data cleaning, transformation, and visualization. For instance, you can define a function that standardizes data formats or calculates summary statistics.</p></p>
+<h3>3. Automation</h3>
+<p><p>In scripting and automation tasks, functions can streamline processes. For example, consider a function that automates the process of sending emails or generating reports. This not only saves time but also reduces human error.</p></p>
+<h3>4. Game Development</h3>
+<p><p>In game development, functions can encapsulate behaviors such as player movements, scoring systems, and game physics. By organizing code into functions, developers can create complex games more efficiently.</p></p>
+<h3>5. Machine Learning</h3>
+<p><p>Functions play a critical role in machine learning, where they can serve as models, loss functions, or evaluation metrics. For instance, you can define functions for training models and making predictions based on input data.</p></p>
+<hr />
+<h2>Theoretical Foundations of Functions</h2>
+<h3>Importance of Functions in Programming</h3>
+<p><p>Functions are foundational to programming because they promote:</p></p>
+<ul>
+<ul>
+<li><strong>Code Reusability</strong>: Write once, use many times. Functions help avoid redundancy.</li>
+<li><strong>Organization</strong>: Functions help structure code, making it easier to read and navigate.</li>
+<li><strong>Abstraction</strong>: By using functions, programmers can hide complex logic, exposing only the necessary interface to users.</li>
+</ul>
+</ul>
+<h3>Functional Programming Paradigm</h3>
+<p><p>Functions are central to the <strong>functional programming</strong> paradigm, which emphasizes the use of functions as the primary building blocks of programs. This approach encourages immutability and pure functions, where the output depends solely on the input.</p></p>
+<h3>Higher-Order Functions</h3>
+<p><p>In Python, functions can accept other functions as arguments or return them as results. This is known as a <strong>higher-order function</strong>. This capability allows for advanced programming techniques, such as decorators and callbacks.</p></p>
+<h4>Example of a Higher-Order Function</h4>
+<p><p>```python</p>
+<p>def apply_function(func, value):</p>
+<p>return func(value)</p></p>
+<p><p>result = apply_function(lambda x: x + 1, 10)  # result is 11</p>
+<p>```</p></p>
+<hr />
+<h2>Practical Implementation Considerations</h2>
+<p><p>When implementing functions, consider the following best practices:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Descriptive Naming</strong>: Choose clear and descriptive names for functions to convey their purpose.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Single Responsibility Principle</strong>: Each function should focus on a single task or responsibility.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Documentation</strong>: Use docstrings to document what the function does, its parameters, and its return values.</p></p>
+<p></li></p>
+<p></ol></p>
+<p><p><code>python</p>
+<p>def divide(x, y):</p>
+<p>"""Divides x by y and returns the result."""</p>
+<p>return x / y</code></p></p>
+<p><ol></p>
+<ul>
+<li><strong>Testing</strong>: Implement tests for your functions to ensure they work correctly and handle edge cases.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>Common Misconceptions About Functions</h2>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Functions Must Always Return a Value</strong>: While many functions return values, some are designed for their side effects (e.g., printing to the console).</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>You Can Only Use Functions Once</strong>: Functions can be called multiple times throughout your code, enhancing reusability.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Functions Are Only for Complex Tasks</strong>: Even simple tasks can benefit from being encapsulated in functions for better organization.</p></p>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>Conclusion: Embracing Functions in Your Learning Journey</h2>
+<p><p>Functions are a powerful tool in your programming toolkit, enabling you to write cleaner, more efficient, and reusable code. As you continue to explore Python, you will find that mastering functions will open doors to more advanced topics such as object-oriented programming and functional programming paradigms.</p></p>
+<p><p>Now that you have a solid understanding of functions, consider applying this knowledge in a small project or by contributing to an open-source project. This hands-on experience will cement your understanding and showcase the value of functions in programming.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What keyword is used to define a function in Python?", "options": [{"id": "A", "text": "func", "explanation": "Incorrect. \"func\" is not a keyword in Python."}, {"id": "B", "text": "define", "explanation": "Incorrect. \"define\" is not a keyword in Python."}, {"id": "C", "text": "def", "explanation": "Correct. The keyword \"def\" is used to define a function."}, {"id": "D", "text": "function", "explanation": "Incorrect. \"function\" is not a keyword in Python."}], "correct_answer": "C"}, {"question": "What does the `return` statement do in a function?", "options": [{"id": "A", "text": "It ends the function execution without returning a value.", "explanation": "Incorrect. The `return` statement does end function execution, but it also returns a value."}, {"id": "B", "text": "It sends a value back to the caller of the function.", "explanation": "Correct. The `return` statement sends a value back to the caller of the function."}, {"id": "C", "text": "It prints the value to the console.", "explanation": "Incorrect. `print` is used for outputting to the console; it does not return a value."}, {"id": "D", "text": "It creates a new function.", "explanation": "Incorrect. The `return` statement does not create a new function."}], "correct_answer": "B"}, {"question": "What is a lambda function in Python?", "options": [{"id": "A", "text": "A function that runs in parallel with other functions.", "explanation": "Incorrect. A lambda function does not imply parallel execution."}, {"id": "B", "text": "A function defined without a name, typically for short operations.", "explanation": "Correct. A lambda function is defined without a name and is used for short operations."}, {"id": "C", "text": "A function that cannot take parameters.", "explanation": "Incorrect. Lambda functions can take parameters."}, {"id": "D", "text": "A function that is defined using the `def` keyword.", "explanation": "Incorrect. Lambda functions use the `lambda` keyword, not `def`."}], "correct_answer": "B"}, {"question": "Which of the following is NOT a type of parameter in Python functions?", "options": [{"id": "A", "text": "Positional Parameters", "explanation": "Incorrect. Positional parameters are valid and widely used."}, {"id": "B", "text": "Keyword Parameters", "explanation": "Incorrect. Keyword parameters allow specifying which argument to use."}, {"id": "C", "text": "Dynamic Parameters", "explanation": "Correct. \"Dynamic Parameters\" is not a recognized type of parameter in Python."}, {"id": "D", "text": "Default Parameters", "explanation": "Incorrect. Default parameters provide default values for function arguments."}], "correct_answer": "C"}, {"question": "How can you document a function in Python?", "options": [{"id": "A", "text": "Using comments within the function.", "explanation": "Incorrect. While comments can help, they are not formal documentation."}, {"id": "B", "text": "Using a docstring immediately after the function definition.", "explanation": "Correct. A docstring is a string literal that occurs as the first statement in a function and is used for documentation."}, {"id": "C", "text": "Using a separate text file.", "explanation": "Incorrect. While you can document in a separate file, it's not standard practice for function documentation."}, {"id": "D", "text": "Python does not support documentation for functions.", "explanation": "Incorrect. Python supports documentation for functions through docstrings."}], "correct_answer": "B"}], "why_it_matters": "Understanding functions is crucial for effective programming. They allow you to write organized, maintainable, and reusable code, which is essential as your projects grow in complexity. Keep practicing and exploring functions to enhance your skills further!"};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
