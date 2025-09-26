@@ -1,0 +1,424 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Data Structures</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Data Structures</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: check@razorpay.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Comprehensive Educational Report on Data Structures</h1>
+<h2>Introduction:</h2>
+<p><p>As you've journeyed through your learning of Python, you've developed a strong grasp of its syntax, basic data types, control structures, and functions. Each of these elements has equipped you with the foundational tools necessary for programming effectively. Now, we are ready to delve deeper into an essential topic in computer science: <strong>Data Structures</strong>.</p></p>
+<p><p>Data structures are ways of organizing and storing data so that it can be accessed and modified efficiently. They are the backbone of all software applications, influencing not just how data is stored but also how it can be manipulated, retrieved, and processed. Understanding data structures is crucial for optimizing algorithms and writing high-performance code.</p></p>
+<p><p>In this report, we will cover various types of data structures, their theoretical foundations, practical applications, and the future directions of the field. By the end of this report, you will have a comprehensive understanding of data structures, their importance in programming, and how they relate to your existing knowledge of Python and software development.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>1. What Are Data Structures?</h3>
+<p><p><strong>Definition:</strong> Data structures are specialized formats for organizing, processing, and storing data. They enable efficient access and modification of data.</p></p>
+<p><p><strong>Key Characteristics:</strong></p>
+<ul>
+<li><strong>Efficiency:</strong> Different data structures offer different efficiencies for various operations (insertion, deletion, accessing elements).</li>
+<li><strong>Organization:</strong> Data structures provide a systematic way to manage data.</li>
+<li><strong>Storage:</strong> They define how data is stored in memory.</p></li>
+</ul>
+<p><p><strong>Examples:</strong> Arrays, linked lists, stacks, queues, trees, graphs, hash tables, etc.</p></p>
+<hr />
+<h3>2. Types of Data Structures</h3>
+<p><p>Data structures can be broadly categorized into two types: <strong>primitive</strong> and <strong>non-primitive</strong>.</p></p>
+<h4>2.1 Primitive Data Structures</h4>
+<p><p>Primitive data structures are the basic building blocks of data manipulation. They are typically built into the programming language.</p></p>
+<ul>
+<ul>
+<li><strong>Integers:</strong> Whole numbers, e.g., <code>x = 5</code></li>
+<li><strong>Floats:</strong> Decimal numbers, e.g., <code>y = 3.14</code></li>
+<li><strong>Characters:</strong> Single letters or symbols, e.g., <code>char = 'A'</code></li>
+<li><strong>Booleans:</strong> True/false values, e.g., <code>is_active = True</code></li>
+</ul>
+</ul>
+<h4>2.2 Non-Primitive Data Structures</h4>
+<p><p>Non-primitive data structures are more complex and are constructed using primitive data types. They include:</p></p>
+<ul>
+<ul>
+<li><strong>Arrays:</strong> A collection of items stored at contiguous memory locations. </li>
+<li><strong>Example:</strong> <code>arr = [1, 2, 3, 4, 5]</code></li>
+<li><strong>Linked Lists:</strong> A sequence of elements where each element points to the next, allowing for efficient insertions and deletions.</li>
+<li><strong>Example:</strong> A list of nodes, where each node contains data and a reference to the next node.</li>
+<li><strong>Stacks:</strong> A last-in, first-out (LIFO) structure where the last element added is the first one to be removed.</li>
+<li><strong>Example:</strong> Browser history, where the most recently visited page is the first to go back.</li>
+<li><strong>Queues:</strong> A first-in, first-out (FIFO) structure where the first element added is the first one to be removed.</li>
+<li><strong>Example:</strong> Print queue in a printer, where the first document sent is printed first.</li>
+<li><strong>Trees:</strong> A hierarchical structure where each node has a value and references to child nodes.</li>
+<li><strong>Example:</strong> File systems, where directories can contain files and other directories.</li>
+<li><strong>Graphs:</strong> A collection of nodes connected by edges, allowing for complex relationships.</li>
+<li><strong>Example:</strong> Social networks, where users (nodes) are connected by friendships (edges).</li>
+<li><strong>Hash Tables:</strong> A structure that maps keys to values for efficient data retrieval.</li>
+<li><strong>Example:</strong> A dictionary in Python, e.g., <code>phonebook = {"Alice": "123-456-7890"}</code></li>
+</ul>
+</ul>
+<hr />
+<h3>3. Theoretical Foundations of Data Structures</h3>
+<p><p>Understanding the theoretical foundations of data structures involves grasping their characteristics and how they operate. Let’s explore some fundamental concepts.</p></p>
+<h4>3.1 Time Complexity</h4>
+<p><p>Time complexity measures the time an algorithm takes to complete as a function of input size. It helps understand how efficient a data structure is. Common complexities include:</p></p>
+<ul>
+<ul>
+<li><strong>O(1)</strong>: Constant time. Example: Accessing an element in an array.</li>
+<li><strong>O(n)</strong>: Linear time. Example: Searching for an element in a linked list.</li>
+<li><strong>O(log n)</strong>: Logarithmic time. Example: Searching in a balanced binary search tree.</li>
+<li><strong>O(n^2)</strong>: Quadratic time. Example: Bubble sort.</li>
+</ul>
+</ul>
+<h4>3.2 Space Complexity</h4>
+<p><p>Space complexity measures the amount of memory an algorithm uses as a function of input size. Like time complexity, it is crucial for assessing the efficiency of a data structure.</p></p>
+<hr />
+<h3>4. Practical Implications and Real-World Applications</h3>
+<p><p>Data structures are not just theoretical constructs; they have real-world applications across various domains. Here are some examples:</p></p>
+<ul>
+<ul>
+<li><strong>Web Development:</strong> Data structures like hash tables and trees help manage user data and ensure quick access to user profiles.</li>
+<li><strong>Artificial Intelligence:</strong> Graphs are used to represent networks and relationships, aiding in social network analysis and pathfinding algorithms.</li>
+<li><strong>Game Development:</strong> Stacks and queues manage game states, while trees help in organizing game levels and scenes.</li>
+<li><strong>Database Management:</strong> Data structures optimize how data is stored, accessed, and updated in databases, improving performance significantly.</li>
+<li><strong>Networking:</strong> Queues handle data packets sent over the network, ensuring efficient data transmission.</li>
+</ul>
+</ul>
+<h3>Story Example: The Journey of a Data Structure</h3>
+<p><p>Imagine you are building a library management system. You need to manage books, borrowers, and transactions. Your journey begins with deciding how to store books. You choose an array for its simplicity, allowing easy access to books by their index. However, as the library grows, you realize that books need to be frequently added and removed. Thus, you transition to a linked list, allowing dynamic resizing.</p></p>
+<p><p>As you delve deeper, you introduce a hash table to quickly retrieve books by their ISBN. Borrowers are managed using a queue to ensure that the first person who wants a book gets it first. Furthermore, you decide to implement a binary search tree to categorize books based on genres, making it easier for users to navigate.</p></p>
+<p><p>Through this story, you can see how the choice of data structures directly impacts the efficiency and usability of the system. Each decision reflects your understanding of the strengths and weaknesses of various data structures.</p></p>
+<hr />
+<h2>Current State and Future Directions</h2>
+<h3>1. Emerging Technologies</h3>
+<p><p>The field of data structures is constantly evolving with the advent of new technologies. Some emerging trends include:</p></p>
+<ul>
+<ul>
+<li><strong>Big Data:</strong> With the explosion of data, new data structures are being developed to handle vast amounts of information efficiently.</li>
+<li><strong>Machine Learning:</strong> Data structures are optimized for processing and analyzing data, enhancing the performance of machine learning algorithms.</li>
+<li><strong>Distributed Systems:</strong> New data structures are being designed to manage data across multiple nodes effectively, addressing challenges in consistency and availability.</li>
+</ul>
+</ul>
+<h3>2. Research Challenges</h3>
+<p><p>Several research challenges exist in the realm of data structures:</p></p>
+<ul>
+<ul>
+<li><strong>Dynamic Data Structures:</strong> Developing structures that can adapt to real-time changes in data while maintaining efficiency.</li>
+<li><strong>Memory Optimization:</strong> Creating data structures that require minimal memory, particularly for mobile and embedded systems.</li>
+<li><strong>Concurrency:</strong> Designing data structures that can be accessed and modified by multiple threads without causing inconsistencies.</li>
+</ul>
+</ul>
+<h3>3. Industry Trends</h3>
+<p><p>As businesses increasingly rely on data-driven decisions, the demand for efficient data structures continues to grow. Industries are investing in research and development to create optimized data solutions that can scale with their needs.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In this report, we explored the fascinating world of data structures, building upon your foundational knowledge of Python. We examined various types of data structures, their theoretical underpinnings, and their practical applications across different industries. By understanding data structures, you are better equipped to write efficient code and solve complex problems.</p></p>
+<p><p>As you continue your learning journey, consider experimenting with different data structures in Python. Implement them in small projects to deepen your understanding and see their impact on performance. </p></p>
+<h3>Call to Action</h3>
+<p><p>Dive into the world of data structures by experimenting with Python’s built-in data types and libraries. Try implementing a stack or a queue and see how they operate. Explore more complex data structures like trees and graphs through hands-on projects.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is a data structure?", "options": [{"id": "A", "text": "A method of sorting data", "explanation": "Incorrect. Sorting data is an operation that can be performed on data structures but does not define what a data structure is."}, {"id": "B", "text": "A way of organizing and storing data", "explanation": "Correct. A data structure is indeed a specialized format for organizing and storing data."}, {"id": "C", "text": "A type of programming language", "explanation": "Incorrect. A programming language is a tool for writing code but is not a data structure itself."}, {"id": "D", "text": "A user interface element", "explanation": "Incorrect. User interface elements are components of a graphical interface, not data structures."}], "correct_answer": "B"}, {"question": "Which of the following best describes a stack?", "options": [{"id": "A", "text": "First-in, first-out structure", "explanation": "Incorrect. A stack operates on a last-in, first-out basis, opposite of FIFO."}, {"id": "B", "text": "Last-in, first-out structure", "explanation": "Correct. A stack is defined as a last-in, first-out (LIFO) structure."}, {"id": "C", "text": "A type of array", "explanation": "Incorrect. While stacks can be implemented using arrays, they are not inherently a type of array."}, {"id": "D", "text": "A hierarchical structure", "explanation": "Incorrect. A hierarchical structure is more akin to a tree, not a stack."}], "correct_answer": "B"}, {"question": "What is the time complexity of accessing an element in an array?", "options": [{"id": "A", "text": "O(n)", "explanation": "Incorrect. O(n) represents a linear search through the array, not direct access."}, {"id": "B", "text": "O(log n)", "explanation": "Incorrect. O(log n) is typical of binary search in sorted data structures, not array access."}, {"id": "C", "text": "O(1)", "explanation": "Correct. Accessing an element in an array is done in constant time, O(1)."}, {"id": "D", "text": "O(n^2)", "explanation": "Incorrect. O(n^2) complexity is often associated with nested loops, not direct access."}], "correct_answer": "C"}, {"question": "Which data structure would be most suitable for implementing a priority queue?", "options": [{"id": "A", "text": "Stack", "explanation": "Incorrect. While you can use a stack, it does not support prioritization."}, {"id": "B", "text": "Array", "explanation": "Incorrect. An array can implement a priority queue but is not the most efficient choice."}, {"id": "C", "text": "Linked List", "explanation": "Incorrect. A linked list may allow for dynamic sizing but does not provide efficient priority management."}, {"id": "D", "text": "Heap", "explanation": "Correct. A heap is specifically designed to support efficient priority queue operations."}], "correct_answer": "D"}, {"question": "What is one advantage of using a linked list over an array?", "options": [{"id": "A", "text": "Better memory locality", "explanation": "Incorrect. Arrays provide better memory locality due to contiguous storage."}, {"id": "B", "text": "Constant time access", "explanation": "Incorrect. Linked lists do not provide constant time access; accessing an element requires traversing the list."}, {"id": "C", "text": "Dynamic resizing", "explanation": "Correct. Linked lists can dynamically resize without needing to allocate a new array."}, {"id": "D", "text": "Easier implementation", "explanation": "Incorrect. Implementation of linked lists is generally more complex than arrays."}], "correct_answer": "C"}], "why_it_matters": "Understanding data structures is critical for efficient programming and algorithm design. Mastering these concepts will enhance your problem-solving skills and prepare you for advanced topics in computer science and software development."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
