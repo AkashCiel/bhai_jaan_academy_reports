@@ -1,0 +1,580 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Data Structures**: Understanding stacks, queues, linked lists, and trees.</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Data Structures**: Understanding stacks, queues, linked lists, and trees.</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: manishkumarfd7882@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Data Structures: Understanding Stacks, Queues, Linked Lists, and Trees</h1>
+<h2>Introduction:</h2>
+<p><p>In your journey through <strong>Python Programming for Beginners</strong>, you have explored the foundational concepts of programming, including data types, control structures, and functions. Now, we delve deeper into the realm of <strong>data structures</strong>, which are essential for organizing and storing data efficiently. Understanding data structures is crucial because they provide the necessary means to manage data in a way that optimizes performance and resource usage.</p></p>
+<p><p>Data structures serve as the backbone of software development. They determine how data is stored, accessed, and manipulated, which directly impacts the efficiency of algorithms and the overall performance of applications. As you have encountered lists and dictionaries in your previous studies, we will now expand on these concepts by introducing more complex structures: <strong>stacks</strong>, <strong>queues</strong>, <strong>linked lists</strong>, and <strong>trees</strong>. Each of these structures has unique properties, use cases, and applications that we will explore in-depth.</p></p>
+<p><p>By the end of this report, you will not only understand these data structures but also appreciate their significance in real-world applications, as well as their relevance in current and future technologies. </p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>1. Stacks</h3>
+<h4>Definition:</h4>
+<p><p>A <strong>stack</strong> is a linear data structure that follows the Last In, First Out (LIFO) principle. This means that the last element added to the stack is the first one to be removed. You can think of a stack like a stack of plates; you can only remove the top plate without disturbing the ones below.</p></p>
+<h4>Key Operations:</h4>
+<ul>
+<ul>
+<li><strong>Push</strong>: Add an element to the top of the stack.</li>
+<li><strong>Pop</strong>: Remove the top element from the stack.</li>
+<li><strong>Peek</strong>: Retrieve the top element without removing it.</li>
+<li><strong>IsEmpty</strong>: Check if the stack is empty.</li>
+</ul>
+</ul>
+<h4>Real-World Applications:</h4>
+<ul>
+<ul>
+<li><strong>Undo Mechanisms</strong>: In applications like text editors, stacks are used to implement the undo feature. Each action is pushed onto the stack, allowing users to revert their last action easily.</li>
+<li><strong>Function Call Management</strong>: In programming, stacks manage function calls. Each function call is pushed onto the stack, and when a function completes, it is popped off the stack, returning control to the previous function.</li>
+</ul>
+</ul>
+<h4>Example in Python:</h4>
+<p><p>```python</p>
+<p>class Stack:</p>
+<p>def <strong>init</strong>(self):</p>
+<p>self.items = []</p></p>
+<p><pre><code>def push(self, item):</p>
+<p>self.items.append(item)</p>
+<p>def pop(self):</p>
+<p>if not self.is_empty():</p>
+<p>return self.items.pop()</p>
+<p>return None</p>
+<p>def peek(self):</p>
+<p>if not self.is_empty():</p>
+<p>return self.items[-1]</p>
+<p>return None</p>
+<p>def is_empty(self):</p>
+<p>return len(self.items) == 0</p>
+<p></code></pre></p>
+<h1>Usage</h1>
+<p><p>stack = Stack()</p>
+<p>stack.push(1)</p>
+<p>stack.push(2)</p>
+<p>print(stack.pop())  # Output: 2</p>
+<p>print(stack.peek())  # Output: 1</p>
+<p>```</p></p>
+<h3>2. Queues</h3>
+<h4>Definition:</h4>
+<p><p>A <strong>queue</strong> is a linear data structure that follows the First In, First Out (FIFO) principle. This means that the first element added to the queue will be the first one to be removed. Imagine a line of people waiting for a bus; the first person to get in line is the first to board the bus.</p></p>
+<h4>Key Operations:</h4>
+<ul>
+<ul>
+<li><strong>Enqueue</strong>: Add an element to the end of the queue.</li>
+<li><strong>Dequeue</strong>: Remove the front element from the queue.</li>
+<li><strong>Front</strong>: Retrieve the front element without removing it.</li>
+<li><strong>IsEmpty</strong>: Check if the queue is empty.</li>
+</ul>
+</ul>
+<h4>Real-World Applications:</h4>
+<ul>
+<ul>
+<li><strong>Task Scheduling</strong>: Queues are used in operating systems for task scheduling. Processes are queued for execution, ensuring that tasks are handled in the order they arrive.</li>
+<li><strong>Print Queue</strong>: In a printer, print jobs are managed using a queue, where the first document sent to print is the first one to be printed.</li>
+</ul>
+</ul>
+<h4>Example in Python:</h4>
+<p><p>```python</p>
+<p>class Queue:</p>
+<p>def <strong>init</strong>(self):</p>
+<p>self.items = []</p></p>
+<p><pre><code>def enqueue(self, item):</p>
+<p>self.items.append(item)</p>
+<p>def dequeue(self):</p>
+<p>if not self.is_empty():</p>
+<p>return self.items.pop(0)</p>
+<p>return None</p>
+<p>def front(self):</p>
+<p>if not self.is_empty():</p>
+<p>return self.items[0]</p>
+<p>return None</p>
+<p>def is_empty(self):</p>
+<p>return len(self.items) == 0</p>
+<p></code></pre></p>
+<h1>Usage</h1>
+<p><p>queue = Queue()</p>
+<p>queue.enqueue(1)</p>
+<p>queue.enqueue(2)</p>
+<p>print(queue.dequeue())  # Output: 1</p>
+<p>print(queue.front())  # Output: 2</p>
+<p>```</p></p>
+<h3>3. Linked Lists</h3>
+<h4>Definition:</h4>
+<p><p>A <strong>linked list</strong> is a linear data structure where elements are stored in nodes, and each node contains a reference (or link) to the next node in the sequence. Unlike arrays, linked lists do not require contiguous memory allocation, allowing for dynamic resizing.</p></p>
+<h4>Types of Linked Lists:</h4>
+<ul>
+<ul>
+<li><strong>Singly Linked List</strong>: Each node points to the next node.</li>
+<li><strong>Doubly Linked List</strong>: Each node points to both the next and the previous nodes.</li>
+<li><strong>Circular Linked List</strong>: The last node points back to the first node, forming a circle.</li>
+</ul>
+</ul>
+<h4>Key Operations:</h4>
+<ul>
+<ul>
+<li><strong>Insert</strong>: Add a node at any position in the list.</li>
+<li><strong>Delete</strong>: Remove a node from the list.</li>
+<li><strong>Traverse</strong>: Visit each node in the list.</li>
+</ul>
+</ul>
+<h4>Real-World Applications:</h4>
+<ul>
+<ul>
+<li><strong>Dynamic Memory Allocation</strong>: Linked lists are used in applications that require frequent insertions and deletions, such as managing playlists in music applications.</li>
+<li><strong>Implementing Stacks and Queues</strong>: Both stacks and queues can be implemented using linked lists for efficient memory usage.</li>
+</ul>
+</ul>
+<h4>Example in Python (Singly Linked List):</h4>
+<p><p>```python</p>
+<p>class Node:</p>
+<p>def <strong>init</strong>(self, data):</p>
+<p>self.data = data</p>
+<p>self.next = None</p></p>
+<p><p>class LinkedList:</p>
+<p>def <strong>init</strong>(self):</p>
+<p>self.head = None</p></p>
+<p><pre><code>def insert(self, data):</p>
+<p>new_node = Node(data)</p>
+<p>new_node.next = self.head</p>
+<p>self.head = new_node</p>
+<p>def delete(self, key):</p>
+<p>current = self.head</p>
+<p>if current is not None:</p>
+<p>if current.data == key:</p>
+<p>self.head = current.next</p>
+<p>current = None</p>
+<p>return</p>
+<p>while current is not None:</p>
+<p>if current.data == key:</p>
+<p>break</p>
+<p>prev = current</p>
+<p>current = current.next</p>
+<p>if current is None:</p>
+<p>return</p>
+<p>prev.next = current.next</p>
+<p>current = None</p>
+<p>def traverse(self):</p>
+<p>current = self.head</p>
+<p>while current:</p>
+<p>print(current.data)</p>
+<p>current = current.next</p>
+<p></code></pre></p>
+<h1>Usage</h1>
+<p><p>llist = LinkedList()</p>
+<p>llist.insert(1)</p>
+<p>llist.insert(2)</p>
+<p>llist.traverse()  # Output: 2 1</p>
+<p>```</p></p>
+<h3>4. Trees</h3>
+<h4>Definition:</h4>
+<p><p>A <strong>tree</strong> is a hierarchical data structure consisting of nodes connected by edges. The top node is called the root, and each node can have zero or more child nodes. Trees are widely used to represent structured data.</p></p>
+<h4>Types of Trees:</h4>
+<ul>
+<ul>
+<li><strong>Binary Tree</strong>: Each node has at most two children.</li>
+<li><strong>Binary Search Tree (BST)</strong>: A binary tree where the left child is less than the parent node, and the right child is greater.</li>
+<li><strong>AVL Tree</strong>: A self-balancing binary search tree.</li>
+<li><strong>Trie (Prefix Tree)</strong>: A specialized tree used for storing associative data structures.</li>
+</ul>
+</ul>
+<h4>Key Operations:</h4>
+<ul>
+<ul>
+<li><strong>Insert</strong>: Add a node to the tree.</li>
+<li><strong>Delete</strong>: Remove a node from the tree.</li>
+<li><strong>Search</strong>: Find a node in the tree.</li>
+<li><strong>Traverse</strong>: Visit nodes in a specific order (e.g., in-order, pre-order, post-order).</li>
+</ul>
+</ul>
+<h4>Real-World Applications:</h4>
+<ul>
+<ul>
+<li><strong>File Systems</strong>: Operating systems use tree structures to manage files and directories.</li>
+<li><strong>Databases</strong>: Trees, particularly B-trees, are used in databases to manage and search data efficiently.</li>
+</ul>
+</ul>
+<h4>Example in Python (Binary Search Tree):</h4>
+<p><p>```python</p>
+<p>class TreeNode:</p>
+<p>def <strong>init</strong>(self, key):</p>
+<p>self.left = None</p>
+<p>self.right = None</p>
+<p>self.val = key</p></p>
+<p><p>class BinarySearchTree:</p>
+<p>def <strong>init</strong>(self):</p>
+<p>self.root = None</p></p>
+<p><pre><code>def insert(self, root, key):</p>
+<p>if root is None:</p>
+<p>return TreeNode(key)</p>
+<p>else:</p>
+<p>if root.val &lt; key:</p>
+<p>root.right = self.insert(root.right, key)</p>
+<p>else:</p>
+<p>root.left = self.insert(root.left, key)</p>
+<p>return root</p>
+<p>def search(self, root, key):</p>
+<p>if root is None or root.val == key:</p>
+<p>return root</p>
+<p>if root.val &lt; key:</p>
+<p>return self.search(root.right, key)</p>
+<p>return self.search(root.left, key)</p>
+<p></code></pre></p>
+<h1>Usage</h1>
+<p><p>bst = BinarySearchTree()</p>
+<p>bst.root = bst.insert(bst.root, 5)</p>
+<p>bst.insert(bst.root, 3)</p>
+<p>bst.insert(bst.root, 7)</p>
+<p>found_node = bst.search(bst.root, 3)</p>
+<p>print(found_node.val)  # Output: 3</p>
+<p>```</p></p>
+<hr />
+<h2>Real-World Applications:</h2>
+<h3>1. Stacks in Web Browsers:</h3>
+<p><p>Web browsers use stacks to keep track of the pages you visit. When you navigate to a new page, the current page is pushed onto a stack. Pressing the back button pops the current page, allowing you to return to the previous one.</p></p>
+<h3>2. Queues in Customer Service:</h3>
+<p><p>Customer service applications often use queues to manage incoming requests. Each customer request is placed in a queue, ensuring that they are handled in the order they arrive.</p></p>
+<h3>3. Linked Lists in Music Players:</h3>
+<p><p>Music players use linked lists to manage playlists. Each song can be added or removed dynamically without requiring a contiguous block of memory.</p></p>
+<h3>4. Trees in Search Engines:</h3>
+<p><p>Search engines like Google use tree structures to index and retrieve information quickly. The hierarchical structure allows for efficient searching and ranking of results.</p></p>
+<h3>5. Binary Search Trees in Dictionaries:</h3>
+<p><p>Dictionaries implemented as binary search trees enable quick lookups, insertions, and deletions of key-value pairs, making them efficient for data storage.</p></p>
+<hr />
+<h2>Advanced Applications and Future Directions:</h2>
+<h3>Current Research Frontiers:</h3>
+<ul>
+<ul>
+<li><strong>Dynamic Data Structures</strong>: Research is ongoing into dynamic data structures that can adapt to changing data patterns, optimizing performance in real-time applications.</li>
+<li><strong>Distributed Data Structures</strong>: With the rise of cloud computing, there is a growing need for distributed data structures that can efficiently manage data across multiple servers.</li>
+</ul>
+</ul>
+<h3>Emerging Technologies:</h3>
+<ul>
+<ul>
+<li><strong>Machine Learning</strong>: Data structures play a crucial role in machine learning algorithms, where efficient data handling can significantly impact training times and model accuracy.</li>
+<li><strong>Blockchain</strong>: Trees are used in blockchain technologies to efficiently manage and verify transactions, ensuring data integrity.</li>
+</ul>
+</ul>
+<h3>Industry Trends:</h3>
+<ul>
+<ul>
+<li>The demand for data structure knowledge is increasing in software development, data science, and artificial intelligence fields. Understanding these structures is essential for building efficient applications.</li>
+</ul>
+</ul>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>In this report, we have explored the foundational concepts of stacks, queues, linked lists, and trees. Each data structure offers unique advantages and is suited for specific applications, making them indispensable tools in programming and software development.</p></p>
+<p><p>As you continue your learning journey, consider how these data structures can be applied to the projects you undertake. Understanding their behavior and performance will not only enhance your programming skills but also prepare you for advanced topics in computer science and software engineering.</p></p>
+<h3>Call to Action:</h3>
+<p><p>Now that you have gained insight into these data structures, challenge yourself to implement them in your projects. Create applications that utilize stacks, queues, linked lists, and trees to solve real-world problems. Your exploration and experimentation will deepen your understanding and proficiency in programming.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What principle does a stack follow?", "options": [{"id": "A", "text": "First In, First Out (FIFO)", "explanation": "Incorrect. This describes a queue, not a stack."}, {"id": "B", "text": "Last In, First Out (LIFO)", "explanation": "Correct. A stack follows the LIFO principle, where the last element added is the first to be removed."}, {"id": "C", "text": "First Come, First Served (FCFS)", "explanation": "Incorrect. This is another name for FIFO, which relates to queues."}, {"id": "D", "text": "Last Come, First Served (LCFS)", "explanation": "Incorrect. This is not a standard data structure principle."}], "correct_answer": "B"}, {"question": "Which data structure operates on the FIFO principle?", "options": [{"id": "A", "text": "Stack", "explanation": "Incorrect. A stack operates on LIFO."}, {"id": "B", "text": "Queue", "explanation": "Correct. A queue is the data structure that follows FIFO, where the first element added is the first to be removed."}, {"id": "C", "text": "Linked List", "explanation": "Incorrect. A linked list does not have a defined principle like FIFO or LIFO."}, {"id": "D", "text": "Tree", "explanation": "Incorrect. A tree is a hierarchical structure, not defined by FIFO or LIFO."}], "correct_answer": "B"}, {"question": "In a linked list, what does each node contain?", "options": [{"id": "A", "text": "Only data", "explanation": "Incorrect. Each node contains more than just data."}, {"id": "B", "text": "Data and a reference to the next node", "explanation": "Correct. Each node in a singly linked list contains data and a reference to the next node."}, {"id": "C", "text": "Data and a reference to the previous node only", "explanation": "Incorrect. This describes a doubly linked list but only refers to the previous node."}, {"id": "D", "text": "Data, next, and previous references", "explanation": "Incorrect. This describes a doubly linked list, which contains references to both next and previous nodes."}], "correct_answer": "B"}, {"question": "What is a common application of trees?", "options": [{"id": "A", "text": "Managing print jobs", "explanation": "Incorrect. This is managed by queues."}, {"id": "B", "text": "Implementing undo functionality", "explanation": "Incorrect. This is managed by stacks."}, {"id": "C", "text": "Organizing hierarchical data like file systems", "explanation": "Correct. Trees are ideal for organizing hierarchical data structures such as file systems."}, {"id": "D", "text": "Scheduling tasks", "explanation": "Incorrect. This is typically managed by queues."}], "correct_answer": "C"}, {"question": "What type of tree ensures that the left child is less than the parent node and the right child is greater?", "options": [{"id": "A", "text": "Binary Tree", "explanation": "Incorrect. A binary tree does not enforce any ordering."}, {"id": "B", "text": "AVL Tree", "explanation": "Incorrect. An AVL tree is a type of binary search tree that is balanced but does not define the ordering itself."}, {"id": "C", "text": "Binary Search Tree (BST)", "explanation": "Correct. A binary search tree enforces the ordering property where the left child is less and the right child is greater than the parent node."}, {"id": "D", "text": "Red-Black Tree", "explanation": "Incorrect. A red-black tree is another type of binary search tree with balancing properties."}], "correct_answer": "C"}], "why_it_matters": "Understanding data structures is crucial for efficient programming and software development. They form the basis of effective algorithms and enable you to write code that is not only functional but optimized for performance. With this knowledge, you will be better equipped to tackle complex programming challenges and contribute to innovative projects in the tech industry."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
