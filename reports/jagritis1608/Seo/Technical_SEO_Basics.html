@@ -1,0 +1,473 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Technical SEO Basics</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Technical SEO Basics</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: jagritis1608@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Technical SEO Basics: A Comprehensive Guide</h1>
+<h2>Introduction:</h2>
+<p><p>In your previous learning journey, you have explored the fundamental aspects of Search Engine Optimization (SEO), including how search engines work, the significance of keyword research, on-page SEO, and the importance of link building. This report will build upon that foundation by diving into the world of <strong>Technical SEO</strong>—an essential component that focuses on the backend elements of your website that influence its visibility and performance. Technical SEO ensures that your website meets the technical requirements of modern search engines, allowing for better crawling, indexing, and user experience.</p></p>
+<p><p>As we explore the intricacies of Technical SEO, we will connect it to the previously covered concepts to demonstrate its relevance and importance in the broader SEO landscape. You will gain a comprehensive understanding of various technical aspects, their real-world applications, and future trends that could shape the SEO landscape.</p></p>
+<h3>Key Concepts in Technical SEO</h3>
+<p><p>Before we delve into the details, let’s define some key terms that will recur throughout this report:</p></p>
+<ul>
+<ul>
+<li><strong>Crawling:</strong> The process through which search engine bots discover new and updated web pages on the internet.</li>
+<li><strong>Indexing:</strong> The act of storing and organizing discovered web pages in a database to facilitate quick retrieval during search queries.</li>
+<li><strong>Site Speed:</strong> Refers to how quickly a web page loads and is a critical factor in user experience and search ranking.</li>
+<li><strong>Mobile Optimization:</strong> Ensuring that a website is designed and developed to function well on mobile devices.</li>
+<li><strong>HTTPS:</strong> A secure version of HTTP that uses encryption to protect user data while browsing.</li>
+</ul>
+</ul>
+<p><p>These concepts will serve as building blocks for our exploration of Technical SEO.</p></p>
+<hr />
+<h2>Understanding Technical SEO</h2>
+<h3>What is Technical SEO?</h3>
+<p><p><strong>Technical SEO</strong> refers to the optimization of a website's infrastructure to allow search engines to crawl and index it more effectively. Unlike on-page SEO, which focuses on content and how it is presented, Technical SEO emphasizes the technical aspects that influence a website’s performance. It is crucial because it not only impacts search engine rankings but also enhances user experience—a key factor for retaining visitors.</p></p>
+<h3>Why is Technical SEO Important?</h3>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Improved Crawling and Indexing:</strong> Technical SEO ensures that search engines can efficiently crawl and index your website, directly impacting your visibility in search results.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Enhanced User Experience:</strong> A well-optimized site tends to load faster and is easier to navigate, which leads to better user satisfaction and lower bounce rates.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Competitive Advantage:</strong> Properly implementing Technical SEO can help your site outperform competitors who may neglect this aspect.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Foundation for Other SEO Efforts:</strong> Technical SEO lays the groundwork for on-page and off-page SEO strategies. If the foundational elements are weak, even the best content will struggle to rank.</p></p>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>Key Components of Technical SEO</h2>
+<p><p>Now, let's explore the essential components of Technical SEO in detail:</p></p>
+<h3>1. Site Speed Optimization</h3>
+<p><p>Site speed is a critical ranking factor. Google has indicated that slow-loading pages can adversely affect user experience, leading to increased bounce rates. </p></p>
+<h4>How to Improve Site Speed:</h4>
+<ul>
+<ul>
+<li><strong>Optimize Images:</strong> Compress images to reduce their file size without compromising quality. Tools like <a href="https://tinypng.com/">TinyPNG</a> can help.</li>
+<li><strong>Minify CSS, JavaScript, and HTML:</strong> Remove unnecessary characters, comments, and whitespace from your code.</li>
+<li><strong>Use Browser Caching:</strong> Store frequently accessed resources in users' browsers to speed up the loading of your site on repeat visits.</li>
+<li><strong>Utilize Content Delivery Networks (CDNs):</strong> CDNs distribute your website's content across multiple servers worldwide, improving load times for users regardless of their location.</li>
+</ul>
+</ul>
+<h3>2. Mobile Optimization</h3>
+<p><p>With the rise of mobile browsing, ensuring that your website is mobile-friendly is no longer optional. Google employs a mobile-first indexing approach, meaning it primarily uses the mobile version of a site for indexing and ranking.</p></p>
+<h4>Key Strategies for Mobile Optimization:</h4>
+<ul>
+<ul>
+<li><strong>Responsive Design:</strong> Use a responsive web design that adjusts to various screen sizes and orientations.</li>
+<li><strong>Mobile-Friendly Test:</strong> Use Google’s <a href="https://search.google.com/test/mobile-friendly">Mobile-Friendly Test Tool</a> to analyze how easily a visitor can use your page on a mobile device.</li>
+<li><strong>Avoid Flash:</strong> Flash is not supported on many mobile devices, so it’s best to use HTML5 instead.</li>
+</ul>
+</ul>
+<h3>3. Secure Sockets Layer (SSL) and HTTPS</h3>
+<p><p>Security is paramount in today’s digital landscape. Google prioritizes secure websites, and HTTPS is a ranking factor. </p></p>
+<h4>Implementing SSL:</h4>
+<ul>
+<ul>
+<li><strong>Obtain an SSL Certificate:</strong> Purchase and install an SSL certificate to encrypt data transmitted between your website and users.</li>
+<li><strong>Update Internal Links:</strong> After switching to HTTPS, ensure all internal links use the new protocol.</li>
+</ul>
+</ul>
+<h3>4. XML Sitemaps</h3>
+<p><p>An XML sitemap is a file that lists all the pages on your website, allowing search engines to understand the structure and content of your site.</p></p>
+<h4>Best Practices for XML Sitemaps:</h4>
+<ul>
+<ul>
+<li><strong>Include Only Important Pages:</strong> Only include pages that you want search engines to index.</li>
+<li><strong>Keep it Updated:</strong> Regularly update your sitemap to reflect new content and changes.</li>
+<li><strong>Submit to Google Search Console:</strong> Ensure that your sitemap is submitted and accessible to search engines.</li>
+</ul>
+</ul>
+<h3>5. Robots.txt File</h3>
+<p><p>The robots.txt file instructs search engine bots on which pages to crawl and index. Properly configuring this file is vital for controlling crawler access to your website.</p></p>
+<h4>Tips for Using Robots.txt:</h4>
+<ul>
+<ul>
+<li><strong>Disallow Unwanted Pages:</strong> Use the Disallow directive to prevent indexing of duplicate or irrelevant content.</li>
+<li><strong>Test with Google’s Robots Testing Tool:</strong> Ensure that your robots.txt file is correctly configured and does not block important pages.</li>
+</ul>
+</ul>
+<h3>6. Structured Data and Schema Markup</h3>
+<p><p>Structured data helps search engines understand your content better by providing additional context. Implementing schema markup can enhance your search listings with rich snippets.</p></p>
+<h4>How to Implement Structured Data:</h4>
+<ul>
+<ul>
+<li><strong>Use Schema Markup Generator:</strong> Utilize online tools like <a href="https://schema.org/">Schema.org</a> to create structured data for your content.</li>
+<li><strong>Test with Google’s Structured Data Testing Tool:</strong> Validate your markup to ensure it is correctly implemented.</li>
+</ul>
+</ul>
+<h3>7. Canonical Tags</h3>
+<p><p>Canonical tags prevent duplicate content issues by specifying the preferred version of a page. This helps consolidate ranking signals and avoid confusion for search engines.</p></p>
+<h4>Best Practices for Canonical Tags:</h4>
+<ul>
+<ul>
+<li><strong>Use Canonical Tags on Duplicate Pages:</strong> Always implement canonical tags on pages with similar content to indicate which version should be indexed.</li>
+<li><strong>Ensure Correct Implementation:</strong> Regularly audit your canonical tags to ensure that they point to the correct URLs.</li>
+</ul>
+</ul>
+<hr />
+<h2>Real-World Applications of Technical SEO</h2>
+<p><p>To illustrate the importance of Technical SEO, consider the following real-world scenarios:</p></p>
+<h3>Case Study 1: E-commerce Website</h3>
+<p><p>An e-commerce company noticed a significant drop in organic traffic and sales. Upon conducting a Technical SEO audit, they found that their website was not mobile-friendly and had slow load times. </p></p>
+<h4>Actions Taken:</h4>
+<ul>
+<ul>
+<li>Implemented a responsive design.</li>
+<li>Optimized images and reduced the size of CSS and JavaScript files.</li>
+<li>Improved checkout speed by streamlining the checkout process.</li>
+</ul>
+</ul>
+<h4>Result:</h4>
+<p><p>After these changes, the site saw a 40% increase in mobile traffic and a 25% increase in conversions within three months.</p></p>
+<h3>Case Study 2: Local Business</h3>
+<p><p>A local bakery wanted to increase its visibility in local search results. They realized that their website was not secure, and many of their pages were indexed incorrectly due to poor site structure.</p></p>
+<h4>Actions Taken:</h4>
+<ul>
+<ul>
+<li>Installed an SSL certificate.</li>
+<li>Created an XML sitemap and submitted it to Google Search Console.</li>
+<li>Optimized their site structure for better navigation.</li>
+</ul>
+</ul>
+<h4>Result:</h4>
+<p><p>The bakery reported a 50% increase in local search visibility and a surge in foot traffic to their store.</p></p>
+<hr />
+<h2>Future Directions in Technical SEO</h2>
+<p><p>The field of Technical SEO is continually evolving, influenced by changes in technology and user behavior. Here are some emerging trends and future implications:</p></p>
+<h3>1. Increased Focus on Core Web Vitals</h3>
+<p><p>Google's Core Web Vitals, which measure user experience elements like loading performance, interactivity, and visual stability, are becoming critical ranking factors. Websites will need to optimize for these metrics to maintain visibility.</p></p>
+<h3>2. Voice Search Optimization</h3>
+<p><p>As voice-activated devices become more prevalent, optimizing for voice search will require adjustments to Technical SEO strategies. This includes focusing on conversational keywords and structured data to enhance search result visibility.</p></p>
+<h3>3. AI and Machine Learning</h3>
+<p><p>With the rise of artificial intelligence and machine learning, search engines are becoming more sophisticated. Technical SEO will need to adapt to these changes, ensuring that websites can be effectively crawled and indexed by AI-driven algorithms.</p></p>
+<h3>4. Enhanced Security Protocols</h3>
+<p><p>As cyber threats continue to rise, having robust security measures will become increasingly essential. Websites that prioritize security will likely gain a competitive edge in search rankings.</p></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>In summary, Technical SEO is a vital component of a comprehensive SEO strategy that cannot be overlooked. By ensuring that your website is optimized for search engines through improved site speed, mobile optimization, secure connections, and proper indexing practices, you can significantly enhance your online visibility and user experience.</p></p>
+<p><p>As you continue your learning journey in SEO, remember that Technical SEO serves as the backbone for your on-page and off-page efforts. By mastering these technical aspects, you are better equipped to create a successful and sustainable online presence.</p></p>
+<h3>Call to Action</h3>
+<p><p>To further enhance your understanding of Technical SEO, consider conducting a Technical SEO audit of your own website or a competitor’s site. Identify areas for improvement and implement the strategies discussed in this report. Stay updated on the latest developments in SEO to maintain your site’s performance and visibility.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of Technical SEO?", "options": [{"id": "A", "text": "To create engaging content for users.", "explanation": "Incorrect. While content is important, Technical SEO focuses on backend optimization."}, {"id": "B", "text": "To improve the website's infrastructure for better crawling and indexing.", "explanation": "Correct. Technical SEO aims to enhance a site\u2019s technical foundation for better search engine performance."}, {"id": "C", "text": "To build backlinks from other websites.", "explanation": "Incorrect. Building backlinks falls under off-page SEO strategies."}, {"id": "D", "text": "To manage social media accounts.", "explanation": "Incorrect. Managing social media is a separate aspect of digital marketing."}], "correct_answer": "B"}, {"question": "Which of the following is a method to improve site speed?", "options": [{"id": "A", "text": "Increasing the size of images.", "explanation": "Incorrect. Larger images can slow down loading times."}, {"id": "B", "text": "Using a content delivery network (CDN).", "explanation": "Correct. A CDN can distribute content efficiently, improving load times."}, {"id": "C", "text": "Adding more JavaScript files.", "explanation": "Incorrect. More JavaScript files can increase load times if not optimized."}, {"id": "D", "text": "Ignoring caching settings.", "explanation": "Incorrect. Caching settings should be properly configured to enhance speed."}], "correct_answer": "B"}, {"question": "What is the purpose of structured data in Technical SEO?", "options": [{"id": "A", "text": "To create backlinks from authoritative websites.", "explanation": "Incorrect. Structured data does not directly create backlinks."}, {"id": "B", "text": "To help search engines understand the content of a webpage better.", "explanation": "Correct. Structured data provides context to search engines, enhancing visibility."}, {"id": "C", "text": "To improve the aesthetic design of a website.", "explanation": "Incorrect. While structured data can influence how content is presented, it doesn't affect design aesthetics."}, {"id": "D", "text": "To increase social media engagement.", "explanation": "Incorrect. Structured data is not related to social media engagement."}], "correct_answer": "B"}, {"question": "What does a robots.txt file do?", "options": [{"id": "A", "text": "It enhances site speed.", "explanation": "Incorrect. The robots.txt file does not influence site speed."}, {"id": "B", "text": "It specifies which pages search engines can crawl.", "explanation": "Correct. It controls search engine bots' access to different parts of the site."}, {"id": "C", "text": "It improves mobile optimization.", "explanation": "Incorrect. The robots.txt file does not affect mobile optimization."}, {"id": "D", "text": "It provides a sitemap to users.", "explanation": "Incorrect. A sitemap is a separate file that lists pages for search engines."}], "correct_answer": "B"}, {"question": "Why is mobile optimization critical for Technical SEO?", "options": [{"id": "A", "text": "Most users prefer desktop websites.", "explanation": "Incorrect. Mobile usage has surpassed desktop usage in many sectors."}, {"id": "B", "text": "Google uses mobile-first indexing.", "explanation": "Correct. Google prioritizes the mobile version of websites for indexing and ranking."}, {"id": "C", "text": "It reduces the need for content updates.", "explanation": "Incorrect. Mobile optimization does not eliminate the need for content updates."}, {"id": "D", "text": "It simplifies coding practices.", "explanation": "Incorrect. Mobile optimization may complicate coding practices if not done correctly."}], "correct_answer": "B"}], "why_it_matters": "Understanding Technical SEO is vital for building a strong foundation for your website\u2019s visibility and performance in search results. By mastering these concepts, you can improve user experience and ensure that your site is competitive in the evolving digital landscape."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
