@@ -1,0 +1,478 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Error Handling</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Error Handling</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: check@razorpay.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Error Handling in Python: A Comprehensive Guide</h1>
+<h2>Introduction:</h2>
+<p><p>As you progress on your programming journey, having a solid foundation in Python is crucial, especially as you have already mastered essential concepts such as <strong>basic syntax</strong>, <strong>data types</strong>, <strong>control structures</strong>, <strong>functions</strong>, and <strong>file handling</strong>. The next logical step in your learning path is to delve into <strong>error handling</strong>, an indispensable skill that will help you write robust and user-friendly applications. </p></p>
+<p><p>Error handling is the process of responding to the occurrence of exceptions, which are unexpected events that disrupt the normal flow of your program. Understanding how to effectively manage these exceptions not only prevents your program from crashing, but it also enhances user experience by providing informative feedback when something goes wrong.</p></p>
+<p><p>In this report, we will explore the theoretical foundations of error handling, practical implementation using Python, real-world applications, and future directions in this vital area of programming. By the end of this guide, you will have a comprehensive understanding of error handling in Python, empowering you to write more resilient software.</p></p>
+<hr />
+<h2>Key Concepts of Error Handling</h2>
+<h3>Understanding Errors and Exceptions</h3>
+<p><p>Before we dive into error handling, it's essential to clarify the distinction between errors and exceptions:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Errors</strong>: These are serious issues that a program generally cannot recover from, such as syntax errors or memory errors. They typically indicate problems that cannot be handled within the program’s execution.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Exceptions</strong>: These are events that can be anticipated and handled during runtime, such as trying to open a file that does not exist or dividing by zero. Python provides a built-in mechanism to manage these exceptions.</p></p>
+<p></li></p>
+</ul>
+<h3>Types of Exceptions</h3>
+<p><p>Python categorizes exceptions into several types. Here are a few common exceptions you may encounter:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>SyntaxError</strong>: Raised when the parser encounters a syntax error.</p>
+<p><code>python</p>
+<p>print("Unmatched parentheses"  # This will raise a SyntaxError</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>IndexError</strong>: Raised when a sequence subscript is out of range.</p>
+<p><code>python</p>
+<p>my_list = [1, 2, 3]</p>
+<p>print(my_list[3])  # This will raise an IndexError</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>KeyError</strong>: Raised when a dictionary key is not found.</p>
+<p><code>python</p>
+<p>my_dict = {'a': 1, 'b': 2}</p>
+<p>print(my_dict['c'])  # This will raise a KeyError</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>ValueError</strong>: Raised when an operation or function receives an argument that has the right type but an inappropriate value.</p>
+<p><code>python</p>
+<p>int("hello")  # This will raise a ValueError</code></p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>FileNotFoundError</strong>: Raised when trying to open a file that does not exist.</p>
+<p><code>python</p>
+<p>open("non_existent_file.txt")  # This will raise a FileNotFoundError</code></p></p>
+<p></li></p>
+<p></ol></p>
+<h3>The Try-Except Block</h3>
+<p><p>The primary mechanism for error handling in Python is the <strong>try-except block</strong>. Here's how it works:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Try Block</strong>: Contains the code that might raise an exception.</li>
+<li><strong>Except Block</strong>: Contains the code that runs if an exception occurs.</li>
+</ul>
+<p></ol></p>
+<h4>Syntax:</h4>
+<p><p><code>python</p>
+<p>try:</p>
+<p># Code that might raise an exception</p>
+<p>except ExceptionType:</p>
+<p># Code to handle the exception</code></p></p>
+<h4>Example:</h4>
+<p><p><code>python</p>
+<p>try:</p>
+<p>result = 10 / 0</p>
+<p>except ZeroDivisionError:</p>
+<p>print("You can't divide by zero!")</code></p></p>
+<p><p>In this example, the program does not crash; instead, it gracefully handles the division by zero.</p></p>
+<h3>Catching Multiple Exceptions</h3>
+<p><p>You can handle multiple exceptions using a single except clause by specifying a tuple of exception types:</p></p>
+<p><p><code>python</p>
+<p>try:</p>
+<p>value = int(input("Enter a number: "))</p>
+<p>except (ValueError, TypeError) as e:</p>
+<p>print(f"An error occurred: {e}")</code></p></p>
+<p><p>This will catch both <code>ValueError</code> and <code>TypeError</code> exceptions and report them.</p></p>
+<h3>The Finally Clause</h3>
+<p><p>You can add a <code>finally</code> block to execute code regardless of whether an exception was raised or not. This is useful for cleanup actions, such as closing files:</p></p>
+<p><p><code>python</p>
+<p>try:</p>
+<p>file = open("myfile.txt", 'r')</p>
+<p>except FileNotFoundError:</p>
+<p>print("File not found.")</p>
+<p>finally:</p>
+<p>file.close()  # Ensures that the file is closed</code></p></p>
+<h3>Raising Exceptions</h3>
+<p><p>You can also raise exceptions intentionally using the <code>raise</code> statement. This is often used for custom error handling:</p></p>
+<p><p>```python</p>
+<p>def check_age(age):</p>
+<p>if age &lt; 0:</p>
+<p>raise ValueError("Age cannot be negative.")</p>
+<p>return age</p></p>
+<p><p>try:</p>
+<p>check_age(-1)</p>
+<p>except ValueError as e:</p>
+<p>print(e)</p>
+<p>```</p></p>
+<h3>Custom Exceptions</h3>
+<p><p>You can define your own exceptions by subclassing the built-in <code>Exception</code> class. This allows you to create specific error types for your application:</p></p>
+<p><p>```python</p>
+<p>class CustomError(Exception):</p>
+<p>pass</p></p>
+<p><p>def do_something():</p>
+<p>raise CustomError("This is a custom error.")</p></p>
+<p><p>try:</p>
+<p>do_something()</p>
+<p>except CustomError as e:</p>
+<p>print(e)</p>
+<p>```</p></p>
+<hr />
+<h2>Real-World Applications of Error Handling</h2>
+<p><p>Error handling is widely applicable in various domains. Here are some real-world scenarios where you would implement error handling:</p></p>
+<h3>1. User Input Validation</h3>
+<p><p>In applications that accept user input, robust error handling is essential to ensure the program behaves correctly even with unexpected input. For example, if a user enters a non-numeric value when a number is expected, your program can catch this gracefully.</p></p>
+<h3>2. File Operations</h3>
+<p><p>When working with files, errors can occur due to file permissions, existence, or format. Implementing error handling when opening or manipulating files ensures that your application can inform the user of issues without crashing.</p></p>
+<p><p><code>python</p>
+<p>try:</p>
+<p>with open("data.txt", "r") as file:</p>
+<p>data = file.read()</p>
+<p>except FileNotFoundError:</p>
+<p>print("The file does not exist.")</code></p></p>
+<h3>3. Network Operations</h3>
+<p><p>Network applications rely on stable connections, which can often fail. Using error handling, you can manage situations where a network request times out or fails, allowing your application to retry or inform the user of the issue.</p></p>
+<h3>4. Database Access</h3>
+<p><p>When accessing databases, various exceptions can arise, such as connection errors or query failures. Handling these exceptions allows you to provide meaningful messages to users and maintain application stability.</p></p>
+<h3>5. GUI Applications</h3>
+<p><p>In graphical user interfaces (GUIs), unexpected user actions can lead to exceptions. Implementing error handling can prevent the application from crashing and allow it to recover gracefully.</p></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers</h2>
+<h3>Emerging Technologies</h3>
+<p><p>With the rise of artificial intelligence (AI) and machine learning (ML), error handling becomes crucial in ensuring that models can deal with unexpected inputs or situations. For instance, in self-driving cars, the system must handle various environmental conditions safely.</p></p>
+<h3>Future Directions</h3>
+<p><p>Error handling techniques will evolve alongside programming languages. With the growing complexity of applications, the need for more sophisticated error handling strategies, such as predictive error handling using AI, may emerge.</p></p>
+<h3>Research Challenges</h3>
+<p><ol></p>
+<ul>
+<li><strong>Automated Error Detection</strong>: Developing systems that can automatically detect and suggest fixes for potential errors during the development phase.</li>
+<li><strong>User-Centric Error Messages</strong>: Creating more intuitive and informative error messages that enhance user experience.</li>
+<li><strong>Integration with Testing Frameworks</strong>: Seamless integration of error handling with testing methodologies to improve software quality.</li>
+</ul>
+<p></ol></p>
+<hr />
+<h2>Conclusion</h2>
+<p><p>Error handling is a fundamental aspect of programming that enhances the robustness and user-friendliness of applications. By mastering the principles and practices of error handling in Python, you empower yourself to create resilient code that can gracefully manage unexpected situations.</p></p>
+<p><p>As you continue your learning journey, remember that error handling is not just about preventing crashes; it's about improving user experience and building trust in your applications. </p></p>
+<p><p>Explore error handling further by implementing it in your projects and thinking critically about how you can improve error management in your code.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What type of error occurs when you try to access an index that is out of range in a list?", "options": [{"id": "A", "text": "SyntaxError", "explanation": "Incorrect. SyntaxError occurs due to incorrect syntax in the code."}, {"id": "B", "text": "ValueError", "explanation": "Incorrect. ValueError occurs when a function receives an argument of the right type but an inappropriate value."}, {"id": "C", "text": "IndexError", "explanation": "Correct. IndexError is raised when trying to access an element outside the range of a list."}, {"id": "D", "text": "KeyError", "explanation": "Incorrect. KeyError occurs when a dictionary key is not found."}], "correct_answer": "C"}, {"question": "Which block of code will always execute regardless of whether an exception occurred?", "options": [{"id": "A", "text": "try", "explanation": "Incorrect. The try block executes only if no exceptions are raised."}, {"id": "B", "text": "except", "explanation": "Incorrect. The except block executes only if an exception occurs."}, {"id": "C", "text": "finally", "explanation": "Correct. The finally block always executes after try and except, regardless of exceptions."}, {"id": "D", "text": "else", "explanation": "Incorrect. The else block executes if no exception occurs in the try block."}], "correct_answer": "C"}, {"question": "How can you raise a custom exception in Python?", "options": [{"id": "A", "text": "raise CustomError(\"message\")", "explanation": "Correct. You can raise a custom exception using the raise statement."}, {"id": "B", "text": "throw CustomError(\"message\")", "explanation": "Incorrect. The correct keyword in Python is raise, not throw."}, {"id": "C", "text": "catch CustomError(\"message\")", "explanation": "Incorrect. catch is not a valid keyword for raising exceptions."}, {"id": "D", "text": "assert CustomError(\"message\")", "explanation": "Incorrect. assert is used for assertions, not for raising exceptions."}], "correct_answer": "A"}, {"question": "What will happen if you don't handle an exception in your code?", "options": [{"id": "A", "text": "The program will continue executing without interruption.", "explanation": "Incorrect. If an exception is raised and not handled, the program does not continue executing."}, {"id": "B", "text": "The program will crash and display an error message.", "explanation": "Correct. The program will terminate and display a traceback error message."}, {"id": "C", "text": "The program will ignore the error and proceed to the next line.", "explanation": "Incorrect. Unhandled exceptions cause the program to stop."}, {"id": "D", "text": "The program will automatically fix the error.", "explanation": "Incorrect. The program cannot fix errors automatically without explicit handling."}], "correct_answer": "B"}, {"question": "Which statement is used to catch multiple exceptions in a single except block?", "options": [{"id": "A", "text": "except (TypeError, ValueError):", "explanation": "Correct. You can catch multiple exceptions by listing them in parentheses after except."}, {"id": "B", "text": "catch (TypeError, ValueError):", "explanation": "Incorrect. catch is not a valid keyword in Python; the correct keyword is except."}, {"id": "C", "text": "handle (TypeError, ValueError):", "explanation": "Incorrect. handle is not a recognized statement in Python."}, {"id": "D", "text": "try (TypeError, ValueError):", "explanation": "Incorrect. try is used to define the block of code that may raise exceptions, not to catch them."}], "correct_answer": "A"}], "why_it_matters": "Understanding error handling is essential for writing robust Python applications. This knowledge will allow you to create programs that not only function correctly but also provide a better experience for users by managing potential errors gracefully."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
