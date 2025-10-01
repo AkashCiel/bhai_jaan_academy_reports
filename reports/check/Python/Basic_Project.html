@@ -1,0 +1,470 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Basic Project</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Basic Project</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: check@razorpay.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Basic Project: A Comprehensive Guide to Building Practical Python Applications</h1>
+<h2>Introduction:</h2>
+<p><p>As you embark on the next phase of your Python learning journey, you are well-prepared to take on a <strong>Basic Project</strong>. This project will serve as a practical application of the skills you've acquired, including <strong>basic syntax</strong>, <strong>data types</strong>, <strong>control structures</strong>, <strong>functions</strong>, <strong>data structures</strong>, <strong>file handling</strong>, <strong>error handling</strong>, <strong>modules</strong>, and <strong>packages</strong>. </p></p>
+<p><p>The purpose of this report is to guide you through the process of creating a Basic Project using Python while connecting each step back to the concepts you've already mastered. By the end of this report, you should have a comprehensive understanding of how to integrate your knowledge into a functional project, which you can further develop into more complex applications.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>What is a Basic Project?</h3>
+<p><p>A Basic Project in programming is typically a small-scale application designed to accomplish a specific task. It allows you to apply your theoretical knowledge in a practical setting, reinforcing your understanding of programming concepts while also providing you with valuable hands-on experience. </p></p>
+<p><p><strong>Core Components of a Basic Project:</strong></p>
+<ul>
+<li><strong>Project Planning</strong>: Defining goals, objectives, and requirements.</li>
+<li><strong>Design</strong>: Structuring your code and deciding on components.</li>
+<li><strong>Implementation</strong>: Writing the code and integrating the components.</li>
+<li><strong>Testing</strong>: Verifying that the application functions as intended.</li>
+<li><strong>Documentation</strong>: Keeping track of your code and processes.</p></li>
+</ul>
+<h3>Importance of a Basic Project</h3>
+<p><p>Engaging in a Basic Project helps solidify your coding skills while allowing you to:</p>
+<ul>
+<li>Develop problem-solving abilities.</li>
+<li>Gain experience in project management.</li>
+<li>Learn how to write maintainable and reusable code.</li>
+<li>Understand the software development life cycle.</p></li>
+</ul>
+<hr />
+<h2>Real-World Applications:</h2>
+<p><p>Many real-world applications can stem from a Basic Project. Examples include:</p>
+<ul>
+<li><strong>Data Analysis Tool</strong>: Creating a simple data analysis tool that reads data files, processes them, and outputs insights.</li>
+<li><strong>Task Management System</strong>: Building a command-line based task management application to add, view, and delete tasks.</li>
+<li><strong>Simple Game</strong>: Developing a text-based game where users can make choices that affect the outcome.</p></li>
+</ul>
+<p><p>These applications not only reinforce your Python skills but also provide you with a portfolio piece that demonstrates your capabilities to potential employers.</p></p>
+<hr />
+<h2>Project Planning:</h2>
+<h3>Step 1: Define Your Project Idea</h3>
+<p><p>Begin by identifying a project idea that excites you. For instance, let’s consider creating a <strong>Task Management System</strong>. This application will allow users to manage their tasks through a command-line interface.</p></p>
+<h3>Step 2: Outline the Features</h3>
+<p><p>Your Task Management System might include:</p>
+<ul>
+<li><strong>Add Task</strong>: Users can input a new task.</li>
+<li><strong>View Tasks</strong>: Display all tasks with their statuses.</li>
+<li><strong>Delete Task</strong>: Remove a task from the system.</li>
+<li><strong>Save Tasks</strong>: Store tasks in a file for persistence.</p></li>
+</ul>
+<h3>Step 3: Set Up the Development Environment</h3>
+<p><p>Make sure you have Python installed (preferably version 3.x). Use an Integrated Development Environment (IDE) like <strong>PyCharm</strong> or a text editor like <strong>Visual Studio Code</strong> to write your code.</p></p>
+<hr />
+<h2>Design:</h2>
+<h3>Step 1: Structure Your Program</h3>
+<p><p>Your program will consist of several functions corresponding to each feature. Here’s a skeleton of how your code might be structured:</p></p>
+<p><p>```python</p>
+<p>def add_task(task_list, task):</p>
+<p># Add a new task to the list</p>
+<p>pass</p></p>
+<p><p>def view_tasks(task_list):</p>
+<p># Display all tasks</p>
+<p>pass</p></p>
+<p><p>def delete_task(task_list, task_id):</p>
+<p># Remove a task from the list</p>
+<p>pass</p></p>
+<p><p>def save_tasks(task_list, filename):</p>
+<p># Save tasks to a file</p>
+<p>pass</p>
+<p>```</p></p>
+<h3>Step 2: Use Data Structures</h3>
+<p><p>For managing tasks, a list or a dictionary can be effective:</p>
+<ul>
+<li><strong>List</strong>: Use a list to store tasks with their index as the identifier.</li>
+<li><strong>Dictionary</strong>: Use a dictionary to store tasks with unique keys for easier access and manipulation.</p></li>
+</ul>
+<hr />
+<h2>Implementation:</h2>
+<h3>Step 1: Write the Code</h3>
+<p><p>Let’s implement the <code>add_task</code> function as an example. </p></p>
+<p><p><code>python</p>
+<p>def add_task(task_list, task):</p>
+<p>task_list.append(task)</p>
+<p>print(f'Task "{task}" added successfully.')</code></p></p>
+<h3>Step 2: Implement Other Functions</h3>
+<p><p>Continue developing the other functions, following similar patterns. Ensure you integrate error handling to manage unexpected user inputs.</p></p>
+<h4>Example of Error Handling</h4>
+<p><p><code>python</p>
+<p>def delete_task(task_list, task_id):</p>
+<p>try:</p>
+<p>del task_list[task_id]</p>
+<p>print(f'Task {task_id} deleted successfully.')</p>
+<p>except IndexError:</p>
+<p>print("Error: Task ID does not exist.")</code></p></p>
+<h3>Step 3: Main Function to Run the Application</h3>
+<p><p>Create a main function that serves as the entry point for your program. This function will manage user input and call the appropriate functions.</p></p>
+<p><p>```python</p>
+<p>def main():</p>
+<p>task_list = []</p>
+<p>while True:</p>
+<p>print("1. Add Task")</p>
+<p>print("2. View Tasks")</p>
+<p>print("3. Delete Task")</p>
+<p>print("4. Save Tasks")</p>
+<p>print("5. Exit")</p>
+<p>choice = input("Select an option: ")</p></p>
+<p><pre><code>    if choice == '1':</p>
+<p>task = input("Enter the task: ")</p>
+<p>add_task(task_list, task)</p>
+<p>elif choice == '2':</p>
+<p>view_tasks(task_list)</p>
+<p>elif choice == '3':</p>
+<p>task_id = int(input("Enter the task ID to delete: "))</p>
+<p>delete_task(task_list, task_id)</p>
+<p>elif choice == '4':</p>
+<p>save_tasks(task_list, 'tasks.txt')</p>
+<p>elif choice == '5':</p>
+<p>break</p>
+<p>else:</p>
+<p>print("Invalid option, please try again.")</p>
+<p></code></pre></p>
+<p><p>```</p></p>
+<hr />
+<h2>Testing:</h2>
+<p><p>Testing ensures that your Task Management System works as intended. You can:</p>
+<ul>
+<li>Test each function independently to ensure they perform their tasks correctly.</li>
+<li>Conduct integration testing to see if all components work together seamlessly.</p></li>
+</ul>
+<h3>Example of Testing the <code>add_task</code> Function</h3>
+<p><p>You can manually check if tasks are added correctly by calling <code>add_task</code> and then displaying the task list.</p></p>
+<hr />
+<h2>Documentation:</h2>
+<p><p>Document your code by adding comments and creating a README file that explains how to use your Task Management System. This file will help others understand your project and how to set it up.</p></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers:</h2>
+<h3>Future Directions for Your Project</h3>
+<p><p>Once you have a working Task Management System, consider adding advanced features such as:</p>
+<ul>
+<li><strong>User Authentication</strong>: Allow multiple users to manage their own tasks.</li>
+<li><strong>Web Interface</strong>: Use frameworks like Flask or Django to create a web application.</li>
+<li><strong>APIs</strong>: Integrate with third-party APIs to sync tasks with calendars or reminders.</p></li>
+</ul>
+<h3>Emerging Technologies</h3>
+<p><p>Keep an eye on emerging technologies that can enhance your applications, such as:</p>
+<ul>
+<li><strong>Machine Learning</strong>: Implement algorithms to analyze task completion patterns.</li>
+<li><strong>Cloud Computing</strong>: Use cloud services for task storage and management.</p></li>
+</ul>
+<h3>Research Challenges and Opportunities</h3>
+<p><p>As you explore the field further, consider challenges such as data privacy, scalability, and user experience design. These areas provide rich opportunities for research and development.</p></p>
+<hr />
+<h2>Why This Matters:</h2>
+<p><p>Engaging in a Basic Project like the Task Management System allows you to solidify your Python skills while providing real-world applications of the concepts you've learned. It serves as a stepping stone towards more complex projects and technologies, enhancing your proficiency and confidence as a programmer.</p></p>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>In this guide, you have learned how to plan, design, implement, test, and document a Basic Project using Python. By creating a Task Management System, you can see how your theoretical knowledge translates into practical skills. Continue to build on this foundation, explore more complex projects, and embrace the vast opportunities that programming offers.</p></p>
+<h3>Call to Action</h3>
+<p><p>Now that you have the basics down, it’s time to dive deeper! Consider enhancing your Task Management System with new features, or start a completely new project that interests you. The more you practice, the more proficient you will become.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the primary purpose of a Basic Project in programming?", "options": [{"id": "A", "text": "To create complex applications with advanced features", "explanation": "Incorrect. While some projects can be complex, a Basic Project focuses on foundational skills."}, {"id": "B", "text": "To apply theoretical knowledge in a practical setting", "explanation": "Correct. The primary purpose is to apply what you have learned in a practical manner."}, {"id": "C", "text": "To learn new programming languages", "explanation": "Incorrect. A Basic Project may not involve learning new languages; it focuses on applying known concepts."}, {"id": "D", "text": "To work on team-based projects only", "explanation": "Incorrect. Basic Projects can be done individually, although teamwork can enhance learning."}], "correct_answer": "B"}, {"question": "Which data structure is most suitable for managing tasks in a Task Management System?", "options": [{"id": "A", "text": "Integer", "explanation": "Incorrect. Integers are not suitable for managing multiple tasks."}, {"id": "B", "text": "List", "explanation": "Correct. A list is ideal for storing and managing multiple tasks due to its ordered nature."}, {"id": "C", "text": "String", "explanation": "Incorrect. Strings are used for text, not for managing collections of items."}, {"id": "D", "text": "Boolean", "explanation": "Incorrect. Booleans represent true/false values, not collections of tasks."}], "correct_answer": "B"}, {"question": "Which function would you use to remove a task from the list?", "options": [{"id": "A", "text": "add_task", "explanation": "Incorrect. The `add_task` function is used to add new tasks."}, {"id": "B", "text": "view_tasks", "explanation": "Incorrect. `view_tasks` displays tasks but does not remove them."}, {"id": "C", "text": "delete_task", "explanation": "Correct. `delete_task` is specifically designed to remove tasks from the list."}, {"id": "D", "text": "save_tasks", "explanation": "Incorrect. `save_tasks` stores tasks in a file, not deletes them."}], "correct_answer": "C"}, {"question": "Why is error handling important in your Task Management System?", "options": [{"id": "A", "text": "It allows the program to crash without issues", "explanation": "Incorrect. Error handling prevents crashes and enhances user experience."}, {"id": "B", "text": "It helps manage user input errors gracefully", "explanation": "Correct. It allows the program to handle unexpected inputs and continue functioning smoothly."}, {"id": "C", "text": "It is not necessary for simple applications", "explanation": "Incorrect. Error handling is crucial, even in simple applications, to improve robustness."}, {"id": "D", "text": "It makes the code longer and more complex", "explanation": "Incorrect. Although it may add lines of code, it greatly enhances reliability."}], "correct_answer": "B"}, {"question": "What is a potential future enhancement for your Task Management System?", "options": [{"id": "A", "text": "Making it a command-line application only", "explanation": "Incorrect. Limiting to a command-line application reduces future potential."}, {"id": "B", "text": "Adding user authentication", "explanation": "Correct. Adding user authentication enhances security and usability."}, {"id": "C", "text": "Removing the ability to save tasks", "explanation": "Incorrect. Saving tasks is essential for persistence and usability."}, {"id": "D", "text": "Simplifying the task list to one task only", "explanation": "Incorrect. A task management system is designed to handle multiple tasks, not just one."}], "correct_answer": "B"}], "why_it_matters": "Understanding these concepts is crucial for progressing in your Python programming journey and building functional, user-oriented applications. Each project not only enhances your coding skills but also prepares you for real-world challenges in software development. Continue exploring, coding, and growing!"};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
