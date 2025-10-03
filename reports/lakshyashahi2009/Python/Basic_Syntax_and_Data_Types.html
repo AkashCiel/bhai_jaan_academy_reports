@@ -1,0 +1,469 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Basic Syntax and Data Types</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Basic Syntax and Data Types</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: lakshya.shahi2009@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Basic Syntax and Data Types in Python</h1>
+<h2>Introduction:</h2>
+<p><p>As we continue our Python programming journey, we delve into the critical concepts of <strong>Basic Syntax and Data Types</strong>. Understanding these foundational elements is essential as they form the bedrock upon which you will build more complex programming skills. The previous learning context introduced you to Python's high-level nature and its focus on readability. This report will expand on that foundation by exploring how to write Python code and the various types of data you can manipulate within your programs.</p></p>
+<p><p>In programming, <strong>syntax</strong> refers to the set of rules that define the combinations of symbols that are considered to be correctly structured programs in a given language. Data types, on the other hand, represent the kind of data that can be stored and manipulated within a program. They determine what operations can be performed on data and how much memory it will take. </p></p>
+<p><p>By the end of this report, you will not only understand the syntax and data types in Python but also appreciate how they relate to real-world applications, providing you with the tools needed to create functional and efficient programs. This knowledge will be crucial as you move forward to more advanced topics in your learning progression.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>1. Basic Syntax</h3>
+<p><p><strong>1.1. Writing Python Code:</strong></p></p>
+<p><p>At its core, Python uses a straightforward syntax that emphasizes readability. Here are some key components of Python syntax:</p></p>
+<ul>
+<ul>
+<li><strong>Comments:</strong> Comments are crucial for documenting code. In Python, a comment begins with a hash symbol (<code>#</code>). Anything that follows on that line is ignored by the interpreter.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p># This is a comment</p>
+<p>print("Hello, World!")  # This prints a message to the console</code></p></p>
+<ul>
+<ul>
+<li><strong>Indentation:</strong> Unlike many programming languages that use braces to define block scopes, Python uses indentation. Proper indentation is critical; it defines the structure of the code.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>if True:</p>
+<p>print("This is indented correctly.")</code></p></p>
+<ul>
+<ul>
+<li><strong>Variables:</strong> Variables are used to store data. Python uses dynamic typing, meaning you don't need to declare a variable's type explicitly.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>message = "Hello, Python!"</p>
+<p>print(message)</code></p></p>
+<p><p><strong>1.2. Expressions and Statements:</strong></p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Expressions</strong> are combinations of values and operators that Python evaluates to produce another value. For example, <code>3 + 5</code> is an expression that evaluates to <code>8</code>.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Statements</strong> are instructions that the Python interpreter can execute. For instance, <code>print("Hello!")</code> is a statement that outputs text to the console.</p></p>
+<p></li></p>
+</ul>
+<h3>2. Data Types</h3>
+<p><p>Python supports various data types, which can be categorized into several groups:</p></p>
+<p><p><strong>2.1. Numeric Types:</strong></p></p>
+<ul>
+<ul>
+<li><strong>Integers:</strong> Whole numbers, positive or negative. Example: <code>42</code>, <code>-10</code>.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>age = 30</code></p></p>
+<ul>
+<ul>
+<li><strong>Floating-Point Numbers:</strong> Decimal numbers. Example: <code>3.14</code>, <code>-0.001</code>.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>pi = 3.14</code></p></p>
+<ul>
+<ul>
+<li><strong>Complex Numbers:</strong> Numbers with a real and imaginary part. Example: <code>3 + 4j</code>.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>complex_number = 3 + 4j</code></p></p>
+<p><p><strong>2.2. String Type:</strong></p></p>
+<p><p>Strings are sequences of characters enclosed in quotes. They can be single (<code>'Hello'</code>), double (<code>"Hello"</code>), or triple (<code>'''Hello'''</code> or <code>"""Hello"""</code>) quoted.</p></p>
+<p><p><code>python</p>
+<p>greeting = "Hello, World!"</code></p></p>
+<p><p><strong>2.3. Boolean Type:</strong></p></p>
+<p><p>Boolean values represent truth values and can be either <code>True</code> or <code>False</code>.</p></p>
+<p><p><code>python</p>
+<p>is_python_fun = True</code></p></p>
+<p><p><strong>2.4. Collections:</strong></p></p>
+<ul>
+<ul>
+<li><strong>Lists:</strong> Ordered collections of items, which can be of mixed types. Lists are mutable, meaning their contents can change.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>fruits = ["apple", "banana", "cherry"]</code></p></p>
+<ul>
+<ul>
+<li><strong>Tuples:</strong> Similar to lists but immutable. Once a tuple is created, its contents cannot be modified.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>coordinates = (10.0, 20.0)</code></p></p>
+<ul>
+<ul>
+<li><strong>Dictionaries:</strong> Unordered collections of key-value pairs. Keys must be unique.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>person = {"name": "Alice", "age": 25}</code></p></p>
+<ul>
+<ul>
+<li><strong>Sets:</strong> Unordered collections of unique items.</li>
+</ul>
+</ul>
+<p><p><code>python</p>
+<p>unique_numbers = {1, 2, 3, 3, 4}  # Will store {1, 2, 3, 4}</code></p></p>
+<h3>3. Real-World Applications</h3>
+<p><p>Understanding syntax and data types is not merely an academic exercise; it has tangible applications across various fields:</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Data Science:</strong> In data science, lists and dictionaries are often used to manage datasets. For instance, a list can store multiple data points, while a dictionary can hold properties of an object, like student records in a school.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Web Development:</strong> In web applications, data types are used to manage user input. For example, a form submission may include strings (for names) and numbers (for ages).</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Game Development:</strong> In games, lists can be used to track player scores or inventory items, while dictionaries can hold player stats.</p></p>
+<p></li></p>
+</ul>
+<hr />
+<h2>Narrative Connection:</h2>
+<p><p>Let’s imagine a scenario where you are tasked with creating a simple Python program for a bookstore. You need to manage the inventory, which includes various data types and structures. </p></p>
+<h3>The Bookstore Inventory Program</h3>
+<p><p>You start by defining your basic syntax by creating variables for the bookstore’s name and the number of books available. You also set up a list to hold the titles of the books:</p></p>
+<p><p><code>python</p>
+<p>bookstore_name = "The Python Bookstore"</p>
+<p>number_of_books = 100</p>
+<p>book_titles = ["Python Basics", "Advanced Python", "Data Science with Python"]</code></p></p>
+<p><p>Next, you create a dictionary to hold details about the bookstore, including its location and contact information:</p></p>
+<p><p><code>python</p>
+<p>bookstore_info = {</p>
+<p>"name": bookstore_name,</p>
+<p>"location": "123 Python Lane",</p>
+<p>"contact": "555-1234"</p>
+<p>}</code></p></p>
+<p><p>As you work through the program, you realize that you need to analyze the sales data, which requires storing this data in a list of dictionaries, where each dictionary represents a sale:</p></p>
+<p><p><code>python</p>
+<p>sales_data = [</p>
+<p>{"title": "Python Basics", "quantity": 1, "price": 29.99},</p>
+<p>{"title": "Advanced Python", "quantity": 2, "price": 39.99}</p>
+<p>]</code></p></p>
+<p><p>Using loops and conditional statements, you can then iterate through this data to calculate total sales or manage inventory effectively. </p></p>
+<h3>Conclusion</h3>
+<p><p>In this report, we explored the fundamental concepts of basic syntax and data types in Python. By understanding these elements, you are better equipped to write effective Python code and manipulate data in various ways. The real-world applications illustrate how these concepts are relevant across different fields, allowing you to see the practical implications of what you have learned.</p></p>
+<p><p>As you continue your Python journey, remember that mastering syntax and data types is a stepping stone toward more advanced topics, such as control structures and functions. Your understanding of these foundational concepts will empower you to tackle more complex programming challenges ahead.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What symbol is used in Python to denote a comment?", "options": [{"id": "A", "text": "`//`", "explanation": "Incorrect. The `//` symbol is used for comments in languages like JavaScript and C++."}, {"id": "B", "text": "`#`", "explanation": "Correct. In Python, comments begin with `#`."}, {"id": "C", "text": "`/*`", "explanation": "Incorrect. The `/*` is used for multi-line comments in languages like C."}, {"id": "D", "text": "`<!--`", "explanation": "Incorrect. The `<!--` symbol is used for comments in HTML."}], "correct_answer": "B"}, {"question": "Which of the following is NOT a numeric type in Python?", "options": [{"id": "A", "text": "Integer", "explanation": "Incorrect. Integer is a numeric type in Python."}, {"id": "B", "text": "Float", "explanation": "Incorrect. Float is a numeric type in Python."}, {"id": "C", "text": "String", "explanation": "Correct. String is a data type used for text, not numeric values."}, {"id": "D", "text": "Complex", "explanation": "Incorrect. Complex is a numeric type in Python."}], "correct_answer": "C"}, {"question": "What is the primary difference between a list and a tuple in Python?", "options": [{"id": "A", "text": "Lists are immutable, while tuples are mutable.", "explanation": "Incorrect. It's the opposite; lists are mutable, and tuples are immutable."}, {"id": "B", "text": "Lists can hold different data types, while tuples can only hold one type.", "explanation": "Incorrect. Both lists and tuples can hold different data types."}, {"id": "C", "text": "Lists are mutable, while tuples are immutable.", "explanation": "Correct. Lists can be modified after creation, while tuples cannot."}, {"id": "D", "text": "Lists are unordered, while tuples are ordered.", "explanation": "Incorrect. Both lists and tuples maintain order."}], "correct_answer": "C"}, {"question": "How do you create a dictionary in Python?", "options": [{"id": "A", "text": "`my_dict = [key1: value1, key2: value2]`", "explanation": "Incorrect. Dictionaries use curly braces `{}` not square brackets `[]`."}, {"id": "B", "text": "`my_dict = (key1: value1, key2: value2)`", "explanation": "Incorrect. The parentheses `()` denote a tuple, not a dictionary."}, {"id": "C", "text": "`my_dict = {key1: value1, key2: value2}`", "explanation": "Correct. This is the proper way to create a dictionary in Python."}, {"id": "D", "text": "`my_dict = <key1: value1, key2: value2>`", "explanation": "Incorrect. The angle brackets `<>` are not used for dictionaries."}], "correct_answer": "C"}, {"question": "What type of data does the following variable represent? `is_python_fun = True`", "options": [{"id": "A", "text": "Integer", "explanation": "Incorrect. An integer is a whole number, not a true/false value."}, {"id": "B", "text": "Float", "explanation": "Incorrect. A float is a decimal number, not a true/false value."}, {"id": "C", "text": "String", "explanation": "Incorrect. A string is a sequence of characters, not a true/false value."}, {"id": "D", "text": "Boolean", "explanation": "Correct. The variable `is_python_fun` represents a Boolean value."}], "correct_answer": "D"}], "why_it_matters": "Understanding basic syntax and data types is crucial for writing effective Python programs. These concepts are foundational and will serve as the building blocks for more advanced topics you will encounter in your Python journey. As you continue to learn, practice writing Python code that utilizes different data types and syntax rules to solidify your understanding."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
