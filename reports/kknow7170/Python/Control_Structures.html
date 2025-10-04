@@ -1,0 +1,496 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Control Structures</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Control Structures</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: kknow7170@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Control Structures in Python Programming</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your Python programming journey, you are now ready to dive into the concept of <strong>Control Structures</strong>. This topic is essential as it allows you to dictate the flow of your program based on certain conditions. Control structures build upon the foundational knowledge of <strong>Basic Syntax and Data Types</strong> that you previously learned. Just as data types determine how information is stored and manipulated, control structures define how your code behaves in response to different scenarios.</p></p>
+<p><p>In this extensive report, we will explore various control structures, including conditional statements, loops, and exception handling. Each section will provide a theoretical foundation, practical applications, and a rich narrative that connects these concepts to real-world scenarios. By the end of this report, you'll have a comprehensive understanding of how to control the flow of your Python programs effectively.</p></p>
+<h2>Key Concepts of Control Structures:</h2>
+<h3>What Are Control Structures?</h3>
+<p><p>Control structures are constructs that dictate the flow of execution in a program based on specific conditions or iterations. They enable a program to make decisions, repeat operations, and handle exceptions. In Python, the primary control structures include:</p></p>
+<ul>
+<ul>
+<li><strong>Conditional Statements</strong>: Used to perform different actions based on whether a specific condition is true or false.</li>
+<li><strong>Loops</strong>: Allow the execution of a block of code multiple times based on certain conditions.</li>
+<li><strong>Exception Handling</strong>: Provides a way to manage errors gracefully, ensuring that the program can continue running or terminate gracefully.</li>
+</ul>
+</ul>
+<p><p>With this understanding, let's delve into each type of control structure in detail.</p></p>
+<h3>Conditional Statements</h3>
+<p><p>Conditional statements direct the flow of execution based on boolean expressions. In Python, the primary conditional statements are <code>if</code>, <code>elif</code>, and <code>else</code>.</p></p>
+<h4>The <code>if</code> Statement</h4>
+<p><p>The <code>if</code> statement evaluates a condition, executing the subsequent block of code if the condition is true. Here's a basic example:</p></p>
+<p><p><code>python</p>
+<p>age = 20</p>
+<p>if age &gt;= 18:</p>
+<p>print("You are an adult.")</code></p></p>
+<p><p>In this example, the program checks if the variable <code>age</code> is greater than or equal to 18. Since this condition is true, it prints "You are an adult."</p></p>
+<h4>The <code>elif</code> Statement</h4>
+<p><p>The <code>elif</code> (short for "else if") statement allows you to check multiple conditions in sequence. If the first condition is false, Python evaluates the next <code>elif</code> condition. Here's an example:</p></p>
+<p><p><code>python</p>
+<p>age = 16</p>
+<p>if age &gt;= 18:</p>
+<p>print("You are an adult.")</p>
+<p>elif age &gt;= 13:</p>
+<p>print("You are a teenager.")</p>
+<p>else:</p>
+<p>print("You are a child.")</code></p></p>
+<p><p>In this case, since <code>age</code> is 16, the program prints "You are a teenager."</p></p>
+<h4>The <code>else</code> Statement</h4>
+<p><p>The <code>else</code> statement provides a fallback option if none of the preceding conditions are true. It acts as a catch-all. In the previous example, if <code>age</code> were less than 13, the program would print "You are a child."</p></p>
+<h3>Nested Conditional Statements</h3>
+<p><p>You can nest conditional statements, allowing for more complex decision-making processes. For example:</p></p>
+<p><p><code>python</p>
+<p>age = 30</p>
+<p>if age &gt;= 18:</p>
+<p>if age &lt; 65:</p>
+<p>print("You are an adult.")</p>
+<p>else:</p>
+<p>print("You are a senior.")</p>
+<p>else:</p>
+<p>print("You are a minor.")</code></p></p>
+<p><p>In this example, the program first checks if <code>age</code> is greater than or equal to 18. If true, it further checks if <code>age</code> is less than 65 to determine if the person is an adult or a senior.</p></p>
+<h3>Loops</h3>
+<p><p>Loops are control structures that enable you to execute a block of code repeatedly based on certain conditions. Python primarily uses two types of loops: <code>for</code> loops and <code>while</code> loops.</p></p>
+<h4>The <code>for</code> Loop</h4>
+<p><p>The <code>for</code> loop iterates over a sequence (like a list or a string) and executes a block of code for each item in the sequence. Here's a simple example:</p></p>
+<p><p><code>python</p>
+<p>fruits = ["apple", "banana", "cherry"]</p>
+<p>for fruit in fruits:</p>
+<p>print(fruit)</code></p></p>
+<p><p>This loop prints each fruit in the list.</p></p>
+<h5>Using <code>range()</code></h5>
+<p><p>You can also use the <code>range()</code> function to generate a sequence of numbers. For example:</p></p>
+<p><p><code>python</p>
+<p>for i in range(5):</p>
+<p>print(i)</code></p></p>
+<p><p>This loop prints the numbers from 0 to 4.</p></p>
+<h4>The <code>while</code> Loop</h4>
+<p><p>The <code>while</code> loop continues to execute a block of code as long as a specified condition is true. Here's an example:</p></p>
+<p><p><code>python</p>
+<p>count = 0</p>
+<p>while count &lt; 5:</p>
+<p>print(count)</p>
+<p>count += 1</code></p></p>
+<p><p>In this case, the loop prints the numbers from 0 to 4. The loop continues until <code>count</code> is no longer less than 5.</p></p>
+<h3>Loop Control Statements</h3>
+<p><p>Python provides control statements that can alter the flow of loops:</p></p>
+<ul>
+<ul>
+<li><strong><code>break</code></strong>: Exits the loop prematurely.</li>
+<li><strong><code>continue</code></strong>: Skips the current iteration and moves to the next one.</li>
+</ul>
+</ul>
+<p><p>Here's an example of using <code>break</code>:</p></p>
+<p><p><code>python</p>
+<p>for i in range(10):</p>
+<p>if i == 5:</p>
+<p>break</p>
+<p>print(i)</code></p></p>
+<p><p>This example prints numbers 0 to 4 and then exits the loop when <code>i</code> equals 5.</p></p>
+<p><p>With <code>continue</code>, you can skip specific iterations:</p></p>
+<p><p><code>python</p>
+<p>for i in range(5):</p>
+<p>if i == 2:</p>
+<p>continue</p>
+<p>print(i)</code></p></p>
+<p><p>This loop prints 0, 1, 3, and 4, skipping the iteration when <code>i</code> is 2.</p></p>
+<h3>Exception Handling</h3>
+<p><p>In programming, errors can occur for various reasons, such as invalid inputs or unavailable resources. Exception handling allows you to manage these errors gracefully using <code>try</code>, <code>except</code>, <code>else</code>, and <code>finally</code> blocks.</p></p>
+<h4>The <code>try</code> and <code>except</code> Blocks</h4>
+<p><p>The <code>try</code> block contains code that might raise an exception. If an exception occurs, the code in the <code>except</code> block is executed, preventing the program from crashing.</p></p>
+<p><p><code>python</p>
+<p>try:</p>
+<p>result = 10 / 0</p>
+<p>except ZeroDivisionError:</p>
+<p>print("You can't divide by zero!")</code></p></p>
+<p><p>In this example, the program attempts to divide 10 by 0, raising a <code>ZeroDivisionError</code>. The <code>except</code> block catches this exception and prints a message instead of crashing.</p></p>
+<h4>The <code>else</code> Block</h4>
+<p><p>The <code>else</code> block can be used after the <code>try</code> block to execute code only if no exceptions were raised:</p></p>
+<p><p><code>python</p>
+<p>try:</p>
+<p>result = 10 / 2</p>
+<p>except ZeroDivisionError:</p>
+<p>print("You can't divide by zero!")</p>
+<p>else:</p>
+<p>print("The result is:", result)</code></p></p>
+<p><p>If the division is successful, the result is printed.</p></p>
+<h4>The <code>finally</code> Block</h4>
+<p><p>The <code>finally</code> block, when present, will always execute regardless of whether an exception was raised. It’s often used for cleanup actions:</p></p>
+<p><p><code>python</p>
+<p>try:</p>
+<p>file = open('myfile.txt', 'r')</p>
+<p>except FileNotFoundError:</p>
+<p>print("File not found.")</p>
+<p>finally:</p>
+<p>print("Execution completed.")</code></p></p>
+<p><p>Even if the file does not exist, the message "Execution completed" will be printed.</p></p>
+<h3>Real-World Applications</h3>
+<p><p>Understanding control structures is vital for practical programming. Here are some real-world applications:</p></p>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>User Authentication</strong>: When building a login system, conditional statements can check if the entered username and password match stored credentials, allowing or denying access.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Data Processing</strong>: Loops are essential in data processing tasks, such as iterating through records in a database or processing items in a list.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Game Development</strong>: Control structures are heavily used in game logic, determining how characters respond to player actions or managing game states.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Web Development</strong>: Conditional statements can be used to display different content based on user roles or preferences, while loops can process user input dynamically.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Automation Scripts</strong>: Control structures enable automation scripts to perform repetitive tasks, such as renaming files or scraping web data based on certain criteria.</p></p>
+<p></li></p>
+<p></ol></p>
+<h3>Theoretical Foundations</h3>
+<p><p>Control structures are rooted in fundamental programming concepts such as logic, algorithms, and problem-solving. They are often taught in introductory programming courses as they form the basis for constructing complex algorithms.</p></p>
+<ul>
+<ul>
+<li>
+</ul>
+<p><p><strong>Logic</strong>: At the heart of conditional statements is logical reasoning, allowing programmers to make decisions based on conditions.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Algorithms</strong>: Control structures help implement algorithms by specifying how to navigate through data and make decisions.</p></p>
+<p></li></p>
+</ul>
+<h3>Future Directions</h3>
+<p><p>As programming languages and paradigms evolve, control structures continue to adapt. Emerging technologies such as artificial intelligence and machine learning require more sophisticated control structures for decision-making processes. Programming languages are integrating features from functional programming, allowing for more declarative control structures that enhance code clarity and maintainability.</p></p>
+<h3>Conclusion and Key Takeaways</h3>
+<p><p>Control structures are a cornerstone of programming, enabling you to dictate how your code behaves based on conditions and iterations. Key takeaways from this report include:</p></p>
+<ul>
+<ul>
+<li><strong>Conditional Statements</strong>: Allow you to execute code based on conditions using <code>if</code>, <code>elif</code>, and <code>else</code>.</li>
+<li><strong>Loops</strong>: Enable repeated execution of code blocks with <code>for</code> and <code>while</code> loops, along with control statements like <code>break</code> and <code>continue</code>.</li>
+<li><strong>Exception Handling</strong>: Provides a robust way to manage errors, ensuring your programs can handle unexpected situations gracefully.</li>
+</ul>
+</ul>
+<h3>Call to Action</h3>
+<p><p>To reinforce your understanding of control structures, practice implementing them in various coding challenges or projects. As you continue your learning journey, experiment with real-world applications to see how control structures can enhance your programming skills.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is the purpose of the `if` statement in Python?", "options": [{"id": "A", "text": "To create a loop that executes a block of code repeatedly", "explanation": "Incorrect. The `if` statement does not create loops; that is the role of `for` and `while` statements."}, {"id": "B", "text": "To skip an iteration of a loop", "explanation": "Incorrect. Skipping iterations is done using the `continue` statement."}, {"id": "C", "text": "To check a condition and execute a block of code if it is true", "explanation": "Correct. The `if` statement checks a condition and executes the subsequent code block if the condition is true."}, {"id": "D", "text": "To handle exceptions in a program", "explanation": "Incorrect. Exception handling is managed using `try` and `except` blocks."}], "correct_answer": "C"}, {"question": "Which of the following statements will be executed in a `try` block if an exception occurs?", "options": [{"id": "A", "text": "The `finally` block", "explanation": "Incorrect. The `finally` block will execute regardless of whether an exception occurred but does not handle it."}, {"id": "B", "text": "The `else` block", "explanation": "Incorrect. The `else` block executes only if no exceptions are raised."}, {"id": "C", "text": "The `except` block", "explanation": "Correct. The `except` block is specifically designed to handle exceptions that occur in the `try` block."}, {"id": "D", "text": "None of the above", "explanation": "Incorrect. The `except` block will be executed if an exception occurs."}], "correct_answer": "C"}, {"question": "How does a `for` loop differ from a `while` loop?", "options": [{"id": "A", "text": "A `for` loop can only iterate over a range of numbers.", "explanation": "Incorrect. A `for` loop can iterate over various sequences, not just numbers."}, {"id": "B", "text": "A `while` loop checks a condition before each iteration, while a `for` loop iterates over a sequence.", "explanation": "Correct. A `while` loop continues based on a condition, while a `for` loop iterates over items in a sequence."}, {"id": "C", "text": "A `for` loop can never exit before completing its iterations.", "explanation": "Incorrect. A `for` loop can exit early using the `break` statement."}, {"id": "D", "text": "A `while` loop can only execute once.", "explanation": "Incorrect. A `while` loop can execute multiple times as long as its condition remains true."}], "correct_answer": "B"}, {"question": "What will happen if the condition of a `while` loop is always true?", "options": [{"id": "A", "text": "The loop will execute only once.", "explanation": "Incorrect. The loop will not only execute once; it will keep running as long as the condition is true."}, {"id": "B", "text": "The loop will execute indefinitely (infinite loop).", "explanation": "Correct. If the condition always evaluates to true, the loop will run indefinitely unless interrupted."}, {"id": "C", "text": "The loop will not execute at all.", "explanation": "Incorrect. The loop will execute at least once if the condition is true from the start."}, {"id": "D", "text": "The program will terminate with an error.", "explanation": "Incorrect. The program may not terminate with an error but will enter an infinite loop unless manually stopped."}], "correct_answer": "B"}, {"question": "In which scenario would you use an exception handling structure?", "options": [{"id": "A", "text": "When you want to repeat a block of code multiple times.", "explanation": "Incorrect. Repeating code is done with loops, not exception handling."}, {"id": "B", "text": "When you need to check multiple conditions in your program.", "explanation": "Incorrect. Checking conditions is done with conditional statements."}, {"id": "C", "text": "When you want to handle runtime errors gracefully without crashing the program.", "explanation": "Correct. Exception handling is specifically designed to manage errors that occur during program execution."}, {"id": "D", "text": "When you want to execute a block of code only if a condition is true.", "explanation": "Incorrect. This describes the purpose of conditional statements, not exception handling."}], "correct_answer": "C"}], "why_it_matters": "Understanding control structures is crucial for any programmer, as they dictate how your code responds to different situations. Mastery of these concepts enhances your ability to write efficient and effective programs in Python and other programming languages. Continue practicing and applying these structures in your coding projects to solidify your knowledge and skills."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
