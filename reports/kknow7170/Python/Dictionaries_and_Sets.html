@@ -1,0 +1,478 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Report: Dictionaries and Sets</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <!-- MathJax for mathematical formula rendering -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\(', '\)']],
+            displayMath: [['$$', '$$'], ['\[', '\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: {
+            pageReady: () => {
+              return MathJax.startup.defaultPageReady().then(() => {
+                console.log('MathJax processing completed');
+              });
+            }
+          }
+        };
+      </script>
+      <style>
+        /* Background image from landing page */
+        .report-bg {
+          background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          min-height: 100vh;
+        }
+        
+        /* Foreground content with 60% opacity */
+        .foreground-content {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .report-content h2 { 
+          margin-top: 2rem; 
+          margin-bottom: 1rem; 
+          font-size: 1.5rem; 
+          font-weight: bold; 
+          color: #1f2937;
+          border-bottom: 2px solid rgba(229, 231, 235, 0.8);
+          padding-bottom: 0.5rem;
+        }
+        .report-content h3 { 
+          margin-top: 1.5rem; 
+          margin-bottom: 0.75rem; 
+          font-size: 1.25rem; 
+          font-weight: bold; 
+          color: #374151;
+        }
+        .report-content p { 
+          margin-bottom: 1rem; 
+          line-height: 1.6; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content ul { 
+          margin-bottom: 1rem; 
+          padding-left: 1.5rem; 
+        }
+        .report-content li { 
+          margin-bottom: 0.5rem; 
+          color: #1f2937;
+          font-weight: 500;
+        }
+        .report-content hr { 
+          margin: 2rem 0; 
+          border: none; 
+          border-top: 1px solid rgba(229, 231, 235, 0.8); 
+        }
+        .report-content strong { 
+          color: #111827; 
+          font-weight: 700; 
+        }
+        .report-content .link-external { 
+          background: linear-gradient(135deg, #dc2626, #b91c1c);
+          color: white;
+          border: 2px solid #dc2626;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          text-decoration: none;
+          font-weight: 700;
+          transition: all 0.3s ease;
+          display: inline-block;
+          margin: 0.75rem 0.25rem;
+          box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        .report-content .link-external:hover { 
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+          background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        .report-content .link-external:before {
+          content: "🔗 ";
+          margin-right: 0.5rem;
+          font-size: 1.2em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+          .report-bg {
+            background-image: url('https://akashciel.github.io/bhai_jaan_academy/Bhai%20Jaan%20Academy%20Mobile.png');
+            background-attachment: scroll;
+          }
+          
+          .foreground-content {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+          }
+          
+          .report-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+          }
+          .report-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+          }
+          .report-content p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+          }
+          .report-content ul {
+            padding-left: 1rem;
+          }
+          .report-content li {
+            font-size: 0.95rem;
+          }
+          .report-content .link-external {
+            font-size: 0.9rem;
+            word-break: break-word;
+            padding: 0.4rem 0.6rem;
+          }
+          
+          .mobile-header {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          .mobile-subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 641px) {
+          .foreground-content {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+          }
+        }
+      </style>
+    </head>
+    <body class="report-bg text-gray-900 p-4 sm:p-6">
+      <div class="foreground-content">
+        <h1 class="text-2xl font-bold mb-4 mobile-header">Dictionaries and Sets</h1>
+        <p class="mb-6 text-gray-700 mobile-subtitle">Prepared for: kknow7170@gmail.com</p>
+        <article class="report-content prose prose-lg tex2jax_process">
+          <h1>Dictionaries and Sets: A Comprehensive Guide</h1>
+<h2>Introduction:</h2>
+<p><p>As you continue your Python programming journey, you have already explored foundational concepts such as <strong>Basic Syntax</strong>, <strong>Data Types</strong>, <strong>Control Structures</strong>, <strong>Loops</strong>, and <strong>Functions</strong>. Each of these elements builds your ability to manipulate data and control program flow effectively. Now, you are poised to delve into two more powerful and versatile data structures in Python: <strong>Dictionaries</strong> and <strong>Sets</strong>. </p></p>
+<p><p>Dictionaries and Sets are essential for managing collections of data. They not only help you organize and retrieve information efficiently, but they also introduce you to advanced concepts like key-value pairing and uniqueness of elements. Understanding these structures will enrich your programming toolbox, allowing for more sophisticated data handling and manipulation.</p></p>
+<p><p>In this report, we will explore the theoretical foundations, practical implications, real-world applications, and future directions of Dictionaries and Sets. By the end, you will have a comprehensive understanding of these concepts and their significance in Python programming and beyond.</p></p>
+<hr />
+<h2>Key Concepts:</h2>
+<h3>What is a Dictionary?</h3>
+<p><p>A <strong>dictionary</strong> is a built-in data type in Python that allows you to store data in key-value pairs. Unlike lists or tuples, which are ordered collections of items, dictionaries are unordered and indexed by keys. This means that you can access values quickly using their associated keys, making dictionaries an efficient way to manage and retrieve data.</p></p>
+<h4>Characteristics of Dictionaries:</h4>
+<ul>
+<ul>
+<li><strong>Key-Value Pairs</strong>: Each entry in a dictionary consists of a unique key and its corresponding value. For instance, in the dictionary <code>{"name": "Alice", "age": 30}</code>, "name" is the key, and "Alice" is the value.</li>
+<li><strong>Mutable</strong>: You can change, add, or remove items after the dictionary is created.</li>
+<li><strong>Unordered</strong>: The items do not maintain any specific order.</li>
+<li><strong>Keys must be unique</strong>: Each key in a dictionary must be unique; however, values can be duplicated.</li>
+</ul>
+</ul>
+<h4>Creating and Accessing Dictionaries</h4>
+<p><p>You can create a dictionary using curly braces <code>{}</code> or the <code>dict()</code> function. Here are some examples:</p></p>
+<p><p>```python</p></p>
+<h1>Creating a dictionary</h1>
+<p><p>my_dict = {"name": "Alice", "age": 30, "city": "New York"}</p></p>
+<h1>Accessing values</h1>
+<p><p>print(my_dict["name"])  # Output: Alice</p></p>
+<h1>Adding a new key-value pair</h1>
+<p><p>my_dict["occupation"] = "Engineer"</p>
+<p>print(my_dict)  # Output: {'name': 'Alice', 'age': 30, 'city': 'New York', 'occupation': 'Engineer'}</p></p>
+<h1>Modifying a value</h1>
+<p><p>my_dict["age"] = 31</p>
+<p>print(my_dict)  # Output: {'name': 'Alice', 'age': 31, 'city': 'New York', 'occupation': 'Engineer'}</p>
+<p>```</p></p>
+<h3>What is a Set?</h3>
+<p><p>A <strong>set</strong> is another built-in data type in Python that represents an unordered collection of unique elements. Sets are particularly useful when you want to store a collection of items without duplicates. </p></p>
+<h4>Characteristics of Sets:</h4>
+<ul>
+<ul>
+<li><strong>Unique Elements</strong>: A set cannot contain duplicate items. If you try to add a duplicate, it will simply be ignored.</li>
+<li><strong>Unordered</strong>: The items in a set do not have a defined order, and you cannot access them via an index.</li>
+<li><strong>Mutable</strong>: You can add or remove items from a set.</li>
+</ul>
+</ul>
+<h4>Creating and Accessing Sets</h4>
+<p><p>You can create a set using curly braces <code>{}</code> or the <code>set()</code> function. Here are some examples:</p></p>
+<p><p>```python</p></p>
+<h1>Creating a set</h1>
+<p><p>my_set = {1, 2, 3, 4, 5}</p></p>
+<h1>Adding an element</h1>
+<p><p>my_set.add(6)</p>
+<p>print(my_set)  # Output: {1, 2, 3, 4, 5, 6}</p></p>
+<h1>Attempting to add a duplicate</h1>
+<p><p>my_set.add(3)</p>
+<p>print(my_set)  # Output: {1, 2, 3, 4, 5, 6} (3 is ignored)</p></p>
+<h1>Removing an element</h1>
+<p><p>my_set.remove(2)</p>
+<p>print(my_set)  # Output: {1, 3, 4, 5, 6}</p>
+<p>```</p></p>
+<hr />
+<h2>Real-World Applications:</h2>
+<h3>Applications of Dictionaries</h3>
+<p><p>Dictionaries are widely used in various domains due to their efficiency and ease of use. Here are some practical applications:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Database Records</strong>: In database management, each record can be represented as a dictionary where column names are keys, and the corresponding values are the data entries.</li>
+</ul>
+<p></ol></p>
+<p><p>Example:</p>
+<p><code>python</p>
+<p>student_record = {"student_id": 101, "name": "John Doe", "grades": [88, 92, 85]}</code></p></p>
+<p><ol></p>
+<ul>
+<li><strong>Configuration Settings</strong>: Applications often use dictionaries to manage configuration settings, where keys represent setting names, and values represent their corresponding settings.</li>
+</ul>
+<p></ol></p>
+<p><p>Example:</p>
+<p><code>python</p>
+<p>config = {"theme": "dark", "language": "en", "notifications": True}</code></p></p>
+<p><ol></p>
+<ul>
+<li><strong>Web Development</strong>: In web frameworks, dictionaries can represent request data, such as query parameters or form data.</li>
+</ul>
+<p></ol></p>
+<p><p>Example:</p>
+<p><code>python</p>
+<p>request_data = {"username": "admin", "password": "12345"}</code></p></p>
+<h3>Applications of Sets</h3>
+<p><p>Sets also have numerous applications, especially in scenarios involving uniqueness and membership testing. Here are some examples:</p></p>
+<p><ol></p>
+<ul>
+<li><strong>Data Deduplication</strong>: Sets are instrumental in removing duplicate entries from a dataset, such as a list of email addresses.</li>
+</ul>
+<p></ol></p>
+<p><p>Example:</p>
+<p><code>python</p>
+<p>emails = ["test@example.com", "user@example.com", "test@example.com"]</p>
+<p>unique_emails = set(emails)</p>
+<p>print(unique_emails)  # Output: {'test@example.com', 'user@example.com'}</code></p></p>
+<p><ol></p>
+<ul>
+<li><strong>Membership Testing</strong>: Sets provide an efficient way to check if an element exists in a collection, which is faster than checking in lists.</li>
+</ul>
+<p></ol></p>
+<p><p>Example:</p>
+<p><code>python</p>
+<p>my_set = {1, 2, 3, 4, 5}</p>
+<p>print(3 in my_set)  # Output: True</code></p></p>
+<p><ol></p>
+<ul>
+<li><strong>Mathematical Operations</strong>: Sets support mathematical operations like union, intersection, and difference, making them valuable for statistical analysis and data science.</li>
+</ul>
+<p></ol></p>
+<p><p>Example:</p>
+<p><code>python</p>
+<p>set_a = {1, 2, 3}</p>
+<p>set_b = {3, 4, 5}</p>
+<p>union = set_a | set_b  # Union</p>
+<p>intersection = set_a &amp; set_b  # Intersection</p>
+<p>difference = set_a - set_b  # Difference</code></p></p>
+<hr />
+<h2>Theoretical Foundations:</h2>
+<h3>Dictionaries: Underlying Principles</h3>
+<p><p>Dictionaries are implemented as hash tables in Python. A hash table is a data structure that uses a hash function to compute an index into an array of buckets or slots, from which the desired value can be found. This principle allows for an average-case time complexity of (O(1)) for lookups, insertions, and deletions.</p></p>
+<h4>Hash Function</h4>
+<p><p>A hash function takes an input (the key) and produces a fixed-size string of bytes. The output is typically a number that corresponds to an index in the hash table. This ensures that each key maps to a unique index, allowing for efficient data retrieval.</p></p>
+<h3>Sets: Underlying Principles</h3>
+<p><p>Sets are also based on hash tables, which is why they cannot contain duplicate items—each element's hash must be unique. The average complexity for set operations such as insertion, deletion, and membership testing is also (O(1)).</p></p>
+<hr />
+<h2>Advanced Applications and Current Research Frontiers:</h2>
+<h3>Current State of Dictionaries and Sets</h3>
+<p><p>In recent years, the use of dictionaries and sets has expanded significantly, especially with the rise of data-driven fields like data science, machine learning, and artificial intelligence. The ability to manage and manipulate large datasets efficiently is crucial for developing algorithms and models in these domains.</p></p>
+<h3>Future Directions</h3>
+<p><p>As programming languages continue to evolve, the way we use dictionaries and sets may also change. Some potential future directions include:</p></p>
+<ul>
+<ul>
+<li><strong>Enhanced Performance</strong>: As data sizes increase, optimizing the performance of dictionaries and sets will be crucial. Research into more sophisticated hash functions and data structures could lead to significant performance gains.</li>
+<li><strong>Integration with Data Science Tools</strong>: The integration of dictionaries and sets with data science libraries (e.g., Pandas, NumPy) will likely become deeper, enabling more seamless data manipulation and analysis.</li>
+<li><strong>Adoption in Emerging Technologies</strong>: As technologies like blockchain and quantum computing emerge, dictionaries and sets may find new applications in managing unique identifiers and states.</li>
+</ul>
+</ul>
+<hr />
+<h2>Common Misconceptions:</h2>
+<p><ol></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Dictionaries are Ordered</strong>: While Python 3.7+ maintains insertion order for dictionaries, they are fundamentally unordered collections. This means relying on order for key-value pairs can be misleading.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Sets Can Store Mutable Items</strong>: Sets can only store immutable objects. Attempting to add a list or a dictionary to a set will result in an error.</p></p>
+<p></li></p>
+<ul>
+<li>
+</ul>
+<p><p><strong>Dictionaries Can Have Duplicate Keys</strong>: Each key in a dictionary must be unique. If a duplicate key is added, the original value will be overwritten.</p></p>
+<p></li></p>
+<p></ol></p>
+<hr />
+<h2>Conclusion:</h2>
+<p><p>Understanding dictionaries and sets is essential for efficient data handling in Python. They provide powerful tools for organizing, retrieving, and manipulating data in diverse applications. As you continue your programming journey, mastering these data structures will enhance your ability to develop robust and efficient software solutions.</p></p>
+<p><p>We encourage you to explore dictionaries and sets further through practice and real-world applications. Experiment with creating your own dictionaries and sets, and consider how they might be used in projects relevant to your interests.</p></p>
+<hr />
+        </article>
+        
+        <section id="interactive-quiz" class="mt-10 p-4 border rounded bg-white/70"></section>
+        
+        <footer class="mt-8 text-sm text-gray-600">
+          <p>Bhai Jaan Academy &copy; 2024</p>
+        </footer>
+      </div>
+      
+      <!-- Ensure MathJax processes the content -->
+      <script>
+        // Wait for MathJax to load and process
+        window.addEventListener('load', function() {
+          if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+              console.log('MathJax typesetting completed');
+            }).catch((err) => {
+              console.error('MathJax typesetting error:', err);
+            });
+          }
+        });
+      </script>
+      
+      <script>
+        window.__QUIZ__ = {"questions": [{"question": "What is a characteristic of dictionaries in Python?", "options": [{"id": "A", "text": "They are ordered collections.", "explanation": "Incorrect. Dictionaries are unordered collections, although Python 3.7+ maintains insertion order."}, {"id": "B", "text": "Their keys must be unique.", "explanation": "Correct. Each key in a dictionary must be unique."}, {"id": "C", "text": "They can only store strings as values.", "explanation": "Incorrect. Dictionaries can store values of any data type, not just strings."}, {"id": "D", "text": "They cannot be modified once created.", "explanation": "Incorrect. Dictionaries are mutable; you can modify their contents."}], "correct_answer": "B"}, {"question": "What will happen if you try to add a duplicate key to a dictionary?", "options": [{"id": "A", "text": "It will raise an error.", "explanation": "Incorrect. Adding a duplicate key does not raise an error."}, {"id": "B", "text": "The new value will overwrite the existing value for that key.", "explanation": "Correct. The new value will overwrite the existing value for that key."}, {"id": "C", "text": "Both values will be stored in a list.", "explanation": "Incorrect. Only the latest value is stored for a key, not both."}, {"id": "D", "text": "The duplicate key will be ignored.", "explanation": "Incorrect. The existing value is replaced, not ignored."}], "correct_answer": "B"}, {"question": "Which of the following is true about sets?", "options": [{"id": "A", "text": "Sets are ordered collections.", "explanation": "Incorrect. Sets are unordered collections."}, {"id": "B", "text": "Sets can contain duplicate values.", "explanation": "Incorrect. Sets cannot contain duplicate values; duplicates are ignored."}, {"id": "C", "text": "Sets are mutable.", "explanation": "Correct. Sets are mutable; you can add and remove elements."}, {"id": "D", "text": "Sets can store lists as elements.", "explanation": "Incorrect. Sets can only store immutable elements."}], "correct_answer": "C"}, {"question": "In which of the following scenarios would a set be the most appropriate data structure to use?", "options": [{"id": "A", "text": "Storing user profiles with unique usernames.", "explanation": "Correct. A set is ideal for storing unique usernames without duplicates."}, {"id": "B", "text": "Managing a list of ordered tasks.", "explanation": "Incorrect. A list would be more appropriate for maintaining order."}, {"id": "C", "text": "Storing the configuration settings of an application.", "explanation": "Incorrect. A dictionary would be better suited for key-value pairs in configuration settings."}, {"id": "D", "text": "Creating a list of students with their grades.", "explanation": "Incorrect. A list or dictionary would be more appropriate for storing student names and grades."}], "correct_answer": "A"}, {"question": "What is one of the primary advantages of using dictionaries for data storage?", "options": [{"id": "A", "text": "They require less memory than lists.", "explanation": "Incorrect. Memory usage varies based on data structure and content."}, {"id": "B", "text": "They support fast lookups based on keys.", "explanation": "Correct. The main advantage of dictionaries is that they allow for fast lookups based on keys."}, {"id": "C", "text": "They maintain order of elements.", "explanation": "Incorrect. While Python maintains order for dictionaries, they are fundamentally unordered collections."}, {"id": "D", "text": "They can only store string values.", "explanation": "Incorrect. Dictionaries can store values of any data type, not just strings."}], "correct_answer": "B"}], "why_it_matters": "Understanding dictionaries and sets is fundamental for efficient data manipulation in Python. Mastery of these concepts will empower you to tackle more complex programming challenges and enhance your software development skills. As you continue your journey, leverage these structures to build robust applications and improve your coding practices."};
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const quiz = window.__QUIZ__;
+          if (!quiz || !quiz.questions) return;
+          const container = document.getElementById('interactive-quiz');
+          if (!container) return;
+
+          const qEl = document.createElement('h2');
+          qEl.className = 'text-xl font-bold mt-8 mb-4';
+          qEl.textContent = 'Interactive Quiz: Test Your Understanding';
+          container.appendChild(qEl);
+
+          // Render each question
+          quiz.questions.forEach((q, questionIndex) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'mb-8 p-4 border rounded bg-gray-50';
+            
+            const questionTitle = document.createElement('h3');
+            questionTitle.className = 'text-lg font-semibold mb-3';
+            questionTitle.textContent = `Question ${questionIndex + 1}: ${q.question}`;
+            questionContainer.appendChild(questionTitle);
+
+            const form = document.createElement('form');
+            form.className = 'space-y-3';
+            q.options.forEach(opt => {
+              const label = document.createElement('label');
+              label.className = 'flex items-start gap-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = `quizOption_${questionIndex}`;
+              input.value = opt.id;
+              input.className = 'mt-1';
+              const span = document.createElement('span');
+              span.innerHTML = `<strong>${opt.id})</strong> ${opt.text}`;
+              label.appendChild(input);
+              label.appendChild(span);
+              form.appendChild(label);
+            });
+
+            const submit = document.createElement('button');
+            submit.type = 'button';
+            submit.className = 'mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-black';
+            submit.textContent = 'Submit Answer';
+            form.appendChild(submit);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'mt-4';
+            
+            questionContainer.appendChild(form);
+            questionContainer.appendChild(feedback);
+            container.appendChild(questionContainer);
+
+            function renderExplanation(selectedId, question) {
+              feedback.innerHTML = '';
+              const isCorrect = selectedId === question.correct_answer;
+              const header = document.createElement('p');
+              header.className = isCorrect ? 'text-green-700 font-bold' : 'text-red-700 font-bold';
+              header.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+              feedback.appendChild(header);
+
+              const list = document.createElement('ul');
+              list.className = 'mt-2 list-disc pl-6';
+              question.options.forEach(opt => {
+                const li = document.createElement('li');
+                const label = document.createElement('span');
+                label.innerHTML = `<strong>Option ${opt.id}:</strong> ${opt.explanation}`;
+                if (opt.id === question.correct_answer) {
+                  li.className = 'text-green-800';
+                } else if (opt.id === selectedId) {
+                  li.className = 'text-red-800';
+                }
+                li.appendChild(label);
+                list.appendChild(li);
+              });
+              feedback.appendChild(list);
+            }
+
+            submit.addEventListener('click', function() {
+              const selected = questionContainer.querySelector(`input[name="quizOption_${questionIndex}"]:checked`);
+              if (!selected) {
+                feedback.innerHTML = '<p class="text-yellow-800">Please select an option first.</p>';
+                return;
+              }
+              renderExplanation(selected.value, q);
+            });
+          });
+
+          // Add "Why This Matters" section at the end
+          if (quiz.why_it_matters) {
+            const whySection = document.createElement('div');
+            whySection.className = 'mt-6 p-4 bg-blue-50 border rounded';
+            const whyTitle = document.createElement('h3');
+            whyTitle.className = 'font-bold text-blue-800 mb-2';
+            whyTitle.textContent = 'Why This Matters:';
+            const whyText = document.createElement('p');
+            whyText.className = 'text-blue-700';
+            whyText.textContent = quiz.why_it_matters;
+            whySection.appendChild(whyTitle);
+            whySection.appendChild(whyText);
+            container.appendChild(whySection);
+          }
+        });
+      </script>
+        
+    </body>
+    </html>
+    
